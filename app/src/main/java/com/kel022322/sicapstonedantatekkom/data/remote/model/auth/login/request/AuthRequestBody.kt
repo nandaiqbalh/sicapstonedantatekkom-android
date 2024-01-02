@@ -1,4 +1,4 @@
-package com.kel022322.sicapstonedantatekkom.data.remote.model.auth.request
+package com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request
 
 import com.google.gson.annotations.SerializedName
 

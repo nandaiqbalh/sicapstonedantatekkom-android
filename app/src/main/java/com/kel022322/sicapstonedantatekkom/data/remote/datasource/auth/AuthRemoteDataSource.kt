@@ -1,7 +1,7 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.datasource.auth
 
-import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.request.AuthRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.response.AuthRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.response.AuthRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.service.ApiService
 import javax.inject.Inject
 

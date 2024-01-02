@@ -1,13 +1,14 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.auth.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.kel022322.sicapstonedantatekkom.data.local.datastore.auth.AuthDataStoreManager
-import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.request.AuthRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.response.AuthRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.response.AuthRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.AuthRemoteRepository
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +34,7 @@ class LoginViewModel @Inject constructor(
 			try {
 				val data = authRemoteRepository.authLogin(authRequestBody)
 
-//				Log.d("PAYLOAD", data.payload.toString())
+				Log.d("PAYLOAD", data.payload.toString())
 				if (data.payload != null) {
 					viewModelScope.launch(Dispatchers.Main) {
 						_authResult.postValue(Resource.Success(data.payload))
