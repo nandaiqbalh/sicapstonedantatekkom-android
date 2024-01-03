@@ -1,7 +1,9 @@
 package com.kel022322.sicapstonedantatekkom.di
 
-import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.AuthRemoteRepository
-import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.AuthRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.login.AuthLoginRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.login.AuthLoginRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.logout.AuthLogoutRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.logout.AuthLogoutRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast.BroadcastRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast.BroadcastRemoteRepositoryImpl
 import dagger.Binds
@@ -13,7 +15,10 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 	@Binds
-	abstract fun bindsAuthRemoteRepository(authRemoteRepositoryImpl: AuthRemoteRepositoryImpl): AuthRemoteRepository
+	abstract fun bindsAuthRemoteRepository(authRemoteRepositoryImpl: AuthLoginRemoteRepositoryImpl): AuthLoginRemoteRepository
+
+	@Binds
+	abstract fun bindsAuthLogoutRemoteRepository(authLogoutRemoteRepositoryImpl: AuthLogoutRemoteRepositoryImpl) : AuthLogoutRemoteRepository
 
 	@Binds
 	abstract fun bindsBroadcastRemoteRepository(broadcastRemoteRepositoryImpl: BroadcastRemoteRepositoryImpl): BroadcastRemoteRepository

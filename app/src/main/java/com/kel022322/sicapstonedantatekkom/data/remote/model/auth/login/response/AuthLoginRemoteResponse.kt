@@ -2,10 +2,10 @@ package com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.respons
 
 import com.google.gson.annotations.SerializedName
 
-data class AuthRemoteResponse(
+data class AuthLoginRemoteResponse(
 
     @SerializedName("data")
-    val userData: Any? = null,
+    val userData: UserData? = null,
 
     @SerializedName("message")
     val message: String?,

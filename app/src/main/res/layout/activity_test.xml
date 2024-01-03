@@ -22,8 +22,29 @@
         android:layout_height="wrap_content"
         android:text="Test Login"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="75dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        />
+
+    <Button
+        android:id="@+id/btn_test_logout"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Test Logout"
+        app:layout_constraintTop_toBottomOf="@id/btn_test_login"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btn_test_broadcast"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Test Broadcast"
+        app:layout_constraintTop_toBottomOf="@id/btn_test_logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
