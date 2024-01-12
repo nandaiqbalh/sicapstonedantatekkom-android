@@ -1,4 +1,4 @@
-package com.kel022322.sicapstonedantatekkom.data.remote.model.profile.response
+package com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.response
 
 import com.google.gson.annotations.SerializedName
 
