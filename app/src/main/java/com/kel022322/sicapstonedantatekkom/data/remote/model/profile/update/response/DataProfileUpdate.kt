@@ -2,7 +2,7 @@ package com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.res
 
 import com.google.gson.annotations.SerializedName
 
-data class DataProfile(
+data class DataProfileUpdate(
     @SerializedName("alamat")
     val alamat: Any,
 

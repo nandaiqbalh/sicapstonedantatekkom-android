@@ -67,6 +67,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
+    <Button
+        android:id="@+id/btn_test_update_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Update Password"
+        app:layout_constraintTop_toBottomOf="@id/btn_test_update_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

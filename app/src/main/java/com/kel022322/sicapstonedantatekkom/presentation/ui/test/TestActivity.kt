@@ -10,6 +10,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.ActivityTestBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.login.LoginViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.logout.LogoutViewModel
@@ -329,6 +330,67 @@ class TestActivity : AppCompatActivity() {
 			}
 		}
 
+		binding.btnTestUpdatePassword.setOnClickListener {
+			var userId = ""
+			profileViewModel.getUserId().observe(this) { userIdd ->
+
+				if (userIdd != null) {
+					userId = userIdd.toString()
+				}
+
+			}
+
+			var apiToken = ""
+			profileViewModel.getApiToken().observe(this) { apiTokenn ->
+
+				if (apiTokenn != null) {
+					apiToken = apiTokenn.toString()
+				}
+			}
+
+			profileViewModel.updatePasswordProfile(UpdatePasswordRemoteRequestBody(
+				userId = userId,
+				apiToken = apiToken,
+				currentPassword = "mahasiswa1234",
+				newPassword = "mahasiswa123",
+				repeatNewPassword = "mahasiswa123"
+			))
+
+			profileViewModel.updatePasswordResult.observe(this) { updatePasswordResult ->
+
+				when (updatePasswordResult) {
+					is Resource.Loading -> {
+						setLoading(true)
+					}
+
+					is Resource.Error -> {
+						setLoading(false)
+						Log.d("Result status", updatePasswordResult.payload?.status.toString())
+						Log.d("Result message", updatePasswordResult.payload?.message.toString())
+						Log.d("Exception", updatePasswordResult.exception?.message.toString())
+						Toast.makeText(
+							this@TestActivity,
+							"Result: ${updatePasswordResult.payload?.message.toString()}",
+							Toast.LENGTH_SHORT
+						).show()
+
+					}
+
+					is Resource.Success -> {
+						setLoading(false)
+						Log.d("Result status", updatePasswordResult.payload?.status.toString())
+						Log.d("Result message", updatePasswordResult.payload?.message.toString())
+						Toast.makeText(
+							this@TestActivity,
+							"Result: ${updatePasswordResult.payload?.message.toString()}",
+							Toast.LENGTH_SHORT
+						).show()
+					}
+
+					else -> {}
+				}
+			}
+		}
 
 	}
 
