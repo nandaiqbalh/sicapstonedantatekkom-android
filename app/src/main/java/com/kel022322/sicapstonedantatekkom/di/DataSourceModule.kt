@@ -6,6 +6,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.datasource.auth.logout.Au
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.auth.logout.AuthLogoutRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast.BroadcastRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast.BroadcastRemoteDataSourceImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile.ProfileRemoteDataSource
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile.ProfileRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -26,4 +28,6 @@ abstract class DataSourceModule {
 	@Binds
 	abstract fun provideBroadcastRemoteDataSource(broadcastRemoteDataSourceImpl: BroadcastRemoteDataSourceImpl): BroadcastRemoteDataSource
 
+	@Binds
+	abstract fun provideProfileRemoteDataSource(profileRemoteDataSourceImpl: ProfileRemoteDataSourceImpl): ProfileRemoteDataSource
 }

@@ -5,6 +5,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.response
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.response.AuthLogoutRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.BroadcastRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.request.ProfileRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.response.ProfileRemoteResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -24,5 +26,10 @@ interface ApiService {
 	@POST("mahasiswa/broadcast")
 	suspend fun getBroadcast(
 	): BroadcastRemoteResponse
+
+	@POST("mahasiswa/profile")
+	suspend fun getMahasiswaProfile(
+		@Body profileRemoteRequestBody: ProfileRemoteRequestBody
+	): ProfileRemoteResponse
 
 }

@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthLoginRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.ActivityTestBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.login.LoginViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.logout.LogoutViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.pengumuman.PengumumanViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.profilsaya.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,6 +26,7 @@ class TestActivity : AppCompatActivity() {
 	private val viewModel: LoginViewModel by viewModels()
 	private val logoutViewModel: LogoutViewModel by viewModels()
 	private val pengumumanViewModel: PengumumanViewModel by viewModels()
+	private val profileViewModel: ProfileSayaViewModel by viewModels()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -168,6 +171,57 @@ class TestActivity : AppCompatActivity() {
 
 					else -> {}
 
+				}
+			}
+		}
+
+		binding.btnTestGetProfile.setOnClickListener {
+
+			var userId = ""
+			logoutViewModel.getUserId().observe(this){
+					userIdd ->
+
+				if (userIdd != null){
+					userId = userIdd.toString()
+				}
+
+			}
+
+			var apiToken = ""
+			logoutViewModel.getApiToken().observe(this){
+					apiTokenn ->
+
+				if (apiTokenn != null){
+					apiToken = apiTokenn.toString()
+				}
+			}
+
+			profileViewModel.getMahasiswaProfile(ProfileRemoteRequestBody(userId, apiToken))
+
+			profileViewModel.getProfileResult.observe(this){ getProfileResult ->
+
+				when(getProfileResult){
+					is Resource.Loading -> {
+						setLoading(true)
+					}
+
+					is Resource.Error -> {
+						setLoading(false)
+						Log.d("Result status", getProfileResult.payload?.status.toString())
+						Log.d("Result message", getProfileResult.payload?.message.toString())
+						Log.d("Exception", getProfileResult.exception?.message.toString())
+						Toast.makeText(this@TestActivity, "Result: ${getProfileResult.payload?.message.toString()}", Toast.LENGTH_SHORT).show()
+
+					}
+
+					is Resource.Success -> {
+						setLoading(false)
+						Log.d("Result status", getProfileResult.payload?.status.toString())
+						Log.d("Result message", getProfileResult.payload?.message.toString())
+						Toast.makeText(this@TestActivity, "Result: ${getProfileResult.payload?.message.toString()}", Toast.LENGTH_SHORT).show()
+					}
+
+					else -> {}
 				}
 			}
 		}
