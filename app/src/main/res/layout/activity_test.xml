@@ -48,11 +48,21 @@
         />
 
     <Button
+        android:id="@+id/btn_test_broadcast_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Broadcast Detail"
+        app:layout_constraintTop_toBottomOf="@id/btn_test_broadcast"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <Button
         android:id="@+id/btn_test_get_profile"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Test Get Profile"
-        app:layout_constraintTop_toBottomOf="@id/btn_test_broadcast"
+        app:layout_constraintTop_toBottomOf="@id/btn_test_broadcast_detail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />

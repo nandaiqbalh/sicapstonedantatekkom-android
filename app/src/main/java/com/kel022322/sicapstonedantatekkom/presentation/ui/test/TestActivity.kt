@@ -202,6 +202,47 @@ class TestActivity : AppCompatActivity() {
 			}
 		}
 
+		binding.btnTestBroadcastDetail.setOnClickListener {
+			setLoading(true)
+
+			pengumumanViewModel.getBroadcastDetail("1")
+
+			pengumumanViewModel.broadcastDetailResult.observe(this) { broadcastDetailResult ->
+
+				when (broadcastDetailResult) {
+					is Resource.Loading -> setLoading(true)
+					is Resource.Error -> {
+						setLoading(false)
+						Log.d("Result status", broadcastDetailResult.payload?.status.toString())
+						Log.d("Result message", broadcastDetailResult.payload?.message.toString())
+						Log.d("Exception", broadcastDetailResult.exception?.message.toString())
+						Toast.makeText(
+							this@TestActivity,
+							"Result: ${broadcastDetailResult.payload?.message.toString()}",
+							Toast.LENGTH_SHORT
+						).show()
+
+					}
+
+					is Resource.Success -> {
+						setLoading(false)
+						Log.d("Result status", broadcastDetailResult.payload?.status.toString())
+						Log.d("Result message", broadcastDetailResult.payload?.message.toString())
+						Log.d("Result Auth", broadcastDetailResult.payload?.data.toString())
+
+						Toast.makeText(
+							this@TestActivity,
+							"Result: ${broadcastDetailResult.payload?.message.toString()}",
+							Toast.LENGTH_SHORT
+						).show()
+					}
+
+					else -> {}
+
+				}
+			}
+		}
+
 		binding.btnTestGetProfile.setOnClickListener {
 
 			var userId = ""
