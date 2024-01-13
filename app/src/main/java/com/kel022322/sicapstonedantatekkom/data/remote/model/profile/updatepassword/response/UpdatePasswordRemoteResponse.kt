@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class UpdatePasswordRemoteResponse(
     @SerializedName("data")
-    val data: DataProfilePassword,
+    val data: DataProfilePassword?,
 
     @SerializedName("message")
-    val message: String,
+    val message: String?,
 
     @SerializedName("status")
-    val status: Boolean
+    val status: Boolean?
 )

@@ -5,11 +5,11 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.respo
 
 data class UpdateProfileRemoteResponse(
     @SerializedName("data")
-    val data: DataProfile,
+    val data: DataProfile?,
 
     @SerializedName("message")
-    val message: String,
+    val message: String?,
 
     @SerializedName("status")
-    val status: Boolean
+    val status: Boolean?
 )

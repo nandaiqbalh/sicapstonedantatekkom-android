@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class ProfileRemoteResponse(
 	@SerializedName("data")
-    val data: DataProfile,
+    val data: DataProfile?,
 
 	@SerializedName("message")
-    val message: String,
+    val message: String?,
 
 	@SerializedName("status")
-    val status: Boolean
+    val status: Boolean?
 )

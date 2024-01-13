@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class BroadcastDetailRemoteResponse(
     @SerializedName("data")
-    val data: DataDetailBroadcast,
+    val data: DataDetailBroadcast?,
 
     @SerializedName("message")
-    val message: String,
+    val message: String?,
 
     @SerializedName("status")
-    val status: Boolean
+    val status: Boolean?
 )

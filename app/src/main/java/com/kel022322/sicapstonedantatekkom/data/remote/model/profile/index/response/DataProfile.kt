@@ -4,65 +4,65 @@ import com.google.gson.annotations.SerializedName
 
 data class DataProfile(
     @SerializedName("alamat")
-    val alamat: Any,
+    val alamat: Any?,
 
     @SerializedName("angkatan")
-    val angkatan: Any,
+    val angkatan: Any?,
 
     @SerializedName("api_token")
-    val apiToken: String,
+    val apiToken: String?,
 
     @SerializedName("created_by")
-    val createdBy: String,
+    val createdBy: String?,
 
     @SerializedName("created_date")
-    val createdDate: String,
+    val createdDate: String?,
 
     @SerializedName("ipk")
-    val ipk: Any,
+    val ipk: Any?,
 
     @SerializedName("jenis_kelamin")
-    val jenisKelamin: Any,
+    val jenisKelamin: Any?,
 
     @SerializedName("modified_by")
-    val modifiedBy: Any,
+    val modifiedBy: Any?,
 
     @SerializedName("modified_date")
-    val modifiedDate: Any,
+    val modifiedDate: Any?,
 
     @SerializedName("no_telp")
-    val noTelp: Any,
+    val noTelp: Any?,
 
     @SerializedName("nomor_induk")
-    val nomorInduk: String,
+    val nomorInduk: String?,
 
     @SerializedName("role_id")
-    val roleId: String,
+    val roleId: String?,
 
     @SerializedName("sks")
-    val sks: Any,
+    val sks: Any?,
 
     @SerializedName("updated_at")
-    val updatedAt: String,
+    val updatedAt: String?,
 
     @SerializedName("user_active")
-    val userActive: String,
+    val userActive: String?,
 
     @SerializedName("user_email")
-    val userEmail: Any,
+    val userEmail: Any?,
 
     @SerializedName("user_id")
-    val userId: String,
+    val userId: String?,
 
     @SerializedName("user_img_name")
-    val userImgName: Any,
+    val userImgName: Any?,
 
     @SerializedName("user_img_path")
-    val userImgPath: Any,
+    val userImgPath: Any?,
 
     @SerializedName("user_name")
-    val userName: String,
+    val userName: String?,
 
     @SerializedName("user_password")
-    val userPassword: String
+    val userPassword: String?
 )

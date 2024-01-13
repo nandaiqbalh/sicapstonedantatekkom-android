@@ -4,41 +4,41 @@ import com.google.gson.annotations.SerializedName
 
 data class Broadcast(
     @SerializedName("broadcast_image_name")
-    val broadcastImageName: String,
+    val broadcastImageName: String?,
 
     @SerializedName("broadcast_image_path")
-    val broadcastImagePath: String,
+    val broadcastImagePath: String?,
 
     @SerializedName("created_by")
-    val createdBy: String,
+    val createdBy: String?,
 
     @SerializedName("created_date")
-    val createdDate: String,
+    val createdDate: String?,
 
     @SerializedName("id")
-    val id: String,
+    val id: String?,
 
     @SerializedName("id_siklus")
-    val idSiklus: Any,
+    val idSiklus: Any?,
 
     @SerializedName("keterangan")
-    val keterangan: String,
+    val keterangan: String?,
 
     @SerializedName("link_pendukung")
-    val linkPendukung: String,
+    val linkPendukung: String?,
 
     @SerializedName("modified_by")
-    val modifiedBy: Any,
+    val modifiedBy: Any?,
 
     @SerializedName("modified_date")
-    val modifiedDate: Any,
+    val modifiedDate: Any?,
 
     @SerializedName("nama_event")
-    val namaEvent: String,
+    val namaEvent: String?,
 
     @SerializedName("tgl_mulai")
-    val tglMulai: String,
+    val tglMulai: String?,
 
     @SerializedName("tgl_selesai")
-    val tglSelesai: String
+    val tglSelesai: String?
 )

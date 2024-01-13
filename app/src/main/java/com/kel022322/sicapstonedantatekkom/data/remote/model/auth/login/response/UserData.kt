@@ -4,62 +4,62 @@ import com.google.gson.annotations.SerializedName
 
 data class UserData(
 	@SerializedName("alamat")
-    val alamat: String,
+    val alamat: String?,
 
     @SerializedName("angkatan")
-    val angkatan: Int,
+    val angkatan: Int?,
 
     @SerializedName("api_token")
-    val apiToken: String,
+    val apiToken: String?,
 
     @SerializedName("created_by")
-    val createdBy: String,
+    val createdBy: String?,
 
     @SerializedName("created_date")
-    val createdDate: String,
+    val createdDate: String?,
 
     @SerializedName("ipk")
-    val ipk: String,
+    val ipk: String?,
 
     @SerializedName("jenis_kelamin")
-    val jenisKelamin: String,
+    val jenisKelamin: String?,
 
     @SerializedName("modified_by")
-    val modifiedBy: String,
+    val modifiedBy: String?,
 
     @SerializedName("modified_date")
-    val modifiedDate: String,
+    val modifiedDate: String?,
 
     @SerializedName("no_telp")
-    val noTelp: String,
+    val noTelp: String?,
 
     @SerializedName("nomor_induk")
-    val nomorInduk: String,
+    val nomorInduk: String?,
 
     @SerializedName("role_id")
-    val roleId: String,
+    val roleId: String?,
 
     @SerializedName("sks")
-    val sks: Int,
+    val sks: Int?,
 
     @SerializedName("updated_at")
-    val updatedAt: String,
+    val updatedAt: String?,
 
     @SerializedName("user_active")
-    val userActive: String,
+    val userActive: String?,
 
     @SerializedName("user_email")
-    val userEmail: String,
+    val userEmail: String?,
 
     @SerializedName("user_id")
-    val userId: Long,
+    val userId: Long?,
 
     @SerializedName("user_img_name")
-    val userImageName: String,
+    val userImageName: String?,
 
     @SerializedName("user_img_path")
-    val userImagePath: String,
+    val userImagePath: String?,
 
     @SerializedName("user_name")
-    val userName: String,
+    val userName: String?,
 )
