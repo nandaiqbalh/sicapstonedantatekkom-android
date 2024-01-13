@@ -1,4 +1,4 @@
-package com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.response
+package com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response
 
 import com.google.gson.annotations.SerializedName
 

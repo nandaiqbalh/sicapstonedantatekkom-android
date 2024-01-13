@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthLoginRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.request.KelompokSayaRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
@@ -442,7 +443,7 @@ class TestActivity : AppCompatActivity() {
 			setLoading(true)
 
 			var userId = ""
-			profileViewModel.getUserId().observe(this) { userIdd ->
+			kelompokSayaViewModel.getUserId().observe(this) { userIdd ->
 
 				if (userIdd != null) {
 					userId = userIdd.toString()
@@ -451,7 +452,7 @@ class TestActivity : AppCompatActivity() {
 			}
 
 			var apiToken = ""
-			profileViewModel.getApiToken().observe(this) { apiTokenn ->
+			kelompokSayaViewModel.getApiToken().observe(this) { apiTokenn ->
 
 				if (apiTokenn != null) {
 					apiToken = apiTokenn.toString()
@@ -507,6 +508,82 @@ class TestActivity : AppCompatActivity() {
 					else -> {}
 				}
 			}
+		}
+
+		binding.btnTestAddKelompokIndividu.setOnClickListener {
+			setLoading(true)
+
+			var userId = ""
+			kelompokSayaViewModel.getUserId().observe(this) { userIdd ->
+
+				if (userIdd != null) {
+					userId = userIdd.toString()
+				}
+
+			}
+
+			var apiToken = ""
+			kelompokSayaViewModel.getApiToken().observe(this) { apiTokenn ->
+
+				if (apiTokenn != null) {
+					apiToken = apiTokenn.toString()
+				}
+			}
+
+			kelompokSayaViewModel.addKelompokIndividu(
+				AddKelompokIndividuRemoteRequestBody(
+					userId = userId,
+					apiToken = apiToken,
+					idSiklus = "7",
+					email = "example@email.com",
+					angkatan = "2022",
+					jenisKelamin = "Laki-laki",
+					ipk = "3.5",
+					sks = "120",
+					noTelp = "1234567890",
+					alamat = "123 Main Street",
+					s = "1",
+					e = "2",
+					c = "3",
+					m = "4"
+				)
+			)
+
+			kelompokSayaViewModel.addKelompokIndividuResult.observe(this) { addKelompokIndividuResult ->
+
+				when (addKelompokIndividuResult) {
+					is Resource.Loading -> {
+						setLoading(true)
+					}
+
+					is Resource.Error -> {
+						setLoading(false)
+						Log.d("Result status", addKelompokIndividuResult.payload?.status.toString())
+						Log.d("Result message", addKelompokIndividuResult.payload?.message.toString())
+						Log.d("Exception", addKelompokIndividuResult.exception?.message.toString())
+						Toast.makeText(
+							this@TestActivity,
+							"Result: ${addKelompokIndividuResult.payload?.message.toString()}",
+							Toast.LENGTH_SHORT
+						).show()
+
+					}
+
+					is Resource.Success -> {
+						setLoading(false)
+						Log.d("Result status", addKelompokIndividuResult.payload?.status.toString())
+						Log.d("Result message", addKelompokIndividuResult.payload?.message.toString())
+						Toast.makeText(
+							this@TestActivity,
+							"Result: ${addKelompokIndividuResult.payload?.message.toString()}",
+							Toast.LENGTH_SHORT
+						).show()
+					}
+
+					else -> {}
+				}
+			}
+
 		}
 
 	}
