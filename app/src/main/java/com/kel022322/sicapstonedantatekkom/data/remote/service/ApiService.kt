@@ -8,6 +8,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.Broadcast
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.response.AddKelompokIndividuRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
@@ -67,4 +69,8 @@ interface ApiService {
 		@Body addKelompokIndividuRemoteRequestBody: AddKelompokIndividuRemoteRequestBody
 	) : AddKelompokIndividuRemoteResponse
 
+	@POST("mahasiswa/kelompok/add-punya-kelompok-process")
+	suspend fun addKelompokPunyaKelompok(
+		@Body addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody
+	) : AddKelompokPunyaKelompokRemoteResponse
 }

@@ -3,6 +3,8 @@ package com.kel022322.sicapstonedantatekkom.data.remote.repository.kelompok
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.kelompok.KelompokSayaRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.response.AddKelompokIndividuRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
@@ -17,6 +19,10 @@ interface KelompokSayaRemoteRepository {
 	suspend fun addKelompokIndividu(
 		addKelompokIndividuRemoteRequestBody: AddKelompokIndividuRemoteRequestBody
 	) : Resource<AddKelompokIndividuRemoteResponse>
+
+	suspend fun addKelompokPunyaKelompok(
+		addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody
+	) : Resource<AddKelompokPunyaKelompokRemoteResponse>
 }
 
 class KelompokSayaRemoteRepositoryImpl @Inject constructor(
@@ -32,6 +38,12 @@ class KelompokSayaRemoteRepositoryImpl @Inject constructor(
 	override suspend fun addKelompokIndividu(addKelompokIndividuRemoteRequestBody: AddKelompokIndividuRemoteRequestBody): Resource<AddKelompokIndividuRemoteResponse> {
 		return proceed {
 			dataSource.addKelompokIndividu(addKelompokIndividuRemoteRequestBody)
+		}
+	}
+
+	override suspend fun addKelompokPunyaKelompok(addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody): Resource<AddKelompokPunyaKelompokRemoteResponse> {
+		return proceed {
+			dataSource.addKelompokPunyaKelompok(addKelompokPunyaKelompokRemoteRequestBody)
 		}
 	}
 

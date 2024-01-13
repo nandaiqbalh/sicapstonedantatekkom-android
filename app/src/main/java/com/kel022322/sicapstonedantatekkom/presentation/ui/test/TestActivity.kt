@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthLoginRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
@@ -586,6 +587,105 @@ class TestActivity : AppCompatActivity() {
 
 		}
 
+		binding.btnTestAddKelompokPunyaKelompok.setOnClickListener {
+			setLoading(true)
+
+			var userId = ""
+			kelompokSayaViewModel.getUserId().observe(this) { userIdd ->
+
+				if (userIdd != null) {
+					userId = userIdd.toString()
+				}
+
+			}
+
+			var apiToken = ""
+			kelompokSayaViewModel.getApiToken().observe(this) { apiTokenn ->
+
+				if (apiTokenn != null) {
+					apiToken = apiTokenn.toString()
+				}
+			}
+
+			kelompokSayaViewModel.addKelompokPunyaKelompok(
+				AddKelompokPunyaKelompokRemoteRequestBody(
+					userId = userId,
+					apiToken = apiToken,
+					idSiklus = "7",
+					email = "example@email.com",
+					angkatan = "2022",
+					judulCapstone = "My Capstone Project",
+					idTopik = "1",
+					dosbingSatu = "16862144396919",
+					dosbingDua = "16862150681435",
+					alamat = "123 Main Street",
+
+					angkatanSatu = "2022",
+					emailSatu = "member1@email.com",
+					jenisKelaminSatu = "Laki-laki",
+					ipkSatu = "3.5",
+					sksSatu = "120",
+					noTelpSatu = "1234567890",
+					alamatSatu = "456 Second Street",
+
+					angkatanDua = "2022",
+					emailDua = "member2@email.com",
+					jenisKelaminDua = "Perempuan",
+					ipkDua = "3.8",
+					sksDua = "130",
+					noTelpDua = "9876543210",
+					alamatDua = "789 Third Street",
+
+					angkatanTiga = "2022",
+					emailTiga = "member3@email.com",
+					jenisKelaminTiga = "Perempuan",
+					ipkTiga = "3.2",
+					sksTiga = "110",
+					noTelpTiga = "5551234567",
+					alamatTiga = "101 Fourth Street",
+
+					namaSatu = "17025616857273",
+					namaDua = "17025617220255",
+					namaTiga = "17025617299185"
+				)
+			)
+
+			kelompokSayaViewModel.addKelompokPunyaKelompok.observe(this) { addKelompokPunyaKelompok ->
+
+				when (addKelompokPunyaKelompok) {
+					is Resource.Loading -> {
+						setLoading(true)
+					}
+
+					is Resource.Error -> {
+						setLoading(false)
+						Log.d("Result status", addKelompokPunyaKelompok.payload?.status.toString())
+						Log.d("Result message", addKelompokPunyaKelompok.payload?.message.toString())
+						Log.d("Exception", addKelompokPunyaKelompok.exception?.message.toString())
+						Toast.makeText(
+							this@TestActivity,
+							"Result: ${addKelompokPunyaKelompok.payload?.message.toString()}",
+							Toast.LENGTH_SHORT
+						).show()
+
+					}
+
+					is Resource.Success -> {
+						setLoading(false)
+						Log.d("Result status", addKelompokPunyaKelompok.payload?.status.toString())
+						Log.d("Result message", addKelompokPunyaKelompok.payload?.message.toString())
+						Toast.makeText(
+							this@TestActivity,
+							"Result: ${addKelompokPunyaKelompok.payload?.message.toString()}",
+							Toast.LENGTH_SHORT
+						).show()
+					}
+
+					else -> {}
+				}
+			}
+
+		}
 	}
 
 	private fun setLoading(isLoading: Boolean) {
