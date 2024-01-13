@@ -6,6 +6,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.response.AuthLogoutRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.BroadcastRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.request.KelompokSayaRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
@@ -52,5 +54,10 @@ interface ApiService {
 	suspend fun updatePasswordProfile(
 		@Body updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody
 	) : UpdatePasswordRemoteResponse
+
+	@POST("mahasiswa/kelompok")
+	suspend fun getKelompokSaya(
+		@Body kelompokSayaRemoteRequestBody: KelompokSayaRemoteRequestBody
+	) : KelompokSayaRemoteResponse
 
 }

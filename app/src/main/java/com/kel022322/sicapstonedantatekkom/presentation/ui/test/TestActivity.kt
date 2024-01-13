@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthLoginRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
@@ -15,6 +16,7 @@ import com.kel022322.sicapstonedantatekkom.databinding.ActivityTestBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.login.LoginViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.logout.LogoutViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.pengumuman.PengumumanViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompoksaya.KelompokSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profilsaya.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +31,7 @@ class TestActivity : AppCompatActivity() {
 	private val logoutViewModel: LogoutViewModel by viewModels()
 	private val pengumumanViewModel: PengumumanViewModel by viewModels()
 	private val profileViewModel: ProfileSayaViewModel by viewModels()
+	private val kelompokSayaViewModel: KelompokSayaViewModel by viewModels()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -389,13 +392,15 @@ class TestActivity : AppCompatActivity() {
 				}
 			}
 
-			profileViewModel.updatePasswordProfile(UpdatePasswordRemoteRequestBody(
-				userId = userId,
-				apiToken = apiToken,
-				currentPassword = "mahasiswa1234",
-				newPassword = "mahasiswa123",
-				repeatNewPassword = "mahasiswa123"
-			))
+			profileViewModel.updatePasswordProfile(
+				UpdatePasswordRemoteRequestBody(
+					userId = userId,
+					apiToken = apiToken,
+					currentPassword = "mahasiswa1234",
+					newPassword = "mahasiswa123",
+					repeatNewPassword = "mahasiswa123"
+				)
+			)
 
 			profileViewModel.updatePasswordResult.observe(this) { updatePasswordResult ->
 
@@ -426,6 +431,77 @@ class TestActivity : AppCompatActivity() {
 							"Result: ${updatePasswordResult.payload?.message.toString()}",
 							Toast.LENGTH_SHORT
 						).show()
+					}
+
+					else -> {}
+				}
+			}
+		}
+
+		binding.btnTestGetKelompok.setOnClickListener {
+			setLoading(true)
+
+			var userId = ""
+			profileViewModel.getUserId().observe(this) { userIdd ->
+
+				if (userIdd != null) {
+					userId = userIdd.toString()
+				}
+
+			}
+
+			var apiToken = ""
+			profileViewModel.getApiToken().observe(this) { apiTokenn ->
+
+				if (apiTokenn != null) {
+					apiToken = apiTokenn.toString()
+				}
+			}
+
+			kelompokSayaViewModel.getKelompokSaya(
+				KelompokSayaRemoteRequestBody(
+					userId = userId,
+					apiToken = apiToken
+				)
+			)
+
+			kelompokSayaViewModel.getKelompokSayaResult.observe(this) { kelompokSayaResult ->
+
+				when (kelompokSayaResult){
+					is Resource.Loading -> {
+						setLoading(true)
+					}
+
+					is Resource.Error -> {
+						setLoading(false)
+						Log.d("Result status", kelompokSayaResult.payload?.status.toString())
+						Log.d("Result message", kelompokSayaResult.payload?.message.toString())
+						Log.d("Exception", kelompokSayaResult.exception?.message.toString())
+						Toast.makeText(
+							this@TestActivity,
+							"Result: ${kelompokSayaResult.payload?.message.toString()}",
+							Toast.LENGTH_SHORT
+						).show()
+
+					}
+
+					is Resource.Success -> {
+						setLoading(false)
+						Log.d("Result status", kelompokSayaResult.payload?.status.toString())
+						Log.d("Result message", kelompokSayaResult.payload?.message.toString())
+						Toast.makeText(
+							this@TestActivity,
+							"Result: ${kelompokSayaResult.payload?.message.toString()}",
+							Toast.LENGTH_SHORT
+						).show()
+
+						val kelompok = kelompokSayaResult.payload?.data?.kelompok
+
+						binding.tvHasilKelompok.text = when {
+							kelompok == null -> "Hasil: Belum daftar kelompok"
+							kelompok.idKelompok != null -> "Hasil: Kelompok sudah ada. Id = ${kelompok.idKelompok}"
+							else -> "Hasil: Belum dikelompokkan"
+						}
 					}
 
 					else -> {}

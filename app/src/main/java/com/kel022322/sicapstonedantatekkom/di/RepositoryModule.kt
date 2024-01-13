@@ -6,6 +6,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.logout.Au
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.logout.AuthLogoutRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast.BroadcastRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast.BroadcastRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.kelompok.KelompokSayaRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.kelompok.KelompokSayaRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.profile.ProfileRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.profile.ProfileRemoteRepositoryImpl
 import dagger.Binds
@@ -27,4 +29,7 @@ abstract class RepositoryModule {
 
 	@Binds
 	abstract fun bindsProfileRemoteRepository(profileRemoteRepositoryImpl: ProfileRemoteRepositoryImpl) : ProfileRemoteRepository
+
+	@Binds
+	abstract fun bindKelompokSayaRemoteRepository(kelompokSayaRemoteRepositoryImpl: KelompokSayaRemoteRepositoryImpl): KelompokSayaRemoteRepository
 }
