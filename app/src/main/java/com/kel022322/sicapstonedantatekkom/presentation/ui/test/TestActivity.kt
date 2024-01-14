@@ -1,5 +1,6 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.test
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -685,6 +686,12 @@ class TestActivity : AppCompatActivity() {
 				}
 			}
 
+		}
+
+		binding.btnTestUpload.setOnClickListener {
+			val intent = Intent(this@TestActivity, TestUploadActivity::class.java)
+
+			startActivity(intent)
 		}
 	}
 

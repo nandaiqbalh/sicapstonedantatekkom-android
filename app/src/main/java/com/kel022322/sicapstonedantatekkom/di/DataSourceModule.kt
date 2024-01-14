@@ -6,6 +6,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.datasource.auth.logout.Au
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.auth.logout.AuthLogoutRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast.BroadcastRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast.BroadcastRemoteDataSourceImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.file.FileRemoteDataSource
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.file.FileRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.kelompok.KelompokSayaRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.kelompok.KelompokSayaRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile.ProfileRemoteDataSource
@@ -35,4 +37,7 @@ abstract class DataSourceModule {
 
 	@Binds
 	abstract fun provideKelompokSayaRemoteDataSource(kelompokSayaRemoteDataSourceImpl: KelompokSayaRemoteDataSourceImpl): KelompokSayaRemoteDataSource
+
+	@Binds
+	abstract fun provideFileRemoteDataSource(fileRemoteDataSourceImpl: FileRemoteDataSourceImpl): FileRemoteDataSource
 }

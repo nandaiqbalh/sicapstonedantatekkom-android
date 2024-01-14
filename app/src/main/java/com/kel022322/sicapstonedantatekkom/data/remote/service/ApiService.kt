@@ -6,6 +6,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.response.AuthLogoutRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.BroadcastRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.FileIndexRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.response.AddKelompokIndividuRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
@@ -73,4 +75,9 @@ interface ApiService {
 	suspend fun addKelompokPunyaKelompok(
 		@Body addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody
 	) : AddKelompokPunyaKelompokRemoteResponse
+
+	@POST("mahasiswa/upload-file")
+	suspend fun getFileIndex(
+		@Body fileIndexRemoteRequestBody: FileIndexRemoteRequestBody
+	) : FileIndexRemoteResponse
 }
