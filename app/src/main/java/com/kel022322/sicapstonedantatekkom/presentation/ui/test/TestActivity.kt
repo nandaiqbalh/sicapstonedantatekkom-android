@@ -107,25 +107,16 @@ class TestActivity : AppCompatActivity() {
 		binding.btnTestLogout.setOnClickListener {
 			setLoading(true)
 
-			var userId = ""
-			logoutViewModel.getUserId().observe(this) { userIdd ->
-
-				if (userIdd != null) {
-					userId = userIdd.toString()
-				}
-
-			}
-
-			var apiToken = ""
-			logoutViewModel.getApiToken().observe(this) { apiTokenn ->
-
-				if (apiTokenn != null) {
-					apiToken = apiTokenn.toString()
+			logoutViewModel.getUserId().observe(this) { userId ->
+				if (userId != null) {
+					logoutViewModel.getApiToken().observe(this) { apiToken ->
+						if (apiToken != null) {
+							// Both userId and apiToken are available now
+							logoutViewModel.authLogout(AuthLogoutRequestBody(userId = userId.toString(), apiToken = apiToken.toString()))
+						}
+					}
 				}
 			}
-
-
-			logoutViewModel.authLogout(AuthLogoutRequestBody(userId, apiToken))
 
 			logoutViewModel.logoutResult.observe(this) { logoutResult ->
 				when (logoutResult) {
@@ -251,24 +242,18 @@ class TestActivity : AppCompatActivity() {
 
 		binding.btnTestGetProfile.setOnClickListener {
 
-			var userId = ""
-			profileViewModel.getUserId().observe(this) { userIdd ->
+			setLoading(true)
 
-				if (userIdd != null) {
-					userId = userIdd.toString()
-				}
-
-			}
-
-			var apiToken = ""
-			profileViewModel.getApiToken().observe(this) { apiTokenn ->
-
-				if (apiTokenn != null) {
-					apiToken = apiTokenn.toString()
+			profileViewModel.getUserId().observe(this) { userId ->
+				if (userId != null) {
+					profileViewModel.getApiToken().observe(this) { apiToken ->
+						if (apiToken != null) {
+							// Both userId and apiToken are available now
+							profileViewModel.getMahasiswaProfile(ProfileRemoteRequestBody(userId = userId.toString(), apiToken = apiToken.toString()))
+						}
+					}
 				}
 			}
-
-			profileViewModel.getMahasiswaProfile(ProfileRemoteRequestBody(userId, apiToken))
 
 			profileViewModel.getProfileResult.observe(this) { getProfileResult ->
 
@@ -308,38 +293,33 @@ class TestActivity : AppCompatActivity() {
 
 		binding.btnTestUpdateProfile.setOnClickListener {
 
-			var userId = ""
-			profileViewModel.getUserId().observe(this) { userIdd ->
+			setLoading(true)
 
-				if (userIdd != null) {
-					userId = userIdd.toString()
+			profileViewModel.getUserId().observe(this) { userId ->
+				if (userId != null) {
+					profileViewModel.getApiToken().observe(this) { apiToken ->
+						if (apiToken != null) {
+							// Both userId and apiToken are available now
+							profileViewModel.updateMahasiswaProfile(
+								UpdateProfileRemoteRequestBody(
+									userId = userId.toString(),
+									apiToken = apiToken.toString(),
+									userName = "Mahasiswa Client",
+									noTelp = "0831111111",
+									userEmail = "userclient@gmail.com",
+									alamat = "Alamat client",
+									angkatan = "2020",
+									ipk = "3.1",
+									sks = "140",
+									jenisKelamin = null,
+									userImage = null
+								)
+							)
+						}
+					}
 				}
-
 			}
 
-			var apiToken = ""
-			profileViewModel.getApiToken().observe(this) { apiTokenn ->
-
-				if (apiTokenn != null) {
-					apiToken = apiTokenn.toString()
-				}
-			}
-
-			profileViewModel.updateMahasiswaProfile(
-				UpdateProfileRemoteRequestBody(
-					userId = userId,
-					apiToken = apiToken,
-					userName = "Mahasiswa Client",
-					noTelp = "0831111111",
-					userEmail = "userclient@gmail.com",
-					alamat = "Alamat client",
-					angkatan = "2020",
-					ipk = "3.1",
-					sks = "140",
-					jenisKelamin = null,
-					userImage = null
-				)
-			)
 
 			profileViewModel.updateProfileResult.observe(this) { updateProfileResult ->
 
@@ -378,32 +358,26 @@ class TestActivity : AppCompatActivity() {
 		}
 
 		binding.btnTestUpdatePassword.setOnClickListener {
-			var userId = ""
-			profileViewModel.getUserId().observe(this) { userIdd ->
+			setLoading(true)
 
-				if (userIdd != null) {
-					userId = userIdd.toString()
+			profileViewModel.getUserId().observe(this) { userId ->
+				if (userId != null) {
+					profileViewModel.getApiToken().observe(this) { apiToken ->
+						if (apiToken != null) {
+							// Both userId and apiToken are available now
+							profileViewModel.updatePasswordProfile(
+								UpdatePasswordRemoteRequestBody(
+									userId = userId.toString(),
+									apiToken = apiToken.toString(),
+									currentPassword = "mahasiswa1234",
+									newPassword = "mahasiswa123",
+									repeatNewPassword = "mahasiswa123"
+								)
+							)
+						}
+					}
 				}
-
 			}
-
-			var apiToken = ""
-			profileViewModel.getApiToken().observe(this) { apiTokenn ->
-
-				if (apiTokenn != null) {
-					apiToken = apiTokenn.toString()
-				}
-			}
-
-			profileViewModel.updatePasswordProfile(
-				UpdatePasswordRemoteRequestBody(
-					userId = userId,
-					apiToken = apiToken,
-					currentPassword = "mahasiswa1234",
-					newPassword = "mahasiswa123",
-					repeatNewPassword = "mahasiswa123"
-				)
-			)
 
 			profileViewModel.updatePasswordResult.observe(this) { updatePasswordResult ->
 
@@ -444,29 +418,21 @@ class TestActivity : AppCompatActivity() {
 		binding.btnTestGetKelompok.setOnClickListener {
 			setLoading(true)
 
-			var userId = ""
-			kelompokSayaViewModel.getUserId().observe(this) { userIdd ->
-
-				if (userIdd != null) {
-					userId = userIdd.toString()
+			kelompokSayaViewModel.getUserId().observe(this) { userId ->
+				if (userId != null) {
+					kelompokSayaViewModel.getApiToken().observe(this) { apiToken ->
+						if (apiToken != null) {
+							// Both userId and apiToken are available now
+							kelompokSayaViewModel.getKelompokSaya(
+								KelompokSayaRemoteRequestBody(
+									userId = userId.toString(),
+									apiToken = apiToken.toString()
+								)
+							)
+						}
+					}
 				}
-
 			}
-
-			var apiToken = ""
-			kelompokSayaViewModel.getApiToken().observe(this) { apiTokenn ->
-
-				if (apiTokenn != null) {
-					apiToken = apiTokenn.toString()
-				}
-			}
-
-			kelompokSayaViewModel.getKelompokSaya(
-				KelompokSayaRemoteRequestBody(
-					userId = userId,
-					apiToken = apiToken
-				)
-			)
 
 			kelompokSayaViewModel.getKelompokSayaResult.observe(this) { kelompokSayaResult ->
 
@@ -515,41 +481,33 @@ class TestActivity : AppCompatActivity() {
 		binding.btnTestAddKelompokIndividu.setOnClickListener {
 			setLoading(true)
 
-			var userId = ""
-			kelompokSayaViewModel.getUserId().observe(this) { userIdd ->
-
-				if (userIdd != null) {
-					userId = userIdd.toString()
+			kelompokSayaViewModel.getUserId().observe(this) { userId ->
+				if (userId != null) {
+					kelompokSayaViewModel.getApiToken().observe(this) { apiToken ->
+						if (apiToken != null) {
+							// Both userId and apiToken are available now
+							kelompokSayaViewModel.addKelompokIndividu(
+								AddKelompokIndividuRemoteRequestBody(
+									userId = userId.toString(),
+									apiToken = apiToken.toString(),
+									idSiklus = "7",
+									email = "example@email.com",
+									angkatan = "2022",
+									jenisKelamin = "Laki-laki",
+									ipk = "3.5",
+									sks = "120",
+									noTelp = "1234567890",
+									alamat = "123 Main Street",
+									s = "1",
+									e = "2",
+									c = "3",
+									m = "4"
+								)
+							)
+						}
+					}
 				}
-
 			}
-
-			var apiToken = ""
-			kelompokSayaViewModel.getApiToken().observe(this) { apiTokenn ->
-
-				if (apiTokenn != null) {
-					apiToken = apiTokenn.toString()
-				}
-			}
-
-			kelompokSayaViewModel.addKelompokIndividu(
-				AddKelompokIndividuRemoteRequestBody(
-					userId = userId,
-					apiToken = apiToken,
-					idSiklus = "7",
-					email = "example@email.com",
-					angkatan = "2022",
-					jenisKelamin = "Laki-laki",
-					ipk = "3.5",
-					sks = "120",
-					noTelp = "1234567890",
-					alamat = "123 Main Street",
-					s = "1",
-					e = "2",
-					c = "3",
-					m = "4"
-				)
-			)
 
 			kelompokSayaViewModel.addKelompokIndividuResult.observe(this) { addKelompokIndividuResult ->
 
@@ -591,65 +549,57 @@ class TestActivity : AppCompatActivity() {
 		binding.btnTestAddKelompokPunyaKelompok.setOnClickListener {
 			setLoading(true)
 
-			var userId = ""
-			kelompokSayaViewModel.getUserId().observe(this) { userIdd ->
+			kelompokSayaViewModel.getUserId().observe(this) { userId ->
+				if (userId != null) {
+					kelompokSayaViewModel.getApiToken().observe(this) { apiToken ->
+						if (apiToken != null) {
+							// Both userId and apiToken are available now
+							kelompokSayaViewModel.addKelompokPunyaKelompok(
+								AddKelompokPunyaKelompokRemoteRequestBody(
+									userId = userId.toString(),
+									apiToken = apiToken.toString(),
+									idSiklus = "7",
+									email = "example@email.com",
+									angkatan = "2022",
+									judulCapstone = "My Capstone Project",
+									idTopik = "1",
+									dosbingSatu = "16862144396919",
+									dosbingDua = "16862150681435",
+									alamat = "123 Main Street",
 
-				if (userIdd != null) {
-					userId = userIdd.toString()
+									angkatanSatu = "2022",
+									emailSatu = "member1@email.com",
+									jenisKelaminSatu = "Laki-laki",
+									ipkSatu = "3.5",
+									sksSatu = "120",
+									noTelpSatu = "1234567890",
+									alamatSatu = "456 Second Street",
+
+									angkatanDua = "2022",
+									emailDua = "member2@email.com",
+									jenisKelaminDua = "Perempuan",
+									ipkDua = "3.8",
+									sksDua = "130",
+									noTelpDua = "9876543210",
+									alamatDua = "789 Third Street",
+
+									angkatanTiga = "2022",
+									emailTiga = "member3@email.com",
+									jenisKelaminTiga = "Perempuan",
+									ipkTiga = "3.2",
+									sksTiga = "110",
+									noTelpTiga = "5551234567",
+									alamatTiga = "101 Fourth Street",
+
+									namaSatu = "17025616857273",
+									namaDua = "17025617220255",
+									namaTiga = "17025617299185"
+								)
+							)
+						}
+					}
 				}
-
 			}
-
-			var apiToken = ""
-			kelompokSayaViewModel.getApiToken().observe(this) { apiTokenn ->
-
-				if (apiTokenn != null) {
-					apiToken = apiTokenn.toString()
-				}
-			}
-
-			kelompokSayaViewModel.addKelompokPunyaKelompok(
-				AddKelompokPunyaKelompokRemoteRequestBody(
-					userId = userId,
-					apiToken = apiToken,
-					idSiklus = "7",
-					email = "example@email.com",
-					angkatan = "2022",
-					judulCapstone = "My Capstone Project",
-					idTopik = "1",
-					dosbingSatu = "16862144396919",
-					dosbingDua = "16862150681435",
-					alamat = "123 Main Street",
-
-					angkatanSatu = "2022",
-					emailSatu = "member1@email.com",
-					jenisKelaminSatu = "Laki-laki",
-					ipkSatu = "3.5",
-					sksSatu = "120",
-					noTelpSatu = "1234567890",
-					alamatSatu = "456 Second Street",
-
-					angkatanDua = "2022",
-					emailDua = "member2@email.com",
-					jenisKelaminDua = "Perempuan",
-					ipkDua = "3.8",
-					sksDua = "130",
-					noTelpDua = "9876543210",
-					alamatDua = "789 Third Street",
-
-					angkatanTiga = "2022",
-					emailTiga = "member3@email.com",
-					jenisKelaminTiga = "Perempuan",
-					ipkTiga = "3.2",
-					sksTiga = "110",
-					noTelpTiga = "5551234567",
-					alamatTiga = "101 Fourth Street",
-
-					namaSatu = "17025616857273",
-					namaDua = "17025617220255",
-					namaTiga = "17025617299185"
-				)
-			)
 
 			kelompokSayaViewModel.addKelompokPunyaKelompok.observe(this) { addKelompokPunyaKelompok ->
 
