@@ -8,6 +8,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.Broadcast
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.FileIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.makalah.response.UploadMakalahProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.response.AddKelompokIndividuRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
@@ -20,64 +21,77 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.requ
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.response.UpdateProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.response.UpdatePasswordRemoteResponse
+import okhttp3.MultipartBody
 import retrofit2.http.Body
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 interface ApiService {
 
-	@POST("auth/login")
+	@POST("capstone_team/public/api/v1/auth/login")
 	suspend fun authLogin(
 		@Body authLoginRequestBody: AuthLoginRequestBody
 	): AuthLoginRemoteResponse
 
-	@POST("auth/logout")
+	@POST("capstone_team/public/api/v1/auth/logout")
 	suspend fun authLogout(
 		@Body authLogoutRequestBody: AuthLogoutRequestBody
 	): AuthLogoutRemoteResponse
 
-	@POST("mahasiswa/broadcast")
+	@POST("capstone_team/public/api/v1/mahasiswa/broadcast")
 	suspend fun getBroadcast(
 	): BroadcastRemoteResponse
 
-	@POST("mahasiswa/broadcast/{id}")
+	@POST("capstone_team/public/api/v1/mahasiswa/broadcast/{id}")
 	suspend fun getBroadcastDetail(
 		@Path("id") id: String
 	): BroadcastDetailRemoteResponse
 
-	@POST("mahasiswa/profile")
+	@POST("capstone_team/public/api/v1/mahasiswa/profile")
 	suspend fun getMahasiswaProfile(
 		@Body profileRemoteRequestBody: ProfileRemoteRequestBody
 	): ProfileRemoteResponse
 
-	@POST("mahasiswa/profile/editProcess")
+	@POST("capstone_team/public/api/v1/mahasiswa/profile/editProcess")
 	suspend fun updateMahasiswaProfile(
 		@Body updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody
 	) : UpdateProfileRemoteResponse
 
-	@POST("mahasiswa/profile/editPassword")
+	@POST("capstone_team/public/api/v1/mahasiswa/profile/editPassword")
 	suspend fun updatePasswordProfile(
 		@Body updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody
 	) : UpdatePasswordRemoteResponse
 
-	@POST("mahasiswa/kelompok")
+	@POST("capstone_team/public/api/v1/mahasiswa/kelompok")
 	suspend fun getKelompokSaya(
 		@Body kelompokSayaRemoteRequestBody: KelompokSayaRemoteRequestBody
 	) : KelompokSayaRemoteResponse
 
-	@POST("mahasiswa/kelompok/add-kelompok-process")
+	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/add-kelompok-process")
 	suspend fun addKelompokIndividu(
 		@Body addKelompokIndividuRemoteRequestBody: AddKelompokIndividuRemoteRequestBody
 	) : AddKelompokIndividuRemoteResponse
 
-	@POST("mahasiswa/kelompok/add-punya-kelompok-process")
+	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/add-punya-kelompok-process")
 	suspend fun addKelompokPunyaKelompok(
 		@Body addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody
 	) : AddKelompokPunyaKelompokRemoteResponse
 
-	@POST("mahasiswa/upload-file")
+	@POST("capstone_team/public/api/v1/mahasiswa/upload-file")
 	suspend fun getFileIndex(
 		@Body fileIndexRemoteRequestBody: FileIndexRemoteRequestBody
 	) : FileIndexRemoteResponse
+
+	@Multipart
+	@POST("capstone_team/public/api/v1/mahasiswa/upload-file/upload-makalah-process")
+	suspend fun uploadMakalahProcess(
+		@Query("user_id") userId: String,
+		@Query("api_token") apiToken: String,
+		@Query("id_mahasiswa") idMahasiswa: String,
+		@Part makalah: MultipartBody.Part
+	): UploadMakalahProcessRemoteResponse
 }

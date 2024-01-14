@@ -8,12 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.kel022322.sicapstonedantatekkom.data.local.datastore.auth.AuthDataStoreManager
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.FileIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.makalah.response.UploadMakalahProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.file.FileRemoteRepository
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -46,6 +48,39 @@ class FileSayaViewModel @Inject constructor(
 					_getFileIndexResult.postValue(Resource.Error(e, null))
 				}
 			}
+		}
+	}
+
+	private var _uploadMakalahProcessResult = MutableLiveData<Resource<UploadMakalahProcessRemoteResponse>> ()
+	val uploadMakalahProcessResult: LiveData<Resource<UploadMakalahProcessRemoteResponse>> get() = _uploadMakalahProcessResult
+
+	fun uploadMakalahProcess(
+		userId: String,
+		apiToken: String,
+		idMahasiswa: String,
+		makalah: MultipartBody.Part
+	){
+		viewModelScope.launch(Dispatchers.IO){
+
+			_uploadMakalahProcessResult.postValue(Resource.Loading())
+
+			try {
+				val data = fileRemoteRepository.uploadMakalahProcess(userId, apiToken, idMahasiswa, makalah)
+
+				if (data.payload != null){
+					viewModelScope.launch(Dispatchers.Main){
+						_uploadMakalahProcessResult.postValue(Resource.Success(data.payload))
+					}
+				} else {
+					_uploadMakalahProcessResult.postValue(Resource.Error(data.exception, null))
+				}
+
+			} catch (e: Exception){
+				viewModelScope.launch(Dispatchers.Main){
+					_uploadMakalahProcessResult.postValue(Resource.Error(e, null))
+				}
+			}
+
 		}
 	}
 

@@ -3,7 +3,9 @@ package com.kel022322.sicapstonedantatekkom.data.remote.repository.file
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.file.FileRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.FileIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.makalah.response.UploadMakalahProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 interface FileRemoteRepository {
@@ -11,6 +13,13 @@ interface FileRemoteRepository {
 	suspend fun getFileIndex(
 		fileIndexRemoteRequestBody: FileIndexRemoteRequestBody,
 	): Resource<FileIndexRemoteResponse>
+
+	suspend fun uploadMakalahProcess(
+		userId: String,
+		apiToken: String,
+		idMahasiswa: String,
+		makalah: MultipartBody.Part
+	) : Resource<UploadMakalahProcessRemoteResponse>
 }
 
 class FileRemoteRepositoryImpl @Inject constructor(
@@ -20,6 +29,17 @@ class FileRemoteRepositoryImpl @Inject constructor(
 	override suspend fun getFileIndex(fileIndexRemoteRequestBody: FileIndexRemoteRequestBody): Resource<FileIndexRemoteResponse> {
 		return proceed {
 			dataSource.getFileIndex(fileIndexRemoteRequestBody)
+		}
+	}
+
+	override suspend fun uploadMakalahProcess(
+		userId: String,
+		apiToken: String,
+		idMahasiswa: String,
+		makalah: MultipartBody.Part,
+	): Resource<UploadMakalahProcessRemoteResponse> {
+		return proceed {
+			dataSource.uploadMakalahProcess(userId, apiToken, idMahasiswa, makalah)
 		}
 	}
 
