@@ -9,6 +9,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.Br
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.FileIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.makalah.response.UploadMakalahProcessRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.request.ViewPdfRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.response.ViewPdfRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.response.AddKelompokIndividuRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
@@ -94,4 +96,9 @@ interface ApiService {
 		@Query("id_mahasiswa") idMahasiswa: String,
 		@Part makalah: MultipartBody.Part
 	): UploadMakalahProcessRemoteResponse
+
+	@POST("capstone_team/public/api/v1/mahasiswa/view-pdf")
+	suspend fun viewPdf(
+		@Body viewPdfRemoteRequestBody: ViewPdfRemoteRequestBody
+	) : ViewPdfRemoteResponse
 }

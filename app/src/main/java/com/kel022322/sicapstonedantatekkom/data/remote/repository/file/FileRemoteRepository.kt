@@ -4,6 +4,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.datasource.file.FileRemot
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.FileIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.makalah.response.UploadMakalahProcessRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.request.ViewPdfRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.response.ViewPdfRemoteResponse
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import okhttp3.MultipartBody
 import javax.inject.Inject
@@ -13,6 +15,10 @@ interface FileRemoteRepository {
 	suspend fun getFileIndex(
 		fileIndexRemoteRequestBody: FileIndexRemoteRequestBody,
 	): Resource<FileIndexRemoteResponse>
+
+	suspend fun viewPdf(
+		viewPdfRemoteRequestBody: ViewPdfRemoteRequestBody
+	) : Resource<ViewPdfRemoteResponse>
 
 	suspend fun uploadMakalahProcess(
 		userId: String,
@@ -29,6 +35,12 @@ class FileRemoteRepositoryImpl @Inject constructor(
 	override suspend fun getFileIndex(fileIndexRemoteRequestBody: FileIndexRemoteRequestBody): Resource<FileIndexRemoteResponse> {
 		return proceed {
 			dataSource.getFileIndex(fileIndexRemoteRequestBody)
+		}
+	}
+
+	override suspend fun viewPdf(viewPdfRemoteRequestBody: ViewPdfRemoteRequestBody): Resource<ViewPdfRemoteResponse> {
+		return proceed {
+			dataSource.viewPdf(viewPdfRemoteRequestBody)
 		}
 	}
 

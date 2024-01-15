@@ -9,6 +9,8 @@ import com.kel022322.sicapstonedantatekkom.data.local.datastore.auth.AuthDataSto
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.FileIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.makalah.response.UploadMakalahProcessRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.request.ViewPdfRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.response.ViewPdfRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.file.FileRemoteRepository
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,6 +52,33 @@ class FileSayaViewModel @Inject constructor(
 			}
 		}
 	}
+
+	private var _viewPdfResult = MutableLiveData<Resource<ViewPdfRemoteResponse>> ()
+	val viewPdfResult: LiveData<Resource<ViewPdfRemoteResponse>> get() = _viewPdfResult
+
+	fun viewPdf(viewPdfRemoteRequestBody: ViewPdfRemoteRequestBody){
+		viewModelScope.launch(Dispatchers.IO){
+
+			try {
+				val data = fileRemoteRepository.viewPdf(viewPdfRemoteRequestBody)
+
+				if (data.payload != null){
+					viewModelScope.launch(Dispatchers.Main){
+						_viewPdfResult.postValue(Resource.Success(data.payload))
+					}
+				} else {
+					_viewPdfResult.postValue(Resource.Error(data.exception, null))
+				}
+
+			} catch (e: Exception){
+				viewModelScope.launch(Dispatchers.Main){
+					_viewPdfResult.postValue(Resource.Error(e, null))
+				}
+			}
+
+		}
+	}
+
 
 	private var _uploadMakalahProcessResult = MutableLiveData<Resource<UploadMakalahProcessRemoteResponse>> ()
 	val uploadMakalahProcessResult: LiveData<Resource<UploadMakalahProcessRemoteResponse>> get() = _uploadMakalahProcessResult

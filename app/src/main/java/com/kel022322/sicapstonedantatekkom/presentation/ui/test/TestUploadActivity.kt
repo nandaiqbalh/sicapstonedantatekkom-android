@@ -1,16 +1,22 @@
+
 package com.kel022322.sicapstonedantatekkom.presentation.ui.test
 
-import android.content.Intent
+import android.Manifest
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import com.kel022322.sicapstonedantatekkom.BuildConfig
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.FileIndexRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.request.ViewPdfRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.ActivityTestUploadBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.filesaya.FileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
@@ -20,6 +26,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 import java.io.FileOutputStream
+
 
 @AndroidEntryPoint
 class TestUploadActivity : AppCompatActivity() {
@@ -87,38 +94,7 @@ class TestUploadActivity : AppCompatActivity() {
 						Toast.LENGTH_SHORT
 					).show()
 
-					if (getFileIndexResult.payload!!.data!!.fileMhs == null) {
-						binding.tvHasilFileIndex.text = "Hasil: Anda belum memiliki kelompok"
-					} else {
-						binding.tvHasilFileIndex.text =
-							"Hasil: Judul capstone anda adalah ${getFileIndexResult.payload.data!!.fileMhs!!.judulCapstone.toString()}"
-
-					}
-
-					val fileMhs = getFileIndexResult.payload?.data?.fileMhs
-
-					if (fileMhs?.fileNameMakalah == null) {
-						binding.tvMakalahUrl.text = "Hasil: Anda belum upload makalah"
-					} else {
-						binding.tvMakalahUrl.text = "Tekan untuk melihat makalah"
-
-						// Assuming `fileMhs.fileNameMakalah` is the URL you want to open
-						val url = "${BuildConfig.BASE_URL}${fileMhs.filePathMakalah.toString()}/${fileMhs.fileNameMakalah.toString()}"
-
-						binding.tvMakalahUrl.setOnClickListener {
-							// Create an Intent with ACTION_VIEW
-							val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-
-							// Check if there's an app that can handle this intent
-							if (browserIntent.resolveActivity(packageManager) != null) {
-								// Start the browser activity
-								startActivity(browserIntent)
-							} else {
-								// Handle the case where there is no app to handle the intent
-								Toast.makeText(this, "No app to handle the link.", Toast.LENGTH_SHORT).show()
-							}
-						}
-					}
+					viewPdfMakalah(getFileIndexResult)
 				}
 
 				else -> {}
@@ -215,6 +191,134 @@ class TestUploadActivity : AppCompatActivity() {
 				}
 			}
 		}
+
+	private fun viewPdfMakalah(getFileIndexResult : Resource<FileIndexRemoteResponse>){
+		if (getFileIndexResult.payload!!.data!!.fileMhs == null) {
+			binding.tvHasilFileIndex.text = "Hasil: Anda belum memiliki kelompok"
+		} else {
+			binding.tvHasilFileIndex.text =
+				"Hasil: Judul capstone anda adalah ${getFileIndexResult.payload.data!!.fileMhs!!.judulCapstone.toString()}"
+
+		}
+
+		val fileMhs = getFileIndexResult.payload?.data?.fileMhs
+
+		if (fileMhs?.fileNameMakalah == null) {
+			binding.tvMakalahUrl.text = "Hasil: Anda belum upload makalah"
+		} else {
+			binding.tvMakalahUrl.text = "Tekan untuk melihat makalah"
+
+			binding.tvMakalahUrl.setOnClickListener {
+
+				fileSayaViewModel.getUserId().observe(this) { userId ->
+					if (userId != null) {
+						fileSayaViewModel.getApiToken().observe(this) { apiToken ->
+							if (apiToken != null) {
+								// Both userId and apiToken are available now
+
+								val filePath = fileMhs.filePathMakalah.toString()
+								val modifiedPath = filePath.replaceFirst("/", "")
+
+								fileSayaViewModel.viewPdf(
+									ViewPdfRemoteRequestBody(
+										userId = userId.toString(),
+										apiToken = apiToken.toString(),
+										filePath = "${modifiedPath}/",
+										fileName = fileMhs.fileNameMakalah.toString()
+									)
+								)
+							}
+						}
+					}
+				}
+
+				fileSayaViewModel.viewPdfResult.observe(this) { viewPdfResult ->
+
+					when (viewPdfResult) {
+						is Resource.Loading -> {
+							setLoading(true)
+						}
+
+						is Resource.Error -> {
+							setLoading(false)
+							Log.d(
+								"Result status",
+								viewPdfResult.payload?.status.toString()
+							)
+							Log.d(
+								"Result message",
+								viewPdfResult.payload?.message.toString()
+							)
+							Log.d(
+								"Exception", viewPdfResult.exception?.message.toString()
+							)
+							Toast.makeText(
+								this@TestUploadActivity,
+								"Result: ${viewPdfResult.payload?.message.toString()}",
+								Toast.LENGTH_SHORT
+							).show()
+
+						}
+
+						is Resource.Success -> {
+							setLoading(false)
+							Log.d(
+								"Result status",
+								viewPdfResult.payload?.status.toString()
+							)
+							Log.d(
+								"Result message",
+								viewPdfResult.payload?.message.toString()
+							)
+							Toast.makeText(
+								this@TestUploadActivity,
+								"Result: PDF berhasil diunduh!",
+								Toast.LENGTH_SHORT
+							).show()
+
+							// Check if the app has the WRITE_EXTERNAL_STORAGE permission
+							if (ContextCompat.checkSelfPermission(
+									this@TestUploadActivity,
+									Manifest.permission.WRITE_EXTERNAL_STORAGE
+								) != PackageManager.PERMISSION_GRANTED
+							) {
+								// Request the permission if it's not granted
+								ActivityCompat.requestPermissions(
+									this@TestUploadActivity,
+									arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+									200
+								)
+							} else {
+								// Permission already granted, proceed with file operations
+								val base64Encode = viewPdfResult.payload?.data.toString()
+
+								// Decode base64 string to byte array
+								val decodedBytes = android.util.Base64.decode(
+									base64Encode,
+									android.util.Base64.DEFAULT
+								)
+
+								// Save the file in the Downloads directory
+								val fileName = fileMhs.fileNameMakalah
+								val downloadDir =
+									Environment.getExternalStoragePublicDirectory(
+										Environment.DIRECTORY_DOWNLOADS
+									)
+								val filePath = File(downloadDir, fileName)
+
+								// Write the byte array to the file
+								val fileOutputStream = FileOutputStream(filePath)
+								fileOutputStream.write(decodedBytes)
+								fileOutputStream.close()										}
+
+						}
+
+						else -> {}
+					}
+				}
+			}
+		}
+	}
 
 
 	private fun setLoading(isLoading: Boolean) {
