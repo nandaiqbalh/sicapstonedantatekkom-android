@@ -6,8 +6,14 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.response.AuthLogoutRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.BroadcastRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c100.response.UploadC100ProcessRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c200.response.UploadC200ProcessRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c300.response.UploadC300ProcessRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c400.response.UploadC400ProcessRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c500.response.UploadC500ProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.FileIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.file.laporan.response.UploadLaporanProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.makalah.response.UploadMakalahProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.request.ViewPdfRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.response.ViewPdfRemoteResponse
@@ -96,6 +102,57 @@ interface ApiService {
 		@Query("id_mahasiswa") idMahasiswa: String,
 		@Part makalah: MultipartBody.Part
 	): UploadMakalahProcessRemoteResponse
+
+	@Multipart
+	@POST("capstone_team/public/api/v1/mahasiswa/upload-file/upload-laporan-process")
+	suspend fun uploadLaporanProcess(
+		@Query("user_id") userId: String,
+		@Query("api_token") apiToken: String,
+		@Query("id_mahasiswa") idMahasiswa: String,
+		@Part laporan_ta: MultipartBody.Part
+	): UploadLaporanProcessRemoteResponse
+
+	@Multipart
+	@POST("capstone_team/public/api/v1/mahasiswa/upload-file/upload-c100-process")
+	suspend fun uploadC100Process(
+		@Query("user_id") userId: String,
+		@Query("api_token") apiToken: String,
+		@Query("id") idMahasiswa: String,
+		@Part c100: MultipartBody.Part
+	): UploadC100ProcessRemoteResponse
+	@Multipart
+	@POST("capstone_team/public/api/v1/mahasiswa/upload-file/upload-c200-process")
+	suspend fun uploadC200Process(
+		@Query("user_id") userId: String,
+		@Query("api_token") apiToken: String,
+		@Query("id") idMahasiswa: String,
+		@Part c200: MultipartBody.Part
+	): UploadC200ProcessRemoteResponse
+	@Multipart
+	@POST("capstone_team/public/api/v1/mahasiswa/upload-file/upload-c300-process")
+	suspend fun uploadC300Process(
+		@Query("user_id") userId: String,
+		@Query("api_token") apiToken: String,
+		@Query("id") idMahasiswa: String,
+		@Part c300: MultipartBody.Part
+	): UploadC300ProcessRemoteResponse
+	@Multipart
+	@POST("capstone_team/public/api/v1/mahasiswa/upload-file/upload-c400-process")
+	suspend fun uploadC400Process(
+		@Query("user_id") userId: String,
+		@Query("api_token") apiToken: String,
+		@Query("id") idMahasiswa: String,
+		@Part c400: MultipartBody.Part
+	): UploadC400ProcessRemoteResponse
+
+	@Multipart
+	@POST("capstone_team/public/api/v1/mahasiswa/upload-file/upload-c500-process")
+	suspend fun uploadC500Process(
+		@Query("user_id") userId: String,
+		@Query("api_token") apiToken: String,
+		@Query("id") idMahasiswa: String,
+		@Part c500: MultipartBody.Part
+	): UploadC500ProcessRemoteResponse
 
 	@POST("capstone_team/public/api/v1/mahasiswa/view-pdf")
 	suspend fun viewPdf(

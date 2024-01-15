@@ -40,10 +40,125 @@
         android:id="@+id/tv_makalah_url"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="URL to Makalah"
+        android:text="Download Makalah"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_upload_makalah" />
+
+    <Button
+        android:id="@+id/btn_upload_laporan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload laporan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_makalah_url" />
+
+    <TextView
+        android:id="@+id/tv_laporan_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download c100"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_upload_laporan" />
+
+    <Button
+        android:id="@+id/btn_upload_c100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload c100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_laporan_url" />
+
+    <TextView
+        android:id="@+id/tv_c100_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download c100"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_upload_c100" />
+
+    <Button
+        android:id="@+id/btn_upload_c200"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload c200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_c100_url" />
+
+    <TextView
+        android:id="@+id/tv_c200_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download c200"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_upload_c200" />
+
+    <Button
+        android:id="@+id/btn_upload_c300"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload c300"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_c200_url" />
+
+    <TextView
+        android:id="@+id/tv_c300_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download c300"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_upload_c300" />
+
+    <Button
+        android:id="@+id/btn_upload_c400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload c400"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_c300_url" />
+
+    <TextView
+        android:id="@+id/tv_c400_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download c400"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_upload_c400" />
+
+    <Button
+        android:id="@+id/btn_upload_c500"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload c500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_c400_url" />
+
+    <TextView
+        android:id="@+id/tv_c500_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download c500"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_upload_c500" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
