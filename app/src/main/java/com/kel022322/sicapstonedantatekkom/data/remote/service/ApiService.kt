@@ -117,7 +117,7 @@ interface ApiService {
 	suspend fun uploadC100Process(
 		@Query("user_id") userId: String,
 		@Query("api_token") apiToken: String,
-		@Query("id") idMahasiswa: String,
+		@Query("id") id: String,
 		@Part c100: MultipartBody.Part
 	): UploadC100ProcessRemoteResponse
 	@Multipart
@@ -125,7 +125,7 @@ interface ApiService {
 	suspend fun uploadC200Process(
 		@Query("user_id") userId: String,
 		@Query("api_token") apiToken: String,
-		@Query("id") idMahasiswa: String,
+		@Query("id") id: String,
 		@Part c200: MultipartBody.Part
 	): UploadC200ProcessRemoteResponse
 	@Multipart
@@ -133,7 +133,7 @@ interface ApiService {
 	suspend fun uploadC300Process(
 		@Query("user_id") userId: String,
 		@Query("api_token") apiToken: String,
-		@Query("id") idMahasiswa: String,
+		@Query("id") id: String,
 		@Part c300: MultipartBody.Part
 	): UploadC300ProcessRemoteResponse
 	@Multipart
@@ -141,7 +141,7 @@ interface ApiService {
 	suspend fun uploadC400Process(
 		@Query("user_id") userId: String,
 		@Query("api_token") apiToken: String,
-		@Query("id") idMahasiswa: String,
+		@Query("id") id: String,
 		@Part c400: MultipartBody.Part
 	): UploadC400ProcessRemoteResponse
 
@@ -150,7 +150,7 @@ interface ApiService {
 	suspend fun uploadC500Process(
 		@Query("user_id") userId: String,
 		@Query("api_token") apiToken: String,
-		@Query("id") idMahasiswa: String,
+		@Query("id") id: String,
 		@Part c500: MultipartBody.Part
 	): UploadC500ProcessRemoteResponse
 

@@ -95,6 +95,9 @@ class TestUploadActivity : AppCompatActivity() {
 						Toast.LENGTH_SHORT
 					).show()
 
+					Log.d("FILE NAMEEE", getFileIndexResult.payload?.data?.fileMhs?.fileNameC100.toString())
+					Log.d("FILE NAMEEE", getFileIndexResult.payload?.data?.fileMhs?.fileNameC200.toString())
+
 					id = getFileIndexResult.payload?.data?.fileMhs?.id.toString()
 
 					viewPdf(getFileIndexResult)
