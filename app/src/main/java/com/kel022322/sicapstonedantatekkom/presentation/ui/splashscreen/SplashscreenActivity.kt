@@ -1,5 +1,6 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -7,9 +8,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.kel022322.sicapstonedantatekkom.databinding.ActivitySplashscreenBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.login.LoginActivity
-import com.kel022322.sicapstonedantatekkom.presentation.ui.test.TestActivity
+import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
+@Suppress("DEPRECATION")
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashscreenActivity : AppCompatActivity() {
 
@@ -30,7 +33,7 @@ class SplashscreenActivity : AppCompatActivity() {
 		splashscreenViewModel.getStatusAuth().observe(this) { statusOnboarding ->
 			Handler().postDelayed({
 				if (statusOnboarding == true) {
-					val intent = Intent(this@SplashscreenActivity, TestActivity::class.java)
+					val intent = Intent(this@SplashscreenActivity, MainActivity::class.java)
 					startActivity(intent)
 					finish()
 				} else {
