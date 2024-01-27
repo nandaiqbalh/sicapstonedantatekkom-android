@@ -18,7 +18,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.request.ViewPdfRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.ActivityTestUploadBinding
-import com.kel022322.sicapstonedantatekkom.presentation.ui.filesaya.FileSayaViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.DokumenViewModel
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -34,7 +34,7 @@ class TestUploadActivity : AppCompatActivity() {
 	private var _binding: ActivityTestUploadBinding? = null
 	private val binding get() = _binding!!
 
-	private val fileSayaViewModel: FileSayaViewModel by viewModels()
+	private val dokumenViewModel: DokumenViewModel by viewModels()
 
 	private var id: String? = ""
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,12 +50,12 @@ class TestUploadActivity : AppCompatActivity() {
 	private fun checkIndex() {
 		setLoading(true)
 
-		fileSayaViewModel.getUserId().observe(this) { userId ->
+		dokumenViewModel.getUserId().observe(this) { userId ->
 			if (userId != null) {
-				fileSayaViewModel.getApiToken().observe(this) { apiToken ->
+				dokumenViewModel.getApiToken().observe(this) { apiToken ->
 					if (apiToken != null) {
 						// Both userId and apiToken are available now
-						fileSayaViewModel.getFileIndex(
+						dokumenViewModel.getFileIndex(
 							FileIndexRemoteRequestBody(
 								userId = userId.toString(), apiToken = apiToken.toString()
 							)
@@ -65,7 +65,7 @@ class TestUploadActivity : AppCompatActivity() {
 			}
 		}
 
-		fileSayaViewModel.getFileIndexResult.observe(this) { getFileIndexResult ->
+		dokumenViewModel.getFileIndexResult.observe(this) { getFileIndexResult ->
 
 			when (getFileIndexResult) {
 				is Resource.Loading -> {
@@ -155,7 +155,7 @@ class TestUploadActivity : AppCompatActivity() {
 	}
 
 	private fun resultUploadObserver() {
-		fileSayaViewModel.uploadMakalahProcessResult.observe(this) { uploadMakalahProcessResult ->
+		dokumenViewModel.uploadMakalahProcessResult.observe(this) { uploadMakalahProcessResult ->
 			when (uploadMakalahProcessResult) {
 				is Resource.Loading -> {
 					setLoading(true)
@@ -188,7 +188,7 @@ class TestUploadActivity : AppCompatActivity() {
 			}
 		}
 
-		fileSayaViewModel.uploadLaporanProcessResult.observe(this) { uploadLaporanProcessResult ->
+		dokumenViewModel.uploadLaporanProcessResult.observe(this) { uploadLaporanProcessResult ->
 			when (uploadLaporanProcessResult) {
 				is Resource.Loading -> {
 					setLoading(true)
@@ -221,7 +221,7 @@ class TestUploadActivity : AppCompatActivity() {
 			}
 		}
 
-		fileSayaViewModel.uploadC100ProcessResult.observe(this) { uploadC100ProcessResult ->
+		dokumenViewModel.uploadC100ProcessResult.observe(this) { uploadC100ProcessResult ->
 			when (uploadC100ProcessResult) {
 				is Resource.Loading -> {
 					setLoading(true)
@@ -254,7 +254,7 @@ class TestUploadActivity : AppCompatActivity() {
 			}
 		}
 
-		fileSayaViewModel.uploadC200ProcessResult.observe(this) { uploadC200ProcessResult ->
+		dokumenViewModel.uploadC200ProcessResult.observe(this) { uploadC200ProcessResult ->
 			when (uploadC200ProcessResult) {
 				is Resource.Loading -> {
 					setLoading(true)
@@ -287,7 +287,7 @@ class TestUploadActivity : AppCompatActivity() {
 			}
 		}
 
-		fileSayaViewModel.uploadC300ProcessResult.observe(this) { uploadC300ProcessResult ->
+		dokumenViewModel.uploadC300ProcessResult.observe(this) { uploadC300ProcessResult ->
 			when (uploadC300ProcessResult) {
 				is Resource.Loading -> {
 					setLoading(true)
@@ -320,7 +320,7 @@ class TestUploadActivity : AppCompatActivity() {
 			}
 		}
 
-		fileSayaViewModel.uploadC400ProcessResult.observe(this) { uploadC400ProcessResult ->
+		dokumenViewModel.uploadC400ProcessResult.observe(this) { uploadC400ProcessResult ->
 			when (uploadC400ProcessResult) {
 				is Resource.Loading -> {
 					setLoading(true)
@@ -353,7 +353,7 @@ class TestUploadActivity : AppCompatActivity() {
 			}
 		}
 
-		fileSayaViewModel.uploadC500ProcessResult.observe(this) { uploadC500ProcessResult ->
+		dokumenViewModel.uploadC500ProcessResult.observe(this) { uploadC500ProcessResult ->
 			when (uploadC500ProcessResult) {
 				is Resource.Loading -> {
 					setLoading(true)
@@ -405,13 +405,13 @@ class TestUploadActivity : AppCompatActivity() {
 					val makalahPart =
 						MultipartBody.Part.createFormData("makalah", file.name, requestBody)
 
-					fileSayaViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
+					dokumenViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
 						userId?.let {
-							fileSayaViewModel.getApiToken()
+							dokumenViewModel.getApiToken()
 								.observe(this@TestUploadActivity) { apiToken ->
 									apiToken?.let {
 
-										fileSayaViewModel.uploadMakalahProcess(
+										dokumenViewModel.uploadMakalahProcess(
 											userId = userId.toString(),
 											apiToken = apiToken.toString(),
 											idMahasiswa = userId.toString(),
@@ -452,13 +452,13 @@ class TestUploadActivity : AppCompatActivity() {
 					val laporanPart =
 						MultipartBody.Part.createFormData("laporan_ta", file.name, requestBody)
 
-					fileSayaViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
+					dokumenViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
 						userId?.let {
-							fileSayaViewModel.getApiToken()
+							dokumenViewModel.getApiToken()
 								.observe(this@TestUploadActivity) { apiToken ->
 									apiToken?.let {
 
-										fileSayaViewModel.uploadLaporanProcess(
+										dokumenViewModel.uploadLaporanProcess(
 											userId = userId.toString(),
 											apiToken = apiToken.toString(),
 											idMahasiswa = userId.toString(),
@@ -498,13 +498,13 @@ class TestUploadActivity : AppCompatActivity() {
 					val requestBody = file.asRequestBody("application/pdf".toMediaTypeOrNull())
 					val c100Part = MultipartBody.Part.createFormData("c100", file.name, requestBody)
 
-					fileSayaViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
+					dokumenViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
 						userId?.let {
-							fileSayaViewModel.getApiToken()
+							dokumenViewModel.getApiToken()
 								.observe(this@TestUploadActivity) { apiToken ->
 									apiToken?.let {
 
-										fileSayaViewModel.uploadC100Process(
+										dokumenViewModel.uploadC100Process(
 											userId = userId.toString(),
 											apiToken = apiToken.toString(),
 											id = id.toString(),
@@ -544,13 +544,13 @@ class TestUploadActivity : AppCompatActivity() {
 					val requestBody = file.asRequestBody("application/pdf".toMediaTypeOrNull())
 					val c200Part = MultipartBody.Part.createFormData("c200", file.name, requestBody)
 
-					fileSayaViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
+					dokumenViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
 						userId?.let {
-							fileSayaViewModel.getApiToken()
+							dokumenViewModel.getApiToken()
 								.observe(this@TestUploadActivity) { apiToken ->
 									apiToken?.let {
 
-										fileSayaViewModel.uploadC200Process(
+										dokumenViewModel.uploadC200Process(
 											userId = userId.toString(),
 											apiToken = apiToken.toString(),
 											id = id.toString(),
@@ -590,13 +590,13 @@ class TestUploadActivity : AppCompatActivity() {
 					val requestBody = file.asRequestBody("application/pdf".toMediaTypeOrNull())
 					val c300Part = MultipartBody.Part.createFormData("c300", file.name, requestBody)
 
-					fileSayaViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
+					dokumenViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
 						userId?.let {
-							fileSayaViewModel.getApiToken()
+							dokumenViewModel.getApiToken()
 								.observe(this@TestUploadActivity) { apiToken ->
 									apiToken?.let {
 
-										fileSayaViewModel.uploadC300Process(
+										dokumenViewModel.uploadC300Process(
 											userId = userId.toString(),
 											apiToken = apiToken.toString(),
 											id = id.toString(),
@@ -636,13 +636,13 @@ class TestUploadActivity : AppCompatActivity() {
 					val requestBody = file.asRequestBody("application/pdf".toMediaTypeOrNull())
 					val c400Part = MultipartBody.Part.createFormData("c400", file.name, requestBody)
 
-					fileSayaViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
+					dokumenViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
 						userId?.let {
-							fileSayaViewModel.getApiToken()
+							dokumenViewModel.getApiToken()
 								.observe(this@TestUploadActivity) { apiToken ->
 									apiToken?.let {
 
-										fileSayaViewModel.uploadC400Process(
+										dokumenViewModel.uploadC400Process(
 											userId = userId.toString(),
 											apiToken = apiToken.toString(),
 											id = id.toString(),
@@ -682,13 +682,13 @@ class TestUploadActivity : AppCompatActivity() {
 					val requestBody = file.asRequestBody("application/pdf".toMediaTypeOrNull())
 					val c500Part = MultipartBody.Part.createFormData("c500", file.name, requestBody)
 
-					fileSayaViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
+					dokumenViewModel.getUserId().observe(this@TestUploadActivity) { userId ->
 						userId?.let {
-							fileSayaViewModel.getApiToken()
+							dokumenViewModel.getApiToken()
 								.observe(this@TestUploadActivity) { apiToken ->
 									apiToken?.let {
 
-										fileSayaViewModel.uploadC500Process(
+										dokumenViewModel.uploadC500Process(
 											userId = userId.toString(),
 											apiToken = apiToken.toString(),
 											id = id.toString(),
@@ -741,16 +741,16 @@ class TestUploadActivity : AppCompatActivity() {
 
 			binding.tvMakalahUrl.setOnClickListener {
 
-				fileSayaViewModel.getUserId().observe(this) { userId ->
+				dokumenViewModel.getUserId().observe(this) { userId ->
 					if (userId != null) {
-						fileSayaViewModel.getApiToken().observe(this) { apiToken ->
+						dokumenViewModel.getApiToken().observe(this) { apiToken ->
 							if (apiToken != null) {
 								// Both userId and apiToken are available now
 
 								val filePath = fileMhs.filePathMakalah.toString()
 								val modifiedPath = filePath.replaceFirst("/", "")
 
-								fileSayaViewModel.viewPdf(
+								dokumenViewModel.viewPdf(
 									ViewPdfRemoteRequestBody(
 										userId = userId.toString(),
 										apiToken = apiToken.toString(),
@@ -763,7 +763,7 @@ class TestUploadActivity : AppCompatActivity() {
 					}
 				}
 
-				fileSayaViewModel.viewPdfResult.observe(this) { viewPdfResult ->
+				dokumenViewModel.viewPdfResult.observe(this) { viewPdfResult ->
 
 					when (viewPdfResult) {
 						is Resource.Loading -> {
@@ -856,16 +856,16 @@ class TestUploadActivity : AppCompatActivity() {
 
 			binding.tvLaporanUrl.setOnClickListener {
 
-				fileSayaViewModel.getUserId().observe(this) { userId ->
+				dokumenViewModel.getUserId().observe(this) { userId ->
 					if (userId != null) {
-						fileSayaViewModel.getApiToken().observe(this) { apiToken ->
+						dokumenViewModel.getApiToken().observe(this) { apiToken ->
 							if (apiToken != null) {
 								// Both userId and apiToken are available now
 
 								val filePath = fileMhs.filePathLaporanTa.toString()
 								val modifiedPath = filePath.replaceFirst("/", "")
 
-								fileSayaViewModel.viewPdf(
+								dokumenViewModel.viewPdf(
 									ViewPdfRemoteRequestBody(
 										userId = userId.toString(),
 										apiToken = apiToken.toString(),
@@ -878,7 +878,7 @@ class TestUploadActivity : AppCompatActivity() {
 					}
 				}
 
-				fileSayaViewModel.viewPdfResult.observe(this) { viewPdfResult ->
+				dokumenViewModel.viewPdfResult.observe(this) { viewPdfResult ->
 
 					when (viewPdfResult) {
 						is Resource.Loading -> {
@@ -972,16 +972,16 @@ class TestUploadActivity : AppCompatActivity() {
 
 			binding.tvC100Url.setOnClickListener {
 
-				fileSayaViewModel.getUserId().observe(this) { userId ->
+				dokumenViewModel.getUserId().observe(this) { userId ->
 					if (userId != null) {
-						fileSayaViewModel.getApiToken().observe(this) { apiToken ->
+						dokumenViewModel.getApiToken().observe(this) { apiToken ->
 							if (apiToken != null) {
 								// Both userId and apiToken are available now
 
 								val filePath = fileMhs.filePathC100.toString()
 								val modifiedPath = filePath.replaceFirst("/", "")
 
-								fileSayaViewModel.viewPdf(
+								dokumenViewModel.viewPdf(
 									ViewPdfRemoteRequestBody(
 										userId = userId.toString(),
 										apiToken = apiToken.toString(),
@@ -994,7 +994,7 @@ class TestUploadActivity : AppCompatActivity() {
 					}
 				}
 
-				fileSayaViewModel.viewPdfResult.observe(this) { viewPdfResult ->
+				dokumenViewModel.viewPdfResult.observe(this) { viewPdfResult ->
 
 					when (viewPdfResult) {
 						is Resource.Loading -> {
@@ -1089,16 +1089,16 @@ class TestUploadActivity : AppCompatActivity() {
 
 			binding.tvC200Url.setOnClickListener {
 
-				fileSayaViewModel.getUserId().observe(this) { userId ->
+				dokumenViewModel.getUserId().observe(this) { userId ->
 					if (userId != null) {
-						fileSayaViewModel.getApiToken().observe(this) { apiToken ->
+						dokumenViewModel.getApiToken().observe(this) { apiToken ->
 							if (apiToken != null) {
 								// Both userId and apiToken are available now
 
 								val filePath = fileMhs.filePathC200.toString()
 								val modifiedPath = filePath.replaceFirst("/", "")
 
-								fileSayaViewModel.viewPdf(
+								dokumenViewModel.viewPdf(
 									ViewPdfRemoteRequestBody(
 										userId = userId.toString(),
 										apiToken = apiToken.toString(),
@@ -1111,7 +1111,7 @@ class TestUploadActivity : AppCompatActivity() {
 					}
 				}
 
-				fileSayaViewModel.viewPdfResult.observe(this) { viewPdfResult ->
+				dokumenViewModel.viewPdfResult.observe(this) { viewPdfResult ->
 
 					when (viewPdfResult) {
 						is Resource.Loading -> {
@@ -1206,16 +1206,16 @@ class TestUploadActivity : AppCompatActivity() {
 
 			binding.tvC300Url.setOnClickListener {
 
-				fileSayaViewModel.getUserId().observe(this) { userId ->
+				dokumenViewModel.getUserId().observe(this) { userId ->
 					if (userId != null) {
-						fileSayaViewModel.getApiToken().observe(this) { apiToken ->
+						dokumenViewModel.getApiToken().observe(this) { apiToken ->
 							if (apiToken != null) {
 								// Both userId and apiToken are available now
 
 								val filePath = fileMhs.filePathC300.toString()
 								val modifiedPath = filePath.replaceFirst("/", "")
 
-								fileSayaViewModel.viewPdf(
+								dokumenViewModel.viewPdf(
 									ViewPdfRemoteRequestBody(
 										userId = userId.toString(),
 										apiToken = apiToken.toString(),
@@ -1228,7 +1228,7 @@ class TestUploadActivity : AppCompatActivity() {
 					}
 				}
 
-				fileSayaViewModel.viewPdfResult.observe(this) { viewPdfResult ->
+				dokumenViewModel.viewPdfResult.observe(this) { viewPdfResult ->
 
 					when (viewPdfResult) {
 						is Resource.Loading -> {
@@ -1323,16 +1323,16 @@ class TestUploadActivity : AppCompatActivity() {
 
 			binding.tvC400Url.setOnClickListener {
 
-				fileSayaViewModel.getUserId().observe(this) { userId ->
+				dokumenViewModel.getUserId().observe(this) { userId ->
 					if (userId != null) {
-						fileSayaViewModel.getApiToken().observe(this) { apiToken ->
+						dokumenViewModel.getApiToken().observe(this) { apiToken ->
 							if (apiToken != null) {
 								// Both userId and apiToken are available now
 
 								val filePath = fileMhs.filePathC400.toString()
 								val modifiedPath = filePath.replaceFirst("/", "")
 
-								fileSayaViewModel.viewPdf(
+								dokumenViewModel.viewPdf(
 									ViewPdfRemoteRequestBody(
 										userId = userId.toString(),
 										apiToken = apiToken.toString(),
@@ -1345,7 +1345,7 @@ class TestUploadActivity : AppCompatActivity() {
 					}
 				}
 
-				fileSayaViewModel.viewPdfResult.observe(this) { viewPdfResult ->
+				dokumenViewModel.viewPdfResult.observe(this) { viewPdfResult ->
 
 					when (viewPdfResult) {
 						is Resource.Loading -> {
@@ -1440,16 +1440,16 @@ class TestUploadActivity : AppCompatActivity() {
 
 			binding.tvC500Url.setOnClickListener {
 
-				fileSayaViewModel.getUserId().observe(this) { userId ->
+				dokumenViewModel.getUserId().observe(this) { userId ->
 					if (userId != null) {
-						fileSayaViewModel.getApiToken().observe(this) { apiToken ->
+						dokumenViewModel.getApiToken().observe(this) { apiToken ->
 							if (apiToken != null) {
 								// Both userId and apiToken are available now
 
 								val filePath = fileMhs.filePathC500.toString()
 								val modifiedPath = filePath.replaceFirst("/", "")
 
-								fileSayaViewModel.viewPdf(
+								dokumenViewModel.viewPdf(
 									ViewPdfRemoteRequestBody(
 										userId = userId.toString(),
 										apiToken = apiToken.toString(),
@@ -1462,7 +1462,7 @@ class TestUploadActivity : AppCompatActivity() {
 					}
 				}
 
-				fileSayaViewModel.viewPdfResult.observe(this) { viewPdfResult ->
+				dokumenViewModel.viewPdfResult.observe(this) { viewPdfResult ->
 
 					when (viewPdfResult) {
 						is Resource.Loading -> {

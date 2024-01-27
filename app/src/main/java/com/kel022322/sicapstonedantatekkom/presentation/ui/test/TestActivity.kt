@@ -19,8 +19,8 @@ import com.kel022322.sicapstonedantatekkom.databinding.ActivityTestBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.login.LoginViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.logout.LogoutViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.pengumuman.PengumumanViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompoksaya.KelompokSayaViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profilsaya.ProfileSayaViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 

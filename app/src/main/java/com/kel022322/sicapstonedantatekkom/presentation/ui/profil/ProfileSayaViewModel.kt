@@ -1,4 +1,4 @@
-package com.kel022322.sicapstonedantatekkom.presentation.ui.profilsaya
+package com.kel022322.sicapstonedantatekkom.presentation.ui.profil
 
 import android.util.Log
 import androidx.lifecycle.LiveData

@@ -1,4 +1,4 @@
-package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompoksaya
+package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

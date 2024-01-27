@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mahasiswaBerandaFragment"
+        android:title="@string/title_beranda"
+        android:enabled="true"
+        android:icon="@drawable/ic_selector_beranda"/>
+    <item
+        android:id="@+id/mahasiswaKelompokFragment"
+        android:title="@string/title_kelompok"
+        android:enabled="true"
+        android:icon="@drawable/ic_selector_kelompok"/>
+
+    <item
+        android:id="@+id/mahasiswaDokumenFragment"
+        android:title="@string/title_dokumen"
+        android:enabled="true"
+        android:icon="@drawable/ic_selector_dokumen"/>
+
+    <item
+        android:id="@+id/mahasiswaProfilFragment"
+        android:title="@string/title_profil"
+        android:enabled="true"
+        android:icon="@drawable/ic_selector_profil"/>
+</menu>

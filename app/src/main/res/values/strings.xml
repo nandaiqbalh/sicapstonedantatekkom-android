@@ -8,4 +8,10 @@
     <string name="edt_hint_id_pengguna">Masukkan ID Pengguna</string>
     <string name="tv_id_pengguna">ID Pengguna</string>
     <string name="tv_error_input_blank">Kolom ini tidak boleh kosong!</string>
+    <string name="title_beranda">Beranda</string>
+    <string name="title_kelompok">Kelompok</string>
+    <string name="title_dokumen">Dokumen</string>
+    <string name="title_profil">Profil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

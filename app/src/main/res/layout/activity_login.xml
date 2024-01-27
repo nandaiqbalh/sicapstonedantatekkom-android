@@ -77,7 +77,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/edt_hint_id_pengguna">
+                    app:hintEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_id_pengguna"
@@ -86,6 +86,7 @@
                         android:layout_marginTop="2dp"
                         android:autofillHints=""
                         android:inputType="text"
+                        android:hint="@string/edt_hint_id_pengguna"
                         android:padding="16dp"
                         android:textSize="14sp" />
 
@@ -109,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:passwordToggleEnabled="true"
-                    android:hint="@string/edt_hint_password">
+                    app:hintEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_password"
@@ -119,6 +120,7 @@
                         android:autofillHints=""
                         android:inputType="textPassword"
                         android:padding="16dp"
+                        android:hint="@string/edt_hint_password"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 

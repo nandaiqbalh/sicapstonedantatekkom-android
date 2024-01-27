@@ -1,4 +1,4 @@
-package com.kel022322.sicapstonedantatekkom.presentation.ui.filesaya
+package com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,7 +27,7 @@ import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
-class FileSayaViewModel @Inject constructor(
+class DokumenViewModel @Inject constructor(
 	private val authDataStoreManager: AuthDataStoreManager,
 	private val fileRemoteRepository: FileRemoteRepository,
 ) : ViewModel() {
