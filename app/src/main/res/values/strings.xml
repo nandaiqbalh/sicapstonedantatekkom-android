@@ -14,4 +14,25 @@
     <string name="title_profil">Profil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="desc_nested_scroll_view_profil">desc_nested_scroll_view_profil</string>
+    <string name="desc_img_photo_profil">desc_img_photo_profil</string>
+    <string name="tv_title_profile_detail">Data Profil Akun</string>
+    <string name="title_nama_lengkap">Nama Lengkap</string>
+    <string name="btn_simpan">Simpan</string>
+    <string name="tv_hint_nama_lengkap">Masukkan Nama Lengkap</string>
+    <string name="title_nim">NIM</string>
+    <string name="title_email">Email</string>
+    <string name="title_no_telp">No. Telepon</string>
+    <string name="tv_hint_nim">Masukkan NIM</string>
+    <string name="tv_hint_email">Masukkan email</string>
+    <string name="tv_hint_no_telp">Masukkan nomor telepon</string>
+    <string name="nama_lengkap_mahasiswa">Nama Lengkap Mahasiswa</string>
+    <string name="nim_mahasiswa">NIM Mahasiswa</string>
+    <string name="tv_title_change_password">Ganti Password</string>
+    <string name="tv_title_current_password">Password Saat Ini</string>
+    <string name="tv_hint_current_password">Masukkan password saat ini</string>
+    <string name="tv_new_password">Masukkan password baru</string>
+    <string name="title_new_password">Password Baru</string>
+    <string name="konfirmasi_password_baru">Konfirmasi Password Baru</string>
+    <string name="tv_konfirmasi_password_baru">Masukkan konfirmasi password baru</string>
 </resources>

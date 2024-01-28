@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.kel022322.sicapstonedantatekkom.data.local.datastore.auth.AuthDataStoreManager
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.response.PhotoProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
@@ -38,6 +40,8 @@ class ProfileSayaViewModel @Inject constructor(
 	private var _updatePasswordResult = MutableLiveData<Resource<UpdatePasswordRemoteResponse>> ()
 	val updatePasswordResult : LiveData<Resource<UpdatePasswordRemoteResponse>> get() = _updatePasswordResult
 
+	private var _getPhotoProfileResult = MutableLiveData<Resource<PhotoProfileRemoteResponse>>()
+	val getPhotoProfileResult: LiveData<Resource<PhotoProfileRemoteResponse>> get() = _getPhotoProfileResult
 	fun getMahasiswaProfile(profileRemoteRequestBody: ProfileRemoteRequestBody){
 		viewModelScope.launch (Dispatchers.IO){
 			_getProfileResult.postValue(Resource.Loading())
@@ -116,6 +120,30 @@ class ProfileSayaViewModel @Inject constructor(
 
 	}
 
+	fun getPhotoProfile(photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody){
+		viewModelScope.launch (Dispatchers.IO){
+			_getPhotoProfileResult.postValue(Resource.Loading())
+
+			try {
+				val data = profileRemoteRepository.getPhotoProfile(photoProfileRemoteRequestBody)
+
+				if (data.payload != null){
+					viewModelScope.launch(Dispatchers.Main){
+						_getPhotoProfileResult.postValue(Resource.Success(data.payload))
+					}
+
+				} else {
+					_getPhotoProfileResult.postValue(Resource.Error(data.exception, null))
+				}
+
+			} catch (e:Exception){
+				viewModelScope.launch(Dispatchers.Main){
+					_getPhotoProfileResult.postValue(Resource.Error(e, null))
+				}
+			}
+		}
+	}
+
 	fun getApiToken(): LiveData<String?> = authDataStoreManager.getApiToken.asLiveData()
 
 	fun setApiToken(apiToken: String) = CoroutineScope(Dispatchers.IO).launch {
@@ -126,6 +154,10 @@ class ProfileSayaViewModel @Inject constructor(
 
 	fun setUserId(userId: String) = CoroutineScope(Dispatchers.IO).launch {
 		authDataStoreManager.setUserId(userId)
+	}
+
+	fun setStatusAuth(statusAuth: Boolean) = CoroutineScope(Dispatchers.IO).launch {
+		authDataStoreManager.setStatusAuth(statusAuth)
 	}
 
 }

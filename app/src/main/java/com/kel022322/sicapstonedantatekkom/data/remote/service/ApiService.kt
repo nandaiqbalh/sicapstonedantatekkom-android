@@ -23,6 +23,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompo
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.response.PhotoProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
@@ -158,4 +160,9 @@ interface ApiService {
 	suspend fun viewPdf(
 		@Body viewPdfRemoteRequestBody: ViewPdfRemoteRequestBody
 	) : ViewPdfRemoteResponse
+
+	@POST("capstone_team/public/api/v1/mahasiswa/profile/img-user")
+	suspend fun getPhotoProfile(
+		@Body photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody
+	) : PhotoProfileRemoteResponse
 }

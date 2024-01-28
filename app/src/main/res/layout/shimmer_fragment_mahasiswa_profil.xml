@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Minimumblue"
+    android:contentDescription="@string/desc_nested_scroll_view_profil"
+>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/shimmer_iv_profilephoto"
+            android:layout_width="114dp"
+            android:layout_height="117dp"
+            android:layout_marginTop="44dp"
+            android:height="117dp"
+            android:contentDescription="@string/desc_img_photo_profil"
+            android:src="@drawable/img_default_profile"
+            app:civ_border_color="@color/White"
+            app:civ_border_width="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/edit"
+            android:layout_width="34dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="-36dp"
+            android:layout_marginTop="-36dp"
+            android:height="37dp"
+            android:contentDescription="@string/desc_img_photo_profil"
+            android:src="@drawable/img_default_profile"
+            app:civ_border_color="@color/White"
+            app:civ_border_width="3dp"
+            app:layout_constraintStart_toEndOf="@id/shimmer_iv_profilephoto"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_iv_profilephoto" />
+
+        <TextView
+            android:id="@+id/shimmer_tv_nama_user"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:height="24dp"
+            android:background="@color/shimmer_gray"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="@color/BlackPearl"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_iv_profilephoto" />
+
+        <TextView
+            android:id="@+id/shimmer_tv_nim_user"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:height="24dp"
+            android:background="@color/shimmer_gray"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="@color/BlackPearl"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_tv_nama_user" />
+
+        <TextView
+            android:id="@+id/shimmer_tv_title_detailcapstone"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:height="24dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/shimmer_gray"
+            android:fontFamily="@font/poppinssemibold"
+            android:textColor="@color/lightblue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_tv_nim_user" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/shimmer_cv_detail_profil"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="21dp"
+            android:backgroundTint="@color/shimmer_gray"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_tv_title_detailcapstone">
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

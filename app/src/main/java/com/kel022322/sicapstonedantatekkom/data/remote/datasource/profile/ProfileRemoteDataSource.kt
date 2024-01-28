@@ -1,5 +1,7 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile
 
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.response.PhotoProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
@@ -22,6 +24,10 @@ interface ProfileRemoteDataSource {
 	suspend fun updatePasswordProfile(
 		updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody
 	) : UpdatePasswordRemoteResponse
+
+	suspend fun getPhotoProfile(
+		photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody
+	) : PhotoProfileRemoteResponse
 }
 
 class ProfileRemoteDataSourceImpl @Inject constructor(private val apiService: ApiService):ProfileRemoteDataSource{
@@ -36,5 +42,9 @@ class ProfileRemoteDataSourceImpl @Inject constructor(private val apiService: Ap
 
 	override suspend fun updatePasswordProfile(updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody): UpdatePasswordRemoteResponse {
 		return apiService.updatePasswordProfile(updatePasswordRemoteRequestBody)
+	}
+
+	override suspend fun getPhotoProfile(photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody): PhotoProfileRemoteResponse {
+		return apiService.getPhotoProfile(photoProfileRemoteRequestBody)
 	}
 }
