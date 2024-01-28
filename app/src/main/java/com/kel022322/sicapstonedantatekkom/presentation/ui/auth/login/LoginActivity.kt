@@ -130,16 +130,16 @@ class LoginActivity : AppCompatActivity() {
 
 		if (idPengguna.isEmpty()) {
 			isFormValid = false
-			binding.edtIdPengguna.error = getString(R.string.tv_error_input_blank)
+			binding.tilIdPengguna.error = getString(R.string.tv_error_input_blank)
 		} else {
-			binding.edtIdPengguna.error = null
+			binding.tilIdPengguna.error = null
 		}
 
 		if (password.isEmpty()) {
 			isFormValid = false
-			binding.edtPassword.error = getString(R.string.tv_error_input_blank)
+			binding.tilPassword.error = getString(R.string.tv_error_input_blank)
 		} else {
-			binding.edtPassword.error = null
+			binding.tilPassword.error = null
 		}
 
 		return isFormValid

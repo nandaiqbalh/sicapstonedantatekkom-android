@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomNIMEditText
                         android:id="@+id/edt_id_pengguna"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
                     app:passwordToggleEnabled="true"
                     app:hintEnabled="false">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
                         android:id="@+id/edt_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

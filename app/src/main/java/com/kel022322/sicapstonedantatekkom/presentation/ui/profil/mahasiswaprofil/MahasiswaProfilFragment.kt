@@ -16,6 +16,7 @@ import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaProfilBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
@@ -100,7 +101,7 @@ class MahasiswaProfilFragment : Fragment() {
 					setLoading(false)
 
 					val message = getProfileResult.payload?.message
-					showErrorSnackbar(message ?: "Terjadi kesalahan!")
+					showSnackbar(message ?: "Terjadi kesalahan!")
 				}
 
 				is Resource.Success -> {
@@ -131,7 +132,7 @@ class MahasiswaProfilFragment : Fragment() {
 
 						}
 					} else {
-						showErrorSnackbar(message ?: "Terjadi kesalahan!")
+						showSnackbar(message ?: "Terjadi kesalahan!")
 					}
 				}
 
@@ -150,7 +151,7 @@ class MahasiswaProfilFragment : Fragment() {
 
 					val message = getPhotoProfileResult.payload?.message
 
-					showErrorSnackbar(message ?: "Terjadi kesalahan!")
+					showSnackbar(message ?: "Terjadi kesalahan!")
 				}
 
 				is Resource.Success -> {
@@ -177,7 +178,7 @@ class MahasiswaProfilFragment : Fragment() {
 						}
 					} else {
 
-						showErrorSnackbar(
+						showSnackbar(
 							getPhotoProfileResult.payload?.message ?: "Terjadi kesalahan!"
 						)
 					}
@@ -194,14 +195,14 @@ class MahasiswaProfilFragment : Fragment() {
 			val alertDialogBuilder = AlertDialog.Builder(requireContext())
 			alertDialogBuilder.setTitle("Konfirmasi")
 			alertDialogBuilder.setMessage("Apakah anda yakin untuk mengubah profil anda?")
-			alertDialogBuilder.setPositiveButton("Ya") { dialog, which ->
+			alertDialogBuilder.setPositiveButton("Ya") { dialog, _ ->
 				setLoading(true)
 
 				doNetworkingUpdateProfile()
 
 				dialog.dismiss()
 			}
-			alertDialogBuilder.setNegativeButton("Tidak") { dialog, which ->
+			alertDialogBuilder.setNegativeButton("Tidak") { dialog, _ ->
 				dialog.dismiss()
 			}
 			val alertDialog = alertDialogBuilder.create()
@@ -210,47 +211,23 @@ class MahasiswaProfilFragment : Fragment() {
 	}
 
 	private fun ubahPassword() {
+		if (validateFormUbahPassword()) {
+			val alertDialogBuilder = AlertDialog.Builder(requireContext())
+			alertDialogBuilder.setTitle("Konfirmasi")
+			alertDialogBuilder.setMessage("Apakah anda yakin untuk mengubah password anda?")
+			alertDialogBuilder.setPositiveButton("Ya") { dialog, _ ->
+				setLoading(true)
 
-	}
+				doNetworkingUbahPassword()
 
-	private fun decodeBase64ToBitmap(base64: String): Bitmap {
-		val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
-		return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-	}
-
-	private fun showErrorSnackbar(message: String) {
-
-		customSnackbar.showSnackbarWithAction(
-			requireActivity().findViewById(android.R.id.content),
-			message,
-			"OK"
-		) {
-			customSnackbar.dismissSnackbar()
-			if (message == "Token tidak valid!" || message == "Pengguna tidak ditemukan!" || message == "Tidak ada api token!" || message == "Missing api_token in the request body.") {
-
-				profileViewModel.setApiToken("")
-				profileViewModel.setUserId("")
-				profileViewModel.setStatusAuth(false)
-
-				val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-				requireContext().startActivity(intent)
-				requireActivity().finishAffinity()
-			} else if (message == "null" || message.equals(null)) {
-				restartFragment()
+				dialog.dismiss()
 			}
+			alertDialogBuilder.setNegativeButton("Tidak") { dialog, _ ->
+				dialog.dismiss()
+			}
+			val alertDialog = alertDialogBuilder.create()
+			alertDialog.show()
 		}
-	}
-
-	private fun restartFragment() {
-		// Detach fragment
-		val ftDetach = parentFragmentManager.beginTransaction()
-		ftDetach.detach(this@MahasiswaProfilFragment)
-		ftDetach.commit()
-
-		// Attach fragment
-		val ftAttach = parentFragmentManager.beginTransaction()
-		ftAttach.attach(this@MahasiswaProfilFragment)
-		ftAttach.commit()
 	}
 
 	// bind input menjadi dalam bentuk request body
@@ -295,7 +272,7 @@ class MahasiswaProfilFragment : Fragment() {
 					setLoading(false)
 
 					val message = updateProfileResult.payload?.message
-					showErrorSnackbar(message ?: "Terjadi kesalahan!")
+					showSnackbar(message ?: "Terjadi kesalahan!")
 
 				}
 
@@ -305,7 +282,7 @@ class MahasiswaProfilFragment : Fragment() {
 					val message = updateProfileResult.payload?.message
 					Log.d("Result message", message.toString())
 
-					showErrorSnackbar(message ?: "Berhasil!")
+					showSnackbar(message ?: "Berhasil!")
 
 					if (updateProfileResult.payload?.data != null) {
 						val dataUser = updateProfileResult.payload.data
@@ -347,28 +324,28 @@ class MahasiswaProfilFragment : Fragment() {
 		// Validate name
 		if (namaPenggunaEntered.isEmpty()) {
 			isFormValid = false
-			binding.edtNamaLengkapPengguna.error = getString(R.string.tv_error_input_blank)
+			binding.tilNamaPengguna.error = getString(R.string.tv_error_input_blank)
 		} else {
-			binding.edtNamaLengkapPengguna.error = null
+			binding.tilNamaPengguna.error = null
 		}
 
 		// Validate email
 		if (emailPenggunaEntered.isEmpty()) {
 			isFormValid = false
-			binding.edtEmailPengguna.error = getString(R.string.tv_error_input_blank)
+			binding.tilEmailPengguna.error = getString(R.string.tv_error_input_blank)
 		} else if (!isValidEmail(emailPenggunaEntered)) {
-			binding.edtEmailPengguna.error = getString(R.string.tv_error_email_invalid)
+			binding.tilEmailPengguna.error = getString(R.string.tv_error_email_invalid)
 			isFormValid = false
 		} else {
-			binding.edtEmailPengguna.error = null
+			binding.tilEmailPengguna.error = null
 		}
 
 		// Validate phone number
 		if (noTelpPenggunaEntered.isEmpty()) {
 			isFormValid = false
-			binding.edtNoTelpPengguna.error = getString(R.string.tv_error_input_blank)
+			binding.tilNoTelpPengguna.error = getString(R.string.tv_error_input_blank)
 		} else if (!isValidPhoneNumber(noTelpPenggunaEntered)) {
-			binding.edtNoTelpPengguna.error = getString(R.string.tv_error_phone_invalid)
+			binding.tilNoTelpPengguna.error = getString(R.string.tv_error_phone_invalid)
 			isFormValid = false
 
 		} else {
@@ -376,6 +353,153 @@ class MahasiswaProfilFragment : Fragment() {
 		}
 
 		return isFormValid
+	}
+
+	private fun doNetworkingUbahPassword() {
+
+		val currentPassword = binding.edtCurrentPassword.text.toString().trim()
+		val newPassword = binding.edtNewPassword.text.toString().trim()
+		val newPasswordKonfirmation = binding.edtKonfirmasiPasswordBaru.text.toString().trim()
+
+		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+			if (userId != null) {
+				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+					apiToken?.let {
+						profileViewModel.updatePasswordProfile(
+							UpdatePasswordRemoteRequestBody(
+								userId = userId,
+								apiToken = it,
+								currentPassword = currentPassword,
+								newPassword = newPassword,
+								repeatNewPassword = newPasswordKonfirmation
+								)
+						)
+					}
+				}
+			}
+		}
+
+		profileViewModel.updatePasswordResult.observe(viewLifecycleOwner){updateProfileResult ->
+			when (updateProfileResult) {
+				is Resource.Loading -> {
+					setLoading(true)
+				}
+
+				is Resource.Error -> {
+					setLoading(false)
+
+					val message = updateProfileResult.payload?.message
+					showSnackbar(message ?: "Terjadi kesalahan!")
+
+				}
+
+				is Resource.Success -> {
+					setLoading(false)
+
+					val message = updateProfileResult.payload?.message
+					Log.d("Result message", message.toString())
+
+					if (message =="Password baru berhasil disimpan."){
+						showSnackbar("Password berhasil diubah, silahkan masuk kembali.")
+
+					}
+
+				}
+
+				else -> {}
+			}
+		}
+
+	}
+	private fun validateFormUbahPassword(): Boolean {
+		val currentPassword = binding.edtCurrentPassword.text.toString().trim()
+		val newPassword = binding.edtNewPassword.text.toString().trim()
+		val newPasswordKonfirmation = binding.edtKonfirmasiPasswordBaru.text.toString().trim()
+
+		var isFormValid = true
+
+		// Validate current password
+		if (currentPassword.isEmpty()) {
+			isFormValid = false
+			binding.tilCurrentPassword.error = getString(R.string.tv_error_input_blank)
+		} else {
+			binding.tilCurrentPassword.error = null
+		}
+
+		// Validate new password
+		if (newPassword.isEmpty()) {
+			isFormValid = false
+			binding.tilNewPassword.error = getString(R.string.tv_error_input_blank)
+		} else if (newPassword.length < 8) {
+			isFormValid = false
+			binding.tilNewPassword.error = getString(R.string.tv_error_password_minimum_length)
+		} else {
+			binding.tilNewPassword.error = null
+		}
+
+		// Validate password confirmation
+		if (newPasswordKonfirmation.isEmpty()) {
+			isFormValid = false
+			binding.tilKonfirmasiPasswordBaru.error = getString(R.string.tv_error_input_blank)
+		} else if (newPassword != newPasswordKonfirmation) {
+			isFormValid = false
+			binding.tilKonfirmasiPasswordBaru.error = getString(R.string.tv_error_password_mismatch)
+		} else {
+			binding.tilKonfirmasiPasswordBaru.error = null
+		}
+
+		return isFormValid
+	}
+
+
+	private fun decodeBase64ToBitmap(base64: String): Bitmap {
+		val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
+		return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+	}
+
+	private fun showSnackbar(message: String) {
+
+		customSnackbar.showSnackbarWithAction(
+			requireActivity().findViewById(android.R.id.content),
+			message,
+			"OK"
+		) {
+			customSnackbar.dismissSnackbar()
+			if (message == "Token tidak valid!" || message == "Pengguna tidak ditemukan!" || message == "Tidak ada api token!" || message == "Missing api_token in the request body.") {
+
+				profileViewModel.setApiToken("")
+				profileViewModel.setUserId("")
+				profileViewModel.setStatusAuth(false)
+
+				val intent = Intent(requireContext(), SplashscreenActivity::class.java)
+				requireContext().startActivity(intent)
+				requireActivity().finishAffinity()
+			} else if (message == "null" || message.equals(null) || message === "Terjadi kesalahan!") {
+				restartFragment()
+			} else if (message == "Password berhasil diubah, silahkan masuk kembali."){
+
+				profileViewModel.setApiToken("")
+				profileViewModel.setUserId("")
+				profileViewModel.setStatusAuth(false)
+
+				val intent = Intent(requireContext(), SplashscreenActivity::class.java)
+				requireContext().startActivity(intent)
+				requireActivity().finishAffinity()
+			}
+		}
+	}
+
+	private fun restartFragment() {
+
+		// Detach fragment
+		val ftDetach = parentFragmentManager.beginTransaction()
+		ftDetach.detach(this@MahasiswaProfilFragment)
+		ftDetach.commit()
+
+		// Attach fragment
+		val ftAttach = parentFragmentManager.beginTransaction()
+		ftAttach.attach(this@MahasiswaProfilFragment)
+		ftAttach.commit()
 	}
 
 

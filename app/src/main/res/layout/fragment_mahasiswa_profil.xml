@@ -203,7 +203,7 @@
                             android:layout_marginTop="4dp"
                             app:hintEnabled="false">
 
-                            <com.google.android.material.textfield.TextInputEditText
+                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
                                 android:id="@+id/edt_email_pengguna"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -234,7 +234,7 @@
                             android:layout_marginTop="4dp"
                             app:hintEnabled="false">
 
-                            <com.google.android.material.textfield.TextInputEditText
+                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
                                 android:id="@+id/edt_no_telp_pengguna"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -242,6 +242,7 @@
                                 android:hint="@string/tv_hint_no_telp"
                                 android:padding="12dp"
                                 android:textSize="12sp"
+                                android:inputType="number"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -328,7 +329,7 @@
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
-                            <com.google.android.material.textfield.TextInputEditText
+                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
                                 android:id="@+id/edt_current_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -360,7 +361,7 @@
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
-                            <com.google.android.material.textfield.TextInputEditText
+                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
                                 android:id="@+id/edt_new_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -392,7 +393,7 @@
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
-                            <com.google.android.material.textfield.TextInputEditText
+                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
                                 android:id="@+id/edt_konfirmasi_password_baru"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
