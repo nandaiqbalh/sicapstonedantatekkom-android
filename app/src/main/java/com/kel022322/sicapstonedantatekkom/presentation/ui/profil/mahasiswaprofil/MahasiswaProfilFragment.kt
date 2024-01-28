@@ -1,5 +1,6 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -11,10 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.snackbar.Snackbar
 import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaProfilBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
@@ -47,6 +48,23 @@ class MahasiswaProfilFragment : Fragment() {
 
 		// get profile
 		getProfile()
+
+		// button listener
+		doButtonListener()
+	}
+
+	private fun doButtonListener() {
+
+		// simpan profil button
+		binding.btnSimpanProfil.setOnClickListener {
+
+			simpanProfil()
+		}
+
+		// ubah password button
+		binding.btnUbahPassword.setOnClickListener {
+			ubahPassword()
+		}
 	}
 
 	private fun getProfile() {
@@ -170,6 +188,31 @@ class MahasiswaProfilFragment : Fragment() {
 		}
 	}
 
+	private fun simpanProfil() {
+
+		if (validateFormSimpanProfil()) {
+			val alertDialogBuilder = AlertDialog.Builder(requireContext())
+			alertDialogBuilder.setTitle("Konfirmasi")
+			alertDialogBuilder.setMessage("Apakah anda yakin untuk mengubah profil anda?")
+			alertDialogBuilder.setPositiveButton("Ya") { dialog, which ->
+				setLoading(true)
+
+				doNetworkingUpdateProfile()
+
+				dialog.dismiss()
+			}
+			alertDialogBuilder.setNegativeButton("Tidak") { dialog, which ->
+				dialog.dismiss()
+			}
+			val alertDialog = alertDialogBuilder.create()
+			alertDialog.show()
+		}
+	}
+
+	private fun ubahPassword() {
+
+	}
+
 	private fun decodeBase64ToBitmap(base64: String): Bitmap {
 		val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
 		return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
@@ -180,7 +223,6 @@ class MahasiswaProfilFragment : Fragment() {
 		customSnackbar.showSnackbarWithAction(
 			requireActivity().findViewById(android.R.id.content),
 			message,
-			Snackbar.LENGTH_LONG,
 			"OK"
 		) {
 			customSnackbar.dismissSnackbar()
@@ -199,7 +241,6 @@ class MahasiswaProfilFragment : Fragment() {
 		}
 	}
 
-
 	private fun restartFragment() {
 		// Detach fragment
 		val ftDetach = parentFragmentManager.beginTransaction()
@@ -210,6 +251,141 @@ class MahasiswaProfilFragment : Fragment() {
 		val ftAttach = parentFragmentManager.beginTransaction()
 		ftAttach.attach(this@MahasiswaProfilFragment)
 		ftAttach.commit()
+	}
+
+	// bind input menjadi dalam bentuk request body
+	private fun doNetworkingUpdateProfile() {
+
+		val namaPenggunaEntered = binding.edtNamaLengkapPengguna.text.toString().trim()
+		val emailPenggunaEntered = binding.edtEmailPengguna.text.toString().trim()
+		val noTelpPenggunaEntered = binding.edtNoTelpPengguna.text.toString().trim()
+
+		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+			if (userId != null) {
+				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+					apiToken?.let {
+						profileViewModel.updateMahasiswaProfile(
+							UpdateProfileRemoteRequestBody(
+								userName = namaPenggunaEntered,
+								userEmail = emailPenggunaEntered,
+								noTelp = noTelpPenggunaEntered,
+								sks = null,
+								ipk = null,
+								userId = userId,
+								userImage = null,
+								apiToken = it,
+								jenisKelamin = null,
+								angkatan = null,
+								alamat = null,
+
+								)
+						)
+					}
+				}
+			}
+		}
+
+		profileViewModel.updateProfileResult.observe(viewLifecycleOwner){updateProfileResult ->
+			when (updateProfileResult) {
+				is Resource.Loading -> {
+					setLoading(true)
+				}
+
+				is Resource.Error -> {
+					setLoading(false)
+
+					val message = updateProfileResult.payload?.message
+					showErrorSnackbar(message ?: "Terjadi kesalahan!")
+
+				}
+
+				is Resource.Success -> {
+					setLoading(false)
+
+					val message = updateProfileResult.payload?.message
+					Log.d("Result message", message.toString())
+
+					showErrorSnackbar(message ?: "Berhasil!")
+
+					if (updateProfileResult.payload?.data != null) {
+						val dataUser = updateProfileResult.payload.data
+						// set binding
+						with(binding) {
+
+							tvNamaUser.text = dataUser.userName
+							tvNimUser.text = dataUser.nomorInduk
+
+							// form
+							edtNamaLengkapPengguna.setTextOrHint(
+								dataUser.userName, R.string.tv_hint_nama_lengkap
+							)
+							edtNimPengguna.setTextOrHint(dataUser.nomorInduk, R.string.tv_hint_nim)
+							edtEmailPengguna.setTextOrHint(
+								dataUser.userEmail, R.string.tv_hint_email
+							)
+							edtNoTelpPengguna.setTextOrHint(
+								dataUser.noTelp, R.string.tv_hint_no_telp
+							)
+						}
+					}
+				}
+
+				else -> {}
+			}
+		}
+
+	}
+
+	// validate form simpanProfil
+	private fun validateFormSimpanProfil(): Boolean {
+		val namaPenggunaEntered = binding.edtNamaLengkapPengguna.text.toString()
+		val emailPenggunaEntered = binding.edtEmailPengguna.text.toString()
+		val noTelpPenggunaEntered = binding.edtNoTelpPengguna.text.toString()
+
+		var isFormValid = true
+
+		// Validate name
+		if (namaPenggunaEntered.isEmpty()) {
+			isFormValid = false
+			binding.edtNamaLengkapPengguna.error = getString(R.string.tv_error_input_blank)
+		} else {
+			binding.edtNamaLengkapPengguna.error = null
+		}
+
+		// Validate email
+		if (emailPenggunaEntered.isEmpty()) {
+			isFormValid = false
+			binding.edtEmailPengguna.error = getString(R.string.tv_error_input_blank)
+		} else if (!isValidEmail(emailPenggunaEntered)) {
+			binding.edtEmailPengguna.error = getString(R.string.tv_error_email_invalid)
+			isFormValid = false
+		} else {
+			binding.edtEmailPengguna.error = null
+		}
+
+		// Validate phone number
+		if (noTelpPenggunaEntered.isEmpty()) {
+			isFormValid = false
+			binding.edtNoTelpPengguna.error = getString(R.string.tv_error_input_blank)
+		} else if (!isValidPhoneNumber(noTelpPenggunaEntered)) {
+			binding.edtNoTelpPengguna.error = getString(R.string.tv_error_phone_invalid)
+			isFormValid = false
+
+		} else {
+			binding.edtNoTelpPengguna.error = null
+		}
+
+		return isFormValid
+	}
+
+
+	private fun isValidEmail(email: String): Boolean {
+		return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+	}
+
+	private fun isValidPhoneNumber(phoneNumber: String): Boolean {
+		// For simplicity, let's assume a valid phone number is a 10 to 13-digit number
+		return phoneNumber.length in 10..13 && phoneNumber.all { it.isDigit() }
 	}
 
 	// set loading and shimmer

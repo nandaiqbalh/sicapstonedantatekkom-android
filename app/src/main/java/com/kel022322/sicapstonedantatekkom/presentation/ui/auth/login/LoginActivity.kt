@@ -8,7 +8,6 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthLoginRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.ActivityLoginBinding
@@ -70,9 +69,10 @@ class LoginActivity : AppCompatActivity() {
 
 							customSnackbar.showSnackbarWithAction(findViewById(android.R.id.content),
 								authResult.payload?.message.toString(),
-								Snackbar.LENGTH_LONG, "OK", View.OnClickListener {
-									customSnackbar.dismissSnackbar()
-								})
+								"OK"
+							) {
+								customSnackbar.dismissSnackbar()
+							}
 						}
 
 						is Resource.Success -> {
@@ -81,9 +81,10 @@ class LoginActivity : AppCompatActivity() {
 
 							customSnackbar.showSnackbarWithAction(findViewById(android.R.id.content),
 								authResult.payload?.message.toString(),
-								Snackbar.LENGTH_LONG, "OK", View.OnClickListener {
-									customSnackbar.dismissSnackbar()
-								})
+								 "OK"
+							) {
+								customSnackbar.dismissSnackbar()
+							}
 
 							if (authResult.payload!!.status == true) {
 								val userId = authResult.payload.userData?.userId.toString()

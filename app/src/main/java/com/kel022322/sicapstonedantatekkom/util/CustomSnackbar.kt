@@ -10,9 +10,9 @@ class CustomSnackbar {
 	private var lastSnackbar: Long = 0
 	private val SAME_SNACKBAR_DURATION_BEFORE_OVERLAP = 2000 // in ms
 
-	fun showSnackbar(view: View, text: String, duration: Int) {
+	fun showSnackbar(view: View, text: String) {
 		if (snackbar == null) {
-			snackbar = Snackbar.make(view, text, duration)
+			snackbar = Snackbar.make(view, text, Snackbar.LENGTH_INDEFINITE)
 			this.text = text
 		} else {
 			if (this.text == text) {
@@ -24,14 +24,14 @@ class CustomSnackbar {
 			} else {
 				this.text = text
 				snackbar!!.dismiss()
-				snackbar = Snackbar.make(view, this.text!!, duration)
+				snackbar = Snackbar.make(view, this.text!!, Snackbar.LENGTH_INDEFINITE)
 			}
 		}
 		lastSnackbar = System.currentTimeMillis()
 		snackbar!!.show()
 	}
 
-	fun showSnackbarWithAction(view: View, text: String, duration: Int, actionText: String, actionListener: View.OnClickListener) {
+	fun showSnackbarWithActionWithTimer(view: View, text: String, duration: Int, actionText: String, actionListener: View.OnClickListener) {
 		if (snackbar == null) {
 			snackbar = Snackbar.make(view, text, duration)
 				.setAction(actionText, actionListener)
@@ -53,6 +53,30 @@ class CustomSnackbar {
 		lastSnackbar = System.currentTimeMillis()
 		snackbar!!.show()
 	}
+
+	fun showSnackbarWithAction(view: View, text: String, actionText: String, actionListener: View.OnClickListener) {
+		if (snackbar == null) {
+			snackbar = Snackbar.make(view, text, Snackbar.LENGTH_INDEFINITE)
+				.setAction(actionText, actionListener)
+			this.text = text
+		} else {
+			if (this.text == text) {
+				if (System.currentTimeMillis() - lastSnackbar > SAME_SNACKBAR_DURATION_BEFORE_OVERLAP) {
+					snackbar!!.dismiss()
+				} else {
+					return
+				}
+			} else {
+				this.text = text
+				snackbar!!.dismiss()
+				snackbar = Snackbar.make(view, this.text!!, Snackbar.LENGTH_INDEFINITE)
+					.setAction(actionText, actionListener)
+			}
+		}
+		lastSnackbar = System.currentTimeMillis()
+		snackbar!!.show()
+	}
+
 
 	fun dismissSnackbar() {
 		snackbar?.dismiss()
