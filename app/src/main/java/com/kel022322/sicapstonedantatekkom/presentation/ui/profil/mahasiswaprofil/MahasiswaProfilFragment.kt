@@ -66,6 +66,25 @@ class MahasiswaProfilFragment : Fragment() {
 		binding.btnUbahPassword.setOnClickListener {
 			ubahPassword()
 		}
+
+		// logout button
+		binding.btnLogout.setOnClickListener {
+			val alertDialogBuilder = AlertDialog.Builder(requireContext())
+			alertDialogBuilder.setTitle("Konfirmasi")
+			alertDialogBuilder.setMessage("Apakah anda yakin untuk keluar?")
+			alertDialogBuilder.setPositiveButton("Ya") { dialog, _ ->
+				setLoading(true)
+
+				showSnackbar("Berhasil keluar!")
+
+				dialog.dismiss()
+			}
+			alertDialogBuilder.setNegativeButton("Tidak") { dialog, _ ->
+				dialog.dismiss()
+			}
+			val alertDialog = alertDialogBuilder.create()
+			alertDialog.show()
+		}
 	}
 
 	private fun getProfile() {
@@ -465,7 +484,7 @@ class MahasiswaProfilFragment : Fragment() {
 			"OK"
 		) {
 			customSnackbar.dismissSnackbar()
-			if (message == "Token tidak valid!" || message == "Pengguna tidak ditemukan!" || message == "Tidak ada api token!" || message == "Missing api_token in the request body.") {
+			if (message == "Berhasil keluar!" || message == "Token tidak valid!" || message == "Pengguna tidak ditemukan!" || message == "Tidak ada api token!" || message == "Missing api_token in the request body.") {
 
 				profileViewModel.setApiToken("")
 				profileViewModel.setUserId("")

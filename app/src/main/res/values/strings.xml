@@ -36,7 +36,8 @@
     <string name="konfirmasi_password_baru">Konfirmasi Password Baru</string>
     <string name="tv_konfirmasi_password_baru">Masukkan konfirmasi password baru</string>
     <string name="tv_error_email_invalid">Email tidak valid!</string>
-    <string name="tv_error_phone_invalid">No. telepon tidak valid!</string>
+    <string name="tv_error_phone_invalid">No. Telepon tidak valid!</string>
     <string name="tv_error_password_mismatch">Password baru tidak sama</string>
     <string name="tv_error_password_minimum_length">Password minimal 8 karakter!</string>
+    <string name="btn_logout">Keluar</string>
 </resources>
