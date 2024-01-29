@@ -60,7 +60,7 @@ class MahasiswaProfilFragment : Fragment() {
 
 	private val galleryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 		if (result.resultCode == Activity.RESULT_OK) {
-//			handleGalleryImage(result.data)
+			handleGaleriImage(result.data)
 		}
 	}
 
@@ -517,7 +517,7 @@ class MahasiswaProfilFragment : Fragment() {
 		builder.setItems(options) { _, which ->
 			when (which) {
 				0 -> checkCameraPermission()
-//				1 -> checkGalleryPermission()
+				1 -> checkGalleryPermission()
 			}
 		}
 		builder.show()
@@ -607,6 +607,92 @@ class MahasiswaProfilFragment : Fragment() {
 			showSnackbar("Gagal! Ukuran foto melebihi 3MB!")
 		}
 	}
+
+	private fun checkGalleryPermission() {
+		if (isPermissionGranted(
+				Manifest.permission.READ_EXTERNAL_STORAGE,
+				arrayOf(
+					Manifest.permission.READ_EXTERNAL_STORAGE,
+					Manifest.permission.WRITE_EXTERNAL_STORAGE
+				),
+				REQUEST_CODE_PERMISSION
+			)
+		) {
+			openGallery()
+		}
+	}
+
+	private fun openGallery() {
+		val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+		galleryResult.launch(galleryIntent)
+	}
+
+	private fun handleGaleriImage(intent: Intent?) {
+		val selectedImageUri = intent?.data
+		val photo = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, selectedImageUri)
+		val fileSize = calculateFileSize(photo)
+
+		if (fileSize <= MAX_FILE_SIZE) {
+			val squarePhoto = cropToSquare(photo) // Crop the photo to a square
+
+			val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+			val imageFileName = "JPEG_${timeStamp}_"
+			val storageDir: File? = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+			val file = File.createTempFile(imageFileName, ".jpg", storageDir)
+
+			FileOutputStream(file).use { output ->
+				squarePhoto.compress(Bitmap.CompressFormat.JPEG, 100, output)
+			}
+
+			val requestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+			val photoPart = MultipartBody.Part.createFormData("user_img", file.name, requestBody)
+
+			profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+				userId?.let {
+					profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+						apiToken?.let {
+							// Kirim token dan photoPart ke fungsi updatePhotoProfile
+							profileViewModel.updatePhotoProfile(userId, it, photoPart)
+						}
+					}
+				}
+			}
+
+			profileViewModel.updatePhotoProfileResult.observe(viewLifecycleOwner) { updatePhotoProfileResult ->
+				when (updatePhotoProfileResult) {
+					is Resource.Loading -> {
+						setLoading(true)
+					}
+
+					is Resource.Error -> {
+						setLoading(false)
+						val message = updatePhotoProfileResult.payload?.message
+						showSnackbar(message ?: "Terjadi kesalahan!")
+					}
+
+					is Resource.Success -> {
+						setLoading(false)
+						val message = updatePhotoProfileResult.payload?.message
+						Log.d("Result Upload", message.toString())
+
+						if (updatePhotoProfileResult.payload?.data != null) {
+
+							restartFragment()
+
+							showSnackbar(message ?: "Berhasil!")
+						} else {
+							showSnackbar(message ?: "Terjadi kesalahan!")
+						}
+					}
+
+					else -> {}
+				}
+			}
+		} else {
+			showSnackbar("Gagal! Ukuran foto melebihi 3MB!")
+		}
+	}
+
 
 	private fun calculateFileSize(bitmap: Bitmap): Long {
 		val stream = ByteArrayOutputStream()
