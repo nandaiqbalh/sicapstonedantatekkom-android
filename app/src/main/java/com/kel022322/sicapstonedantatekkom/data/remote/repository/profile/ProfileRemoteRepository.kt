@@ -10,6 +10,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.resp
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.response.UpdatePasswordRemoteResponse
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 interface ProfileRemoteRepository {
@@ -29,6 +30,12 @@ interface ProfileRemoteRepository {
 	suspend fun getPhotoProfile(
 		photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody
 	) : Resource<PhotoProfileRemoteResponse>
+
+	suspend fun updatePhotoProfile(
+		userId: String,
+		apiToken: String,
+		user_img: MultipartBody.Part
+	) : Resource<UpdateProfileRemoteResponse>
 }
 
 class ProfileRemoteRepositoryImpl @Inject constructor(private val dataSource: ProfileRemoteDataSource) : ProfileRemoteRepository{
@@ -55,6 +62,16 @@ class ProfileRemoteRepositoryImpl @Inject constructor(private val dataSource: Pr
 	override suspend fun getPhotoProfile(photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody): Resource<PhotoProfileRemoteResponse> {
 		return proceed {
 			dataSource.getPhotoProfile(photoProfileRemoteRequestBody)
+		}
+	}
+
+	override suspend fun updatePhotoProfile(
+		userId: String,
+		apiToken: String,
+		user_img: MultipartBody.Part,
+	): Resource<UpdateProfileRemoteResponse> {
+		return proceed {
+			dataSource.updatePhotoProfile(userId, apiToken, user_img)
 		}
 	}
 

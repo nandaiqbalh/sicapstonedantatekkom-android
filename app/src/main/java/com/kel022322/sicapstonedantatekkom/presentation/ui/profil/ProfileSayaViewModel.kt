@@ -21,37 +21,41 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileSayaViewModel @Inject constructor(
 	private val profileRemoteRepository: ProfileRemoteRepository,
-	private val authDataStoreManager: AuthDataStoreManager
-) :ViewModel() {
+	private val authDataStoreManager: AuthDataStoreManager,
+) : ViewModel() {
 
 	private var _getProfileResult = MutableLiveData<Resource<ProfileRemoteResponse>>()
-	val getProfileResult : LiveData<Resource<ProfileRemoteResponse>> get() = _getProfileResult
+	val getProfileResult: LiveData<Resource<ProfileRemoteResponse>> get() = _getProfileResult
 
 	// update profile
 	private var _updateProfileResult = MutableLiveData<Resource<UpdateProfileRemoteResponse>>()
-	val updateProfileResult : LiveData<Resource<UpdateProfileRemoteResponse>> get() = _updateProfileResult
+	val updateProfileResult: LiveData<Resource<UpdateProfileRemoteResponse>> get() = _updateProfileResult
 
 	// update password profile
-	private var _updatePasswordResult = MutableLiveData<Resource<UpdatePasswordRemoteResponse>> ()
-	val updatePasswordResult : LiveData<Resource<UpdatePasswordRemoteResponse>> get() = _updatePasswordResult
+	private var _updatePasswordResult = MutableLiveData<Resource<UpdatePasswordRemoteResponse>>()
+	val updatePasswordResult: LiveData<Resource<UpdatePasswordRemoteResponse>> get() = _updatePasswordResult
 
 	private var _getPhotoProfileResult = MutableLiveData<Resource<PhotoProfileRemoteResponse>>()
 	val getPhotoProfileResult: LiveData<Resource<PhotoProfileRemoteResponse>> get() = _getPhotoProfileResult
-	fun getMahasiswaProfile(profileRemoteRequestBody: ProfileRemoteRequestBody){
-		viewModelScope.launch (Dispatchers.IO){
+
+	private var _updatePhotoProfileResult = MutableLiveData<Resource<UpdateProfileRemoteResponse>>()
+	val updatePhotoProfileResult: LiveData<Resource<UpdateProfileRemoteResponse>> get() = _updatePhotoProfileResult
+	fun getMahasiswaProfile(profileRemoteRequestBody: ProfileRemoteRequestBody) {
+		viewModelScope.launch(Dispatchers.IO) {
 			_getProfileResult.postValue(Resource.Loading())
 
 			try {
 				val data = profileRemoteRepository.getMahasiswaProfile(profileRemoteRequestBody)
 
 				Log.d("PAYLOAD", data.payload.toString())
-				if (data.payload != null){
-					viewModelScope.launch(Dispatchers.Main){
+				if (data.payload != null) {
+					viewModelScope.launch(Dispatchers.Main) {
 						_getProfileResult.postValue(Resource.Success(data.payload))
 					}
 
@@ -59,50 +63,52 @@ class ProfileSayaViewModel @Inject constructor(
 					_getProfileResult.postValue(Resource.Error(data.exception, null))
 				}
 
-			} catch (e:Exception){
-				viewModelScope.launch(Dispatchers.Main){
+			} catch (e: Exception) {
+				viewModelScope.launch(Dispatchers.Main) {
 					_getProfileResult.postValue(Resource.Error(e, null))
 				}
 			}
 		}
 	}
 
-	fun updateMahasiswaProfile(updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody){
+	fun updateMahasiswaProfile(updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody) {
 
-		viewModelScope.launch(Dispatchers.IO){
+		viewModelScope.launch(Dispatchers.IO) {
 			_updateProfileResult.postValue(Resource.Loading())
 
 			try {
-				val data = profileRemoteRepository.updateMahasiswaProfile(updateProfileRemoteRequestBody)
+				val data =
+					profileRemoteRepository.updateMahasiswaProfile(updateProfileRemoteRequestBody)
 
-				if (data.payload != null){
-					viewModelScope.launch(Dispatchers.Main){
+				if (data.payload != null) {
+					viewModelScope.launch(Dispatchers.Main) {
 						_updateProfileResult.postValue(Resource.Success(data.payload))
 					}
 
 				} else {
 					_updateProfileResult.postValue(Resource.Error(data.exception, null))
 				}
-			} catch (e:Exception){
-				viewModelScope.launch(Dispatchers.IO){
+			} catch (e: Exception) {
+				viewModelScope.launch(Dispatchers.IO) {
 					_updateProfileResult.postValue(Resource.Error(e, null))
 				}
 			}
 		}
 	}
 
-	fun updatePasswordProfile(updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody){
+	fun updatePasswordProfile(updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody) {
 
-		viewModelScope.launch(Dispatchers.IO){
+		viewModelScope.launch(Dispatchers.IO) {
 			_updatePasswordResult.postValue(Resource.Loading())
 
 			try {
 
-				val data = profileRemoteRepository.updatePasswordProfile(updatePasswordRemoteRequestBody)
+				val data =
+					profileRemoteRepository.updatePasswordProfile(updatePasswordRemoteRequestBody)
 
-				if (data.payload != null){
+				if (data.payload != null) {
 
-					viewModelScope.launch(Dispatchers.Main){
+					viewModelScope.launch(Dispatchers.Main) {
 						_updatePasswordResult.postValue(Resource.Success(data.payload))
 					}
 
@@ -110,8 +116,8 @@ class ProfileSayaViewModel @Inject constructor(
 					_updatePasswordResult.postValue(Resource.Error(data.exception, null))
 				}
 
-			} catch (e: Exception){
-				viewModelScope.launch(Dispatchers.Main){
+			} catch (e: Exception) {
+				viewModelScope.launch(Dispatchers.Main) {
 					_updatePasswordResult.postValue(Resource.Error(e, null))
 				}
 			}
@@ -120,15 +126,15 @@ class ProfileSayaViewModel @Inject constructor(
 
 	}
 
-	fun getPhotoProfile(photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody){
-		viewModelScope.launch (Dispatchers.IO){
+	fun getPhotoProfile(photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody) {
+		viewModelScope.launch(Dispatchers.IO) {
 			_getPhotoProfileResult.postValue(Resource.Loading())
 
 			try {
 				val data = profileRemoteRepository.getPhotoProfile(photoProfileRemoteRequestBody)
 
-				if (data.payload != null){
-					viewModelScope.launch(Dispatchers.Main){
+				if (data.payload != null) {
+					viewModelScope.launch(Dispatchers.Main) {
 						_getPhotoProfileResult.postValue(Resource.Success(data.payload))
 					}
 
@@ -136,9 +142,40 @@ class ProfileSayaViewModel @Inject constructor(
 					_getPhotoProfileResult.postValue(Resource.Error(data.exception, null))
 				}
 
-			} catch (e:Exception){
-				viewModelScope.launch(Dispatchers.Main){
+			} catch (e: Exception) {
+				viewModelScope.launch(Dispatchers.Main) {
 					_getPhotoProfileResult.postValue(Resource.Error(e, null))
+				}
+			}
+		}
+	}
+
+	fun updatePhotoProfile(
+		userId: String,
+		apiToken: String,
+		user_img: MultipartBody.Part,
+	) {
+
+
+
+		viewModelScope.launch(Dispatchers.IO) {
+			_updatePhotoProfileResult.postValue(Resource.Loading())
+
+			try {
+				val data =
+					profileRemoteRepository.updatePhotoProfile(userId, apiToken, user_img)
+
+				if (data.payload != null) {
+					viewModelScope.launch(Dispatchers.Main) {
+						_updatePhotoProfileResult.postValue(Resource.Success(data.payload))
+					}
+
+				} else {
+					_updatePhotoProfileResult.postValue(Resource.Error(data.exception, null))
+				}
+			} catch (e: Exception) {
+				viewModelScope.launch(Dispatchers.IO) {
+					_updatePhotoProfileResult.postValue(Resource.Error(e, null))
 				}
 			}
 		}

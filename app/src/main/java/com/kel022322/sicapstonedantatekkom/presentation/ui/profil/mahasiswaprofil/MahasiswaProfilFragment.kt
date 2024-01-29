@@ -1,15 +1,24 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil
 
+import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.kel022322.sicapstonedantatekkom.R
@@ -25,7 +34,17 @@ import com.kel022322.sicapstonedantatekkom.util.EditTextHelper.Companion.setText
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class MahasiswaProfilFragment : Fragment() {
 
@@ -35,6 +54,21 @@ class MahasiswaProfilFragment : Fragment() {
 	private val profileViewModel: ProfileSayaViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
+
+	private val REQUEST_CODE_PERMISSION = 3
+	private val MAX_FILE_SIZE = 3 * 1024 * 1024 // 1MB
+
+	private val galleryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+		if (result.resultCode == Activity.RESULT_OK) {
+//			handleGalleryImage(result.data)
+		}
+	}
+
+	private val cameraResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+		if (result.resultCode == Activity.RESULT_OK) {
+			handleCameraImage(result.data)
+		}
+	}
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -84,6 +118,11 @@ class MahasiswaProfilFragment : Fragment() {
 			}
 			val alertDialog = alertDialogBuilder.create()
 			alertDialog.show()
+		}
+
+		// update photo profile button
+		binding.btnEditPhotoProfile.setOnClickListener {
+			showTakePhotoOptions()
 		}
 	}
 
@@ -470,6 +509,146 @@ class MahasiswaProfilFragment : Fragment() {
 		return isFormValid
 	}
 
+	// update photo profile
+	private fun showTakePhotoOptions() {
+		val options = arrayOf("Buka kamera", "Pilih dari galeri")
+		val builder = AlertDialog.Builder(requireContext())
+		builder.setTitle("Pilih opsi")
+		builder.setItems(options) { _, which ->
+			when (which) {
+				0 -> checkCameraPermission()
+//				1 -> checkGalleryPermission()
+			}
+		}
+		builder.show()
+	}
+
+	private fun checkCameraPermission() {
+		if (isPermissionGranted(
+				Manifest.permission.CAMERA,
+				arrayOf(
+					Manifest.permission.CAMERA,
+					Manifest.permission.READ_EXTERNAL_STORAGE,
+					Manifest.permission.WRITE_EXTERNAL_STORAGE
+				),
+				REQUEST_CODE_PERMISSION
+			)
+		) {
+			openCamera()
+		}
+	}
+
+	private fun openCamera() {
+		val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+		cameraResult.launch(cameraIntent)
+	}
+
+	private fun handleCameraImage(intent: Intent?) {
+		val photo = intent?.extras?.get("data") as Bitmap
+		val fileSize = calculateFileSize(photo)
+
+		if (fileSize <= MAX_FILE_SIZE) {
+			val squarePhoto = cropToSquare(photo) // Crop the photo to a square
+
+			val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+			val imageFileName = "JPEG_${timeStamp}_"
+			val storageDir: File? = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+			val file = File.createTempFile(imageFileName, ".jpg", storageDir)
+
+			FileOutputStream(file).use { output ->
+				squarePhoto.compress(Bitmap.CompressFormat.JPEG, 100, output)
+			}
+
+			val requestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+			val photoPart = MultipartBody.Part.createFormData("user_img", file.name, requestBody)
+
+			profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+				userId?.let {
+					profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+						apiToken?.let {
+							// Kirim token dan photoPart ke fungsi updatePhotoProfile
+							profileViewModel.updatePhotoProfile(userId, it, photoPart)
+						}
+					}
+				}
+			}
+
+			profileViewModel.updatePhotoProfileResult.observe(viewLifecycleOwner) { updatePhotoProfileResult ->
+				when (updatePhotoProfileResult) {
+					is Resource.Loading -> {
+						setLoading(true)
+					}
+
+					is Resource.Error -> {
+						setLoading(false)
+						val message = updatePhotoProfileResult.payload?.message
+						showSnackbar(message ?: "Terjadi kesalahan!")
+					}
+
+					is Resource.Success -> {
+						setLoading(false)
+						val message = updatePhotoProfileResult.payload?.message
+						Log.d("Result Upload", message.toString())
+
+						if (updatePhotoProfileResult.payload?.data != null) {
+
+							restartFragment()
+
+							showSnackbar(message ?: "Berhasil!")
+						} else {
+							showSnackbar(message ?: "Terjadi kesalahan!")
+						}
+					}
+
+					else -> {}
+				}
+			}
+		} else {
+			showSnackbar("Gagal! Ukuran foto melebihi 3MB!")
+		}
+	}
+
+	private fun calculateFileSize(bitmap: Bitmap): Long {
+		val stream = ByteArrayOutputStream()
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+		val byteArray = stream.toByteArray()
+		return byteArray.size.toLong()
+	}
+
+	private fun isPermissionGranted(
+		permission: String,
+		permissions: Array<String>,
+		request: Int
+	): Boolean {
+		val permissionCheck = ActivityCompat.checkSelfPermission(requireContext(), permission)
+		return if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permission)) {
+				showPermissionDeniedDialog()
+			} else {
+				ActivityCompat.requestPermissions(requireActivity(), permissions, request)
+			}
+			false
+		} else {
+			true
+		}
+	}
+
+	private fun showPermissionDeniedDialog() {
+		AlertDialog.Builder(requireContext()).setTitle("Izin ditolak")
+			.setMessage("Izin ditolak, silahkan izinkan melalui pengaturan aplikasi!")
+			.setPositiveButton("App Settings") { _, _ ->
+				val intent = Intent()
+				intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+				val uri = Uri.fromParts("package",requireContext().packageName, null)
+				intent.data = uri
+				startActivity(intent)
+			}.setNegativeButton("Batalkan") { dialog, _ -> dialog.cancel() }.show()
+	}
+
+	private fun cropToSquare(bitmap: Bitmap): Bitmap {
+		val dimension = Math.min(bitmap.width, bitmap.height)
+		return Bitmap.createBitmap(bitmap, 0, 0, dimension, dimension)
+	}
 
 	private fun decodeBase64ToBitmap(base64: String): Bitmap {
 		val decodedBytes = Base64.decode(base64, Base64.DEFAULT)

@@ -165,4 +165,12 @@ interface ApiService {
 	suspend fun getPhotoProfile(
 		@Body photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody
 	) : PhotoProfileRemoteResponse
+
+	@Multipart
+	@POST("capstone_team/public/api/v1/mahasiswa/profile/editPhotoProcess")
+	suspend fun updatePhotoProfile(
+		@Query("user_id") userId: String,
+		@Query("api_token") apiToken: String,
+		@Part user_img: MultipartBody.Part
+	): UpdateProfileRemoteResponse
 }
