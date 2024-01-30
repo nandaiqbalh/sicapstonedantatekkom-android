@@ -545,67 +545,8 @@ class MahasiswaProfilFragment : Fragment() {
 
 	private fun handleCameraImage(intent: Intent?) {
 		val photo = intent?.extras?.get("data") as Bitmap
-		val fileSize = calculateFileSize(photo)
 
-		if (fileSize <= MAX_FILE_SIZE) {
-			val squarePhoto = cropToSquare(photo) // Crop the photo to a square
-
-			val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-			val imageFileName = "JPEG_${timeStamp}_"
-			val storageDir: File? = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-			val file = File.createTempFile(imageFileName, ".jpg", storageDir)
-
-			FileOutputStream(file).use { output ->
-				squarePhoto.compress(Bitmap.CompressFormat.JPEG, 100, output)
-			}
-
-			val requestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-			val photoPart = MultipartBody.Part.createFormData("user_img", file.name, requestBody)
-
-			profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-				userId?.let {
-					profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-						apiToken?.let {
-							// Kirim token dan photoPart ke fungsi updatePhotoProfile
-							profileViewModel.updatePhotoProfile(userId, it, photoPart)
-						}
-					}
-				}
-			}
-
-			profileViewModel.updatePhotoProfileResult.observe(viewLifecycleOwner) { updatePhotoProfileResult ->
-				when (updatePhotoProfileResult) {
-					is Resource.Loading -> {
-						setLoading(true)
-					}
-
-					is Resource.Error -> {
-						setLoading(false)
-						val message = updatePhotoProfileResult.payload?.message
-						showSnackbar(message ?: "Terjadi kesalahan!")
-					}
-
-					is Resource.Success -> {
-						setLoading(false)
-						val message = updatePhotoProfileResult.payload?.message
-						Log.d("Result Upload", message.toString())
-
-						if (updatePhotoProfileResult.payload?.data != null) {
-
-							restartFragment()
-
-							showSnackbar(message ?: "Berhasil!")
-						} else {
-							showSnackbar(message ?: "Terjadi kesalahan!")
-						}
-					}
-
-					else -> {}
-				}
-			}
-		} else {
-			showSnackbar("Gagal! Ukuran foto melebihi 3MB!")
-		}
+		saveSelectedImage(photo)
 	}
 
 	private fun checkGalleryPermission() {
@@ -630,6 +571,12 @@ class MahasiswaProfilFragment : Fragment() {
 	private fun handleGaleriImage(intent: Intent?) {
 		val selectedImageUri = intent?.data
 		val photo = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, selectedImageUri)
+
+		saveSelectedImage(photo)
+
+	}
+
+	private fun saveSelectedImage(photo: Bitmap){
 		val fileSize = calculateFileSize(photo)
 
 		if (fileSize <= MAX_FILE_SIZE) {
