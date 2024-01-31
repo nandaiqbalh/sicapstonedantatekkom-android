@@ -12,7 +12,8 @@
         <item name="colorSecondaryVariant">@color/DarkGrey</item>
         <item name="colorOnSecondary">@color/DarkGrey</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/RoyalBlue</item>
+        <item name="android:statusBarColor">@color/White</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
         <item name="android:windowContentTransitions">true</item>
     </style>
@@ -27,7 +28,8 @@
         <item name="colorSecondaryVariant">@color/DarkGrey</item>
         <item name="colorOnSecondary">@color/DarkGrey</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/RoyalBlue</item>
+        <item name="android:statusBarColor">@color/White</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
         <item name="android:windowContentTransitions">true</item>
     </style>

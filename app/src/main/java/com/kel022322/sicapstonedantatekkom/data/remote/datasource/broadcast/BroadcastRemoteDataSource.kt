@@ -1,12 +1,14 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast
 
-import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.BroadcastRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.service.ApiService
 import javax.inject.Inject
 
 interface BroadcastRemoteDataSource {
-	suspend fun getBroadcast(): BroadcastRemoteResponse
+	suspend fun getBroadcast(): BroadcastPaginateRemoteResponse
+
+	suspend fun getBroadcastHome(): BroadcastPaginateRemoteResponse
 
 	suspend fun getBroadcastDetail(id: String): BroadcastDetailRemoteResponse
 }
@@ -14,8 +16,13 @@ interface BroadcastRemoteDataSource {
 class BroadcastRemoteDataSourceImpl @Inject constructor(private val apiService: ApiService) :
 	BroadcastRemoteDataSource {
 	override suspend fun getBroadcast(
-	): BroadcastRemoteResponse {
+	): BroadcastPaginateRemoteResponse {
 		return apiService.getBroadcast()
+	}
+
+	override suspend fun getBroadcastHome(
+	): BroadcastPaginateRemoteResponse {
+		return apiService.getBroadcastHome()
 	}
 
 	override suspend fun getBroadcastDetail(id: String): BroadcastDetailRemoteResponse {

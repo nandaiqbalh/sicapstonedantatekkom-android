@@ -4,8 +4,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.response.AuthLoginRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.response.AuthLogoutRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.BroadcastRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c100.response.UploadC100ProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c200.response.UploadC200ProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c300.response.UploadC300ProcessRemoteResponse
@@ -33,6 +33,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassw
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.response.UpdatePasswordRemoteResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -52,9 +53,14 @@ interface ApiService {
 		@Body authLogoutRequestBody: AuthLogoutRequestBody
 	): AuthLogoutRemoteResponse
 
-	@POST("capstone_team/public/api/v1/mahasiswa/broadcast")
+	@GET("capstone_team/public/api/v1/mahasiswa/broadcast")
 	suspend fun getBroadcast(
-	): BroadcastRemoteResponse
+	): BroadcastPaginateRemoteResponse
+
+	@GET("capstone_team/public/api/v1/mahasiswa/broadcast-home")
+	suspend fun getBroadcastHome(
+	): BroadcastPaginateRemoteResponse
+
 
 	@POST("capstone_team/public/api/v1/mahasiswa/broadcast/{id}")
 	suspend fun getBroadcastDetail(
