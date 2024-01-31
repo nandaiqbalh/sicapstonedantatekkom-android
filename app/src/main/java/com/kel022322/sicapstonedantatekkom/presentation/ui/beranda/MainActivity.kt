@@ -48,13 +48,21 @@ class MainActivity : AppCompatActivity() {
 		bottomNav.setupWithNavController(navController)
 
 		navController.addOnDestinationChangedListener { _, destination, _ ->
-			// Uncomment the following code if needed
-//            when (destination.id) {
-//                R.id.action_mahasiswaBerandaFragment_to_mahasiswaDokumenFragment -> {
-//                    hideBottomNav(true)
-//                }
-//                else -> hideBottomNav(false)
-//            }
+            when (destination.id) {
+                R.id.mahasiswaPengumumanFragment -> {
+                    hideBottomNav(true)
+                }
+	            R.id.mahasiswaSidangProposalFragment -> {
+		            hideBottomNav(true)
+	            }
+	            R.id.mahasiswaExpoFragment -> {
+		            hideBottomNav(true)
+	            }
+	            R.id.mahasiswaSidangTugasAkhirFragment -> {
+		            hideBottomNav(true)
+	            }
+                else -> hideBottomNav(false)
+            }
 		}
 	}
 

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="132dp"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     app:cardElevation="8dp"
+    app:cardCornerRadius="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="16dp"
     android:layout_marginEnd="12dp"
     app:strokeColor="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="80dp"
         android:background="@drawable/background_gradient">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -36,4 +39,4 @@
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</androidx.cardview.widget.CardView>
