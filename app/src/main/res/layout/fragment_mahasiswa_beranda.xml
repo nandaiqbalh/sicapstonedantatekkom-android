@@ -108,7 +108,8 @@
         app:cardBackgroundColor="@color/White"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
-        app:contentPadding="4dp"
+        app:contentPadding="16dp"
+        android:layout_marginTop="8dp"
         app:strokeColor="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_pengumuman_terbaru">

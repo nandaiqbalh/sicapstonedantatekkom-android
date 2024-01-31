@@ -25,8 +25,8 @@ class ActionAdapter(private val navController: NavController) :
 
 	private val differ = AsyncListDiffer(this, diffCallback)
 
-	fun setList(cities: List<ActionModel>?) {
-		differ.submitList(cities)
+	fun setList(actions: List<ActionModel>?) {
+		differ.submitList(actions)
 	}
 
 	inner class ActionViewHolder(private val binding: ItemActionMahasiswaBerandaBinding) :
