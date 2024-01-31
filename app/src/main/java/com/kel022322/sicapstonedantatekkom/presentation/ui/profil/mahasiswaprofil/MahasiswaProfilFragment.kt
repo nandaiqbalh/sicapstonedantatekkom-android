@@ -721,16 +721,20 @@ class MahasiswaProfilFragment : Fragment() {
 	}
 
 	private fun restartFragment() {
+		val currentFragment = this@MahasiswaProfilFragment
 
-		// Detach fragment
-		val ftDetach = parentFragmentManager.beginTransaction()
-		ftDetach.detach(this@MahasiswaProfilFragment)
-		ftDetach.commit()
+		// Check if the fragment is currently visible
+		if (currentFragment.isVisible) {
+			// Detach fragment
+			val ftDetach = parentFragmentManager.beginTransaction()
+			ftDetach.detach(currentFragment)
+			ftDetach.commit()
 
-		// Attach fragment
-		val ftAttach = parentFragmentManager.beginTransaction()
-		ftAttach.attach(this@MahasiswaProfilFragment)
-		ftAttach.commit()
+			// Attach fragment
+			val ftAttach = parentFragmentManager.beginTransaction()
+			ftAttach.attach(currentFragment)
+			ftAttach.commit()
+		}
 	}
 
 

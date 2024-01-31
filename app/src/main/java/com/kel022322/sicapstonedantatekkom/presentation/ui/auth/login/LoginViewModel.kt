@@ -66,6 +66,9 @@ class LoginViewModel @Inject constructor(
 		authDataStoreManager.setStatusAuth(statusAuth)
 	}
 
+	fun setUsername(username: String) = CoroutineScope(Dispatchers.IO).launch {
+		authDataStoreManager.setUsername(username)
+	}
 
 
 }

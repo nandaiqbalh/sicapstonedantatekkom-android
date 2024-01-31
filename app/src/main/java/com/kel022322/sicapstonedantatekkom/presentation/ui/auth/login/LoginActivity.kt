@@ -96,6 +96,7 @@ class LoginActivity : AppCompatActivity() {
 							if (authResult.payload!!.status == true) {
 								val userId = authResult.payload.userData?.userId.toString()
 								val apiToken = authResult.payload.userData?.apiToken
+								val username = authResult.payload.userData?.userName
 
 								Log.d("Result Auth", "user_id: $userId, api_token: $apiToken")
 
@@ -106,6 +107,8 @@ class LoginActivity : AppCompatActivity() {
 								// Call the function to setApiToken with the obtained apiToken
 								loginViewModel.setUserId(userId)
 								loginViewModel.setApiToken(apiToken ?: "")
+								loginViewModel.setUsername(username ?: "Nama Lengkap Mahasiswa")
+
 							}
 						}
 

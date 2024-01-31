@@ -7,6 +7,17 @@
     android:background="@color/Minimumblue"
     tools:context=".presentation.ui.beranda.mahasiswaberanda.MahasiswaBerandaFragment">
 
+    <View
+        android:id="@+id/overlayLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_toolbar"
         style="@style/CustomCardViewStyle"
@@ -33,7 +44,7 @@
                 android:textColor="@color/DarkGrey"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/iv_home_profilephoto"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="TextContrastCheck" />
 
             <TextView
@@ -44,14 +55,52 @@
                 android:text="@string/nama_lengkap_mahasiswa"
                 android:textColor="@color/lightblue"
                 android:textSize="14sp"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_hello" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_beranda_namauser"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:height="24dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_hello">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/shimmer_gray"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:textColor="@color/lightblue"
+                    android:textSize="14sp" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_iv_home_profilephoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:src="@drawable/img_default_profile"
+                    tools:ignore="ImageContrastCheck" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_home_profilephoto"
                 android:layout_width="46dp"
                 android:layout_height="46dp"
                 android:src="@drawable/img_default_profile"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -60,64 +109,123 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <TextView
-        android:id="@+id/tv_menuaction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/poppinssemibold"
-        android:text="@string/tv_action"
-        android:textColor="@color/lightblue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cv_toolbar" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_action_mahasiswa_beranda"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_menuaction"
-        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_action_mahasiswa_beranda"
-        tools:orientation="horizontal" />
+        app:layout_constraintTop_toBottomOf="@+id/cv_toolbar">
 
-    <TextView
-        android:id="@+id/tv_pengumuman_terbaru"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppinssemibold"
-        android:text="@string/tv_pengumuman_terbaru"
-        android:textColor="@color/lightblue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_action_mahasiswa_beranda" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_pengumuman_terbaru"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:cardBackgroundColor="@color/White"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="8dp"
-        app:contentPadding="16dp"
-        android:layout_marginTop="8dp"
-        app:strokeColor="@android:color/transparent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_pengumuman_terbaru">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_pengumuman_terbaru"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_mahasiswa_pengumuman"/>
-    </com.google.android.material.card.MaterialCardView>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_menuaction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="@string/tv_action"
+                android:textColor="@color/lightblue"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_action_mahasiswa_beranda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:nestedScrollingEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_menuaction"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_action_mahasiswa_beranda"
+                tools:orientation="horizontal" />
+
+            <TextView
+                android:id="@+id/tv_pengumuman_terbaru"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="@string/tv_pengumuman_terbaru"
+                android:textColor="@color/lightblue"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_action_mahasiswa_beranda" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_pengumuman_terbaru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="8dp"
+                app:contentPadding="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_pengumuman_terbaru"
+                app:strokeColor="@android:color/transparent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_cv_pengumuman_terbaru"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:height="24dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include layout="@layout/shimmer_card_view_pengumuman" />
+
+                            <include layout="@layout/shimmer_card_view_pengumuman" />
+
+                            <include layout="@layout/shimmer_card_view_pengumuman" />
+
+                        </LinearLayout>
+
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_pengumuman_terbaru"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/item_mahasiswa_pengumuman" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

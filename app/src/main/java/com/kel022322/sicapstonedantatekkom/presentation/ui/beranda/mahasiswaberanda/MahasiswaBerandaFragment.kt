@@ -1,7 +1,10 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +16,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.local.action.ActionModel
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaBerandaBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.ActionAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.PengumumanViewModel
@@ -20,6 +24,7 @@ import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswabera
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
+import com.kel022322.sicapstonedantatekkom.util.GlideApp
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -57,6 +62,10 @@ class MahasiswaBerandaFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
+		setLoading(true)
+
+		setUpInitialValue()
+
 		setPengumumanRecyclerView()
 	}
 
@@ -90,17 +99,17 @@ class MahasiswaBerandaFragment : Fragment() {
 
 			when (broadcastHomeResult) {
 				is Resource.Loading -> {
-//					setLoading(true)
+					setLoading(true)
 				}
 				is Resource.Error -> {
-//					setLoading(false)
+					setLoading(false)
 
 					Log.d("Result error", broadcastHomeResult.payload?.message.toString())
 
 				}
 
 				is Resource.Success -> {
-//					setLoading(false)
+					setLoading(false)
 
 					val message = broadcastHomeResult.payload?.message.toString()
 					Log.d("Result success", message)
@@ -129,6 +138,73 @@ class MahasiswaBerandaFragment : Fragment() {
 		}
 	}
 
+	private fun setUpInitialValue(){
+		profileViewModel.getUsername().observe(viewLifecycleOwner) { username ->
+			if (username != null) {
+				binding.namauser.text = username
+			}
+		}
+
+		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+			if (userId != null) {
+				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+					apiToken?.let {
+						profileViewModel.getPhotoProfile(
+							PhotoProfileRemoteRequestBody(
+								userId.toString(), it
+							)
+						)
+					}
+				}
+			}
+		}
+
+		profileViewModel.getPhotoProfileResult.observe(viewLifecycleOwner) { getPhotoProfileResult ->
+			when (getPhotoProfileResult) {
+				is Resource.Loading -> {
+					setLoading(true)
+				}
+
+				is Resource.Error -> {
+					setLoading(false)
+
+				}
+
+				is Resource.Success -> {
+					setLoading(false)
+					val message = getPhotoProfileResult.payload?.message
+
+					Log.d("Success message", message.toString())
+
+					if (getPhotoProfileResult.payload?.data != null) {
+						// set binding
+						with(binding) {
+							val base64Image = getPhotoProfileResult.payload.data.toString()
+
+							Log.d("BASE64yuk", base64Image)
+
+							if (base64Image != "null") {
+								// Decode base64 string to byte array
+								val decodedBytes = decodeBase64ToBitmap(base64Image)
+
+								GlideApp.with(requireContext()).asBitmap().load(decodedBytes)
+									.into(ivHomeProfilephoto)
+							}
+
+						}
+					}
+				}
+
+				else -> {}
+			}
+		}
+
+	}
+
+	private fun decodeBase64ToBitmap(base64: String): Bitmap {
+		val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
+		return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+	}
 	private fun showSnackbar(message: String) {
 
 		customSnackbar.showSnackbarWithAction(
@@ -172,6 +248,34 @@ class MahasiswaBerandaFragment : Fragment() {
 		val ftAttach = parentFragmentManager.beginTransaction()
 		ftAttach.attach(this@MahasiswaBerandaFragment)
 		ftAttach.commit()
+	}
+
+	private fun setLoading(isLoading: Boolean) {
+		if (isLoading) {
+			binding.shimmerBerandaNamauser.visibility = View.VISIBLE
+			binding.shimmerBerandaNamauser.startShimmer()
+			binding.namauser.visibility = View.GONE
+
+			binding.shimmerIvHomeProfilephoto.visibility = View.VISIBLE
+			binding.shimmerIvHomeProfilephoto.startShimmer()
+			binding.ivHomeProfilephoto.visibility = View.GONE
+
+			binding.shimmerCvPengumumanTerbaru.visibility = View.VISIBLE
+			binding.shimmerCvPengumumanTerbaru.startShimmer()
+			binding.rvPengumumanTerbaru.visibility = View.GONE
+		} else {
+			binding.shimmerBerandaNamauser.visibility = View.GONE
+			binding.shimmerBerandaNamauser.stopShimmer()
+			binding.namauser.visibility = View.VISIBLE
+
+			binding.shimmerIvHomeProfilephoto.visibility = View.GONE
+			binding.shimmerIvHomeProfilephoto.stopShimmer()
+			binding.ivHomeProfilephoto.visibility = View.VISIBLE
+
+			binding.shimmerCvPengumumanTerbaru.visibility = View.GONE
+			binding.shimmerCvPengumumanTerbaru.stopShimmer()
+			binding.rvPengumumanTerbaru.visibility = View.VISIBLE
+		}
 	}
 
 	override fun onDestroyView() {

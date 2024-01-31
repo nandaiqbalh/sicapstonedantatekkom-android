@@ -17,6 +17,16 @@ class AuthDataStoreManager(@ApplicationContext private val context: Context) {
 		}
 	}
 
+	val getUsername: Flow<String?> = context.dataStore.data.map {
+		it[USERNAME_KEY]
+	}
+
+	suspend fun setUsername(username: String) {
+		context.dataStore.edit {
+			it[USERNAME_KEY] = username
+		}
+	}
+
 	val getApiToken: Flow<String?> = context.dataStore.data.map {
 		it[API_TOKEN_KEY]
 	}
@@ -50,6 +60,7 @@ class AuthDataStoreManager(@ApplicationContext private val context: Context) {
 	companion object {
 		private const val DATASTORE_NAME = "authdatastore_preferences"
 
+		private val USERNAME_KEY = stringPreferencesKey("USERNAME_KEY")
 		private val API_TOKEN_KEY = stringPreferencesKey("API_TOKEN_KEY")
 		private val USER_ID_KEY = stringPreferencesKey("USER_ID_KEY")
 		private val STATUS_AUTH_KEY = booleanPreferencesKey("STATUS_AUTH_KEY")

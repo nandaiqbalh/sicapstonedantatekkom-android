@@ -197,4 +197,10 @@ class ProfileSayaViewModel @Inject constructor(
 		authDataStoreManager.setStatusAuth(statusAuth)
 	}
 
+	fun getUsername(): LiveData<String?> = authDataStoreManager.getUsername.asLiveData()
+
+	fun setUsername(username: String) = CoroutineScope(Dispatchers.IO).launch {
+		authDataStoreManager.setUsername(username)
+	}
+
 }
