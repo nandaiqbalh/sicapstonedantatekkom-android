@@ -89,7 +89,7 @@
                 android:id="@+id/tv_title_detailcapstone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="32dp"
                 android:fontFamily="@font/poppinsmedium"
                 android:text="@string/tv_title_profile_detail"
@@ -102,10 +102,11 @@
                 android:id="@+id/cv_detail_profil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="21dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="20dp"
                 app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title_detailcapstone">
@@ -138,7 +139,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="2dp"
                             app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -147,7 +148,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsregular"
                                 android:hint="@string/tv_hint_nama_lengkap"
-                                android:padding="12dp"
+                                android:paddingVertical="12dp"
+                                android:paddingHorizontal="8dp"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -157,7 +159,7 @@
                             android:id="@+id/tv_title_nim"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="11dp"
+                            android:layout_marginTop="12dp"
                             android:fontFamily="@font/poppinsmedium"
                             android:text="@string/title_nim"
                             android:textColor="@color/RoyalBlue"
@@ -169,7 +171,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:focusable="false"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="2dp"
                             app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -178,8 +180,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsregular"
                                 android:hint="@string/tv_hint_nim"
-                                android:padding="12dp"
-                                android:textSize="12sp"
+                                android:paddingVertical="12dp"
+                                android:paddingHorizontal="8dp"                                android:textSize="12sp"
                                 android:editable="false"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -189,7 +191,7 @@
                             android:id="@+id/tv_title_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="11dp"
+                            android:layout_marginTop="12dp"
                             android:fontFamily="@font/poppinsmedium"
                             android:text="@string/title_email"
                             android:textColor="@color/RoyalBlue"
@@ -200,7 +202,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="2dp"
                             app:hintEnabled="false">
 
                             <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
@@ -209,8 +211,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsregular"
                                 android:hint="@string/tv_hint_email"
-                                android:padding="12dp"
-                                android:textSize="12sp"
+                                android:paddingVertical="12dp"
+                                android:paddingHorizontal="8dp"                                android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -220,7 +222,7 @@
                             android:id="@+id/tv_title_no_telp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="11dp"
+                            android:layout_marginTop="12dp"
                             android:fontFamily="@font/poppinsmedium"
                             android:text="@string/title_no_telp"
                             android:textColor="@color/RoyalBlue"
@@ -231,7 +233,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="2dp"
                             app:hintEnabled="false">
 
                             <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
@@ -240,8 +242,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsregular"
                                 android:hint="@string/tv_hint_no_telp"
-                                android:padding="12dp"
-                                android:textSize="12sp"
+                                android:paddingVertical="12dp"
+                                android:paddingHorizontal="8dp"                                android:textSize="12sp"
                                 android:inputType="number"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -290,9 +292,9 @@
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="21dp"
+                app:cardElevation="8dp"
                 android:layout_marginBottom="32dp"
                 app:cardCornerRadius="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title_change_password">
@@ -325,7 +327,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="2dp"
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
@@ -336,7 +338,7 @@
                                 android:fontFamily="@font/poppinsregular"
                                 android:hint="@string/tv_hint_current_password"
                                 android:inputType="textPassword"
-                                android:padding="12dp"
+                                android:padding="8dp"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -346,7 +348,7 @@
                             android:id="@+id/tv_new_password"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="11dp"
+                            android:layout_marginTop="12dp"
                             android:fontFamily="@font/poppinsmedium"
                             android:text="@string/title_new_password"
                             android:textColor="@color/RoyalBlue"
@@ -357,7 +359,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="2dp"
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
@@ -368,7 +370,7 @@
                                 android:fontFamily="@font/poppinsregular"
                                 android:hint="@string/tv_new_password"
                                 android:inputType="textPassword"
-                                android:padding="12dp"
+                                android:padding="8dp"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -378,7 +380,7 @@
                             android:id="@+id/tv_title_konfirmasi_password_baru"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="11dp"
+                            android:layout_marginTop="12dp"
                             android:fontFamily="@font/poppinsmedium"
                             android:text="@string/konfirmasi_password_baru"
                             android:textColor="@color/RoyalBlue"
@@ -389,7 +391,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="2dp"
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
@@ -400,7 +402,7 @@
                                 android:fontFamily="@font/poppinsregular"
                                 android:hint="@string/tv_konfirmasi_password_baru"
                                 android:inputType="textPassword"
-                                android:padding="12dp"
+                                android:padding="8dp"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
                         </com.google.android.material.textfield.TextInputLayout>

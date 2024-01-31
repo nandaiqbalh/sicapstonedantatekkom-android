@@ -1,4 +1,4 @@
-package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.pengumuman
+package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

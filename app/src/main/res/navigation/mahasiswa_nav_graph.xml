@@ -19,6 +19,18 @@
         <action
             android:id="@+id/action_mahasiswaBerandaFragment_to_mahasiswaProfilFragment"
             app:destination="@id/mahasiswaProfilFragment" />
+        <action
+            android:id="@+id/action_mahasiswaBerandaFragment_to_mahasiswaSidangTugasAkhirFragment"
+            app:destination="@id/mahasiswaSidangTugasAkhirFragment" />
+        <action
+            android:id="@+id/action_mahasiswaBerandaFragment_to_mahasiswaPengumumanFragment"
+            app:destination="@id/mahasiswaPengumumanFragment" />
+        <action
+            android:id="@+id/action_mahasiswaBerandaFragment_to_mahasiswaSidangProposalFragment"
+            app:destination="@id/mahasiswaSidangProposalFragment" />
+        <action
+            android:id="@+id/action_mahasiswaBerandaFragment_to_mahasiswaExpoFragment"
+            app:destination="@id/mahasiswaExpoFragment" />
     </fragment>
     <fragment
         android:id="@+id/mahasiswaDokumenFragment"
@@ -63,6 +75,42 @@
             app:destination="@id/mahasiswaKelompokFragment" />
         <action
             android:id="@+id/action_mahasiswaProfilFragment_to_mahasiswaBerandaFragment"
+            app:destination="@id/mahasiswaBerandaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mahasiswaExpoFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.expo.MahasiswaExpoFragment"
+        android:label="fragment_mahasiswa_expo"
+        tools:layout="@layout/fragment_mahasiswa_expo" >
+        <action
+            android:id="@+id/action_mahasiswaExpoFragment_to_mahasiswaBerandaFragment"
+            app:destination="@id/mahasiswaBerandaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mahasiswaPengumumanFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.MahasiswaPengumumanFragment"
+        android:label="fragment_mahasiswa_pengumuman"
+        tools:layout="@layout/fragment_mahasiswa_pengumuman" >
+        <action
+            android:id="@+id/action_mahasiswaPengumumanFragment_to_mahasiswaBerandaFragment"
+            app:destination="@id/mahasiswaBerandaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mahasiswaSidangProposalFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.sidangproposal.MahasiswaSidangProposalFragment"
+        android:label="fragment_mahasiswa_sidang_proposal"
+        tools:layout="@layout/fragment_mahasiswa_sidang_proposal" >
+        <action
+            android:id="@+id/action_mahasiswaSidangProposalFragment_to_mahasiswaBerandaFragment"
+            app:destination="@id/mahasiswaBerandaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mahasiswaSidangTugasAkhirFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.sidangta.MahasiswaSidangTugasAkhirFragment"
+        android:label="fragment_mahasiswa_sidang_tugas_akhir"
+        tools:layout="@layout/fragment_mahasiswa_sidang_tugas_akhir" >
+        <action
+            android:id="@+id/action_mahasiswaSidangTugasAkhirFragment_to_mahasiswaBerandaFragment"
             app:destination="@id/mahasiswaBerandaFragment" />
     </fragment>
 </navigation>
