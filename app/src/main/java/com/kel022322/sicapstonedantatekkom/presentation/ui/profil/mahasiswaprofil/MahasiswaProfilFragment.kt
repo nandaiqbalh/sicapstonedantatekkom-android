@@ -679,7 +679,7 @@ class MahasiswaProfilFragment : Fragment() {
 	}
 
 	private fun cropToSquare(bitmap: Bitmap): Bitmap {
-		val dimension = Math.min(bitmap.width, bitmap.height)
+		val dimension = bitmap.width.coerceAtMost(bitmap.height)
 		return Bitmap.createBitmap(bitmap, 0, 0, dimension, dimension)
 	}
 
@@ -690,34 +690,38 @@ class MahasiswaProfilFragment : Fragment() {
 
 	private fun showSnackbar(message: String) {
 
-		customSnackbar.showSnackbarWithAction(
-			requireActivity().findViewById(android.R.id.content),
-			message,
-			"OK"
-		) {
-			customSnackbar.dismissSnackbar()
-			if (message == "Berhasil keluar!" || message == "Token tidak valid!" || message == "Pengguna tidak ditemukan!" || message == "Tidak ada api token!" || message == "Missing api_token in the request body.") {
+		val currentFragment = this@MahasiswaProfilFragment
+		if (currentFragment.isVisible){
+			customSnackbar.showSnackbarWithAction(
+				requireActivity().findViewById(android.R.id.content),
+				message,
+				"OK"
+			) {
+				customSnackbar.dismissSnackbar()
+				if (message == "Berhasil keluar!" || message == "Token tidak valid!" || message == "Pengguna tidak ditemukan!" || message == "Tidak ada api token!" || message == "Missing api_token in the request body.") {
 
-				profileViewModel.setApiToken("")
-				profileViewModel.setUserId("")
-				profileViewModel.setStatusAuth(false)
+					profileViewModel.setApiToken("")
+					profileViewModel.setUserId("")
+					profileViewModel.setStatusAuth(false)
 
-				val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-				requireContext().startActivity(intent)
-				requireActivity().finishAffinity()
-			} else if (message == "null" || message.equals(null) || message === "Terjadi kesalahan!") {
-				restartFragment()
-			} else if (message == "Password berhasil diubah, silahkan masuk kembali."){
+					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
+					requireContext().startActivity(intent)
+					requireActivity().finishAffinity()
+				} else if (message == "null" || message.equals(null) || message == "Terjadi kesalahan!") {
+					restartFragment()
+				} else if (message == "Password berhasil diubah, silahkan masuk kembali."){
 
-				profileViewModel.setApiToken("")
-				profileViewModel.setUserId("")
-				profileViewModel.setStatusAuth(false)
+					profileViewModel.setApiToken("")
+					profileViewModel.setUserId("")
+					profileViewModel.setStatusAuth(false)
 
-				val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-				requireContext().startActivity(intent)
-				requireActivity().finishAffinity()
+					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
+					requireContext().startActivity(intent)
+					requireActivity().finishAffinity()
+				}
 			}
 		}
+
 	}
 
 	private fun restartFragment() {

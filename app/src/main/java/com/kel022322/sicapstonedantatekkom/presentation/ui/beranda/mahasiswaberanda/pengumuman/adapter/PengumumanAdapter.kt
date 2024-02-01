@@ -69,8 +69,7 @@ class PengumumanAdapter: RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHol
 			}
 
 			binding.root.setOnClickListener {
-				itemClickListener?.invoke(broadcast)
-
+				onItemClickCallBack.onItemClicked(broadcast)
 			}
 		}
 

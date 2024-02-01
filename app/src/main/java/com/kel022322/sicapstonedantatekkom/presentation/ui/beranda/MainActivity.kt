@@ -61,6 +61,9 @@ class MainActivity : AppCompatActivity() {
 	            R.id.mahasiswaSidangTugasAkhirFragment -> {
 		            hideBottomNav(true)
 	            }
+	            R.id.mahasiswaDetailPengumumanFragment -> {
+		            hideBottomNav(true)
+	            }
                 else -> hideBottomNav(false)
             }
 		}

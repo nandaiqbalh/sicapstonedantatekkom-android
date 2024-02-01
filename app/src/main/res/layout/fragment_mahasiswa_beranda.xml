@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Minimumblue"
+    android:orientation="vertical"
     tools:context=".presentation.ui.beranda.mahasiswaberanda.MahasiswaBerandaFragment">
-
-    <View
-        android:id="@+id/overlayLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_toolbar"
@@ -25,9 +15,6 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/White"
         app:cardElevation="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/White">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,18 +96,17 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cv_toolbar">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_menuaction"
@@ -130,9 +116,7 @@
                 android:fontFamily="@font/poppinssemibold"
                 android:text="@string/tv_action"
                 android:textColor="@color/lightblue"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="16sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_action_mahasiswa_beranda"
@@ -141,9 +125,6 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:nestedScrollingEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_menuaction"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_action_mahasiswa_beranda"
                 tools:orientation="horizontal" />
@@ -157,9 +138,7 @@
                 android:fontFamily="@font/poppinssemibold"
                 android:text="@string/tv_pengumuman_terbaru"
                 android:textColor="@color/lightblue"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_action_mahasiswa_beranda" />
+                android:textSize="16sp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_pengumuman_terbaru"
@@ -173,19 +152,31 @@
                 app:cardCornerRadius="10dp"
                 app:cardElevation="8dp"
                 app:contentPadding="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_pengumuman_terbaru"
                 app:strokeColor="@android:color/transparent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <TextView
+                        android:id="@+id/tv_pengumuman_tidak_ditemukan"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:visibility="gone"
+                        android:textColor="@color/DarkGrey"
+                        android:fontFamily="@font/poppinsregular"
+                        android:gravity="center_vertical"
+                        android:text="@string/terjadi_kesalahan_pengumuman_tidak_ditemukan"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <com.facebook.shimmer.ShimmerFrameLayout
                         android:id="@+id/shimmer_cv_pengumuman_terbaru"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
                         android:height="24dp"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -212,7 +203,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_pengumuman_terbaru"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:nestedScrollingEnabled="true"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -224,8 +215,8 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -31,6 +31,11 @@
         <action
             android:id="@+id/action_mahasiswaBerandaFragment_to_mahasiswaExpoFragment"
             app:destination="@id/mahasiswaExpoFragment" />
+        <action
+            android:id="@+id/action_mahasiswaBerandaFragment_to_mahasiswaDetailPengumumanFragment"
+            app:destination="@id/mahasiswaDetailPengumumanFragment">
+
+        </action>
     </fragment>
     <fragment
         android:id="@+id/mahasiswaDokumenFragment"
@@ -94,6 +99,9 @@
         <action
             android:id="@+id/action_mahasiswaPengumumanFragment_to_mahasiswaBerandaFragment"
             app:destination="@id/mahasiswaBerandaFragment" />
+        <action
+            android:id="@+id/action_mahasiswaPengumumanFragment_to_mahasiswaDetailPengumumanFragment"
+            app:destination="@id/mahasiswaDetailPengumumanFragment" />
     </fragment>
     <fragment
         android:id="@+id/mahasiswaSidangProposalFragment"
@@ -113,4 +121,19 @@
             android:id="@+id/action_mahasiswaSidangTugasAkhirFragment_to_mahasiswaBerandaFragment"
             app:destination="@id/mahasiswaBerandaFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mahasiswaDetailPengumumanFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.detail.MahasiswaDetailPengumumanFragment"
+        android:label="fragment_mahasiswa_detail_pengumuman"
+        tools:layout="@layout/fragment_mahasiswa_detail_pengumuman" >
+        <action
+            android:id="@+id/action_mahasiswaDetailPengumumanFragment_to_mahasiswaBerandaFragment"
+            app:destination="@id/mahasiswaBerandaFragment" />
+
+        <argument
+            android:name="broadcast"
+            app:argType="com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.DataXBroadcastPaginate"
+            app:nullable="true" />
+    </fragment>
+
 </navigation>

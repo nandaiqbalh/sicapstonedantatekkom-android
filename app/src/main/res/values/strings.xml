@@ -48,4 +48,11 @@
     <string name="tv_title_item_pengumuman">Pengumpulan File Capstone S2T23</string>
     <string name="tv_item_pengumuman_content">Mengingatkan kembali kepada peserta Capstone S2T23 untuk segera mengumpulkan berkas sesuai...</string>
     <string name="tv_postdate">4 Minutes ago</string>
+    <string name="id">id</string>
+    <string name="ic_back">ic_back</string>
+    <string name="scroll_pengumuman">scroll_pengumuman</string>
+    <string name="detail_pengumuman">Detail Pengumuman</string>
+    <string name="lihat_informasi_selengkapnya">Lihat informasi selengkapnya.</string>
+    <string name="klik_di_sini"><u>Klik di sini.</u></string>
+    <string name="terjadi_kesalahan_pengumuman_tidak_ditemukan">Terjadi kesalahan! Pengumuman tidak ditemukan!</string>
 </resources>
