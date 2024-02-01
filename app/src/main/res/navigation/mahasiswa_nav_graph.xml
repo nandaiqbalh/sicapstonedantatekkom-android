@@ -102,6 +102,9 @@
         <action
             android:id="@+id/action_mahasiswaPengumumanFragment_to_mahasiswaDetailPengumumanFragment"
             app:destination="@id/mahasiswaDetailPengumumanFragment" />
+        <action
+            android:id="@+id/action_mahasiswaPengumumanFragment_to_mahasiswaDetailPengumumanFragment2"
+            app:destination="@id/mahasiswaDetailPengumumanFragment" />
     </fragment>
     <fragment
         android:id="@+id/mahasiswaSidangProposalFragment"
@@ -134,6 +137,9 @@
             android:name="broadcast"
             app:argType="com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.DataXBroadcastPaginate"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_mahasiswaDetailPengumumanFragment_to_mahasiswaPengumumanFragment"
+            app:destination="@id/mahasiswaPengumumanFragment" />
     </fragment>
 
 </navigation>

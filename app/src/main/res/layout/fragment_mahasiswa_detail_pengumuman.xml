@@ -22,23 +22,25 @@
             android:background="@color/White"
             android:padding="16dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_arrow_back"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:backgroundTint="@color/lightblue"
-                app:cardCornerRadius="20dp"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_circle_back_arrow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@color/lightblue"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_margin="6dp"
-                    android:contentDescription="@string/ic_back"
-                    app:srcCompat="@drawable/ic_back_arrow" />
-            </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/ic_back_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_arrow"
+                app:layout_constraintTop_toTopOf="@id/iv_circle_back_arrow"
+                app:layout_constraintStart_toStartOf="@id/iv_circle_back_arrow"
+                app:layout_constraintEnd_toEndOf="@id/iv_circle_back_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/iv_circle_back_arrow"
+                android:contentDescription="@string/ic_back" />
+
 
             <TextView
                 android:id="@+id/tv_title_pengumuman_fragment"
@@ -49,9 +51,9 @@
                 android:text="@string/detail_pengumuman"
                 android:textColor="@color/lightblue"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/cv_arrow_back"
-                app:layout_constraintStart_toEndOf="@id/cv_arrow_back"
-                app:layout_constraintTop_toTopOf="@id/cv_arrow_back" />
+                app:layout_constraintBottom_toBottomOf="@id/iv_circle_back_arrow"
+                app:layout_constraintStart_toEndOf="@id/iv_circle_back_arrow"
+                app:layout_constraintTop_toTopOf="@id/iv_circle_back_arrow" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

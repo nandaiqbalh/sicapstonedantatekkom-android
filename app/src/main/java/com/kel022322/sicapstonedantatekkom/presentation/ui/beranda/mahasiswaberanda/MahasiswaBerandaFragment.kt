@@ -150,7 +150,6 @@ class MahasiswaBerandaFragment : Fragment() {
 					val message = broadcastHomeResult.payload?.message
 					Log.d("Result success", message.toString())
 
-					showSnackbar(message ?: "Terjadi kesalahan!")
 					if (broadcastHomeResult.payload?.status == false) {
 						setLoading(false)
 						showSnackbar(message ?: "Terjadi kesalahan!")

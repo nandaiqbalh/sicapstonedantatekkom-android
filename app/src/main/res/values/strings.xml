@@ -55,4 +55,8 @@
     <string name="lihat_informasi_selengkapnya">Lihat informasi selengkapnya.</string>
     <string name="klik_di_sini"><u>Klik di sini.</u></string>
     <string name="terjadi_kesalahan_pengumuman_tidak_ditemukan">Terjadi kesalahan! Pengumuman tidak ditemukan!</string>
+    <string name="tv_title_sidang_proposal">Sidang Proposal</string>
+    <string name="tv_title_pengumuman">Pengumuman</string>
+    <string name="tv_title_expo">Expo Project</string>
+    <string name="tv_title_tugas_akhir">Sidang Tugas Akhir</string>
 </resources>

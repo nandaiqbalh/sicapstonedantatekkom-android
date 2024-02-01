@@ -14,11 +14,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDetailPengumumanBinding
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 
+@AndroidEntryPoint
 class MahasiswaDetailPengumumanFragment : Fragment() {
 
 	private var _binding: FragmentMahasiswaDetailPengumumanBinding? = null
@@ -44,7 +46,11 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 
 	private fun setButtonListener(){
 
-		binding.cvArrowBack.setOnClickListener {
+		binding.ivCircleBackArrow.setOnClickListener {
+			findNavController().popBackStack()
+		}
+
+		binding.icBackArrow.setOnClickListener {
 			findNavController().popBackStack()
 		}
 	}
