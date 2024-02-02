@@ -1,0 +1,13 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused state -->
+    <item android:color="@color/BlueFontFilled" android:state_focused="true" />
+
+    <!-- Hovered state -->
+    <item android:color="@color/Gainsboro" android:state_hovered="true" />
+
+    <!-- Disabled state -->
+    <item android:color="@color/Gainsboro" android:state_enabled="false" />
+
+    <!-- Default state (unfocused) -->
+    <item android:color="@color/Gainsboro" />
+</selector>

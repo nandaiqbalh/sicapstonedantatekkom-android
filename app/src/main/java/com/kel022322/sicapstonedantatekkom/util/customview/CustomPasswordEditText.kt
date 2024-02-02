@@ -4,8 +4,10 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.kel022322.sicapstonedantatekkom.R
 
 class CustomPasswordEditText : TextInputEditText {
 	private val MIN_PASSWORD_LENGTH = 8
@@ -31,6 +33,8 @@ class CustomPasswordEditText : TextInputEditText {
 				val parentLayout = getParentTextInputLayout()
 				if (password.length < MIN_PASSWORD_LENGTH) {
 					parentLayout?.error = "Password minimal $MIN_PASSWORD_LENGTH karakter!"
+					setCustomErrorTypeface(parentLayout)
+
 				} else {
 					parentLayout?.error = null
 				}
@@ -44,5 +48,10 @@ class CustomPasswordEditText : TextInputEditText {
 			parent = parent.parent
 		}
 		return parent as? TextInputLayout
+	}
+
+	private fun setCustomErrorTypeface(textInputLayout: TextInputLayout?) {
+		val typeface = ResourcesCompat.getFont(context, R.font.poppinsregular)
+		textInputLayout?.setTypeface(typeface)
 	}
 }

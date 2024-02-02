@@ -4,8 +4,10 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.kel022322.sicapstonedantatekkom.R
 
 class CustomNIMEditText : TextInputEditText {
 
@@ -32,6 +34,7 @@ class CustomNIMEditText : TextInputEditText {
 					parentLayout?.error = null
 				} else {
 					parentLayout?.error = "14 digit NIM tidak valid!"
+					setCustomErrorTypeface(parentLayout)
 				}
 			}
 		})
@@ -43,5 +46,10 @@ class CustomNIMEditText : TextInputEditText {
 			parent = parent.parent
 		}
 		return parent as? TextInputLayout
+	}
+
+	private fun setCustomErrorTypeface(textInputLayout: TextInputLayout?) {
+		val typeface = ResourcesCompat.getFont(context, R.font.poppinsregular)
+		textInputLayout?.setTypeface(typeface)
 	}
 }

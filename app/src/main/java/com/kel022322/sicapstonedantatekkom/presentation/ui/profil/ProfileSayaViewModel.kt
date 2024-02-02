@@ -203,4 +203,10 @@ class ProfileSayaViewModel @Inject constructor(
 		authDataStoreManager.setUsername(username)
 	}
 
+	fun getPhotoProfile(): LiveData<String?> = authDataStoreManager.getPhotoProfile.asLiveData()
+
+	fun setPhotoProfile(photoProfile: String) = CoroutineScope(Dispatchers.IO).launch {
+		authDataStoreManager.setPhotoProfile(photoProfile)
+	}
+
 }

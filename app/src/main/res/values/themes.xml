@@ -48,4 +48,16 @@
         <item name="cornerSizeBottomRight">16dp</item>
         <item name="cornerSizeBottomLeft">16dp</item>
     </style>
+
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Default state -->
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+
+        <!-- Color selector -->
+        <item name="boxStrokeColor">@color/color_outlined_text_input_layout</item>
+
+    </style>
 </resources>

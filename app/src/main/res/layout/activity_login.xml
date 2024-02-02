@@ -24,10 +24,10 @@
         android:layout_margin="20dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -46,12 +46,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/custom_edittext"
+                android:orientation="vertical"
+                android:padding="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"                android:background="@drawable/custom_edittext"
-                android:orientation="vertical"
-                android:padding="20dp">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -74,7 +75,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_id_pengguna"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
@@ -85,11 +86,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:autofillHints=""
+                        android:fontFamily="@font/poppinsregular"
                         android:hint="@string/edt_hint_id_pengguna"
                         android:inputType="text"
                         android:paddingHorizontal="8dp"
                         android:paddingVertical="12dp"
-                        android:textColor="@color/RoyalBlue"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
                         android:textSize="14sp"
                         tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
@@ -109,11 +112,11 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_password"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:passwordToggleEnabled="true"
-                    app:hintEnabled="false">
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true">
 
                     <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
                         android:id="@+id/edt_password"
@@ -121,10 +124,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:autofillHints=""
+                        android:fontFamily="@font/poppinsregular"
                         android:hint="@string/edt_hint_password"
                         android:inputType="textPassword"
                         android:padding="8dp"
-                        android:textColor="@color/RoyalBlue"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
                         android:textSize="14sp"
                         tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>

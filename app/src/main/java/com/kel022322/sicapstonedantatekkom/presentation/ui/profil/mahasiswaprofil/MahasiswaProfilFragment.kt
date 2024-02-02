@@ -693,7 +693,7 @@ class MahasiswaProfilFragment : Fragment() {
 				"OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (message == "Berhasil keluar!" || message == "Token tidak valid!" || message == "Pengguna tidak ditemukan!" || message == "Tidak ada api token!" || message == "Missing api_token in the request body.") {
+				if (message == "Berhasil keluar!" || message == "Gagal! Anda telah masuk melalui perangkat lain." || message == "Pengguna tidak ditemukan!" || message == "Akses tidak sah!" || message == "Sesi anda telah berakhir, silahkan masuk terlebih dahulu.") {
 
 					profileViewModel.setApiToken("")
 					profileViewModel.setUserId("")

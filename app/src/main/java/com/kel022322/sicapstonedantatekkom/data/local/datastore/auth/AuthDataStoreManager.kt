@@ -27,6 +27,16 @@ class AuthDataStoreManager(@ApplicationContext private val context: Context) {
 		}
 	}
 
+	val getPhotoProfile: Flow<String?> = context.dataStore.data.map {
+		it[PHOTO_PROFILE_KEY]
+	}
+
+	suspend fun setPhotoProfile(photoProfile: String) {
+		context.dataStore.edit {
+			it[PHOTO_PROFILE_KEY] = photoProfile
+		}
+	}
+
 	val getApiToken: Flow<String?> = context.dataStore.data.map {
 		it[API_TOKEN_KEY]
 	}
@@ -60,6 +70,7 @@ class AuthDataStoreManager(@ApplicationContext private val context: Context) {
 	companion object {
 		private const val DATASTORE_NAME = "authdatastore_preferences"
 
+		private val PHOTO_PROFILE_KEY = stringPreferencesKey("PHOTO_PROFILE_KEY")
 		private val USERNAME_KEY = stringPreferencesKey("USERNAME_KEY")
 		private val API_TOKEN_KEY = stringPreferencesKey("API_TOKEN_KEY")
 		private val USER_ID_KEY = stringPreferencesKey("USER_ID_KEY")

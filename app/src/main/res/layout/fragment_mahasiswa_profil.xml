@@ -79,7 +79,7 @@
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/poppinsmedium"
                 android:text="@string/nim_mahasiswa"
-                android:textColor="@color/DarkGrey"
+                android:textColor="#546E7A"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +136,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_nama_pengguna"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -150,7 +150,8 @@
                                 android:hint="@string/tv_hint_nama_lengkap"
                                 android:paddingHorizontal="8dp"
                                 android:paddingVertical="12dp"
-                                android:textColor="@color/RoyalBlue"
+                                android:textColor="@color/BlueFontFilled"
+                                android:textColorHint="@color/DarkGrey"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -168,7 +169,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_nim_pengguna"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -184,9 +185,10 @@
                                 android:hint="@string/tv_hint_nim"
                                 android:paddingHorizontal="8dp"
                                 android:paddingVertical="12dp"
-                                android:textColor="@color/RoyalBlue"
+                                android:textColor="@color/BlueFontFilled"
+                                android:textColorHint="@color/DarkGrey"
                                 android:textSize="12sp"
-                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                                tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -202,7 +204,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_email_pengguna"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -216,7 +218,8 @@
                                 android:hint="@string/tv_hint_email"
                                 android:paddingHorizontal="8dp"
                                 android:paddingVertical="12dp"
-                                android:textColor="@color/RoyalBlue"
+                                android:textColor="@color/BlueFontFilled"
+                                android:textColorHint="@color/DarkGrey"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -235,7 +238,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_no_telp_pengguna"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -250,7 +253,8 @@
                                 android:inputType="number"
                                 android:paddingHorizontal="8dp"
                                 android:paddingVertical="12dp"
-                                android:textColor="@color/RoyalBlue"
+                                android:textColor="@color/BlueFontFilled"
+                                android:textColorHint="@color/DarkGrey"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -331,7 +335,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_current_password"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -346,7 +350,8 @@
                                 android:hint="@string/tv_hint_current_password"
                                 android:inputType="textPassword"
                                 android:padding="8dp"
-                                android:textColor="@color/RoyalBlue"
+                                android:textColor="@color/BlueFontFilled"
+                                android:textColorHint="@color/DarkGrey"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -364,7 +369,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_new_password"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -379,7 +384,8 @@
                                 android:hint="@string/tv_new_password"
                                 android:inputType="textPassword"
                                 android:padding="8dp"
-                                android:textColor="@color/RoyalBlue"
+                                android:textColor="@color/BlueFontFilled"
+                                android:textColorHint="@color/DarkGrey"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -397,7 +403,7 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_konfirmasi_password_baru"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -412,7 +418,8 @@
                                 android:hint="@string/tv_konfirmasi_password_baru"
                                 android:inputType="textPassword"
                                 android:padding="8dp"
-                                android:textColor="@color/RoyalBlue"
+                                android:textColor="@color/BlueFontFilled"
+                                android:textColorHint="@color/DarkGrey"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
                         </com.google.android.material.textfield.TextInputLayout>

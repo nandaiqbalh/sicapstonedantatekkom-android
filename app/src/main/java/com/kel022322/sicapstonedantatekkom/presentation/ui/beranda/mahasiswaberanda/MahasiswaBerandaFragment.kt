@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -100,7 +101,7 @@ class MahasiswaBerandaFragment : Fragment() {
 			R.id.action_mahasiswaBerandaFragment_to_mahasiswaExpoFragment
 		)
 		val actionSidangTugasAkhir = ActionModel(
-			R.drawable.ic_action_pengumuman,
+			R.drawable.ic_action_sidang_tugas_akhir,
 			"Sidang Tugas Akhir",
 			R.id.action_mahasiswaBerandaFragment_to_mahasiswaSidangTugasAkhirFragment
 		)
@@ -173,7 +174,9 @@ class MahasiswaBerandaFragment : Fragment() {
 						// navigate to detail
 						pengumumanAdapter.setOnItemClickCallback(object : PengumumanAdapter.OnItemClickCallBack {
 							override fun onItemClicked(broadcastId: String) {
-								val action = MahasiswaBerandaFragmentDirections.actionMahasiswaBerandaFragmentToMahasiswaDetailPengumumanFragment(broadcastId.toString())
+								val action = MahasiswaBerandaFragmentDirections.actionMahasiswaBerandaFragmentToMahasiswaDetailPengumumanFragment(
+									broadcastId
+								)
 								findNavController().navigate(action)
 							}
 						})
@@ -234,6 +237,8 @@ class MahasiswaBerandaFragment : Fragment() {
 						with(binding) {
 							val base64Image = getPhotoProfileResult.payload.data.toString()
 
+							profileViewModel.setPhotoProfile(base64Image)
+
 							if (base64Image != "null") {
 								// Decode base64 string to byte array
 								val decodedBytes = decodeBase64ToBitmap(base64Image)
@@ -267,7 +272,7 @@ class MahasiswaBerandaFragment : Fragment() {
 				"OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (message == "Berhasil keluar!" || message == "Token tidak valid!" || message == "Pengguna tidak ditemukan!" || message == "Tidak ada api token!" || message == "Missing api_token in the request body.") {
+				if (message == "Berhasil keluar!" || message == "Gagal! Anda telah masuk melalui perangkat lain." || message == "Pengguna tidak ditemukan!" || message == "Akses tidak sah!" || message == "Sesi anda telah berakhir, silahkan masuk terlebih dahulu.") {
 
 					profileViewModel.setApiToken("")
 					profileViewModel.setUserId("")

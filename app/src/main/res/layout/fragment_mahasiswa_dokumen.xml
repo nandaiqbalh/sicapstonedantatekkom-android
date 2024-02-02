@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.dokumen.mahasiswadokumen.MahasiswaDokumenFragment">
+    android:background="@color/Minimumblue"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_toolbar_dokumen"
+        style="@style/CustomCardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/White"
+        app:cardElevation="8dp"
+        app:strokeColor="@color/White">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tv_hello_dokumen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="@string/hello"
+                android:textColor="@color/DarkGrey"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/iv_nama_user_dokumen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="@string/nama_lengkap_mahasiswa"
+                android:textColor="@color/lightblue"
+                android:textSize="14sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_hello_dokumen" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_home_profilephoto_dokumen"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:src="@drawable/img_default_profile"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ImageContrastCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>

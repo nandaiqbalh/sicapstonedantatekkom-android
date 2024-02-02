@@ -100,9 +100,6 @@ class LoginActivity : AppCompatActivity() {
 
 								Log.d("Result Auth", "user_id: $userId, api_token: $apiToken")
 
-								customToast.showToast(this@LoginActivity, "Authentikasi berhasil!", Toast.LENGTH_SHORT)
-
-
 								loginViewModel.setStatusAuth(true)
 								// Call the function to setApiToken with the obtained apiToken
 								loginViewModel.setUserId(userId)
