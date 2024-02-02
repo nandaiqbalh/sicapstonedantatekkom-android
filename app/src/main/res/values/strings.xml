@@ -59,4 +59,6 @@
     <string name="tv_title_pengumuman">Pengumuman</string>
     <string name="tv_title_expo">Expo Project</string>
     <string name="tv_title_tugas_akhir">Sidang Tugas Akhir</string>
+    <string name="desc_tab_layout_dokumen">Tab Layout Dokumen</string>
+    <string name="tv_dokumen_capstone">Dokumen Mahasiswa</string>
 </resources>

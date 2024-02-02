@@ -6,6 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="tabUnselected">#F0EEF0</color>
     <color name="White">#FFFFFFFF</color>
     <color name="RoyalBlue">#1C53C5</color>
     <color name="MidnightBlue">#153E94</color>

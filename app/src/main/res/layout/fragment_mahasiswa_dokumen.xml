@@ -60,4 +60,57 @@
     </com.google.android.material.card.MaterialCardView>
 
 
+    <TextView
+        android:id="@+id/tv_menuaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poppinssemibold"
+        android:text="@string/tv_dokumen_capstone"
+        android:textColor="@color/lightblue"
+        android:textSize="16sp" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout_dokumen_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/rounded_tab_layout_background"
+            android:contentDescription="@string/desc_tab_layout_dokumen"
+            android:padding="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicator="@drawable/tab_indicator_fragment_dokumen"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabIndicatorColor="@android:color/transparent"
+            app:tabIndicatorGravity="stretch"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/RoyalBlue"
+            app:tabTextAppearance="@style/TabLayoutTextAppearance"
+            app:tabTextColor="@color/tabUnselected" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager_dokumen_fragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_layout_dokumen_fragment" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

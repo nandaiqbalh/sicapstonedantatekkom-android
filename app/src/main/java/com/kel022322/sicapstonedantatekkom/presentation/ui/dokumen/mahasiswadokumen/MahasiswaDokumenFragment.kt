@@ -5,18 +5,25 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.viewpager2.widget.ViewPager2
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDokumenBinding
+import com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.mahasiswadokumen.adapter.FragmentPageAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MahasiswaDokumenFragment : Fragment() {
@@ -27,6 +34,8 @@ class MahasiswaDokumenFragment : Fragment() {
 	private val profileViewModel: ProfileSayaViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
+
+	private var fragmentPageAdapter: FragmentPageAdapter? = null
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?,
@@ -39,16 +48,63 @@ class MahasiswaDokumenFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 
 		setToolbar()
+
+		setViewPager()
 	}
 
-	private fun setToolbar(){
+	private fun setViewPager() {
+
+		fragmentPageAdapter = FragmentPageAdapter(requireFragmentManager(), lifecycle)
+
+		with(binding) {
+			tabLayoutDokumenFragment.addTab(tabLayoutDokumenFragment.newTab().setText("Capstone"))
+			tabLayoutDokumenFragment.addTab(
+				tabLayoutDokumenFragment.newTab().setText("Tugas Akhir")
+			)
+
+			viewPagerDokumenFragment.adapter = fragmentPageAdapter
+
+			tabLayoutDokumenFragment.addOnTabSelectedListener(object : OnTabSelectedListener {
+				override fun onTabSelected(tab: TabLayout.Tab?) {
+					viewPagerDokumenFragment.currentItem = tab!!.position
+
+					val textView = tab.view as? TextView
+					textView?.apply {
+						setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f) // Set desired text size
+//						setTextColor(resources.getColor(com.kel022322.sicapstonedantatekkom.R.))
+						isAllCaps = false // Set text to uppercase
+					}
+				}
+
+				override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+
+				}
+
+				override fun onTabReselected(tab: TabLayout.Tab?) {
+				}
+			})
+
+			viewPagerDokumenFragment.registerOnPageChangeCallback(object :
+				ViewPager2.OnPageChangeCallback() {
+				override fun onPageSelected(position: Int) {
+					super.onPageSelected(position)
+					tabLayoutDokumenFragment.selectTab(tabLayoutDokumenFragment.getTabAt(position))
+				}
+			})
+
+
+		}
+	}
+
+	private fun setToolbar() {
 		profileViewModel.getUsername().observe(viewLifecycleOwner) { username ->
 			if (username != null) {
 				binding.ivNamaUserDokumen.text = username
 			}
 		}
 
-		profileViewModel.getPhotoProfile().observe(viewLifecycleOwner){ photoProfile ->
+		profileViewModel.getPhotoProfile().observe(viewLifecycleOwner) { photoProfile ->
 
 			if (photoProfile != null || photoProfile != "") {
 				// Decode base64 string to byte array
@@ -69,7 +125,7 @@ class MahasiswaDokumenFragment : Fragment() {
 	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaDokumenFragment
 
-		if (currentFragment.isVisible){
+		if (currentFragment.isVisible) {
 			customSnackbar.showSnackbarWithAction(
 				requireActivity().findViewById(android.R.id.content),
 				message,
@@ -130,7 +186,7 @@ class MahasiswaDokumenFragment : Fragment() {
 //			rvPengumumanTerbaru.visibility = if (isLoading) View.GONE else View.VISIBLE
 
 		}
-		if(isLoading){
+		if (isLoading) {
 //			binding.tvPengumumanTidakDitemukan.visibility = View.GONE
 		}
 	}

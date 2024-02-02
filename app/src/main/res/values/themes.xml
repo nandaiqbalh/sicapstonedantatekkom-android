@@ -60,4 +60,10 @@
         <item name="boxStrokeColor">@color/color_outlined_text_input_layout</item>
 
     </style>
+
+    <style name="TabLayoutTextAppearance" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/poppinssemibold</item>
+    </style>
 </resources>
