@@ -57,7 +57,7 @@
                 android:maxLines="2"
                 android:scrollHorizontally="true"
                 android:text="@string/tv_item_pengumuman_content"
-                android:textColor="@color/SlateGrey"
+                android:textColor="@color/DarkGrey"
                 android:textSize="12sp" />
 
             <TextView

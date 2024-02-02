@@ -2,7 +2,7 @@
     <string name="app_name">SI Capstone dan TA Tekkom</string>
     <string name="desc_app_logo_splashscreen">desc_app_logo_splashscreen</string>
     <string name="desc_app_logo_login">App Logo Login</string>
-    <string name="btn_login">LOGIN</string>
+    <string name="btn_login">MASUK</string>
     <string name="edt_hint_password">Masukkan Password</string>
     <string name="tv_kata_sandi">Kata Sandi</string>
     <string name="edt_hint_id_pengguna">Masukkan ID Pengguna</string>

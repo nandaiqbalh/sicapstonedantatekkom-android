@@ -234,11 +234,6 @@ class MahasiswaProfilFragment : Fragment() {
 							}
 
 						}
-					} else {
-
-						showSnackbar(
-							getPhotoProfileResult.payload?.message ?: "Terjadi kesalahan!"
-						)
 					}
 				}
 

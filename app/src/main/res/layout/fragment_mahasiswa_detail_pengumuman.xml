@@ -151,7 +151,7 @@
                         android:layout_marginStart="20dp"
                         android:fontFamily="@font/poppinsmedium"
                         android:text="@string/lihat_informasi_selengkapnya"
-                        android:textColor="@color/SlateGrey"
+                        android:textColor="@color/DarkGrey"
                         android:textSize="11sp"
                         tools:ignore="SmallSp,TextSizeCheck,TextContrastCheck" />
 
@@ -189,7 +189,7 @@
                     android:gravity="start|end"
                     android:text="@string/tv_item_pengumuman_content"
                     android:textColor="@color/lightblue"
-                    android:textSize="11sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
         </LinearLayout>

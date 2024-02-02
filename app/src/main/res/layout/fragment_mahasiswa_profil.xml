@@ -148,8 +148,9 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsregular"
                                 android:hint="@string/tv_hint_nama_lengkap"
-                                android:paddingVertical="12dp"
                                 android:paddingHorizontal="8dp"
+                                android:paddingVertical="12dp"
+                                android:textColor="@color/RoyalBlue"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -170,19 +171,21 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:focusable="false"
                             android:layout_marginTop="2dp"
+                            android:focusable="false"
                             app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edt_nim_pengguna"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:editable="false"
                                 android:fontFamily="@font/poppinsregular"
                                 android:hint="@string/tv_hint_nim"
+                                android:paddingHorizontal="8dp"
                                 android:paddingVertical="12dp"
-                                android:paddingHorizontal="8dp"                                android:textSize="12sp"
-                                android:editable="false"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -211,8 +214,10 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsregular"
                                 android:hint="@string/tv_hint_email"
+                                android:paddingHorizontal="8dp"
                                 android:paddingVertical="12dp"
-                                android:paddingHorizontal="8dp"                                android:textSize="12sp"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -242,9 +247,11 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsregular"
                                 android:hint="@string/tv_hint_no_telp"
-                                android:paddingVertical="12dp"
-                                android:paddingHorizontal="8dp"                                android:textSize="12sp"
                                 android:inputType="number"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="12dp"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -292,9 +299,9 @@
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="21dp"
-                app:cardElevation="8dp"
                 android:layout_marginBottom="32dp"
                 app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title_change_password">
@@ -339,6 +346,7 @@
                                 android:hint="@string/tv_hint_current_password"
                                 android:inputType="textPassword"
                                 android:padding="8dp"
+                                android:textColor="@color/RoyalBlue"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -371,6 +379,7 @@
                                 android:hint="@string/tv_new_password"
                                 android:inputType="textPassword"
                                 android:padding="8dp"
+                                android:textColor="@color/RoyalBlue"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -403,6 +412,7 @@
                                 android:hint="@string/tv_konfirmasi_password_baru"
                                 android:inputType="textPassword"
                                 android:padding="8dp"
+                                android:textColor="@color/RoyalBlue"
                                 android:textSize="12sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
                         </com.google.android.material.textfield.TextInputLayout>
