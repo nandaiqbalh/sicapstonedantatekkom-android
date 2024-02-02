@@ -223,6 +223,8 @@ class MahasiswaProfilFragment : Fragment() {
 						with(binding) {
 							val base64Image = getPhotoProfileResult.payload.data.toString()
 
+							profileViewModel.setPhotoProfile(base64Image)
+
 							Log.d("BASE64yuk", base64Image)
 
 							if (base64Image != "null") {

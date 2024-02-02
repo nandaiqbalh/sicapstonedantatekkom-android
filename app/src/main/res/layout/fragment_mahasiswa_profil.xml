@@ -274,6 +274,8 @@
                         android:textColor="@color/White"
                         android:textSize="12sp"
                         app:cornerRadius="6dp"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/poppinsmedium"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/linear_layout_data_profil_akun"
@@ -438,6 +440,8 @@
                         android:textColor="@color/White"
                         android:textSize="12sp"
                         app:cornerRadius="6dp"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/poppinsmedium"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/linear_layout_change_password" />

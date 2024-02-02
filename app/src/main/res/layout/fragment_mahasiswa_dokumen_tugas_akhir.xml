@@ -1,9 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.dokumen.mahasiswadokumen.tugasakhir.MahasiswaDokumenTugasAkhirFragment">
+    android:background="@color/Minimumblue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_empty_dan_shimmer_tugas_akhir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/White"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardElevation="8dp"
+            app:contentPadding="16dp"
+            app:strokeColor="@android:color/transparent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_dokumen_tidak_ditemukan_tugas_akhir"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/poppinsregular"
+                    android:gravity="center_vertical"
+                    android:text="@string/tv_failed_dokumen"
+                    android:textColor="@color/DarkGrey"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_dokumen_fragment_tugas_akhir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:height="24dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_laporan_tugas_akhir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/White"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@android:color/transparent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/garis_vertical"
+                    android:layout_width="8dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/rounded_line_vertical"
+                    android:backgroundTint="@color/tabUnselected"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/tv_title_laporan_tugas_akhir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_laporan_tugas_akhir"
+                    android:textColor="@color/lightblue"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/garis_vertical"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_tugas_akhir"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/garis_vertical"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_tugas_akhir">
+
+                    <TextView
+                        android:id="@+id/tv_pilih_dokumen_tugas_akhir"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:background="@drawable/rounded_outline_8dp_left"
+                        android:backgroundTint="@color/RoyalBlue"
+                        android:fontFamily="@font/poppinsregular"
+                        android:gravity="center"
+                        android:text="@string/tv_pilih_dokumen"
+                        android:textColor="@color/White"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_nama_dokumen_tugas_akhir"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/rounded_outline_8dp_right" />
+
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/RoyalBlue"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/btn_simpan"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White"
+                    android:textSize="12sp"
+                    app:cornerRadius="6dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linear_layout_tugas_akhir"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+        
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_makalah_tugas_akhir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/White"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@android:color/transparent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/garis_vertical_makalah_tugas_akhir"
+                    android:layout_width="8dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/rounded_line_vertical"
+                    android:backgroundTint="@color/tabUnselected"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/tv_title_makalah_tugas_akhir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_makalah_tugas_akhir"
+                    android:textColor="@color/lightblue"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/garis_vertical_makalah_tugas_akhir"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_makalah_tugas_akhir"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/garis_vertical_makalah_tugas_akhir"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_makalah_tugas_akhir">
+
+                    <TextView
+                        android:id="@+id/tv_pilih_dokumen_makalah_tugas_akhir"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:background="@drawable/rounded_outline_8dp_left"
+                        android:backgroundTint="@color/RoyalBlue"
+                        android:fontFamily="@font/poppinsregular"
+                        android:gravity="center"
+                        android:text="@string/tv_pilih_dokumen"
+                        android:textColor="@color/White"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_nama_dokumen_makalah_tugas_akhir"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/rounded_outline_8dp_right" />
+
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/RoyalBlue"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/btn_simpan"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White"
+                    android:textSize="12sp"
+                    app:cornerRadius="6dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linear_layout_makalah_tugas_akhir" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

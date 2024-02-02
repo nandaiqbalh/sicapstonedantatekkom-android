@@ -61,4 +61,15 @@
     <string name="tv_title_tugas_akhir">Sidang Tugas Akhir</string>
     <string name="desc_tab_layout_dokumen">Tab Layout Dokumen</string>
     <string name="tv_dokumen_capstone">Dokumen Mahasiswa</string>
+    <string name="tv_failed_dokumen">Terjadi kesalahan. Gagal mendapatkan data dokumen.</string>
+    <string name="tv_title_laporan_tugas_akhir">Laporan Tugas Akhir</string>
+    <string name="tv_pilih_dokumen">Pilih dokumen</string>
+    <string name="tv_title_laporan_c100">Dokumen C100</string>
+    <string name="tv_title_laporan_c200">Dokumen C200</string>
+    <string name="tv_title_laporan_c300">Dokumen C300</string>
+    <string name="tv_title_laporan_c400">Dokumen C400</string>
+    <string name="tv_title_laporan_c500">Dokumen C500</string>
+    <string name="tv_title_makalah_tugas_akhir">Makalah Tugas Akhir</string>
+
+
 </resources>
