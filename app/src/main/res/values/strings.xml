@@ -45,9 +45,9 @@
     <string name="judul_aksi">Judul Aksi</string>
     <string name="tv_pengumuman_terbaru">Pengumuman Terbaru</string>
     <string name="item_pengumuman">item_pengumuman</string>
-    <string name="tv_title_item_pengumuman">Pengumpulan File Capstone S2T23</string>
-    <string name="tv_item_pengumuman_content">Mengingatkan kembali kepada peserta Capstone S2T23 untuk segera mengumpulkan berkas sesuai...</string>
-    <string name="tv_postdate">4 Minutes ago</string>
+    <string name="tv_title_item_pengumuman">Judul pengumuman</string>
+    <string name="tv_item_pengumuman_content">Deskripsi content pengumuman</string>
+    <string name="tv_postdate">Post date pengumuman</string>
     <string name="id">id</string>
     <string name="ic_back">ic_back</string>
     <string name="scroll_pengumuman">scroll_pengumuman</string>

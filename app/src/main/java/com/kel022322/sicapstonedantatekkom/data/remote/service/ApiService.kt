@@ -5,6 +5,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.response
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.response.AuthLogoutRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c100.response.UploadC100ProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c200.response.UploadC200ProcessRemoteResponse
@@ -37,7 +38,6 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -62,9 +62,9 @@ interface ApiService {
 	): BroadcastPaginateRemoteResponse
 
 
-	@POST("capstone_team/public/api/v1/mahasiswa/broadcast/{id}")
+	@POST("capstone_team/public/api/v1/mahasiswa/detail-broadcast")
 	suspend fun getBroadcastDetail(
-		@Path("id") id: String
+		@Body broadcastDetailRemoteRequestBody: BroadcastDetailRemoteRequestBody
 	): BroadcastDetailRemoteResponse
 
 	@POST("capstone_team/public/api/v1/mahasiswa/profile")

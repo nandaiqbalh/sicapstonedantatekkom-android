@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="16dp"
+    android:background="@color/Minimumblue"
+    android:orientation="vertical"
+    tools:context=".presentation.ui.beranda.mahasiswaberanda.pengumuman.detail.MahasiswaDetailPengumumanFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="8dp">
+
+        <ImageView
+            android:id="@+id/shimmer_iv_detail_pengumuman"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:contentDescription="@string/detail_pengumuman"
+            android:scaleType="centerCrop"
+            android:src="@color/shimmer_gray"
+            tools:ignore="ImageContrastCheck" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/shimmer_tv_title_pengumuman_detail"
+        android:layout_width="250dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/shimmer_gray"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppinssemibold"
+        android:maxLines="2"
+        android:textColor="@color/RoyalBlue"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/shimmer_tv_posdate_pengumuman_detail"
+        android:layout_width="200dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/shimmer_gray"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="@color/SlateGrey"
+        android:textSize="11sp"
+        tools:ignore="SmallSp,TextSizeCheck,TextContrastCheck" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/shimmer_tv_title_link"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:background="@color/shimmer_gray"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="@color/SlateGrey"
+            android:textSize="11sp"
+            tools:ignore="SmallSp,TextSizeCheck,TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/shimmer_tv_link_text"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="4dp"
+            android:background="@color/shimmer_gray"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="@color/RoyalBlue"
+            android:textSize="11sp"
+            tools:ignore="SmallSp,TextSizeCheck,TextContrastCheck" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/garis_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/shimmer_gray" />
+
+    <TextView
+        android:id="@+id/shimmer_tv_content_pengumuman_detail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/shimmer_gray"
+        android:fontFamily="@font/poppinsmedium"
+        android:gravity="start|end"
+        android:textColor="@color/lightblue"
+        android:textSize="11sp" />
+
+
+</LinearLayout>

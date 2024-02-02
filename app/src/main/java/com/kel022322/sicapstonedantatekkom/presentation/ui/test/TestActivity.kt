@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthLoginRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
@@ -202,7 +203,7 @@ class TestActivity : AppCompatActivity() {
 		binding.btnTestBroadcastDetail.setOnClickListener {
 			setLoading(true)
 
-			pengumumanViewModel.getBroadcastDetail("1")
+			pengumumanViewModel.getBroadcastDetail(BroadcastDetailRemoteRequestBody("1"))
 
 			pengumumanViewModel.broadcastDetailResult.observe(this) { broadcastDetailResult ->
 

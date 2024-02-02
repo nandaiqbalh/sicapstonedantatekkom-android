@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast.BroadcastRemoteRepository
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PengumumanViewModel @Inject constructor(
-	private val broadcastRemoteRepository: BroadcastRemoteRepository
+	private val broadcastRemoteRepository: BroadcastRemoteRepository,
 ) : ViewModel() {
 
 	private val _broadcastResult = MutableLiveData<Resource<BroadcastPaginateRemoteResponse>>()
@@ -25,8 +26,8 @@ class PengumumanViewModel @Inject constructor(
 	val broadcastHomeResult: LiveData<Resource<BroadcastPaginateRemoteResponse>> get() = _broadcastHomeResult // LiveData untuk diobserve di luar kelas
 
 
-	private var _broadcastDetailResult = MutableLiveData<Resource<BroadcastDetailRemoteResponse>> ()
-	val broadcastDetailResult : LiveData<Resource<BroadcastDetailRemoteResponse>> get() = _broadcastDetailResult
+	private var _broadcastDetailResult = MutableLiveData<Resource<BroadcastDetailRemoteResponse>>()
+	val broadcastDetailResult: LiveData<Resource<BroadcastDetailRemoteResponse>> get() = _broadcastDetailResult
 
 	fun getBroadcast() {
 		viewModelScope.launch(Dispatchers.IO) {
@@ -76,16 +77,18 @@ class PengumumanViewModel @Inject constructor(
 		}
 	}
 
-	fun getBroadcastDetail(id: String){
-		viewModelScope.launch(Dispatchers.IO){
+	fun getBroadcastDetail(
+		broadcastDetailRemoteRequestBody: BroadcastDetailRemoteRequestBody,
+	) {
+		viewModelScope.launch(Dispatchers.IO) {
 			_broadcastDetailResult.postValue(Resource.Loading())
 
 			try {
-				val data = broadcastRemoteRepository.getBroadcastDetail(id)
+				val data = broadcastRemoteRepository.getBroadcastDetail(broadcastDetailRemoteRequestBody)
 
-				if (data.payload != null){
+				if (data.payload != null) {
 
-					viewModelScope.launch(Dispatchers.Main){
+					viewModelScope.launch(Dispatchers.Main) {
 						_broadcastDetailResult.postValue(Resource.Success(data.payload))
 					}
 
@@ -93,8 +96,8 @@ class PengumumanViewModel @Inject constructor(
 					_broadcastDetailResult.postValue(Resource.Error(data.exception, null))
 				}
 
-			} catch (e: Exception){
-				viewModelScope.launch(Dispatchers.Main){
+			} catch (e: Exception) {
+				viewModelScope.launch(Dispatchers.Main) {
 					_broadcastDetailResult.postValue(Resource.Error(e, null))
 				}
 			}

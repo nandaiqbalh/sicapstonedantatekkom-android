@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.local.action.ActionModel
-import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.DataXBroadcastPaginate
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaBerandaBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.ActionAdapter
@@ -167,14 +166,14 @@ class MahasiswaBerandaFragment : Fragment() {
 							false
 						)
 
+						Log.d("DATA BROADCAST", broadcastHomeResult.payload.data.rs_broadcast.data.toString())
+
 						binding.rvPengumumanTerbaru.adapter = pengumumanAdapter
 
 						// navigate to detail
 						pengumumanAdapter.setOnItemClickCallback(object : PengumumanAdapter.OnItemClickCallBack {
-							override fun onItemClicked(data: DataXBroadcastPaginate) {
-								// Navigasi ke detail dengan menggunakan NavController dan membawa data broadcastId
-								val action = MahasiswaBerandaFragmentDirections
-									.actionMahasiswaBerandaFragmentToMahasiswaDetailPengumumanFragment(data)
+							override fun onItemClicked(broadcastId: String) {
+								val action = MahasiswaBerandaFragmentDirections.actionMahasiswaBerandaFragmentToMahasiswaDetailPengumumanFragment(broadcastId.toString())
 								findNavController().navigate(action)
 							}
 						})
@@ -219,7 +218,9 @@ class MahasiswaBerandaFragment : Fragment() {
 
 				is Resource.Error -> {
 					setLoading(false)
+					val message = getPhotoProfileResult.payload?.message
 
+					showSnackbar(message = message ?: "Terjadi kesalahan!")
 				}
 
 				is Resource.Success -> {
@@ -232,8 +233,6 @@ class MahasiswaBerandaFragment : Fragment() {
 						// set binding
 						with(binding) {
 							val base64Image = getPhotoProfileResult.payload.data.toString()
-
-							Log.d("BASE64yuk", base64Image)
 
 							if (base64Image != "null") {
 								// Decode base64 string to byte array

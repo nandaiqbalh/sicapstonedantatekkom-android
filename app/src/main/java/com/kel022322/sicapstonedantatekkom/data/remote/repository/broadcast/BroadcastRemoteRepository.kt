@@ -2,6 +2,7 @@ package com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast
 
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast.BroadcastRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import javax.inject.Inject
@@ -14,8 +15,8 @@ interface BroadcastRemoteRepository {
 	): Resource<BroadcastPaginateRemoteResponse>
 
 	suspend fun getBroadcastDetail(
-		id: String
-	) : Resource<BroadcastDetailRemoteResponse>
+		broadcastDetailRemoteRequestBody: BroadcastDetailRemoteRequestBody,
+	): Resource<BroadcastDetailRemoteResponse>
 }
 
 class BroadcastRemoteRepositoryImpl @Inject constructor(private val dataSource: BroadcastRemoteDataSource) :
@@ -34,9 +35,11 @@ class BroadcastRemoteRepositoryImpl @Inject constructor(private val dataSource: 
 		}
 	}
 
-	override suspend fun getBroadcastDetail(id: String): Resource<BroadcastDetailRemoteResponse> {
+	override suspend fun getBroadcastDetail(
+		broadcastDetailRemoteRequestBody: BroadcastDetailRemoteRequestBody,
+	): Resource<BroadcastDetailRemoteResponse> {
 		return proceed {
-			dataSource.getBroadcastDetail(id)
+			dataSource.getBroadcastDetail(broadcastDetailRemoteRequestBody)
 		}
 	}
 

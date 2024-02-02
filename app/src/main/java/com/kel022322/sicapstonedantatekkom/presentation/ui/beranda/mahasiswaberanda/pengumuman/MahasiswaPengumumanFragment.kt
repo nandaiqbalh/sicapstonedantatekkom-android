@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
-import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.DataXBroadcastPaginate
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaPengumumanBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.adapter.PengumumanAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
@@ -104,14 +103,12 @@ class MahasiswaPengumumanFragment : Fragment() {
 						binding.rvPengumuman.adapter = pengumumanAdapter
 
 						// navigate to detail
-						pengumumanAdapter.setOnItemClickCallback(object :
-							PengumumanAdapter.OnItemClickCallBack {
-							override fun onItemClicked(data: DataXBroadcastPaginate) {
-								// Navigasi ke detail dengan menggunakan NavController dan membawa data broadcastId
+						pengumumanAdapter.setOnItemClickCallback(object : PengumumanAdapter.OnItemClickCallBack {
+							override fun onItemClicked(broadcastId: String) {
 								val action = MahasiswaPengumumanFragmentDirections
-									.actionMahasiswaPengumumanFragmentToMahasiswaDetailPengumumanFragment(
-										data
-									)
+									.actionMahasiswaPengumumanFragmentToMahasiswaDetailPengumumanFragment(broadcastId)
+
+								// Menggunakan findNavController() dari fragment saat ini untuk navigasi
 								findNavController().navigate(action)
 							}
 						})

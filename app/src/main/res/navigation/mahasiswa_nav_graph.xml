@@ -129,14 +129,16 @@
         android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.detail.MahasiswaDetailPengumumanFragment"
         android:label="fragment_mahasiswa_detail_pengumuman"
         tools:layout="@layout/fragment_mahasiswa_detail_pengumuman" >
+
+        <argument
+            android:name="broadcastId"
+            app:argType="string"
+            app:nullable="true" />
+
         <action
             android:id="@+id/action_mahasiswaDetailPengumumanFragment_to_mahasiswaBerandaFragment"
             app:destination="@id/mahasiswaBerandaFragment" />
 
-        <argument
-            android:name="broadcast"
-            app:argType="com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.DataXBroadcastPaginate"
-            app:nullable="true" />
         <action
             android:id="@+id/action_mahasiswaDetailPengumumanFragment_to_mahasiswaPengumumanFragment"
             app:destination="@id/mahasiswaPengumumanFragment" />

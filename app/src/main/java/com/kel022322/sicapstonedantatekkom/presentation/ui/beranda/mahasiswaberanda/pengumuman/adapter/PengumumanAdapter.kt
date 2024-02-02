@@ -57,7 +57,7 @@ class PengumumanAdapter: RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHol
 
 				val base64Image = broadcast.broadcastImagePath.toString()
 
-				if (base64Image != "null" || base64Image != "" || base64Image != null) {
+				if (base64Image != "null" || base64Image != "") {
 					// Decode base64 string to byte array
 					val decodedBytes = decodeBase64ToBitmap(base64Image)
 
@@ -69,7 +69,7 @@ class PengumumanAdapter: RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHol
 			}
 
 			binding.root.setOnClickListener {
-				onItemClickCallBack.onItemClicked(broadcast)
+				onItemClickCallBack.onItemClicked(broadcast.id.toString())
 			}
 		}
 
@@ -121,6 +121,6 @@ class PengumumanAdapter: RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHol
 	}
 
 	interface OnItemClickCallBack {
-		fun onItemClicked(data: DataXBroadcastPaginate)
+		fun onItemClicked(broadcastId: String)
 	}
 }
