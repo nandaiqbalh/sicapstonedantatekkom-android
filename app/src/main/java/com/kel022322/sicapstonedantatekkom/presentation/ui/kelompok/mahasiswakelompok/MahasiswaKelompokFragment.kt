@@ -5,17 +5,20 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
+import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,18 +47,63 @@ class MahasiswaKelompokFragment : Fragment() {
 	private fun setToolbar(){
 		profileViewModel.getUsername().observe(viewLifecycleOwner) { username ->
 			if (username != null) {
-				binding.ivNamaUserKelompok.text = username
+				binding.tvNamaUserKelompok.text = username
 			}
 		}
 
-		profileViewModel.getPhotoProfile().observe(viewLifecycleOwner){ photoProfile ->
+		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+			if (userId != null) {
+				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+					apiToken?.let {
+						profileViewModel.getPhotoProfile(
+							PhotoProfileRemoteRequestBody(
+								userId.toString(), it
+							)
+						)
+					}
+				}
+			}
+		}
 
-			if (photoProfile != null || photoProfile != "") {
-				// Decode base64 string to byte array
-				val decodedBytes = decodeBase64ToBitmap(photoProfile.toString())
+		profileViewModel.getPhotoProfileResult.observe(viewLifecycleOwner) { getPhotoProfileResult ->
+			when (getPhotoProfileResult) {
+				is Resource.Loading -> {
+					setLoading(true)
+				}
 
-				GlideApp.with(requireContext()).asBitmap().load(decodedBytes)
-					.into(binding.ivHomeProfilephotoKelompok)
+				is Resource.Error -> {
+					setLoading(false)
+					val message = getPhotoProfileResult.payload?.message
+
+					showSnackbar(message = message ?: "Terjadi kesalahan!")
+				}
+
+				is Resource.Success -> {
+					setLoading(false)
+					val message = getPhotoProfileResult.payload?.message
+
+					Log.d("Success message", message.toString())
+
+					if (getPhotoProfileResult.payload?.data != null) {
+						// set binding
+						with(binding) {
+							val base64Image = getPhotoProfileResult.payload.data.toString()
+
+							profileViewModel.setPhotoProfile(base64Image)
+
+							if (base64Image != "null") {
+								// Decode base64 string to byte array
+								val decodedBytes = decodeBase64ToBitmap(base64Image)
+
+								GlideApp.with(requireContext()).asBitmap().load(decodedBytes)
+									.into(ivHomeProfilephotoKelompok)
+							}
+
+						}
+					}
+				}
+
+				else -> {}
 			}
 		}
 	}
@@ -121,17 +169,12 @@ class MahasiswaKelompokFragment : Fragment() {
 
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
-//			setShimmerVisibility(shimmerBerandaNamauser, isLoading)
-//			setShimmerVisibility(shimmerIvHomeProfilephoto, isLoading)
-//			setShimmerVisibility(shimmerCvPengumumanTerbaru, isLoading)
-//
-//			namauser.visibility = if (isLoading) View.GONE else View.VISIBLE
-//			ivHomeProfilephoto.visibility = if (isLoading) View.GONE else View.VISIBLE
-//			rvPengumumanTerbaru.visibility = if (isLoading) View.GONE else View.VISIBLE
+			setShimmerVisibility(shimmerBerandaNamauser, isLoading)
+			setShimmerVisibility(shimmerIvHomeProfilephoto, isLoading)
 
-		}
-		if(isLoading){
-//			binding.tvPengumumanTidakDitemukan.visibility = View.GONE
+			tvNamaUserKelompok.visibility = if (isLoading) View.GONE else View.VISIBLE
+			ivHomeProfilephotoKelompok.visibility = if (isLoading) View.GONE else View.VISIBLE
+
 		}
 	}
 
@@ -141,7 +184,6 @@ class MahasiswaKelompokFragment : Fragment() {
 			if (isLoading) startShimmer() else stopShimmer()
 		}
 	}
-
 
 	override fun onDestroyView() {
 		super.onDestroyView()

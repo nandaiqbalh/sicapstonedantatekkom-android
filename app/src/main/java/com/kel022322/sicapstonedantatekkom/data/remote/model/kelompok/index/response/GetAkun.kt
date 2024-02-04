@@ -20,8 +20,8 @@ data class GetAkun(
     @SerializedName("user_active") val userActive: String?,
     @SerializedName("user_email") val userEmail: String?,
     @SerializedName("user_id") val userId: String?,
-    @SerializedName("user_img_name") val userImgName: Any?,
-    @SerializedName("user_img_path") val userImgPath: Any?,
+    @SerializedName("user_img_name") val userImgName: String?,
+    @SerializedName("user_img_path") val userImgPath: String?,
     @SerializedName("user_name") val userName: String?,
-    @SerializedName("user_password") val userPassword: String?
+    @SerializedName("user_password") val userPassword: String
 )

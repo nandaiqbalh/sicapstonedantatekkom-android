@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Minimumblue"
-    tools:context=".presentation.ui.dokumen.mahasiswadokumen.capstone.MahasiswaDokumenCapstoneFragment">
+    tools:context=".presentation.ui.dokumen.mahasiswadokumen.tugasakhir.MahasiswaDokumenCapstoneFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,529 +14,545 @@
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_empty_dan_shimmer"
+            android:id="@+id/cv_belum_memiliki_kelompok"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="16dp"
             android:visibility="gone"
             app:cardBackgroundColor="@color/White"
+            app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
-            app:contentPadding="16dp"
             app:strokeColor="@android:color/transparent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/tv_belum_memiliki_kelompok"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:background="@drawable/rounded_outline_text_view"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center"
+                android:text="@string/tv_anda_belum_memiliki_kelompok"
+                android:textColor="@color/DarkGrey"
+                android:textSize="11sp" />
 
-                <TextView
-                    android:id="@+id/tv_dokumen_tidak_ditemukan"
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_dokumen_capstone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/shimmer_card_dokumen" />
+
+                <include layout="@layout/shimmer_card_dokumen" />
+
+                <include layout="@layout/shimmer_card_dokumen" />
+
+                <include layout="@layout/shimmer_card_dokumen" />
+
+                <include layout="@layout/shimmer_card_dokumen" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_dokumen_capstone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_laporan_c100"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@android:color/transparent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:fontFamily="@font/poppinsregular"
-                    android:gravity="center_vertical"
-                    android:text="@string/tv_failed_dokumen"
-                    android:textColor="@color/DarkGrey"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="wrap_content">
 
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmer_dokumen_fragment"
+                    <View
+                        android:id="@+id/garis_vertical"
+                        android:layout_width="8dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/rounded_line_vertical"
+                        android:backgroundTint="@color/tabUnselected"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tv_title_laporan_c100"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_title_laporan_c100"
+                        android:textColor="@color/lightblue"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/linear_layout_c100"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_c100">
+
+                        <TextView
+                            android:id="@+id/tv_pilih_dokumen_c100"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:background="@drawable/rounded_outline_8dp_left"
+                            android:backgroundTint="@color/RoyalBlue"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="@string/tv_pilih_dokumen"
+                            android:textColor="@color/White"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_nama_dokumen_c100"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="3"
+                            android:background="@drawable/rounded_outline_8dp_right" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:backgroundTint="@color/RoyalBlue"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/btn_simpan"
+                        android:textAllCaps="false"
+                        android:textColor="@color/White"
+                        android:textSize="12sp"
+                        app:cornerRadius="6dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linear_layout_c100"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_laporan_c200"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@android:color/transparent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:height="24dp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="wrap_content">
 
-                </com.facebook.shimmer.ShimmerFrameLayout>
+                    <View
+                        android:id="@+id/garis_vertical_c200"
+                        android:layout_width="8dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/rounded_line_vertical"
+                        android:backgroundTint="@color/tabUnselected"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_laporan_c100"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            app:cardBackgroundColor="@color/White"
-            app:cardElevation="8dp"
-            app:strokeColor="@android:color/transparent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:id="@+id/garis_vertical"
-                    android:layout_width="8dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/rounded_line_vertical"
-                    android:backgroundTint="@color/tabUnselected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <TextView
-                    android:id="@+id/tv_title_laporan_c100"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_title_laporan_c100"
-                    android:textColor="@color/lightblue"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@id/garis_vertical"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/linear_layout_c100"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/garis_vertical"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_c100">
 
                     <TextView
-                        android:id="@+id/tv_pilih_dokumen_c100"
+                        android:id="@+id/tv_title_laporan_c200"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_title_laporan_c200"
+                        android:textColor="@color/lightblue"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_c200"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/linear_layout_c200"
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:background="@drawable/rounded_outline_8dp_left"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_c200"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_c200">
+
+                        <TextView
+                            android:id="@+id/tv_pilih_dokumen_c200"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:background="@drawable/rounded_outline_8dp_left"
+                            android:backgroundTint="@color/RoyalBlue"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="@string/tv_pilih_dokumen"
+                            android:textColor="@color/White"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_nama_dokumen_c200"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="3"
+                            android:background="@drawable/rounded_outline_8dp_right" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
                         android:backgroundTint="@color/RoyalBlue"
-                        android:fontFamily="@font/poppinsregular"
-                        android:gravity="center"
-                        android:text="@string/tv_pilih_dokumen"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/btn_simpan"
+                        android:textAllCaps="false"
                         android:textColor="@color/White"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:cornerRadius="6dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linear_layout_c200" />
 
-                    <TextView
-                        android:id="@+id/tv_nama_dokumen_c100"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="3"
-                        android:background="@drawable/rounded_outline_8dp_right" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                </LinearLayout>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="@color/RoyalBlue"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/btn_simpan"
-                    android:textAllCaps="false"
-                    android:textColor="@color/White"
-                    android:textSize="12sp"
-                    app:cornerRadius="6dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linear_layout_c100"
-                    tools:ignore="DuplicateSpeakableTextCheck" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_laporan_c200"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            app:cardBackgroundColor="@color/White"
-            app:cardElevation="8dp"
-            app:strokeColor="@android:color/transparent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_laporan_c300"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@android:color/transparent">
 
-                <View
-                    android:id="@+id/garis_vertical_c200"
-                    android:layout_width="8dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/rounded_line_vertical"
-                    android:backgroundTint="@color/tabUnselected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <View
+                        android:id="@+id/garis_vertical_c300"
+                        android:layout_width="8dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/rounded_line_vertical"
+                        android:backgroundTint="@color/tabUnselected"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_title_laporan_c200"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_title_laporan_c200"
-                    android:textColor="@color/lightblue"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@id/garis_vertical_c200"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/linear_layout_c200"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/garis_vertical_c200"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_c200">
 
                     <TextView
-                        android:id="@+id/tv_pilih_dokumen_c200"
+                        android:id="@+id/tv_title_laporan_c300"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_title_laporan_c300"
+                        android:textColor="@color/lightblue"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_c300"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/linear_layout_c300"
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:background="@drawable/rounded_outline_8dp_left"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_c300"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_c300">
+
+                        <TextView
+                            android:id="@+id/tv_pilih_dokumen_c300"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:background="@drawable/rounded_outline_8dp_left"
+                            android:backgroundTint="@color/RoyalBlue"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="@string/tv_pilih_dokumen"
+                            android:textColor="@color/White"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_nama_dokumen_c300"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="3"
+                            android:background="@drawable/rounded_outline_8dp_right" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
                         android:backgroundTint="@color/RoyalBlue"
-                        android:fontFamily="@font/poppinsregular"
-                        android:gravity="center"
-                        android:text="@string/tv_pilih_dokumen"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/btn_simpan"
+                        android:textAllCaps="false"
                         android:textColor="@color/White"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:cornerRadius="6dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linear_layout_c300" />
 
-                    <TextView
-                        android:id="@+id/tv_nama_dokumen_c200"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="3"
-                        android:background="@drawable/rounded_outline_8dp_right" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                </LinearLayout>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="@color/RoyalBlue"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/btn_simpan"
-                    android:textAllCaps="false"
-                    android:textColor="@color/White"
-                    android:textSize="12sp"
-                    app:cornerRadius="6dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linear_layout_c200" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_laporan_c300"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            app:cardBackgroundColor="@color/White"
-            app:cardElevation="8dp"
-            app:strokeColor="@android:color/transparent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_laporan_c400"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@android:color/transparent">
 
-                <View
-                    android:id="@+id/garis_vertical_c300"
-                    android:layout_width="8dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/rounded_line_vertical"
-                    android:backgroundTint="@color/tabUnselected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <View
+                        android:id="@+id/garis_vertical_c400"
+                        android:layout_width="8dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/rounded_line_vertical"
+                        android:backgroundTint="@color/tabUnselected"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_title_laporan_c300"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_title_laporan_c300"
-                    android:textColor="@color/lightblue"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@id/garis_vertical_c300"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/linear_layout_c300"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/garis_vertical_c300"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_c300">
 
                     <TextView
-                        android:id="@+id/tv_pilih_dokumen_c300"
+                        android:id="@+id/tv_title_laporan_c400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_title_laporan_c400"
+                        android:textColor="@color/lightblue"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_c400"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/linear_layout_c400"
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:background="@drawable/rounded_outline_8dp_left"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_c400"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_c400">
+
+                        <TextView
+                            android:id="@+id/tv_pilih_dokumen_c400"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:background="@drawable/rounded_outline_8dp_left"
+                            android:backgroundTint="@color/RoyalBlue"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="@string/tv_pilih_dokumen"
+                            android:textColor="@color/White"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_nama_dokumen_c400"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="3"
+                            android:background="@drawable/rounded_outline_8dp_right" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
                         android:backgroundTint="@color/RoyalBlue"
-                        android:fontFamily="@font/poppinsregular"
-                        android:gravity="center"
-                        android:text="@string/tv_pilih_dokumen"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/btn_simpan"
+                        android:textAllCaps="false"
                         android:textColor="@color/White"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:cornerRadius="6dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linear_layout_c400" />
 
-                    <TextView
-                        android:id="@+id/tv_nama_dokumen_c300"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="3"
-                        android:background="@drawable/rounded_outline_8dp_right" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                </LinearLayout>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="@color/RoyalBlue"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/btn_simpan"
-                    android:textAllCaps="false"
-                    android:textColor="@color/White"
-                    android:textSize="12sp"
-                    app:cornerRadius="6dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linear_layout_c300" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_laporan_c400"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            app:cardBackgroundColor="@color/White"
-            app:cardElevation="8dp"
-            app:strokeColor="@android:color/transparent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_laporan_c500"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@android:color/transparent">
 
-                <View
-                    android:id="@+id/garis_vertical_c400"
-                    android:layout_width="8dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/rounded_line_vertical"
-                    android:backgroundTint="@color/tabUnselected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <View
+                        android:id="@+id/garis_vertical_c500"
+                        android:layout_width="8dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/rounded_line_vertical"
+                        android:backgroundTint="@color/tabUnselected"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_title_laporan_c400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_title_laporan_c400"
-                    android:textColor="@color/lightblue"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@id/garis_vertical_c400"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/linear_layout_c400"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/garis_vertical_c400"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_c400">
 
                     <TextView
-                        android:id="@+id/tv_pilih_dokumen_c400"
+                        android:id="@+id/tv_title_laporan_c500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_title_laporan_c500"
+                        android:textColor="@color/lightblue"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_c500"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/linear_layout_c500"
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:background="@drawable/rounded_outline_8dp_left"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_c500"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_c500">
+
+                        <TextView
+                            android:id="@+id/tv_pilih_dokumen_c500"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:background="@drawable/rounded_outline_8dp_left"
+                            android:backgroundTint="@color/RoyalBlue"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="@string/tv_pilih_dokumen"
+                            android:textColor="@color/White"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_nama_dokumen_c500"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="3"
+                            android:background="@drawable/rounded_outline_8dp_right" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
                         android:backgroundTint="@color/RoyalBlue"
-                        android:fontFamily="@font/poppinsregular"
-                        android:gravity="center"
-                        android:text="@string/tv_pilih_dokumen"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/btn_simpan"
+                        android:textAllCaps="false"
                         android:textColor="@color/White"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:cornerRadius="6dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linear_layout_c500" />
 
-                    <TextView
-                        android:id="@+id/tv_nama_dokumen_c400"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="3"
-                        android:background="@drawable/rounded_outline_8dp_right" />
-
-                </LinearLayout>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="@color/RoyalBlue"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/btn_simpan"
-                    android:textAllCaps="false"
-                    android:textColor="@color/White"
-                    android:textSize="12sp"
-                    app:cornerRadius="6dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linear_layout_c400" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_laporan_c500"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/White"
-            app:cardElevation="8dp"
-            app:strokeColor="@android:color/transparent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:id="@+id/garis_vertical_c500"
-                    android:layout_width="8dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/rounded_line_vertical"
-                    android:backgroundTint="@color/tabUnselected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
 
-                <TextView
-                    android:id="@+id/tv_title_laporan_c500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_title_laporan_c500"
-                    android:textColor="@color/lightblue"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@id/garis_vertical_c500"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/linear_layout_c500"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/garis_vertical_c500"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_c500">
-
-                    <TextView
-                        android:id="@+id/tv_pilih_dokumen_c500"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:background="@drawable/rounded_outline_8dp_left"
-                        android:backgroundTint="@color/RoyalBlue"
-                        android:fontFamily="@font/poppinsregular"
-                        android:gravity="center"
-                        android:text="@string/tv_pilih_dokumen"
-                        android:textColor="@color/White"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/tv_nama_dokumen_c500"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="3"
-                        android:background="@drawable/rounded_outline_8dp_right" />
-
-                </LinearLayout>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="@color/RoyalBlue"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/btn_simpan"
-                    android:textAllCaps="false"
-                    android:textColor="@color/White"
-                    android:textSize="12sp"
-                    app:cornerRadius="6dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linear_layout_c500" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
+        </LinearLayout>
 
     </LinearLayout>
-
 
 </androidx.core.widget.NestedScrollView>

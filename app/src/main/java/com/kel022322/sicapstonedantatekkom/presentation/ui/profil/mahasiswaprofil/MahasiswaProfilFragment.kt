@@ -170,6 +170,8 @@ class MahasiswaProfilFragment : Fragment() {
 
 					if (getProfileResult.payload?.data != null) {
 						val dataUser = getProfileResult.payload.data
+
+						Log.d("DATA USER", dataUser.toString())
 						// set binding
 						with(binding) {
 
@@ -224,8 +226,6 @@ class MahasiswaProfilFragment : Fragment() {
 							val base64Image = getPhotoProfileResult.payload.data.toString()
 
 							profileViewModel.setPhotoProfile(base64Image)
-
-							Log.d("BASE64yuk", base64Image)
 
 							if (base64Image != "null") {
 								// Decode base64 string to byte array

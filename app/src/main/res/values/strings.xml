@@ -70,6 +70,11 @@
     <string name="tv_title_laporan_c400">Dokumen C400</string>
     <string name="tv_title_laporan_c500">Dokumen C500</string>
     <string name="tv_title_makalah_tugas_akhir">Makalah Tugas Akhir</string>
+    <string name="tv_jadwal_tidak_tersedia">Jadwal Tidak Tersedia!</string>
+    <string name="tv_belum_memiliki_kelompok">Anda belum memiliki kelompok</string>
+    <string name="tv_anda_belum_memiliki_kelompok">Anda belum memiliki kelompok!</string>
+    <string name="belum_memiliki_kelompok">Anda belum memiliki kelompok!</string>
+    <string name="kelompok_belum_valid">Kelompok anda belum valid!</string>
 
 
 </resources>

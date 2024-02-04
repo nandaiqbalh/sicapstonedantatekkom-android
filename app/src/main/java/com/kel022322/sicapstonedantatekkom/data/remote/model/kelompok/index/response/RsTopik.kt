@@ -8,5 +8,5 @@ data class RsTopik(
     @SerializedName("id") val id: Int?,
     @SerializedName("modified_by") val modifiedBy: String?,
     @SerializedName("modified_date") val modifiedDate: String?,
-    @SerializedName("nama") val nama: String?
+    @SerializedName("nama") val nama: String?,
 )

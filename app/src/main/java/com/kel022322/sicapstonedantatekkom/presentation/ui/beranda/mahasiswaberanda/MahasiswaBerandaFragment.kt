@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -67,7 +66,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 		setLoading(true)
 
-		setUpInitialValue()
+		setUpToolbarValue()
 
 		setPengumumanRecyclerView()
 
@@ -192,7 +191,7 @@ class MahasiswaBerandaFragment : Fragment() {
 		}
 	}
 
-	private fun setUpInitialValue() {
+	private fun setUpToolbarValue() {
 		profileViewModel.getUsername().observe(viewLifecycleOwner) { username ->
 			if (username != null) {
 				binding.namauser.text = username
