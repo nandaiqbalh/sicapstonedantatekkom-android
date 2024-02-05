@@ -7,5 +7,8 @@ data class UploadLaporanProcessRemoteResponse(
     val message: String?,
 
     @SerializedName("status")
-    val status: Boolean?
+    val status: Boolean?,
+
+    @SerializedName("data")
+    val data: String?
 )

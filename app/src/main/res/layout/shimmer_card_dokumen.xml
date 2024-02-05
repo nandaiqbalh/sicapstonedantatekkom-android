@@ -56,7 +56,7 @@
                 app:layout_constraintTop_toBottomOf="@id/shimmer_tv_title_laporan_c100">
 
                 <TextView
-                    android:id="@+id/tv_pilih_dokumen_c100"
+                    android:id="@+id/shimmer_tv_pilih_dokumen_c100"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
@@ -69,7 +69,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/tv_nama_dokumen_c100"
+                    android:id="@+id/shimmer_tv_nama_dokumen_c100"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="3"

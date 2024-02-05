@@ -75,6 +75,12 @@
     <string name="tv_anda_belum_memiliki_kelompok">Anda belum memiliki kelompok!</string>
     <string name="belum_memiliki_kelompok">Anda belum memiliki kelompok!</string>
     <string name="kelompok_belum_valid">Kelompok anda belum valid!</string>
+    <string name="btn_unduh">Unduh</string>
+    <string name="tv_terjadi_kesalahan">Terjadi kesalahan!</string>
+    <string name="alert_title">Alert title</string>
+    <string name="tv_alert_message">Alert message</string>
+    <string name="ya">Ya</string>
+    <string name="batalkan">Batalkan</string>
 
 
 </resources>

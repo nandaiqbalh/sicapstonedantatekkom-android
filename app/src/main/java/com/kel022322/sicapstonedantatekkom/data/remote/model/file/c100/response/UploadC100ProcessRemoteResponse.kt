@@ -7,5 +7,8 @@ data class UploadC100ProcessRemoteResponse(
     val message: String?,
 
     @SerializedName("status")
-    val status: Boolean?
+    val status: Boolean?,
+
+    @SerializedName("data")
+    val data: String?
 )

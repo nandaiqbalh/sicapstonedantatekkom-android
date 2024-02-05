@@ -3,6 +3,6 @@
     <corners android:topLeftRadius="8dp"
         android:bottomLeftRadius="8dp"/>
 
-    <stroke android:color="@color/RoyalBlue" android:width="1dp"/>
+    <stroke android:color="@color/tabUnselected" android:width="1dp"/>
 
 </shape>

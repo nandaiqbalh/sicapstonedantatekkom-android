@@ -135,20 +135,25 @@
                             android:id="@+id/tv_nama_dokumen_tugas_akhir"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
+                            android:layout_gravity="center"
                             android:layout_weight="3"
-                            android:background="@drawable/rounded_outline_8dp_right" />
+                            android:background="@drawable/rounded_outline_8dp_right"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textSize="11sp" />
 
                     </LinearLayout>
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:backgroundTint="@color/RoyalBlue"
                         android:fontFamily="@font/poppinsmedium"
-                        android:text="@string/btn_simpan"
+                        android:text="@string/btn_unduh"
                         android:textAllCaps="false"
                         android:textColor="@color/White"
                         android:textSize="12sp"
@@ -231,20 +236,25 @@
                             android:id="@+id/tv_nama_dokumen_makalah_tugas_akhir"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
+                            android:layout_gravity="center"
                             android:layout_weight="3"
-                            android:background="@drawable/rounded_outline_8dp_right" />
+                            android:background="@drawable/rounded_outline_8dp_right"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textSize="11sp" />
 
                     </LinearLayout>
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:backgroundTint="@color/RoyalBlue"
                         android:fontFamily="@font/poppinsmedium"
-                        android:text="@string/btn_simpan"
+                        android:text="@string/btn_unduh"
                         android:textAllCaps="false"
                         android:textColor="@color/White"
                         android:textSize="12sp"
