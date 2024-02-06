@@ -81,6 +81,19 @@
     <string name="tv_alert_message">Alert message</string>
     <string name="ya">Ya</string>
     <string name="batalkan">Batalkan</string>
+    <string name="tv_daftar_capstone">Daftar Capstone</string>
+    <string name="desc_tab_layout_daftar_capstone">Tab Layout Daftar Casptone</string>
+    <string name="tv_kelompok_capstone_ta">Kelompok Capstone dan Tugas Akhir</string>
+    <string name="tv_title_nomor_kelompok">Nomor Kelompok</string>
+    <string name="tv_value_nomor_kelompok">: 22</string>
+    <string name="tv_title_topik">Topik</string>
+    <string name="tv_value_topik">: Smart System</string>
+    <string name="tv_title_judul">Judul</string>
+    <string name="tv_value_judul">: Pengembangan Sistem Informasi Pengelolaan Capstone dan Tugas Akhir di Departemen Teknik Komputer Universitas Diponegoro\n</string>
+    <string name="btn_selengkapnya">Selengkapnya</string>
+    <string name="tv_title_dosbing">Dosen Pembimbing</string>
+    <string name="tv_nama_dosen_pembimbing">Adnan Fauzi, S.T., M.Kom.</string>
+    <string name="tv_nim_dosen_pembimbing">198101272018071001</string>
 
 
 </resources>

@@ -11,9 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.viewpager2.widget.ViewPager2
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.material.tabs.TabLayout
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokBinding
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
@@ -28,8 +32,12 @@ class MahasiswaKelompokFragment : Fragment() {
 	private val binding get() = _binding!!
 
 	private val profileViewModel: ProfileSayaViewModel by viewModels()
+	private val kelompokViewModel: KelompokSayaViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
+
+	private var fragmentPageAdapter: FragmentDaftarCapstonePageAdapter? = null
+
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?,
@@ -42,9 +50,122 @@ class MahasiswaKelompokFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 
 		setToolbar()
+
+		setViewPager()
+
+		checkKelompok()
 	}
 
-	private fun setToolbar(){
+	private fun checkKelompok() {
+		setLoading(true)
+
+		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+			if (userId != null) {
+				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+					apiToken?.let {
+						kelompokViewModel.getKelompokSaya(
+							KelompokSayaRemoteRequestBody(
+								userId,
+								apiToken
+							)
+						)
+
+					}
+				}
+			}
+		}
+
+		kelompokViewModel.getKelompokSayaResult.observe(viewLifecycleOwner) { getKelompokSayaResult ->
+
+			when (getKelompokSayaResult) {
+				is Resource.Loading -> {
+					setLoading(true)
+
+				}
+
+				is Resource.Error -> {
+					setLoading(false)
+					Log.d("Result error", getKelompokSayaResult.toString())
+
+					binding.linearLayoutPunyaKelompokFragment.visibility = View.GONE
+					binding.linearLayoutDaftarCapstone.visibility = View.GONE
+					binding.cvErrorKelompok.visibility = View.VISIBLE
+
+					binding.shimmerFragmentKelompok.visibility = View.GONE
+				}
+
+				is Resource.Success -> {
+					setLoading(false)
+
+					val message = getKelompokSayaResult.payload
+					Log.d("Result success", message.toString())
+
+					val dataKelompok = getKelompokSayaResult.payload?.data
+
+					Log.d("DATA KELOMPOK", dataKelompok?.kelompok.toString())
+					if (dataKelompok?.kelompok == null) {
+						binding.linearLayoutPunyaKelompokFragment.visibility = View.GONE
+						binding.linearLayoutDaftarCapstone.visibility = View.VISIBLE
+						binding.cvErrorKelompok.visibility = View.GONE
+
+						binding.shimmerFragmentKelompok.visibility  = View.GONE
+
+					} else {
+						binding.linearLayoutPunyaKelompokFragment.visibility = View.VISIBLE
+						binding.linearLayoutDaftarCapstone.visibility = View.GONE
+						binding.cvErrorKelompok.visibility = View.GONE
+
+						binding.shimmerFragmentKelompok.visibility = View.GONE
+
+					}
+				}
+
+				else -> {}
+			}
+		}
+	}
+
+	private fun setViewPager() {
+
+		fragmentPageAdapter = FragmentDaftarCapstonePageAdapter(childFragmentManager, lifecycle)
+
+		with(binding) {
+			tabLayoutDaftarCapstone.addTab(tabLayoutDaftarCapstone.newTab().setText("Individu"))
+			tabLayoutDaftarCapstone.addTab(
+				tabLayoutDaftarCapstone.newTab().setText("Kelompok")
+			)
+
+			viewPagerDaftarCapstone.adapter = fragmentPageAdapter
+
+			tabLayoutDaftarCapstone.addOnTabSelectedListener(object :
+				TabLayout.OnTabSelectedListener {
+				override fun onTabSelected(tab: TabLayout.Tab?) {
+					viewPagerDaftarCapstone.currentItem = tab!!.position
+
+				}
+
+				override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+
+				}
+
+				override fun onTabReselected(tab: TabLayout.Tab?) {
+				}
+			})
+
+			viewPagerDaftarCapstone.registerOnPageChangeCallback(object :
+				ViewPager2.OnPageChangeCallback() {
+				override fun onPageSelected(position: Int) {
+					super.onPageSelected(position)
+					tabLayoutDaftarCapstone.selectTab(tabLayoutDaftarCapstone.getTabAt(position))
+				}
+			})
+
+
+		}
+	}
+
+	private fun setToolbar() {
 		profileViewModel.getUsername().observe(viewLifecycleOwner) { username ->
 			if (username != null) {
 				binding.tvNamaUserKelompok.text = username
@@ -117,7 +238,7 @@ class MahasiswaKelompokFragment : Fragment() {
 	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaKelompokFragment
 
-		if (currentFragment.isVisible){
+		if (currentFragment.isVisible) {
 			customSnackbar.showSnackbarWithAction(
 				requireActivity().findViewById(android.R.id.content),
 				message,
@@ -171,6 +292,7 @@ class MahasiswaKelompokFragment : Fragment() {
 		with(binding) {
 			setShimmerVisibility(shimmerBerandaNamauser, isLoading)
 			setShimmerVisibility(shimmerIvHomeProfilephoto, isLoading)
+			setShimmerVisibility(shimmerFragmentKelompok, isLoading)
 
 			tvNamaUserKelompok.visibility = if (isLoading) View.GONE else View.VISIBLE
 			ivHomeProfilephotoKelompok.visibility = if (isLoading) View.GONE else View.VISIBLE

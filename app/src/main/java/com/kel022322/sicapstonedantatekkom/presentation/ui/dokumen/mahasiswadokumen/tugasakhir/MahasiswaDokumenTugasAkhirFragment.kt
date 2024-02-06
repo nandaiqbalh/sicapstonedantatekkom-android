@@ -693,11 +693,6 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 					// Contoh: Membaca atau menulis file
 				} else {
 					// Izin ditolak, Anda dapat memberikan informasi atau mengambil tindakan tambahan
-					customSnackbar.showSnackbar(
-						requireView(),
-						"Izin penyimpanan diperlukan untuk menggunakan fitur ini."
-					)
-
 					showPermissionDeniedDialog()
 				}
 			}
