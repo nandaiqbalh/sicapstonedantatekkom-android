@@ -95,399 +95,389 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_error_kelompok"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
-        android:visibility="gone"
-        app:cardBackgroundColor="@color/White"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="8dp"
-        app:strokeColor="@android:color/transparent">
-
-        <TextView
-            android:id="@+id/tv_error_kelompok"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:background="@drawable/rounded_outline_text_view"
-            android:fontFamily="@font/poppinsregular"
-            android:gravity="center"
-            android:text="@string/tv_terjadi_kesalahan"
-            android:textColor="@color/DarkGrey"
-            android:textSize="11sp" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer_fragment_kelompok"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
-        <include layout="@layout/shimmer_kelompok_fragment" />
+        android:fillViewport="true">
 
-    </com.facebook.shimmer.ShimmerFrameLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_layout_punya_kelompok_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_value_kelompok"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/White"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:contentPadding="16dp"
-            app:strokeColor="@android:color/transparent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_error_kelompok"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@android:color/transparent">
 
                 <TextView
-                    android:id="@+id/tv_title_kelompok"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/poppinssemibold"
-                    android:maxLines="1"
-                    android:text="@string/tv_kelompok_capstone_ta"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/linear_layout_value_kelompok"
+                    android:id="@+id/tv_error_kelompok"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_kelompok">
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/rounded_outline_text_view"
+                    android:fontFamily="@font/poppinsregular"
+                    android:gravity="center"
+                    android:text="@string/tv_terjadi_kesalahan"
+                    android:textColor="@color/DarkGrey"
+                    android:textSize="11sp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_fragment_kelompok"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <include layout="@layout/shimmer_kelompok_fragment" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_value_kelompok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:contentPadding="16dp"
+                app:strokeColor="@android:color/transparent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_title_kelompok"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinssemibold"
+                        android:maxLines="1"
+                        android:text="@string/tv_kelompok_capstone_ta"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
+                        android:id="@+id/linear_layout_value_kelompok"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tv_title_nomor_kelompok"
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/tv_title_nomor_kelompok"
-                            android:textColor="@color/BlackPearl"
-                            android:textSize="12sp"
-                            tools:ignore="TextSizeCheck" />
-
-                        <TextView
-                            android:id="@+id/tv_value_nomor_kelompok"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/tv_value_nomor_kelompok"
-                            android:textColor="@color/BlackPearl"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tv_title_topik"
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/tv_title_topik"
-                            android:textColor="@color/BlackPearl"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_value_topik"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:maxLines="1"
-                            android:text="@string/tv_value_topik"
-                            android:textColor="@color/BlackPearl"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_title_kelompok">
 
-                        <TextView
-                            android:id="@+id/tv_title_judul"
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/tv_title_judul"
-                            android:textColor="@color/BlackPearl"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_value__judul"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:maxLines="2"
-                            android:text="@string/tv_value_judul"
-                            android:textColor="@color/BlackPearl"
-                            android:textSize="12sp" />
+                            android:orientation="horizontal">
 
-                    </LinearLayout>
-                </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_title_status_kelompok"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/tv_title_status_kelompok"
+                                android:textColor="@color/BlackPearl"
+                                android:textSize="12sp"
+                                tools:ignore="TextSizeCheck" />
 
-                <TextView
-                    android:id="@+id/btn_selengkapnya_kelompok"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:backgroundTint="@color/White"
-                    android:text="@string/btn_selengkapnya"
-                    android:textColor="@color/OrangeRed"
-                    android:textSize="12sp"
-                    app:cornerRadius="6dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linear_layout_value_kelompok"
-                    tools:ignore="TextContrastCheck" />
+                            <TextView
+                                android:id="@+id/tv_titik_dua_status_kelompok"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/tv_titik_dua"
+                                android:textColor="@color/BlackPearl"
+                                android:textSize="12sp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                            <TextView
+                                android:id="@+id/tv_value_status_kelompok"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
 
-        </com.google.android.material.card.MaterialCardView>
+                                android:fontFamily="@font/poppinsmedium"
+                                tools:text="@string/tv_value_status_kelompok"
+                                android:textColor="@color/BlackPearl"
+                                android:textSize="12sp" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_value_dosbing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/White"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:contentPadding="16dp"
-            app:strokeColor="@android:color/transparent">
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_title_nomor_kelompok"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/tv_title_nomor_kelompok"
+                                android:textColor="@color/BlackPearl"
+                                android:textSize="12sp"
+                                tools:ignore="TextSizeCheck" />
 
-                <TextView
-                    android:id="@+id/tv_title_dosbing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/poppinssemibold"
-                    android:maxLines="1"
-                    android:text="@string/tv_title_dosbing"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                            <TextView
+                                android:id="@+id/tv_titik_dua_nomor_kelompok"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/tv_titik_dua"
+                                android:textColor="@color/BlackPearl"
+                                android:textSize="12sp" />
 
-                <LinearLayout
-                    android:id="@+id/linear_layout_value_dosbing"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_dosbing">
+                            <TextView
+                                android:id="@+id/tv_value_nomor_kelompok"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                                android:fontFamily="@font/poppinsmedium"
+                                tools:text="@string/tv_value_nomor_kelompok"
+                                android:textColor="@color/BlackPearl"
+                                android:textSize="12sp" />
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/iv_photo_dosbing1"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/img_default_profile"
-                            tools:ignore="ImageContrastCheck">
-
-                        </de.hdodenhof.circleimageview.CircleImageView>
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="16dp"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tv_nama_dosen_pembimbing1"
-                                android:layout_width="match_parent"
+                                android:id="@+id/tv_title_topik"
+                                android:layout_width="120dp"
                                 android:layout_height="wrap_content"
-                                android:ellipsize="end"
                                 android:fontFamily="@font/poppinsmedium"
-                                android:maxLines="1"
-                                android:text="@string/tv_nama_dosen_pembimbing"
+                                android:text="@string/tv_title_topik"
                                 android:textColor="@color/BlackPearl"
                                 android:textSize="12sp" />
 
                             <TextView
-                                android:id="@+id/tv_nim_dosen_pembimbing1"
+                                android:id="@+id/tv_titik_dua_topik"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/tv_titik_dua"
+                                android:textColor="@color/BlackPearl"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_value_topik"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
+                                android:layout_marginStart="8dp"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:maxLines="1"
-                                android:text="@string/tv_nim_dosen_pembimbing"
+                                tools:text="@string/tv_value_topik"
                                 android:textColor="@color/BlackPearl"
                                 android:textSize="12sp" />
+
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_title_kelompok">
 
+                            <TextView
+                                android:id="@+id/tv_title_judul"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/tv_title_judul"
+                                android:textColor="@color/BlackPearl"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_titik_dua_judl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/tv_titik_dua"
+                                android:textColor="@color/BlackPearl"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_value__judul"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:maxLines="2"
+                                android:layout_marginStart="8dp"
+                                tools:text="@string/tv_value_judul"
+                                android:textColor="@color/BlackPearl"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/btn_selengkapnya_kelompok"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:orientation="horizontal">
+                        android:backgroundTint="@color/White"
+                        android:text="@string/btn_selengkapnya"
+                        android:textColor="@color/OrangeRed"
+                        android:textSize="12sp"
+                        app:cornerRadius="6dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linear_layout_value_kelompok"
+                        tools:ignore="TextContrastCheck" />
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/iv_photo_dosbing2"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/img_default_profile"
-                            tools:ignore="ImageContrastCheck">
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        </de.hdodenhof.circleimageview.CircleImageView>
+            </com.google.android.material.card.MaterialCardView>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="16dp"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tv_nama_dosen_pembimbing2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:maxLines="1"
-                                android:text="@string/tv_nama_dosen_pembimbing"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:id="@+id/tv_nim_dosen_pembimbing2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:maxLines="1"
-                                android:text="@string/tv_nim_dosen_pembimbing"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_layout_daftar_capstone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/tv_menuaction_daftar_capstone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/poppinssemibold"
-            android:text="@string/tv_daftar_capstone"
-            android:textColor="@color/lightblue"
-            android:textSize="16sp" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp">
-
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout_daftar_capstone"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_value_dosbing"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/rounded_tab_layout_background"
-                android:contentDescription="@string/desc_tab_layout_daftar_capstone"
-                android:padding="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tabIndicator="@drawable/tab_indicator_fragment_dokumen"
-                app:tabIndicatorAnimationMode="elastic"
-                app:tabIndicatorColor="@android:color/transparent"
-                app:tabIndicatorGravity="stretch"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/RoyalBlue"
-                app:tabTextAppearance="@style/TabLayoutTextAppearance"
-                app:tabTextColor="@color/tabUnselected" />
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:contentPadding="16dp"
+                app:strokeColor="@android:color/transparent">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager_daftar_capstone"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tab_layout_daftar_capstone" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tv_title_dosbing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinssemibold"
+                        android:gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_dosbing"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_error_kelompok_dosbing_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:visibility="gone"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:background="@drawable/rounded_outline_text_view"
+                        android:fontFamily="@font/poppinsregular"
+                        android:gravity="center"
+                        android:text="@string/tv_belum_memiliki_dosen_pembimbing"
+                        android:textColor="@color/DarkGrey"
+                        android:textSize="11sp" />
 
 
-    </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_akun_dosbing_kelompok"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:nestedScrollingEnabled="true"
+                        tools:listitem="@layout/item_list_akun" />
 
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:id="@+id/linear_layout_daftar_capstone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_menuaction_daftar_capstone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:text="@string/tv_daftar_capstone"
+                    android:textColor="@color/lightblue"
+                    android:textSize="16sp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp">
+
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_layout_daftar_capstone"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/rounded_tab_layout_background"
+                        android:contentDescription="@string/desc_tab_layout_daftar_capstone"
+                        android:padding="4dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tabIndicator="@drawable/tab_indicator_fragment_dokumen"
+                        app:tabIndicatorAnimationMode="elastic"
+                        app:tabIndicatorColor="@android:color/transparent"
+                        app:tabIndicatorGravity="stretch"
+                        app:tabMode="fixed"
+                        app:tabSelectedTextColor="@color/RoyalBlue"
+                        app:tabTextAppearance="@style/TabLayoutTextAppearance"
+                        app:tabTextColor="@color/tabUnselected" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/view_pager_daftar_capstone"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tab_layout_daftar_capstone" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

@@ -10,4 +10,7 @@ data class RsDosbing(
     @SerializedName("status_dosen") val statusDosen: String?,
     @SerializedName("status_persetujuan") val statusPersetujuan: String?,
     @SerializedName("user_name") val userName: String?,
-)
+    @SerializedName("user_img_path") val userImgPath: String?,
+    @SerializedName("user_img_name") val userImgName: String?,
+
+    )

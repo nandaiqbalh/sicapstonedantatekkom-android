@@ -11,13 +11,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.tabs.TabLayout
+import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.AkunDosbingAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
@@ -54,8 +59,71 @@ class MahasiswaKelompokFragment : Fragment() {
 		setViewPager()
 
 		checkKelompok()
+
+		buttonActionListener()
 	}
 
+	private fun buttonActionListener(){
+
+		with(binding){
+
+			btnSelengkapnyaKelompok.setOnClickListener {
+				findNavController().navigate(R.id.action_mahasiswaKelompokFragment_to_mahasiswaKelompokDetailFragment)
+			}
+
+		}
+	}
+
+	private fun setCardKelompok(getKelompokSayaResult: Resource<KelompokSayaRemoteResponse>){
+
+		val data = getKelompokSayaResult.payload?.data
+
+		if (data?.kelompok?.idKelompok != null){
+
+			//  kelompok sudah valid
+			with(binding){
+
+				val dataKelompok =  data.kelompok
+				// card kelompok
+				tvValueStatusKelompok.text = dataKelompok.statusKelompok
+				tvValueNomorKelompok.text = dataKelompok.nomorKelompok.toString()
+				tvValueTopik.text = dataKelompok.namaTopik
+				tvValueJudul.text = dataKelompok.judulCapstone
+
+				val dataDosbing = data.rsDosbing
+				// card dosbing
+				val akunDosbingAdapter = AkunDosbingAdapter()
+
+				akunDosbingAdapter.setList(dataDosbing)
+
+				binding.rvAkunDosbingKelompok.layoutManager = LinearLayoutManager(
+					requireContext(),
+					LinearLayoutManager.VERTICAL,
+					false
+				)
+				rvAkunDosbingKelompok.adapter = akunDosbingAdapter
+
+				// navigate to detail if necessary
+				akunDosbingAdapter.setOnItemClickCallback(object : AkunDosbingAdapter.OnItemClickCallBack {
+					override fun onItemClicked(dosbingId: String) {
+					}
+				})
+			}
+
+		} else {
+			//  kelompok belum valid
+			with(binding){
+				// card kelompok
+				"Belum valid!".also { tvValueStatusKelompok.text = it }
+
+				btnSelengkapnyaKelompok.visibility = View.GONE
+
+				tvErrorKelompokDosbingEmpty.visibility = View.VISIBLE
+			}
+
+		}
+
+	}
 	private fun checkKelompok() {
 		setLoading(true)
 
@@ -87,7 +155,8 @@ class MahasiswaKelompokFragment : Fragment() {
 					setLoading(false)
 					Log.d("Result error", getKelompokSayaResult.toString())
 
-					binding.linearLayoutPunyaKelompokFragment.visibility = View.GONE
+					binding.cvValueKelompok.visibility = View.GONE
+					binding.cvValueDosbing.visibility = View.GONE
 					binding.linearLayoutDaftarCapstone.visibility = View.GONE
 					binding.cvErrorKelompok.visibility = View.VISIBLE
 
@@ -100,24 +169,31 @@ class MahasiswaKelompokFragment : Fragment() {
 					val message = getKelompokSayaResult.payload
 					Log.d("Result success", message.toString())
 
-					val dataKelompok = getKelompokSayaResult.payload?.data
+					if (getKelompokSayaResult.payload?.status == true){
 
-					Log.d("DATA KELOMPOK", dataKelompok?.kelompok.toString())
-					if (dataKelompok?.kelompok == null) {
-						binding.linearLayoutPunyaKelompokFragment.visibility = View.GONE
-						binding.linearLayoutDaftarCapstone.visibility = View.VISIBLE
-						binding.cvErrorKelompok.visibility = View.GONE
+						setCardKelompok(getKelompokSayaResult)
 
-						binding.shimmerFragmentKelompok.visibility  = View.GONE
+						val dataKelompok = getKelompokSayaResult.payload.data
 
-					} else {
-						binding.linearLayoutPunyaKelompokFragment.visibility = View.VISIBLE
-						binding.linearLayoutDaftarCapstone.visibility = View.GONE
-						binding.cvErrorKelompok.visibility = View.GONE
+						if (dataKelompok?.kelompok == null) {
+							binding.cvValueKelompok.visibility = View.GONE
+							binding.cvValueDosbing.visibility = View.GONE
+							binding.linearLayoutDaftarCapstone.visibility = View.VISIBLE
+							binding.cvErrorKelompok.visibility = View.GONE
 
-						binding.shimmerFragmentKelompok.visibility = View.GONE
+							binding.shimmerFragmentKelompok.visibility  = View.GONE
 
+						} else {
+							binding.cvValueKelompok.visibility = View.VISIBLE
+							binding.cvValueDosbing.visibility = View.VISIBLE
+							binding.linearLayoutDaftarCapstone.visibility = View.GONE
+							binding.cvErrorKelompok.visibility = View.GONE
+
+							binding.shimmerFragmentKelompok.visibility = View.GONE
+
+						}
 					}
+
 				}
 
 				else -> {}
@@ -297,7 +373,15 @@ class MahasiswaKelompokFragment : Fragment() {
 			tvNamaUserKelompok.visibility = if (isLoading) View.GONE else View.VISIBLE
 			ivHomeProfilephotoKelompok.visibility = if (isLoading) View.GONE else View.VISIBLE
 
+			if (isLoading){
+				cvValueKelompok.visibility = View.GONE
+				cvValueDosbing.visibility = View.GONE
+				cvErrorKelompok.visibility = View.GONE
+
+			}
 		}
+
+
 	}
 
 	private fun setShimmerVisibility(shimmerView: View, isLoading: Boolean) {

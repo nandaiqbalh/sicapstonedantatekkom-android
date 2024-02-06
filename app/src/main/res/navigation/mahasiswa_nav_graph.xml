@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_mahasiswaKelompokFragment_to_mahasiswaBerandaFragment"
             app:destination="@id/mahasiswaBerandaFragment" />
+        <action
+            android:id="@+id/action_mahasiswaKelompokFragment_to_mahasiswaKelompokDetailFragment"
+            app:destination="@id/mahasiswaKelompokDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/mahasiswaProfilFragment"
@@ -142,6 +145,15 @@
         <action
             android:id="@+id/action_mahasiswaDetailPengumumanFragment_to_mahasiswaPengumumanFragment"
             app:destination="@id/mahasiswaPengumumanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mahasiswaKelompokDetailFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.detailkelompok.MahasiswaKelompokDetailFragment"
+        android:label="fragment_mahasiswa_kelompok_detail"
+        tools:layout="@layout/fragment_mahasiswa_kelompok_detail" >
+        <action
+            android:id="@+id/action_mahasiswaKelompokDetailFragment_to_mahasiswaKelompokFragment"
+            app:destination="@id/mahasiswaKelompokFragment" />
     </fragment>
 
 </navigation>
