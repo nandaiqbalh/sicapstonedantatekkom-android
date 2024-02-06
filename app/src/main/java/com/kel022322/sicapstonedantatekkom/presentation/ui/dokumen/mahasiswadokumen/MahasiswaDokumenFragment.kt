@@ -130,6 +130,11 @@ class MahasiswaDokumenFragment : Fragment() {
 					setLoading(false)
 					val message = getPhotoProfileResult.payload?.message
 
+					if (message == "Gagal! Anda telah masuk melalui perangkat lain." ){
+						showSnackbar(message = message)
+						return@observe
+					}
+
 					Log.d("Success message", message.toString())
 
 					if (getPhotoProfileResult.payload?.data != null) {

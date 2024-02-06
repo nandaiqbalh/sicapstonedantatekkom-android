@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_belum_memiliki_kelompok"
+            android:id="@+id/cv_belum_memiliki_kelompok_tugas_akhir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -27,7 +27,7 @@
             app:strokeColor="@android:color/transparent">
 
             <TextView
-                android:id="@+id/tv_belum_memiliki_kelompok"
+                android:id="@+id/tv_belum_memiliki_kelompok_tugas_akhir"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
@@ -42,7 +42,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_dokumen_capstone"
+            android:id="@+id/shimmer_dokumen_tugas_akhir"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">
@@ -56,14 +56,15 @@
 
                 <include layout="@layout/shimmer_card_dokumen" />
 
+
             </LinearLayout>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <LinearLayout
-            android:id="@+id/linear_layout_dokumen_capstone"
+            android:id="@+id/linear_layout_dokumen_tugas_akhir"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
@@ -74,6 +75,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
                 app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:strokeColor="@android:color/transparent">
 
@@ -82,7 +84,7 @@
                     android:layout_height="wrap_content">
 
                     <View
-                        android:id="@+id/garis_vertical"
+                        android:id="@+id/garis_vertical_laporan"
                         android:layout_width="8dp"
                         android:layout_height="0dp"
                         android:background="@drawable/rounded_line_vertical"
@@ -93,7 +95,7 @@
 
 
                     <TextView
-                        android:id="@+id/tv_title_laporan_tugas_akhir"
+                        android:id="@+id/tv_title_laporan_ta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -102,50 +104,56 @@
                         android:fontFamily="@font/poppinsmedium"
                         android:text="@string/tv_title_laporan_tugas_akhir"
                         android:textColor="@color/lightblue"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toEndOf="@id/garis_vertical"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_laporan"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
-                        android:id="@+id/linear_layout_tugas_akhir"
+                        android:id="@+id/linear_layout_laporan"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/garis_vertical"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_tugas_akhir">
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_laporan"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_laporan_ta">
 
                         <TextView
-                            android:id="@+id/tv_pilih_dokumen_tugas_akhir"
+                            android:id="@+id/tv_pilih_dokumen_laporan_ta"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center"
                             android:layout_weight="2"
                             android:background="@drawable/rounded_outline_8dp_left"
-                            android:backgroundTint="@color/RoyalBlue"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
-                            android:textColor="@color/White"
-                            android:textSize="12sp" />
+                            android:textColor="@color/BlueFontFilled"
+                            android:textSize="11sp" />
 
                         <TextView
-                            android:id="@+id/tv_nama_dokumen_tugas_akhir"
+                            android:id="@+id/tv_nama_dokumen_laporan_ta"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center"
                             android:layout_weight="3"
                             android:background="@drawable/rounded_outline_8dp_right"
-                            android:fontFamily="@font/poppinsregular"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/poppinsmedium"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
 
                     </LinearLayout>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_unduh_laporan"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -160,14 +168,14 @@
                         app:cornerRadius="6dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/linear_layout_tugas_akhir"
+                        app:layout_constraintTop_toBottomOf="@id/linear_layout_laporan"
                         tools:ignore="DuplicateSpeakableTextCheck" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_makalah_tugas_akhir"
+                android:id="@+id/cv_makalah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -175,6 +183,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:strokeColor="@android:color/transparent">
 
@@ -183,7 +192,7 @@
                     android:layout_height="wrap_content">
 
                     <View
-                        android:id="@+id/garis_vertical_makalah_tugas_akhir"
+                        android:id="@+id/garis_vertical_makalah"
                         android:layout_width="8dp"
                         android:layout_height="0dp"
                         android:background="@drawable/rounded_line_vertical"
@@ -194,7 +203,7 @@
 
 
                     <TextView
-                        android:id="@+id/tv_title_makalah_tugas_akhir"
+                        android:id="@+id/tv_title_makalah_ta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -203,50 +212,58 @@
                         android:fontFamily="@font/poppinsmedium"
                         android:text="@string/tv_title_makalah_tugas_akhir"
                         android:textColor="@color/lightblue"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toEndOf="@id/garis_vertical_makalah_tugas_akhir"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_makalah"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
-                        android:id="@+id/linear_layout_makalah_tugas_akhir"
+                        android:id="@+id/linear_layout_makalah_ta"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/garis_vertical_makalah_tugas_akhir"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title_makalah_tugas_akhir">
+                        app:layout_constraintStart_toEndOf="@id/garis_vertical_makalah"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_makalah_ta">
 
                         <TextView
-                            android:id="@+id/tv_pilih_dokumen_makalah_tugas_akhir"
+                            android:id="@+id/tv_pilih_dokumen_makalah_ta"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center"
                             android:layout_weight="2"
+
                             android:background="@drawable/rounded_outline_8dp_left"
-                            android:backgroundTint="@color/RoyalBlue"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
-                            android:textColor="@color/White"
-                            android:textSize="12sp" />
+                            android:textColor="@color/BlueFontFilled"
+                            android:textSize="11sp" />
 
                         <TextView
-                            android:id="@+id/tv_nama_dokumen_makalah_tugas_akhir"
+                            android:id="@+id/tv_nama_dokumen_makalah_ta"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center"
                             android:layout_weight="3"
                             android:background="@drawable/rounded_outline_8dp_right"
-                            android:fontFamily="@font/poppinsregular"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/poppinsmedium"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
 
                     </LinearLayout>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
+
+                        android:id="@+id/btn_unduh_makalah_ta"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -261,7 +278,7 @@
                         app:cornerRadius="6dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/linear_layout_makalah_tugas_akhir" />
+                        app:layout_constraintTop_toBottomOf="@id/linear_layout_makalah_ta" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -269,8 +286,6 @@
 
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </androidx.core.widget.NestedScrollView>

@@ -131,8 +131,11 @@
                             android:layout_gravity="center"
                             android:layout_weight="2"
                             android:background="@drawable/rounded_outline_8dp_left"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
@@ -144,8 +147,11 @@
                             android:layout_gravity="center"
                             android:layout_weight="3"
                             android:background="@drawable/rounded_outline_8dp_right"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsmedium"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
 
@@ -231,9 +237,13 @@
                             android:layout_height="48dp"
                             android:layout_gravity="center"
                             android:layout_weight="2"
+
                             android:background="@drawable/rounded_outline_8dp_left"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
@@ -245,8 +255,11 @@
                             android:layout_gravity="center"
                             android:layout_weight="3"
                             android:background="@drawable/rounded_outline_8dp_right"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsmedium"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
 
@@ -331,9 +344,13 @@
                             android:layout_height="48dp"
                             android:layout_gravity="center"
                             android:layout_weight="2"
+
                             android:background="@drawable/rounded_outline_8dp_left"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
@@ -345,8 +362,11 @@
                             android:layout_gravity="center"
                             android:layout_weight="3"
                             android:background="@drawable/rounded_outline_8dp_right"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsmedium"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
 
@@ -432,9 +452,13 @@
                             android:layout_height="48dp"
                             android:layout_gravity="center"
                             android:layout_weight="2"
+
                             android:background="@drawable/rounded_outline_8dp_left"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
@@ -446,8 +470,11 @@
                             android:layout_gravity="center"
                             android:layout_weight="3"
                             android:background="@drawable/rounded_outline_8dp_right"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsmedium"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
                     </LinearLayout>
@@ -533,9 +560,13 @@
                             android:layout_height="48dp"
                             android:layout_gravity="center"
                             android:layout_weight="2"
+
                             android:background="@drawable/rounded_outline_8dp_left"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
@@ -547,8 +578,11 @@
                             android:layout_gravity="center"
                             android:layout_weight="3"
                             android:background="@drawable/rounded_outline_8dp_right"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppinsmedium"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="16dp"
                             android:textColor="@color/BlueFontFilled"
                             android:textSize="11sp" />
 

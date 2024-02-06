@@ -358,6 +358,8 @@ class MahasiswaProfilFragment : Fragment() {
 							edtNoTelpPengguna.setTextOrHint(
 								dataUser.noTelp, R.string.tv_hint_no_telp
 							)
+
+							profileViewModel.setUsername(dataUser.userName.toString())
 						}
 					}
 				}

@@ -184,9 +184,18 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 				is Resource.Success -> {
 					setLoading(false)
 
-					if (getFileIndexResult.payload?.data?.fileMhs == null) {
-						showSnackbar("Terjadi kesalahan dalam mengakses dokumen!")
+					val message = getFileIndexResult.payload?.message
+					if (message == "Gagal! Anda telah masuk melalui perangkat lain." ){
+						showSnackbar(message = message)
+						return@observe
 					}
+
+					if (getFileIndexResult.payload?.status == false) {
+						showSnackbar("Terjadi kesalahan dalam mengakses dokumen!")
+						return@observe
+					}
+
+
 
 					id = getFileIndexResult.payload?.data?.fileMhs?.id.toString()
 
@@ -296,7 +305,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 								val message = uploadC100ProcessResult.payload?.message
 
-								if (uploadC100ProcessResult.payload?.status == true){
+								if (uploadC100ProcessResult.payload?.status == true) {
 									showSnackbar(message ?: "Berhasil!")
 									checkDokumen()
 
@@ -374,7 +383,8 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 								val message = uploadC200ProcessResult.payload?.message
 
-								if (uploadC200ProcessResult.payload?.status == true){
+								Log.d("C200 RESULT", uploadC200ProcessResult.toString())
+								if (uploadC200ProcessResult.payload?.status == true) {
 									showSnackbar(message ?: "Berhasil!")
 									checkDokumen()
 
@@ -450,7 +460,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 								val message = uploadC300ProcessResult.payload?.message
 
-								if (uploadC300ProcessResult.payload?.status == true){
+								if (uploadC300ProcessResult.payload?.status == true) {
 									showSnackbar(message ?: "Berhasil!")
 									checkDokumen()
 
@@ -527,7 +537,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 								val message = uploadC400ProcessResult.payload?.message
 
-								if (uploadC400ProcessResult.payload?.status == true){
+								if (uploadC400ProcessResult.payload?.status == true) {
 									showSnackbar(message ?: "Berhasil!")
 									checkDokumen()
 
@@ -603,7 +613,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								setLoading(false)
 								val message = uploadC500ProcessResult.payload?.message
 
-								if (uploadC500ProcessResult.payload?.status == true){
+								if (uploadC500ProcessResult.payload?.status == true) {
 									showSnackbar(message ?: "Berhasil!")
 
 									checkDokumen()
@@ -631,27 +641,32 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 	private fun viewPdf(getFileIndexResult: Resource<FileIndexRemoteResponse>) {
 
 		binding.btnUnduhC100.setOnClickListener {
-			showCustomAlertDialog("Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
+			showCustomAlertDialog(
+				"Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
 			) { unduhFileC100(getFileIndexResult) }
 		}
 
 		binding.btnUnduhC200.setOnClickListener {
-			showCustomAlertDialog("Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
+			showCustomAlertDialog(
+				"Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
 			) { unduhFileC200(getFileIndexResult) }
 		}
 
 		binding.btnUnduhC300.setOnClickListener {
-			showCustomAlertDialog("Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
+			showCustomAlertDialog(
+				"Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
 			) { unduhFileC300(getFileIndexResult) }
 		}
 
 		binding.btnUnduhC400.setOnClickListener {
-			showCustomAlertDialog("Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
+			showCustomAlertDialog(
+				"Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
 			) { unduhFileC400(getFileIndexResult) }
 		}
 
 		binding.btnUnduhC500.setOnClickListener {
-			showCustomAlertDialog("Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
+			showCustomAlertDialog(
+				"Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
 			) { unduhFileC500(getFileIndexResult) }
 		}
 
@@ -707,19 +722,35 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 		textView: TextView,
 		fileName: String?,
 		garisVertical: View,
-		disabled: Boolean
+		disabled: Boolean,
 	) {
 		if (fileName == null) {
 			button.isEnabled = false
 
 			// Set button appearance when disabled
-			button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.tabUnselected))
+			button.setBackgroundColor(
+				ContextCompat.getColor(
+					requireContext(),
+					R.color.tabUnselected
+				)
+			)
 			button.strokeWidth = 2
 			button.strokeColor = ColorStateList.valueOf(
 				ContextCompat.getColor(requireContext(), R.color.tabUnselected)
 			)
 			button.setTextColor(ContextCompat.getColor(requireContext(), R.color.White))
 		} else {
+			button.setBackgroundColor(
+				ContextCompat.getColor(
+					requireContext(),
+					R.color.RoyalBlue
+				)
+			)
+			button.strokeWidth = 2
+			button.strokeColor = ColorStateList.valueOf(
+				ContextCompat.getColor(requireContext(), R.color.RoyalBlue)
+			)
+
 			textView.text = fileName
 			button.isEnabled = !disabled
 			garisVertical.backgroundTintList = ColorStateList.valueOf(
@@ -1293,7 +1324,10 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
 					requireContext().startActivity(intent)
 					requireActivity().finishAffinity()
-				} else if (message == "null" || message == "Laporan gagal diupload." || message == "Laporan tidak ditemukan." || message == "Gagal menyimpan file."|| message == "Dokumen berhasil diunggah."|| message.equals(null) || message == "Terjadi kesalahan!" || message == "Berhasil mengunduh!" || message == "Gagal mengunduh!") {
+				} else if (message == "null" || message == "Laporan gagal diupload." || message == "Laporan tidak ditemukan." || message == "Gagal menyimpan file." || message == "Dokumen berhasil diunggah." || message.equals(
+						null
+					) || message == "Terjadi kesalahan!" || message == "Berhasil mengunduh!" || message == "Gagal mengunduh!"
+				) {
 					restartFragment()
 				} else if (message == "Password berhasil diubah, silahkan masuk kembali.") {
 
@@ -1331,7 +1365,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 		with(binding) {
 			setShimmerVisibility(shimmerDokumenCapstone, isLoading)
 
-			linearLayoutDokumenCapstone.visibility = if (isLoading) View.GONE else View.VISIBLE
+//			linearLayoutDokumenCapstone.visibility = if (isLoading) View.GONE else View.VISIBLE
 		}
 	}
 
