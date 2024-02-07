@@ -23,6 +23,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.reque
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.AkunDosbingAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.FragmentDaftarCapstonePageAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
@@ -156,6 +157,7 @@ class MahasiswaKelompokFragment : Fragment() {
 					Log.d("Result error", getKelompokSayaResult.toString())
 
 					binding.cvValueKelompok.visibility = View.GONE
+					binding.cvValueDosbing.visibility = View.GONE
 					binding.cvValueDosbing.visibility = View.GONE
 					binding.linearLayoutDaftarCapstone.visibility = View.GONE
 					binding.cvErrorKelompok.visibility = View.VISIBLE
@@ -377,7 +379,6 @@ class MahasiswaKelompokFragment : Fragment() {
 				cvValueKelompok.visibility = View.GONE
 				cvValueDosbing.visibility = View.GONE
 				cvErrorKelompok.visibility = View.GONE
-
 			}
 		}
 

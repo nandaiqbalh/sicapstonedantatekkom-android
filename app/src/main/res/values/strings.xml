@@ -99,6 +99,7 @@
     <string name="tv_title_status_kelompok">Status</string>
     <string name="tv_belum_memiliki_dosen_pembimbing">Belum memiliki dosen pembimbing!</string>
     <string name="tv_title_detail_kelompok">Detail Kelompok</string>
+    <string name="tv_title_anggota_kelompok">Anggota Kelompok</string>
 
 
 </resources>

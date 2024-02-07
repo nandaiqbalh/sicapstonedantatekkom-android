@@ -1,4 +1,4 @@
-package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok
+package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
