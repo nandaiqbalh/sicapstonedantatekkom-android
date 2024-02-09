@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.kel022322.sicapstonedantatekkom.R
@@ -75,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
 							Log.d("Result message", authResult.payload?.message.toString())
 
 							customSnackbar.showSnackbarWithAction(findViewById(android.R.id.content),
-								authResult.payload?.message.toString(),
+								authResult.payload?.message ?: "Terjadi kesalahan!",
 								"OK"
 							) {
 								customSnackbar.dismissSnackbar()
@@ -87,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
 							Log.d("Result message", authResult.payload?.message.toString())
 
 							customSnackbar.showSnackbarWithAction(findViewById(android.R.id.content),
-								authResult.payload?.message.toString(),
+								authResult.payload?.message ?: "Autentikasi berhasil!",
 								 "OK"
 							) {
 								customSnackbar.dismissSnackbar()

@@ -1,4 +1,4 @@
-package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter
+package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -9,14 +9,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.RsMahasiswa
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.RsDosbing
 import com.kel022322.sicapstonedantatekkom.databinding.ItemListAkunBinding
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
 
-class AkunAnggotaKelompokAdapter: RecyclerView.Adapter<AkunAnggotaKelompokAdapter.AkunViewHolder>() {
-	private var mahasiswaList: List<RsMahasiswa> = emptyList()
+class AkunDosbingAdapter: RecyclerView.Adapter<AkunDosbingAdapter.AkunViewHolder>() {
+	private var dosbingList: List<RsDosbing> = emptyList()
 
-	var itemClickListener: ((item: RsMahasiswa) -> Unit)? = null
+	var itemClickListener: ((item: RsDosbing) -> Unit)? = null
 
 	private lateinit var onItemClickCallBack: OnItemClickCallBack
 
@@ -24,31 +24,31 @@ class AkunAnggotaKelompokAdapter: RecyclerView.Adapter<AkunAnggotaKelompokAdapte
 		this.onItemClickCallBack = onItemClickCallBack
 	}
 
-	private val diffCallback = object : DiffUtil.ItemCallback<RsMahasiswa>() {
-		override fun areItemsTheSame(oldItem: RsMahasiswa, newItem: RsMahasiswa): Boolean {
+	private val diffCallback = object : DiffUtil.ItemCallback<RsDosbing>() {
+		override fun areItemsTheSame(oldItem: RsDosbing, newItem: RsDosbing): Boolean {
 			return oldItem.id == newItem.id
 		}
 
-		override fun areContentsTheSame(oldItem: RsMahasiswa, newItem: RsMahasiswa): Boolean {
+		override fun areContentsTheSame(oldItem: RsDosbing, newItem: RsDosbing): Boolean {
 			return oldItem.hashCode() == newItem.hashCode()
 		}
 	}
 
 	private val differ = AsyncListDiffer(this, diffCallback)
 
-	fun setList(mahasiswas: List<RsMahasiswa>?) {
-		differ.submitList(mahasiswas)
+	fun setList(dosbings: List<RsDosbing>?) {
+		differ.submitList(dosbings)
 	}
 
 	inner class AkunViewHolder(private val binding: ItemListAkunBinding) : RecyclerView.ViewHolder(binding.root) {
 		@SuppressLint("SetTextI18n")
-		fun bind(mahasiswa: RsMahasiswa) {
+		fun bind(dosbing: RsDosbing) {
 			binding.apply {
 
-				tvNamaDosenPembimbing.text = mahasiswa.userName
-				tvNimDosenPembimbing.text = mahasiswa.nomorInduk
+				tvNamaDosenPembimbing.text = dosbing.userName
+				tvNimDosenPembimbing.text = dosbing.nomorInduk
 
-				val base64Image = mahasiswa.userImgPath.toString()
+				val base64Image = dosbing.userImgPath.toString()
 
 				if (base64Image != "null" && base64Image != "") {
 					// Decode base64 string to byte array
@@ -62,7 +62,7 @@ class AkunAnggotaKelompokAdapter: RecyclerView.Adapter<AkunAnggotaKelompokAdapte
 			}
 
 			binding.root.setOnClickListener {
-				onItemClickCallBack.onItemClicked(mahasiswa.id.toString())
+				onItemClickCallBack.onItemClicked(dosbing.id.toString())
 			}
 		}
 
@@ -87,6 +87,6 @@ class AkunAnggotaKelompokAdapter: RecyclerView.Adapter<AkunAnggotaKelompokAdapte
 	}
 
 	interface OnItemClickCallBack {
-		fun onItemClicked(mahasiswaId: String)
+		fun onItemClicked(dosbingId: String)
 	}
 }

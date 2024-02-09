@@ -20,7 +20,7 @@
     <string name="title_nama_lengkap">Nama Lengkap</string>
     <string name="btn_simpan">Simpan</string>
     <string name="tv_hint_nama_lengkap">Masukkan Nama Lengkap</string>
-    <string name="title_nim">NIM</string>
+    <string name="title_nim">NIM Mahasiswa</string>
     <string name="title_email">Email</string>
     <string name="title_no_telp">No. Telepon</string>
     <string name="tv_hint_nim">Masukkan NIM</string>
@@ -100,6 +100,50 @@
     <string name="tv_belum_memiliki_dosen_pembimbing">Belum memiliki dosen pembimbing!</string>
     <string name="tv_title_detail_kelompok">Detail Kelompok</string>
     <string name="tv_title_anggota_kelompok">Anggota Kelompok</string>
+
+    <!-- daftar capstone -->
+    <string name="tv_detail_capstone_individu">Detail Capstone</string>
+    <string name="tv_detail_mahasiswa_individu">Detail Mahasiswa</string>
+    <string name="tv_detail_peminatan_individu">Detail Peminatan Mahasiswa</string>
+    <string name="tv_skala_prioritas_peminatan">Skala prioritas peminatan</string>
+    <string name="tv_ket_peminatan_individu">Pilih sesuai dengan urutan prioritas anda, pisahkan dengan tanda koma (contoh: 3,2,1,4)</string>
+    <string name="tv_detail_topik_individu">Detail Topik Mahasiswa</string>
+    <string name="tv_skala_prioritas_topik">Skala prioritas topik</string>
+    <string name="tv_ket_topik_individu">Pilih sesuai dengan urutan prioritas anda</string>
+
+
+    <string name="tv_title_angkatan">Angkatan</string>
+    <string name="tv_title_ipk">IPK</string>
+    <string name="tv_title_sks">SKS</string>
+    <string name="tv_title_siklus">Siklus</string>
+    <string name="tv_title_jenis_kelamin">Jenis Kelamin</string>
+    <string name="tv_title_judul_capstone">Judul Capstone</string>
+    <string name="tv_title_peminatan1">1. Software &amp; Database</string>
+    <string name="tv_title_peminatan2">2. Embedded System &amp; Robotics</string>
+    <string name="tv_title_peminatan3">3. Computer Network &amp; Security</string>
+    <string name="tv_title_peminatan4">4. Multimedia &amp; Game</string>
+    <string name="tv_title_topik1">1. Early Warning System</string>
+    <string name="tv_title_topik2">2. Building/area monitoring or controlling system</string>
+    <string name="tv_title_topik3">3. Smart business/organization platform/support system</string>
+    <string name="tv_title_topik4">4. Smart city and transportation</string>
+
+    <string name="tv_hint_angkatan">Masukkan angkatan</string>
+    <string name="tv_hint_ipk">Masukkan IPK saat ini</string>
+    <string name="tv_hint_sks">Masukkan SKS saat ini</string>
+    <string name="tv_hint_siklus">Pilih siklus</string>
+    <string name="tv_hint_jenis_kelamin">Pilih jenis kelamin</string>
+    <string name="tv_hint_judul_capstone">Masukkan usulan judul</string>
+    <string name="tv_hint_skala_peminatan">Masukkan skala peminatan</string>
+    <string name="tv_hint_skala_topik">Masukkan skala topik</string>
+
+    <string name="tv_des_dropdown">Dropdown</string>
+    <string name="nim_tidak_valid">14 digit NIM tidak valid!</string>
+    <string name="no_telp_tidak_valid">No. Telepon tidak valid!</string>
+    <string name="email_tidak_valid">Email tidak valid!</string>
+    <string name="sks_tidak_valid">SKS tidak valid!</string>
+    <string name="ipk_tidak_valid">IPK tidak valid!</string>
+    <string name="peminatan_tidak_valid">Peminatan tidak valid!</string>
+    <string name="topik_tidak_valid">Topik tidak valid!</string>
 
 
 </resources>

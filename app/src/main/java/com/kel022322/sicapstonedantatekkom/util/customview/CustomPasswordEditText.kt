@@ -34,9 +34,11 @@ class CustomPasswordEditText : TextInputEditText {
 				if (password.length < MIN_PASSWORD_LENGTH) {
 					parentLayout?.error = "Password minimal $MIN_PASSWORD_LENGTH karakter!"
 					setCustomErrorTypeface(parentLayout)
+					parentLayout?.isErrorEnabled = true
 
 				} else {
 					parentLayout?.error = null
+					parentLayout?.isErrorEnabled = false
 				}
 			}
 		})
@@ -52,6 +54,7 @@ class CustomPasswordEditText : TextInputEditText {
 
 	private fun setCustomErrorTypeface(textInputLayout: TextInputLayout?) {
 		val typeface = ResourcesCompat.getFont(context, R.font.poppinsregular)
-		textInputLayout?.setTypeface(typeface)
+		textInputLayout?.typeface = typeface
 	}
+
 }

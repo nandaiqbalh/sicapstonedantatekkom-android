@@ -275,6 +275,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 					profileViewModel.setApiToken("")
 					profileViewModel.setUserId("")
+					profileViewModel.setUsername("")
 					profileViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
@@ -286,6 +287,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 					profileViewModel.setApiToken("")
 					profileViewModel.setUserId("")
+					profileViewModel.setUsername("")
 					profileViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)

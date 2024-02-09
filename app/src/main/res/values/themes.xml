@@ -61,6 +61,18 @@
 
     </style>
 
+    <style name="CustomTextInputLayoutWithDropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <!-- Default state -->
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+
+        <!-- Color selector -->
+        <item name="boxStrokeColor">@color/color_outlined_text_input_layout</item>
+
+    </style>
+
     <style name="TabLayoutTextAppearance" parent="Widget.MaterialComponents.TabLayout">
         <item name="android:textSize">14sp</item>
         <item name="android:textAllCaps">false</item>

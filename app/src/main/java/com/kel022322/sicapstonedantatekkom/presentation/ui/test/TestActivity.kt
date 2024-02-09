@@ -10,7 +10,6 @@ import androidx.core.view.isVisible
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthLoginRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
@@ -479,73 +478,73 @@ class TestActivity : AppCompatActivity() {
 			}
 		}
 
-		binding.btnTestAddKelompokIndividu.setOnClickListener {
-			setLoading(true)
-
-			kelompokSayaViewModel.getUserId().observe(this) { userId ->
-				if (userId != null) {
-					kelompokSayaViewModel.getApiToken().observe(this) { apiToken ->
-						if (apiToken != null) {
-							// Both userId and apiToken are available now
-							kelompokSayaViewModel.addKelompokIndividu(
-								AddKelompokIndividuRemoteRequestBody(
-									userId = userId.toString(),
-									apiToken = apiToken.toString(),
-									idSiklus = "7",
-									email = "example@email.com",
-									angkatan = "2022",
-									jenisKelamin = "Laki-laki",
-									ipk = "3.5",
-									sks = "120",
-									noTelp = "1234567890",
-									alamat = "123 Main Street",
-									s = "1",
-									e = "2",
-									c = "3",
-									m = "4"
-								)
-							)
-						}
-					}
-				}
-			}
-
-			kelompokSayaViewModel.addKelompokIndividuResult.observe(this) { addKelompokIndividuResult ->
-
-				when (addKelompokIndividuResult) {
-					is Resource.Loading -> {
-						setLoading(true)
-					}
-
-					is Resource.Error -> {
-						setLoading(false)
-						Log.d("Result status", addKelompokIndividuResult.payload?.status.toString())
-						Log.d("Result message", addKelompokIndividuResult.payload?.message.toString())
-						Log.d("Exception", addKelompokIndividuResult.exception?.message.toString())
-						Toast.makeText(
-							this@TestActivity,
-							"Result: ${addKelompokIndividuResult.payload?.message.toString()}",
-							Toast.LENGTH_SHORT
-						).show()
-
-					}
-
-					is Resource.Success -> {
-						setLoading(false)
-						Log.d("Result status", addKelompokIndividuResult.payload?.status.toString())
-						Log.d("Result message", addKelompokIndividuResult.payload?.message.toString())
-						Toast.makeText(
-							this@TestActivity,
-							"Result: ${addKelompokIndividuResult.payload?.message.toString()}",
-							Toast.LENGTH_SHORT
-						).show()
-					}
-
-					else -> {}
-				}
-			}
-
-		}
+//		binding.btnTestAddKelompokIndividu.setOnClickListener {
+//			setLoading(true)
+//
+//			kelompokSayaViewModel.getUserId().observe(this) { userId ->
+//				if (userId != null) {
+//					kelompokSayaViewModel.getApiToken().observe(this) { apiToken ->
+//						if (apiToken != null) {
+//							// Both userId and apiToken are available now
+//							kelompokSayaViewModel.addKelompokIndividu(
+//								AddKelompokIndividuRemoteRequestBody(
+//									userId = userId.toString(),
+//									apiToken = apiToken.toString(),
+//									idSiklus = "7",
+//									email = "example@email.com",
+//									angkatan = "2022",
+//									jenisKelamin = "Laki-laki",
+//									ipk = "3.5",
+//									sks = "120",
+//									noTelp = "1234567890",
+//									alamat = "123 Main Street",
+//									s = "1",
+//									e = "2",
+//									c = "3",
+//									m = "4"
+//								)
+//							)
+//						}
+//					}
+//				}
+//			}
+//
+//			kelompokSayaViewModel.addKelompokIndividuResult.observe(this) { addKelompokIndividuResult ->
+//
+//				when (addKelompokIndividuResult) {
+//					is Resource.Loading -> {
+//						setLoading(true)
+//					}
+//
+//					is Resource.Error -> {
+//						setLoading(false)
+//						Log.d("Result status", addKelompokIndividuResult.payload?.status.toString())
+//						Log.d("Result message", addKelompokIndividuResult.payload?.message.toString())
+//						Log.d("Exception", addKelompokIndividuResult.exception?.message.toString())
+//						Toast.makeText(
+//							this@TestActivity,
+//							"Result: ${addKelompokIndividuResult.payload?.message.toString()}",
+//							Toast.LENGTH_SHORT
+//						).show()
+//
+//					}
+//
+//					is Resource.Success -> {
+//						setLoading(false)
+//						Log.d("Result status", addKelompokIndividuResult.payload?.status.toString())
+//						Log.d("Result message", addKelompokIndividuResult.payload?.message.toString())
+//						Toast.makeText(
+//							this@TestActivity,
+//							"Result: ${addKelompokIndividuResult.payload?.message.toString()}",
+//							Toast.LENGTH_SHORT
+//						).show()
+//					}
+//
+//					else -> {}
+//				}
+//			}
+//
+//		}
 
 		binding.btnTestAddKelompokPunyaKelompok.setOnClickListener {
 			setLoading(true)

@@ -22,8 +22,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.resp
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.AkunDosbingAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.FragmentDaftarCapstonePageAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok.AkunDosbingAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
@@ -327,6 +327,7 @@ class MahasiswaKelompokFragment : Fragment() {
 
 					profileViewModel.setApiToken("")
 					profileViewModel.setUserId("")
+					profileViewModel.setUsername("")
 					profileViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
@@ -338,6 +339,7 @@ class MahasiswaKelompokFragment : Fragment() {
 
 					profileViewModel.setApiToken("")
 					profileViewModel.setUserId("")
+					profileViewModel.setUsername("")
 					profileViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
@@ -379,6 +381,7 @@ class MahasiswaKelompokFragment : Fragment() {
 				cvValueKelompok.visibility = View.GONE
 				cvValueDosbing.visibility = View.GONE
 				cvErrorKelompok.visibility = View.GONE
+				linearLayoutDaftarCapstone.visibility = View.GONE
 			}
 		}
 

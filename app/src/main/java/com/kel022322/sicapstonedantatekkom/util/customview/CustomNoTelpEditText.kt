@@ -30,11 +30,15 @@ class CustomNoTelpEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val phoneNumber = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (phoneNumber.length in 10..14) {
+				if (phoneNumber.isNotEmpty() && phoneNumber.length in 10..14) {
 					parentLayout?.error = null
+					parentLayout?.isErrorEnabled = false
+
 				} else {
 					parentLayout?.error = "No. Telepon tidak valid!"
 					setCustomErrorTypeface(parentLayout)
+					parentLayout?.isErrorEnabled = true
+
 
 				}
 			}
@@ -51,7 +55,8 @@ class CustomNoTelpEditText : TextInputEditText {
 
 	private fun setCustomErrorTypeface(textInputLayout: TextInputLayout?) {
 		val typeface = ResourcesCompat.getFont(context, R.font.poppinsregular)
-		textInputLayout?.setTypeface(typeface)
+		textInputLayout?.typeface = typeface
 	}
+
 }
 

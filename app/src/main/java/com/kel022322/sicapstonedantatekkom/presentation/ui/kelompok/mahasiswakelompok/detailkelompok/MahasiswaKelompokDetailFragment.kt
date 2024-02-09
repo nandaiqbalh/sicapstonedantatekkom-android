@@ -15,8 +15,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.requ
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokDetailBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.AkunAnggotaKelompokAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.AkunDosbingAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok.AkunAnggotaKelompokAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok.AkunDosbingAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
@@ -223,6 +223,7 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 
 					profileViewModel.setApiToken("")
 					profileViewModel.setUserId("")
+					profileViewModel.setUsername("")
 					profileViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
@@ -234,6 +235,7 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 
 					profileViewModel.setApiToken("")
 					profileViewModel.setUserId("")
+					profileViewModel.setUsername("")
 					profileViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
