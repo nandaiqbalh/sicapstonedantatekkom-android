@@ -6,10 +6,14 @@ import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.logout.Au
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.logout.AuthLogoutRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast.BroadcastRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast.BroadcastRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.dosen.DosenRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.dosen.DosenRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.file.FileRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.file.FileRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.kelompok.KelompokSayaRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.kelompok.KelompokSayaRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.mahasiswa.MahasiswaRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.mahasiswa.MahasiswaRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.profile.ProfileRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.profile.ProfileRemoteRepositoryImpl
 import dagger.Binds
@@ -37,4 +41,11 @@ abstract class RepositoryModule {
 
 	@Binds
 	abstract fun bindFileRemoteRepository(fileRemoteRepositoryImpl: FileRemoteRepositoryImpl) : FileRemoteRepository
+
+	@Binds
+	abstract fun bindDosenRemoteRepository(dosenRemoteRepositoryImpl: DosenRemoteRepositoryImpl) : DosenRemoteRepository
+
+	@Binds
+	abstract fun bindMahasiswaRemoteRepository(mahasiswaRemoteRepositoryImpl: MahasiswaRemoteRepositoryImpl) : MahasiswaRemoteRepository
+
 }

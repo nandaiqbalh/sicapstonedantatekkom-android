@@ -9,7 +9,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.kel022322.sicapstonedantatekkom.R
 
-class CustomNoTelpEditText : TextInputEditText {
+class CustomTextInputEditText : TextInputEditText {
 
 	constructor(context: Context) : super(context) {
 		init()
@@ -32,25 +32,23 @@ class CustomNoTelpEditText : TextInputEditText {
 		parentLayout?.error = null
 
 		addTextChangedListener(object : TextWatcher {
-			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+			override fun beforeTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 			}
 
 			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 			}
 
 			override fun afterTextChanged(s: Editable?) {
-				val phoneNumber = s.toString()
+				val inputText = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (phoneNumber.isNotEmpty() && phoneNumber.length in 10..14) {
+
+				if (inputText.isNotEmpty()) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
-
 				} else {
-					parentLayout?.error = "No. Telepon tidak valid!"
+					parentLayout?.error = "Kolom ini tidak boleh kosong!"
 					setCustomErrorTypeface(parentLayout)
 					parentLayout?.isErrorEnabled = true
-
-
 				}
 			}
 		})
@@ -68,6 +66,4 @@ class CustomNoTelpEditText : TextInputEditText {
 		val typeface = ResourcesCompat.getFont(context, R.font.poppinsregular)
 		textInputLayout?.typeface = typeface
 	}
-
 }
-

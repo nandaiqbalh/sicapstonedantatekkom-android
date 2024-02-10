@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Minimumblue"
-    tools:context=".presentation.ui.kelompok.mahasiswakelompok.daftarindividu.MahasiswaKelompokDaftarIndividuFragment">
+    tools:context=".presentation.ui.kelompok.mahasiswakelompok.daftarkelompok.MahasiswaKelompokDaftarIndividuFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,7 +98,7 @@
                     android:layout_marginTop="2dp"
                     app:hintEnabled="false">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
                         android:id="@+id/edt_judul_capstone_individu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -127,17 +127,19 @@
                     android:id="@+id/til_siklus_individu"
                     style="@style/CustomTextInputLayoutWithDropdown"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     app:hintEnabled="false">
 
-                    <AutoCompleteTextView
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
                         android:id="@+id/edt_siklus_individu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppinsregular"
                         android:hint="@string/tv_hint_siklus"
                         android:paddingHorizontal="8dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:paddingVertical="12dp"
                         android:textColor="@color/BlueFontFilled"
                         android:textColorHint="@color/DarkGrey"
@@ -231,7 +233,7 @@
                     android:focusable="false"
                     app:hintEnabled="false">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomNIMEditText
                         android:id="@+id/edt_nim_individu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -295,17 +297,19 @@
                     android:id="@+id/til_jenis_kelamin_individu"
                     style="@style/CustomTextInputLayoutWithDropdown"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     app:hintEnabled="false">
 
-                    <AutoCompleteTextView
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
                         android:id="@+id/edt_jenis_kelamin_individu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppinsregular"
                         android:hint="@string/tv_hint_jenis_kelamin"
                         android:paddingHorizontal="8dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:paddingVertical="12dp"
                         android:textColor="@color/BlueFontFilled"
                         android:textColorHint="@color/DarkGrey"

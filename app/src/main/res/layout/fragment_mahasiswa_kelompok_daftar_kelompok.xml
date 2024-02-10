@@ -1,9 +1,1220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.kelompok.mahasiswakelompok.daftarkelompok.MahasiswaKelompokDaftarKelompokFragment">
+    android:background="@color/Minimumblue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_error_daftar_kelompok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/White"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@android:color/transparent">
+
+            <TextView
+                android:id="@+id/tv_error_daftar_kelompok"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:background="@drawable/rounded_outline_text_view"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center"
+                android:text="@string/tv_terjadi_kesalahan"
+                android:textColor="@color/DarkGrey"
+                android:textSize="11sp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_fragment_daftar_kelompok"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <include layout="@layout/shimmer_kelompok_fragment" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <TextView
+            android:id="@+id/tv_title_detail_capstone_kelompok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppinssemibold"
+            android:text="@string/tv_detail_capstone_kelompok"
+            android:textColor="@color/lightblue"
+            android:textSize="16sp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_detail_capstone_kelompok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:id="@+id/linear_layout_data_capstone_kelompok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tv_title_topik_capstone_kelompok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_topik_capstone"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_topik_capstone_kelompok"
+                    style="@style/CustomTextInputLayoutWithDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        android:id="@+id/edt_topik_capstone_kelompok"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_topik_capstone"
+                        android:maxLines="1"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_judul_capstone_kelompok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_judul_capstone"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_judul_capstone_kelompok"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
+                        android:id="@+id/edt_judul_capstone_kelompok"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_judul_capstone"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_siklus_kelompok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_siklus"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_siklus_kelompok"
+                    style="@style/CustomTextInputLayoutWithDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        android:id="@+id/edt_siklus_kelompok"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_siklus"
+
+                        android:maxLines="1"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_dosbing1_kelompok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_dosbing1"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_dosbing1_kelompok"
+                    style="@style/CustomTextInputLayoutWithDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        android:id="@+id/edt_dosbing1_kelompok"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_dosbing1"
+
+                        android:maxLines="1"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_dosbing2_kelompok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_dosbing2"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_dosbing2_kelompok"
+                    style="@style/CustomTextInputLayoutWithDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        android:id="@+id/edt_dosbing2_kelompok"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_dosbing2"
+                        android:maxLines="1"
+
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
 
-</LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_detail_mahasiswa_kelompok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppinssemibold"
+            android:text="@string/tv_detail_mahasiswa_kelompok"
+            android:textColor="@color/lightblue"
+            android:textSize="16sp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_detail_mahasiswa1_kelompok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:id="@+id/ll_detail_mahasiswa1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_title_card_mahasiswa1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/tv_title_card_mahasiswa1"
+                    android:textColor="@color/DarkGrey"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_title_nama_lengkap_mahasiswa1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_nama_lengkap"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_nama_mahasiswa1"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
+                        android:id="@+id/edt_nama_lengkap_mahasiswa1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_nama_lengkap"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_nim_mahasiswa1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_nim"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_nim_mahasiswa1"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:focusable="false"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomNIMEditText
+                        android:id="@+id/edt_nim_mahasiswa1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:editable="false"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_nim"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_angkatan_mahasiswa1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_angkatan"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_angkatan_mahasiswa1"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAngkatanEditText
+                        android:id="@+id/edt_angkatan_mahasiswa1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_angkatan"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_title_jenis_kelamin_mahasiswa1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_jenis_kelamin"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_jenis_kelamin_mahasiswa1"
+                    style="@style/CustomTextInputLayoutWithDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        android:id="@+id/edt_jenis_kelamin_mahasiswa1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_jenis_kelamin"
+                        android:maxLines="1"
+
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_no_telp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_no_telp"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_no_telp_mahasiswa1"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
+                        android:id="@+id/edt_no_telp_mahasiswa1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_no_telp"
+                        android:inputType="number"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_email"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_email_mahasiswa1"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
+                        android:id="@+id/edt_email_mahasiswa1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_email"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_sks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_sks"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_sks_mahasiswa1"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomSKSEditText
+                        android:id="@+id/edt_sks_mahasiswa1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_sks"
+                        android:inputType="number"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_ipk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_ipk"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_ipk_mahasiswa1"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomIPKEditText
+                        android:id="@+id/edt_ipk_mahasiswa1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_ipk"
+                        android:inputType="numberDecimal"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_detail_mahasiswa2_kelompok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:id="@+id/ll_detail_mahasiswa2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_title_card_mahasiswa2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/tv_title_card_mahasiswa2"
+                    android:textColor="@color/DarkGrey"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_title_nama_lengkap_mahasiswa2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_nama_lengkap"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_nama_mahasiswa2"
+                    style="@style/CustomTextInputLayoutWithDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        android:id="@+id/edt_nama_lengkap_mahasiswa2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_nama_lengkap"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_nim_mahasiswa2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_nim"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_nim_mahasiswa2"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:focusable="false"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomNIMEditText
+                        android:id="@+id/edt_nim_mahasiswa2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_nim"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_angkatan_mahasiswa2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_angkatan"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_angkatan_mahasiswa2"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAngkatanEditText
+                        android:id="@+id/edt_angkatan_mahasiswa2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_angkatan"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_title_jenis_kelamin_mahasiswa2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_jenis_kelamin"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_jenis_kelamin_mahasiswa2"
+                    style="@style/CustomTextInputLayoutWithDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        android:id="@+id/edt_jenis_kelamin_mahasiswa2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_jenis_kelamin"
+                        android:maxLines="1"
+
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_no_telp_mahasiwa2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_no_telp"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_no_telp_mahasiswa2"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
+                        android:id="@+id/edt_no_telp_mahasiswa2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_no_telp"
+                        android:inputType="number"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_email_mahasiswa2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_email"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_email_mahasiswa2"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
+                        android:id="@+id/edt_email_mahasiswa2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_email"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_sks_mahasiswa2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_sks"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_sks_mahasiswa2"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomSKSEditText
+                        android:id="@+id/edt_sks_mahasiswa2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_sks"
+                        android:inputType="number"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_ipk_mahasiswa2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_ipk"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_ipk_mahasiswa2"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomIPKEditText
+                        android:id="@+id/edt_ipk_mahasiswa2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_ipk"
+                        android:inputType="numberDecimal"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_detail_mahasiswa3_kelompok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            tools:ignore="TooManyViews">
+
+            <LinearLayout
+                android:id="@+id/ll_detail_mahasiswa3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_title_card_mahasiswa3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/tv_title_card_mahasiswa3"
+                    android:textColor="@color/DarkGrey"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_title_nama_lengkap_mahasiswa3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_nama_lengkap"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_nama_mahasiswa3"
+                    style="@style/CustomTextInputLayoutWithDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        android:id="@+id/edt_nama_lengkap_mahasiswa3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_nama_lengkap"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_nim_mahasiswa3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_nim"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_nim_mahasiswa3"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:focusable="false"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomNIMEditText
+                        android:id="@+id/edt_nim_mahasiswa3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_nim"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_angkatan_mahasiswa3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_angkatan"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_angkatan_mahasiswa3"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAngkatanEditText
+                        android:id="@+id/edt_angkatan_mahasiswa3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_angkatan"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_title_jenis_kelamin_mahasiswa3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_jenis_kelamin"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_jenis_kelamin_mahasiswa3"
+                    style="@style/CustomTextInputLayoutWithDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        android:id="@+id/edt_jenis_kelamin_mahasiswa3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_jenis_kelamin"
+                        android:maxLines="1"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_no_telp_mahasiswa3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_no_telp"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_no_telp_mahasiswa3"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
+                        android:id="@+id/edt_no_telp_mahasiswa3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_no_telp"
+                        android:inputType="number"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_email_mahasiswa3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/title_email"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_email_mahasiswa3"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
+                        android:id="@+id/edt_email_mahasiswa3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_email"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_sks_mahasiswa3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_sks"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_sks_mahasiswa3"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomSKSEditText
+                        android:id="@+id/edt_sks_mahasiswa3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_sks"
+                        android:inputType="number"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_title_ipk_mahasiswa3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_title_ipk"
+                    android:textColor="@color/RoyalBlue"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_ipk_mahasiswa3"
+                    style="@style/CustomTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:hintEnabled="false">
+
+                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomIPKEditText
+                        android:id="@+id/edt_ipk_mahasiswa3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsregular"
+                        android:hint="@string/tv_hint_ipk"
+                        android:inputType="numberDecimal"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textColorHint="@color/DarkGrey"
+                        android:textSize="12sp"
+                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btn_simpan_daftar_kelompok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20sp"
+            android:backgroundTint="@color/RoyalBlue"
+            android:fontFamily="@font/poppinsbold"
+            android:text="@string/btn_simpan"
+            android:textAllCaps="false"
+            android:textColor="@color/White"
+            android:textSize="14sp"
+            app:cornerRadius="6dp"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

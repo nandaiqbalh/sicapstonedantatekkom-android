@@ -199,12 +199,14 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 				is Resource.Success -> {
 					setLoading(isLoading = false, isSuccess = true)
 
-					val message = addKelompokIndividuResult.payload
+					val message = addKelompokIndividuResult.payload.message
 					Log.d("Result success", message.toString())
 
 					if (addKelompokIndividuResult.payload?.status == true) {
 						showSnackbar("Berhasil mendaftar capstone!")
 						findNavController().navigate(R.id.action_mahasiswaKelompokFragment_to_mahasiswaBerandaFragment)
+					} else {
+						showSnackbar(message?: "Terjadi kesalahan saat mendaftar!")
 					}
 
 				}

@@ -6,10 +6,14 @@ import com.kel022322.sicapstonedantatekkom.data.remote.datasource.auth.logout.Au
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.auth.logout.AuthLogoutRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast.BroadcastRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast.BroadcastRemoteDataSourceImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.dosen.DosenRemoteDataSource
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.dosen.DosenRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.file.FileRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.file.FileRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.kelompok.KelompokSayaRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.kelompok.KelompokSayaRemoteDataSourceImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.mahasiswa.MahasiswaRemoteDataSource
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.mahasiswa.MahasiswaRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile.ProfileRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile.ProfileRemoteDataSourceImpl
 import dagger.Binds
@@ -40,4 +44,11 @@ abstract class DataSourceModule {
 
 	@Binds
 	abstract fun provideFileRemoteDataSource(fileRemoteDataSourceImpl: FileRemoteDataSourceImpl): FileRemoteDataSource
+
+	@Binds
+	abstract fun provideDosenRemoteDataSource(dosenRemoteDataSourceImpl: DosenRemoteDataSourceImpl): DosenRemoteDataSource
+
+	@Binds
+	abstract fun provideMahasiswaRemoteDataSource(mahasiswaRemoteDataSourceImpl: MahasiswaRemoteDataSourceImpl): MahasiswaRemoteDataSource
+
 }

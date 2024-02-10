@@ -144,6 +144,19 @@
     <string name="ipk_tidak_valid">IPK tidak valid!</string>
     <string name="peminatan_tidak_valid">Peminatan tidak valid!</string>
     <string name="topik_tidak_valid">Topik tidak valid!</string>
+    <string name="tv_detail_capstone_kelompok">Detail Capstone</string>
+    <string name="tv_title_topik_capstone">Topik Capstone</string>
+    <string name="tv_hint_topik_capstone">Pilih topik capstone</string>
+    <string name="tv_title_dosbing1">Dosen Pembimbing 1</string>
+    <string name="tv_hint_dosbing1">Pilih dosen pembimbing 1</string>
+    <string name="tv_title_dosbing2">Dosen Pembimbing 2</string>
+    <string name="tv_hint_dosbing2">Pilih dosen pembimbing 2</string>
+    <string name="tv_detail_mahasiswa_kelompok">Detail Kelompok</string>
+    <string name="tv_title_card_mahasiswa1">Mahasiswa 1</string>
+    <string name="tv_title_card_mahasiswa2">Mahasiswa 2</string>
+    <string name="tv_title_card_mahasiswa3">Mahasiswa 3</string>
+    <string name="tv_error_duplicate_values">Dosen pembimbing 1 dan 2 tidak boleh sama!</string>
+    <string name="tv_error_duplicate_nim">Mahasiswa tidak boleh sama!</string>
 
 
 </resources>

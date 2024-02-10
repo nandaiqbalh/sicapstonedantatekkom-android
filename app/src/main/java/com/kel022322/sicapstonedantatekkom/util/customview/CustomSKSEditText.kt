@@ -11,15 +11,26 @@ import com.kel022322.sicapstonedantatekkom.R
 
 class CustomSKSEditText : TextInputEditText {
 
-	constructor(context: Context) : super(context)
-	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+	constructor(context: Context) : super(context) {
+		init()
+	}
+
+	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+		init()
+	}
+
 	constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
 		context,
 		attrs,
 		defStyleAttr
-	)
+	) {
+		init()
+	}
 
-	init {
+	private fun init() {
+		val parentLayout = getParentTextInputLayout()
+		parentLayout?.error = null
+
 		addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 			}

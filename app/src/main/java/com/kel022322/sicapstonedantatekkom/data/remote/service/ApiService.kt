@@ -7,6 +7,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.respons
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.request.DosenRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.DosenRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c100.response.UploadC100ProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c200.response.UploadC200ProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c300.response.UploadC300ProcessRemoteResponse
@@ -24,6 +26,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompo
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.request.MahasiswaIndexRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.response.MahasiswaIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.response.PhotoProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
@@ -81,6 +85,17 @@ interface ApiService {
 	suspend fun updatePasswordProfile(
 		@Body updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody
 	) : UpdatePasswordRemoteResponse
+
+	@POST("capstone_team/public/api/v1/mahasiswa/data-dosen")
+	suspend fun getDataDosen(
+		@Body dosenRemoteRequestBody: DosenRemoteRequestBody
+	) : DosenRemoteResponse
+
+	@POST("capstone_team/public/api/v1/mahasiswa/data-mahasiswa")
+	suspend fun getDataMahasiswa(
+		@Body mahasiswaIndexRemoteRequestBody: MahasiswaIndexRemoteRequestBody
+	) : MahasiswaIndexRemoteResponse
+
 
 	@POST("capstone_team/public/api/v1/mahasiswa/kelompok")
 	suspend fun getKelompokSaya(
