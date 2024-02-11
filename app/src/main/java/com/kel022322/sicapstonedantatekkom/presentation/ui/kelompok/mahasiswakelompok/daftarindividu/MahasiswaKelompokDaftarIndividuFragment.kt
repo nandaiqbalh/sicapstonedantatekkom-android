@@ -199,7 +199,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 				is Resource.Success -> {
 					setLoading(isLoading = false, isSuccess = true)
 
-					val message = addKelompokIndividuResult.payload.message
+					val message = addKelompokIndividuResult.payload?.message
 					Log.d("Result success", message.toString())
 
 					if (addKelompokIndividuResult.payload?.status == true) {

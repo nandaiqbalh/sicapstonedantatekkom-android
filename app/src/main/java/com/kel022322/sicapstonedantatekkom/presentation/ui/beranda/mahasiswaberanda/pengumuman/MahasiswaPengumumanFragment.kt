@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaPengumumanBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.adapter.PengumumanAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
@@ -38,27 +39,35 @@ class MahasiswaPengumumanFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		setButtonListener()
 
+		// call the function
+		setButtonListener()
 		setPengumumanRecyclerView()
 	}
 
+	// function to trigger the action when the user doing an action
 	private fun setButtonListener() {
 
+		// back to home
 		binding.ivCircleBackArrow.setOnClickListener {
 			findNavController().popBackStack()
 		}
 
+		// back to home
 		binding.icBackArrow.setOnClickListener {
 			findNavController().popBackStack()
 		}
 	}
 
-
 	private fun setPengumumanRecyclerView() {
 
+		// set initial state to loading
+		setLoading(true)
+
+		// do networking to get broadcast data
 		pengumumanViewModel.getBroadcast()
 
+		// observe the result of our networking
 		pengumumanViewModel.broadcastResult.observe(viewLifecycleOwner) { broadcastResult ->
 
 			when (broadcastResult) {
@@ -68,10 +77,13 @@ class MahasiswaPengumumanFragment : Fragment() {
 
 				is Resource.Error -> {
 					setLoading(false)
-					val message = broadcastResult.payload?.message
-					showSnackbar(message ?: "Terjadi kesalahan!")
 
-					binding.tvPengumumanTidakDitemukan.visibility = View.VISIBLE
+					// Log and show the message
+					val message = broadcastResult.payload?.message
+					showSnackbar(message ?: R.string.tv_terjadi_kesalahan.toString())
+
+					binding.shimmerCvPengumuman.visibility = View.VISIBLE
+					binding.rvPengumuman.visibility = View.GONE
 
 					Log.d("Result error", broadcastResult.payload?.message.toString())
 
@@ -87,7 +99,8 @@ class MahasiswaPengumumanFragment : Fragment() {
 						setLoading(false)
 						showSnackbar(message ?: "Terjadi kesalahan!")
 
-						binding.tvPengumumanTidakDitemukan.visibility = View.VISIBLE
+						binding.shimmerCvPengumuman.visibility = View.VISIBLE
+						binding.rvPengumuman.visibility = View.GONE
 
 					} else if (broadcastResult.payload?.status == true && broadcastResult.payload.data?.rs_broadcast?.data != null) {
 						val pengumumanAdapter = PengumumanAdapter()

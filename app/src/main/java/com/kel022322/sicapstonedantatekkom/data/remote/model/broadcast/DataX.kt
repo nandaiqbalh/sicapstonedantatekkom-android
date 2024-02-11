@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class DataX(
     @SerializedName("broadcast_image_name") val broadcastImageName: String?,
     @SerializedName("broadcast_image_path") val broadcastImagePath: String?,
+    @SerializedName("broadcast_image_url") val broadcastImageUrl: String?,
     @SerializedName("created_by") val createdBy: String?,
     @SerializedName("created_date") val createdDate: String?,
     @SerializedName("id") val id: Int?,

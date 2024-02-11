@@ -1,12 +1,9 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.detail
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.text.format.DateUtils
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDetailPengumumanBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.PengumumanViewModel
@@ -35,6 +33,7 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 	private val binding get() = _binding!!
 
 	private val pengumumanViewModel: PengumumanViewModel by viewModels()
+	private val detailPengumumanViewModel: DetailPengumumanViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
 
@@ -51,78 +50,90 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
+		// call the function based on what we want to do
 		setBindingView()
-
 		setButtonListener()
 	}
 
+	// function to trigger action when the user press the button or called an action
 	private fun setButtonListener() {
 
+		// back to home
 		binding.ivCircleBackArrow.setOnClickListener {
 			findNavController().popBackStack()
 		}
 
+		// back to home
 		binding.icBackArrow.setOnClickListener {
 			findNavController().popBackStack()
 		}
 	}
 
+	// set binding view to set the view with data we have
 	private fun setBindingView() {
 
+		// call set loading function as a initial loading
 		setLoading(true)
 
+		// get ID from the adapter with NavArgs
 		val broadcastId =
 			MahasiswaDetailPengumumanFragmentArgs.fromBundle(requireArguments()).broadcastId
 
-		pengumumanViewModel.getBroadcastDetail(BroadcastDetailRemoteRequestBody(broadcastId.toString()))
+		// doing networking for broadcast detail
+		detailPengumumanViewModel.getBroadcastDetail(BroadcastDetailRemoteRequestBody(broadcastId.toString()))
 
-		pengumumanViewModel.broadcastDetailResult.observe(viewLifecycleOwner) { broadcastDetailResult ->
+		// observe what we got from network
+		detailPengumumanViewModel.broadcastDetailResult.observe(viewLifecycleOwner) { broadcastDetailResult ->
 
 			when (broadcastDetailResult) {
+
 				is Resource.Loading -> {
+					// set loading when still loading the data from network
 					setLoading(true)
 				}
 
 				is Resource.Error -> {
+					// set loading to false (not loading anymore) if the result is error
 					setLoading(false)
 
+					// get the error message and show the snackbar
 					val message = broadcastDetailResult.payload?.message
-					showSnackbar(message ?: "Terjadi kesalahan!")
+					showSnackbar(message ?: R.string.tv_terjadi_kesalahan.toString())
 				}
 
 				is Resource.Success -> {
+
+					// set loading to false if we got response from the network
 					setLoading(false)
 
+					// log the message and data
 					val message = broadcastDetailResult.payload?.message
 					Log.d("Result message", message.toString())
-					Log.d("Result message", broadcastDetailResult.payload?.data.toString())
+					Log.d("Result data", broadcastDetailResult.payload?.data.toString())
 
+					// data is not null, then set the view with the data
 					if (broadcastDetailResult.payload?.data != null) {
 
 						val broadcastResult = broadcastDetailResult.payload.data.broadcast
+
 						binding.apply {
-							val base64Image = broadcastResult?.broadcastImagePath
 
-							if (base64Image != "null" || base64Image != "") {
-								// Decode base64 string to byte array
-								val decodedBytes = decodeBase64ToBitmap(base64Image.toString())
+							GlideApp.with(this@MahasiswaDetailPengumumanFragment).asBitmap()
+								.load(broadcastResult?.broadcastImageUrl).into(ivDetailPengumuman)
 
-								GlideApp.with(this@MahasiswaDetailPengumumanFragment)
-									.asBitmap()
-									.load(decodedBytes)
-									.into(ivDetailPengumuman)
-							}
 							val linkPendukung = broadcastResult?.linkPendukung
 
-							linearLayoutLink.visibility = if (linkPendukung.isNullOrEmpty()) View.GONE else View.VISIBLE
+							linearLayoutLink.visibility =
+								if (linkPendukung.isNullOrEmpty()) View.GONE else View.VISIBLE
 
 							tvLinkText.setOnClickListener {
 								linkPendukung?.takeIf { it.isNotBlank() }?.let {
-									val url = if (!it.startsWith("http://") && !it.startsWith("https://")) {
-										URLUtil.guessUrl(it)
-									} else {
-										it
-									}
+									val url =
+										if (!it.startsWith("http://") && !it.startsWith("https://")) {
+											URLUtil.guessUrl(it)
+										} else {
+											it
+										}
 
 									// Buat Intent untuk membuka tautan di browser
 									val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -151,11 +162,7 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 		}
 	}
 
-	private fun decodeBase64ToBitmap(base64: String): Bitmap {
-		val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
-		return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-	}
-
+	// function to get time difference
 	private fun formatTimeDifference(createdDate: String): String {
 		val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
 		val date = dateFormat.parse(createdDate)
@@ -173,9 +180,7 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 			timeDifference < TimeUnit.DAYS.toMillis(1) -> {
 				// Less than 24 hours, format as hours ago
 				val hoursAgo = DateUtils.getRelativeTimeSpanString(
-					date.time,
-					currentTime,
-					DateUtils.HOUR_IN_MILLIS
+					date.time, currentTime, DateUtils.HOUR_IN_MILLIS
 				)
 				"$hoursAgo"
 			}
@@ -190,15 +195,13 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 		}
 	}
 
-
+	// function to show snackbar to the screen
 	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaDetailPengumumanFragment
 
 		if (currentFragment.isVisible) {
 			customSnackbar.showSnackbarWithAction(
-				requireActivity().findViewById(android.R.id.content),
-				message,
-				"OK"
+				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
 				if (message == "null" || message.equals(null) || message == "Terjadi kesalahan!") {

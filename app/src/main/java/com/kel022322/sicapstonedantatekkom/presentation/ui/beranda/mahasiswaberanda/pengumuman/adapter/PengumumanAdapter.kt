@@ -1,10 +1,7 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.adapter
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.text.format.DateUtils
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -17,7 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-class PengumumanAdapter: RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHolder>() {
+class PengumumanAdapter : RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHolder>() {
 	private var broadcastList: List<DataXBroadcastPaginate> = emptyList()
 
 	var itemClickListener: ((item: DataXBroadcastPaginate) -> Unit)? = null
@@ -29,11 +26,17 @@ class PengumumanAdapter: RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHol
 	}
 
 	private val diffCallback = object : DiffUtil.ItemCallback<DataXBroadcastPaginate>() {
-		override fun areItemsTheSame(oldItem: DataXBroadcastPaginate, newItem: DataXBroadcastPaginate): Boolean {
+		override fun areItemsTheSame(
+			oldItem: DataXBroadcastPaginate,
+			newItem: DataXBroadcastPaginate,
+		): Boolean {
 			return oldItem.id == newItem.id
 		}
 
-		override fun areContentsTheSame(oldItem: DataXBroadcastPaginate, newItem: DataXBroadcastPaginate): Boolean {
+		override fun areContentsTheSame(
+			oldItem: DataXBroadcastPaginate,
+			newItem: DataXBroadcastPaginate,
+		): Boolean {
 			return oldItem.hashCode() == newItem.hashCode()
 		}
 	}
@@ -44,7 +47,8 @@ class PengumumanAdapter: RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHol
 		differ.submitList(broadcasts)
 	}
 
-	inner class BroadcastViewHolder(private val binding: ItemMahasiswaPengumumanBinding) : RecyclerView.ViewHolder(binding.root) {
+	inner class BroadcastViewHolder(private val binding: ItemMahasiswaPengumumanBinding) :
+		RecyclerView.ViewHolder(binding.root) {
 		@SuppressLint("SetTextI18n")
 		fun bind(broadcast: DataXBroadcastPaginate) {
 			binding.apply {
@@ -55,17 +59,11 @@ class PengumumanAdapter: RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHol
 				val formattedTimeDifference = formatTimeDifference(broadcast.createdDate.toString())
 				tvItemPengumumanPostdata.text = formattedTimeDifference
 
-				val base64Image = broadcast.broadcastImagePath.toString()
+				GlideApp.with(itemView.context)
+					.asBitmap()
+					.load(broadcast.broadcastImageUrl)
+					.into(ivItemPengumuman)
 
-				if (base64Image != "null" || base64Image != "") {
-					// Decode base64 string to byte array
-					val decodedBytes = decodeBase64ToBitmap(base64Image)
-
-					GlideApp.with(itemView.context)
-						.asBitmap()
-						.load(decodedBytes)
-						.into(ivItemPengumuman)
-				}
 			}
 
 			binding.root.setOnClickListener {
@@ -86,29 +84,38 @@ class PengumumanAdapter: RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHol
 					val minutesAgo = TimeUnit.MILLISECONDS.toMinutes(timeDifference)
 					"$minutesAgo minutes ago"
 				}
+
 				timeDifference < TimeUnit.DAYS.toMillis(1) -> {
 					// Less than 24 hours, format as hours ago
-					val hoursAgo = DateUtils.getRelativeTimeSpanString(date.time, currentTime, DateUtils.HOUR_IN_MILLIS)
+					val hoursAgo = DateUtils.getRelativeTimeSpanString(
+						date.time,
+						currentTime,
+						DateUtils.HOUR_IN_MILLIS
+					)
 					"$hoursAgo"
 				}
+
 				else -> {
 					// 24 hours or more, format as days ago
-					val formattedDate = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(date)
-					DateUtils.getRelativeTimeSpanString(date.time, currentTime, DateUtils.DAY_IN_MILLIS)
+					val formattedDate =
+						SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(date)
+					DateUtils.getRelativeTimeSpanString(
+						date.time,
+						currentTime,
+						DateUtils.DAY_IN_MILLIS
+					)
 					formattedDate
 				}
 			}
 		}
-
-
-		private fun decodeBase64ToBitmap(base64: String): Bitmap {
-			val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
-			return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-		}
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BroadcastViewHolder {
-		val binding = ItemMahasiswaPengumumanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+		val binding = ItemMahasiswaPengumumanBinding.inflate(
+			LayoutInflater.from(parent.context),
+			parent,
+			false
+		)
 		return BroadcastViewHolder(binding)
 	}
 

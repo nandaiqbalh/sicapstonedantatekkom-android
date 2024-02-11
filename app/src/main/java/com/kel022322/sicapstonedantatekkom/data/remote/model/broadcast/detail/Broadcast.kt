@@ -9,6 +9,9 @@ data class Broadcast(
     @SerializedName("broadcast_image_path")
     val broadcastImagePath: String?,
 
+    @SerializedName("broadcast_image_url")
+    val broadcastImageUrl: String?,
+
     @SerializedName("created_by")
     val createdBy: String?,
 
