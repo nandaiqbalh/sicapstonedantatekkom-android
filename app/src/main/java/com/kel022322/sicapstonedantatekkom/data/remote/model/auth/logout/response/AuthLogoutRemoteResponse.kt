@@ -3,6 +3,13 @@ package com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.respon
 import com.google.gson.annotations.SerializedName
 
 data class AuthLogoutRemoteResponse(
-    @SerializedName("message") val message: String?,
-    @SerializedName("status") val status: Boolean?,
+    @SerializedName("status")
+    val status: String?,
+
+    @SerializedName("success")
+    val success: Boolean?,
+
+    @SerializedName("message")
+    val message: String?,
+
 )

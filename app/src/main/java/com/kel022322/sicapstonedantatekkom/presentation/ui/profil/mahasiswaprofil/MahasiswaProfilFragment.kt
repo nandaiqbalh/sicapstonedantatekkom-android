@@ -7,6 +7,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -17,6 +19,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -27,6 +31,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.reque
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaProfilBinding
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.logout.LogoutViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
@@ -52,23 +57,26 @@ class MahasiswaProfilFragment : Fragment() {
 	private val binding get() = _binding!!
 
 	private val profileViewModel: ProfileSayaViewModel by viewModels()
+	private val authLogoutViewModel: LogoutViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
 
 	private val REQUEST_CODE_PERMISSION = 3
 	private val MAX_FILE_SIZE = 3 * 1024 * 1024 // 1MB
 
-	private val galleryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-		if (result.resultCode == Activity.RESULT_OK) {
-			handleGaleriImage(result.data)
+	private val galleryResult =
+		registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+			if (result.resultCode == Activity.RESULT_OK) {
+				handleGaleriImage(result.data)
+			}
 		}
-	}
 
-	private val cameraResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-		if (result.resultCode == Activity.RESULT_OK) {
-			handleCameraImage(result.data)
+	private val cameraResult =
+		registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+			if (result.resultCode == Activity.RESULT_OK) {
+				handleCameraImage(result.data)
+			}
 		}
-	}
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -86,6 +94,12 @@ class MahasiswaProfilFragment : Fragment() {
 
 		// button listener
 		doButtonListener()
+
+		profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				Log.d("API TOKEN", apiToken)
+			}
+		}
 	}
 
 	private fun doButtonListener() {
@@ -103,21 +117,52 @@ class MahasiswaProfilFragment : Fragment() {
 
 		// logout button
 		binding.btnLogout.setOnClickListener {
-			val alertDialogBuilder = AlertDialog.Builder(requireContext())
-			alertDialogBuilder.setTitle("Konfirmasi")
-			alertDialogBuilder.setMessage("Apakah anda yakin untuk keluar?")
-			alertDialogBuilder.setPositiveButton("Ya") { dialog, _ ->
+
+			showCustomAlertDialog(
+				"Konfirmasi", "Apakah anda yakin untuk keluar?"
+			) {
 				setLoading(true)
 
-				showSnackbar("Berhasil keluar!")
+				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+					apiToken?.let {
+						authLogoutViewModel.authLogout(apiToken)
+						Log.d("API TOKEN", apiToken)
+					}
+				}
 
-				dialog.dismiss()
+				authLogoutViewModel.logoutResult.observe(viewLifecycleOwner) { logoutResult ->
+					when (logoutResult) {
+						is Resource.Loading -> setLoading(true)
+						is Resource.Error -> {
+							setLoading(false)
+							Log.d("Logout error", logoutResult.payload?.status.toString())
+							showSnackbar("Gagal keluar!")
+						}
+
+						is Resource.Success -> {
+							setLoading(false)
+
+							val loginResult = logoutResult.payload
+
+							if (loginResult?.success == true) {
+								Log.d("Logout success", logoutResult.payload.status.toString())
+
+								showSnackbar(logoutResult.payload.status ?: "Berhasil keluar!")
+
+								actionIfLogoutSucces()
+
+							} else {
+								// if the success is false, then just show the snackbar
+								Log.d("Logout success, but failed!", logoutResult.payload?.status.toString())
+								showSnackbar("Gagal keluar!")
+							}
+						}
+
+						else -> {}
+
+					}
+				}
 			}
-			alertDialogBuilder.setNegativeButton("Tidak") { dialog, _ ->
-				dialog.dismiss()
-			}
-			val alertDialog = alertDialogBuilder.create()
-			alertDialog.show()
 		}
 
 		// update photo profile button
@@ -317,7 +362,7 @@ class MahasiswaProfilFragment : Fragment() {
 			}
 		}
 
-		profileViewModel.updateProfileResult.observe(viewLifecycleOwner){updateProfileResult ->
+		profileViewModel.updateProfileResult.observe(viewLifecycleOwner) { updateProfileResult ->
 			when (updateProfileResult) {
 				is Resource.Loading -> {
 					setLoading(true)
@@ -429,14 +474,14 @@ class MahasiswaProfilFragment : Fragment() {
 								currentPassword = currentPassword,
 								newPassword = newPassword,
 								repeatNewPassword = newPasswordKonfirmation
-								)
+							)
 						)
 					}
 				}
 			}
 		}
 
-		profileViewModel.updatePasswordResult.observe(viewLifecycleOwner){updateProfileResult ->
+		profileViewModel.updatePasswordResult.observe(viewLifecycleOwner) { updateProfileResult ->
 			when (updateProfileResult) {
 				is Resource.Loading -> {
 					setLoading(true)
@@ -456,7 +501,7 @@ class MahasiswaProfilFragment : Fragment() {
 					val message = updateProfileResult.payload?.message
 					Log.d("Result message", message.toString())
 
-					if (message =="Password baru berhasil disimpan."){
+					if (message == "Password baru berhasil disimpan.") {
 						showSnackbar("Password berhasil diubah, silahkan masuk kembali.")
 
 					}
@@ -468,6 +513,7 @@ class MahasiswaProfilFragment : Fragment() {
 		}
 
 	}
+
 	private fun validateFormUbahPassword(): Boolean {
 		val currentPassword = binding.edtCurrentPassword.text.toString().trim()
 		val newPassword = binding.edtNewPassword.text.toString().trim()
@@ -569,21 +615,24 @@ class MahasiswaProfilFragment : Fragment() {
 
 	private fun handleGaleriImage(intent: Intent?) {
 		val selectedImageUri = intent?.data
-		val photo = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, selectedImageUri)
+		val photo =
+			MediaStore.Images.Media.getBitmap(requireContext().contentResolver, selectedImageUri)
 
 		saveSelectedImage(photo)
 
 	}
 
-	private fun saveSelectedImage(photo: Bitmap){
+	private fun saveSelectedImage(photo: Bitmap) {
 		val fileSize = calculateFileSize(photo)
 
 		if (fileSize <= MAX_FILE_SIZE) {
 			val squarePhoto = cropToSquare(photo) // Crop the photo to a square
 
-			val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+			val timeStamp: String =
+				SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
 			val imageFileName = "JPEG_${timeStamp}_"
-			val storageDir: File? = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+			val storageDir: File? =
+				Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
 			val file = File.createTempFile(imageFileName, ".jpg", storageDir)
 
 			FileOutputStream(file).use { output ->
@@ -650,11 +699,15 @@ class MahasiswaProfilFragment : Fragment() {
 	private fun isPermissionGranted(
 		permission: String,
 		permissions: Array<String>,
-		request: Int
+		request: Int,
 	): Boolean {
 		val permissionCheck = ActivityCompat.checkSelfPermission(requireContext(), permission)
 		return if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-			if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permission)) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(
+					requireActivity(),
+					permission
+				)
+			) {
 				showPermissionDeniedDialog()
 			} else {
 				ActivityCompat.requestPermissions(requireActivity(), permissions, request)
@@ -671,7 +724,7 @@ class MahasiswaProfilFragment : Fragment() {
 			.setPositiveButton("App Settings") { _, _ ->
 				val intent = Intent()
 				intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-				val uri = Uri.fromParts("package",requireContext().packageName, null)
+				val uri = Uri.fromParts("package", requireContext().packageName, null)
 				intent.data = uri
 				startActivity(intent)
 			}.setNegativeButton("Batalkan") { dialog, _ -> dialog.cancel() }.show()
@@ -687,10 +740,41 @@ class MahasiswaProfilFragment : Fragment() {
 		return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
 	}
 
+	private fun showCustomAlertDialog(
+		title: String,
+		message: String,
+		positiveAction: () -> Unit,
+	) {
+		val builder = AlertDialog.Builder(requireContext()).create()
+		val view = layoutInflater.inflate(R.layout.dialog_custom_alert_dialog, null)
+		builder.setView(view)
+		builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+		val buttonYes = view.findViewById<Button>(R.id.btn_alert_yes)
+		val buttonNo = view.findViewById<Button>(R.id.btn_alert_no)
+		val alertTitle = view.findViewById<TextView>(R.id.tv_alert_title)
+		val alertMessage = view.findViewById<TextView>(R.id.tv_alert_message)
+
+		alertTitle.text = title
+		alertMessage.text = message
+
+		buttonYes.setOnClickListener {
+			positiveAction.invoke()
+			builder.dismiss()
+		}
+
+		buttonNo.setOnClickListener {
+			builder.dismiss()
+		}
+
+		builder.setCanceledOnTouchOutside(true)
+		builder.show()
+	}
+
 	private fun showSnackbar(message: String) {
 
 		val currentFragment = this@MahasiswaProfilFragment
-		if (currentFragment.isVisible){
+		if (currentFragment.isVisible) {
 			customSnackbar.showSnackbarWithAction(
 				requireActivity().findViewById(android.R.id.content),
 				message,
@@ -699,26 +783,13 @@ class MahasiswaProfilFragment : Fragment() {
 				customSnackbar.dismissSnackbar()
 				if (message == "Berhasil keluar!" || message == "Gagal! Anda telah masuk melalui perangkat lain." || message == "Pengguna tidak ditemukan!" || message == "Akses tidak sah!" || message == "Sesi anda telah berakhir, silahkan masuk terlebih dahulu.") {
 
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setUsername("")
-					profileViewModel.setStatusAuth(false)
-
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
+					actionIfLogoutSucces()
 				} else if (message == "null" || message.equals(null) || message == "Terjadi kesalahan!") {
 					restartFragment()
-				} else if (message == "Password berhasil diubah, silahkan masuk kembali."){
+				} else if (message == "Password berhasil diubah, silahkan masuk kembali.") {
 
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setUsername("")
-					profileViewModel.setStatusAuth(false)
+					actionIfLogoutSucces()
 
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
 				}
 			}
 		}
@@ -765,6 +836,18 @@ class MahasiswaProfilFragment : Fragment() {
 
 			binding.constraintProfilMahasiswa.visibility = View.VISIBLE
 		}
+	}
+
+	private fun actionIfLogoutSucces(){
+		// set auth data store
+		profileViewModel.setApiToken("")
+		profileViewModel.setUserId("")
+		profileViewModel.setUsername("")
+		profileViewModel.setStatusAuth(false)
+
+		val intent = Intent(requireContext(), SplashscreenActivity::class.java)
+		requireContext().startActivity(intent)
+		requireActivity().finishAffinity()
 	}
 
 	override fun onDestroyView() {

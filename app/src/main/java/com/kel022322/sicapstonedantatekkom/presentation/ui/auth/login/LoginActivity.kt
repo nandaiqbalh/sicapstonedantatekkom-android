@@ -13,7 +13,6 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.
 import com.kel022322.sicapstonedantatekkom.databinding.ActivityLoginBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.MainActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
-import com.kel022322.sicapstonedantatekkom.util.CustomToast
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,14 +27,15 @@ class LoginActivity : AppCompatActivity() {
 	private val loginViewModel: LoginViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
-	private val customToast = CustomToast()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE)
-		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-			WindowManager.LayoutParams.FLAG_FULLSCREEN)
+		window.setFlags(
+			WindowManager.LayoutParams.FLAG_FULLSCREEN,
+			WindowManager.LayoutParams.FLAG_FULLSCREEN
+		)
 
 		_binding = ActivityLoginBinding.inflate(layoutInflater)
 		setContentView(binding.root)
@@ -73,7 +73,8 @@ class LoginActivity : AppCompatActivity() {
 							setLoading(false)
 							Log.d("Result message", authResult.payload?.message.toString())
 
-							customSnackbar.showSnackbarWithAction(findViewById(android.R.id.content),
+							customSnackbar.showSnackbarWithAction(
+								findViewById(android.R.id.content),
 								authResult.payload?.message ?: "Terjadi kesalahan!",
 								"OK"
 							) {
@@ -85,26 +86,38 @@ class LoginActivity : AppCompatActivity() {
 							setLoading(false)
 							Log.d("Result message", authResult.payload?.message.toString())
 
-							customSnackbar.showSnackbarWithAction(findViewById(android.R.id.content),
-								authResult.payload?.message ?: "Autentikasi berhasil!",
-								 "OK"
-							) {
-								customSnackbar.dismissSnackbar()
-							}
+							val loginResult = authResult.payload
 
-							if (authResult.payload!!.status == true) {
-								val userId = authResult.payload.userData?.userId.toString()
-								val apiToken = authResult.payload.userData?.apiToken
-								val username = authResult.payload.userData?.userName
+							if (loginResult?.success == true && loginResult.userData != null) {
 
-								Log.d("Result Auth", "user_id: $userId, api_token: $apiToken")
+								// show snackbar
+								customSnackbar.showSnackbarWithAction(
+									findViewById(android.R.id.content),
+									loginResult.message ?: "Autentikasi berhasil!",
+									"OK"
+								) {
+									customSnackbar.dismissSnackbar()
+								}
 
+								// get user data response
+								val userId = loginResult.userData.userId.toString()
+								val apiToken = loginResult.userData.apiToken
+								val username = loginResult.userData.userName
+
+								// set auth data store
 								loginViewModel.setStatusAuth(true)
-								// Call the function to setApiToken with the obtained apiToken
 								loginViewModel.setUserId(userId)
-								loginViewModel.setApiToken(apiToken ?: "")
+								loginViewModel.setApiToken("Bearer $apiToken")
 								loginViewModel.setUsername(username ?: "Nama Lengkap Mahasiswa")
 
+							} else {
+								// if the success is false, then just show the snackbar
+								customSnackbar.showSnackbarWithAction(findViewById(android.R.id.content),
+									loginResult?.message ?: "Autentikasi gagal!",
+									"OK"
+								) {
+									customSnackbar.dismissSnackbar()
+								}
 							}
 						}
 
@@ -117,8 +130,8 @@ class LoginActivity : AppCompatActivity() {
 	}
 
 	private fun isAlreadyLogin() {
-		loginViewModel.getStatusAuth().observe(this@LoginActivity) { isOnboardingCompleted ->
-			if (isOnboardingCompleted == true) {
+		loginViewModel.getStatusAuth().observe(this@LoginActivity) { isLoggedIn ->
+			if (isLoggedIn == true) {
 				val intent = Intent(this@LoginActivity, MainActivity::class.java)
 				startActivity(intent)
 				finishAffinity()
@@ -127,7 +140,7 @@ class LoginActivity : AppCompatActivity() {
 		}
 	}
 
-	// validasi form
+	// validate form
 	private fun validateForm(): Boolean {
 		val idPengguna = binding.edtIdPengguna.text.toString()
 		val password = binding.edtPassword.text.toString()
@@ -137,6 +150,10 @@ class LoginActivity : AppCompatActivity() {
 		if (idPengguna.isEmpty()) {
 			isFormValid = false
 			binding.tilIdPengguna.error = getString(R.string.tv_error_input_blank)
+		} else if (!idPengguna.matches("\\d{14}".toRegex())) {
+			// Menggunakan regex \d{14} untuk memastikan bahwa idPengguna terdiri dari 14 digit angka.
+			isFormValid = false
+			binding.tilIdPengguna.error = getString(R.string.nim_tidak_valid)
 		} else {
 			binding.tilIdPengguna.error = null
 		}
@@ -144,6 +161,9 @@ class LoginActivity : AppCompatActivity() {
 		if (password.isEmpty()) {
 			isFormValid = false
 			binding.tilPassword.error = getString(R.string.tv_error_input_blank)
+		} else if (password.length < 8) {
+			isFormValid = false
+			binding.tilPassword.error = getString(R.string.tv_error_password_minimum_length)
 		} else {
 			binding.tilPassword.error = null
 		}

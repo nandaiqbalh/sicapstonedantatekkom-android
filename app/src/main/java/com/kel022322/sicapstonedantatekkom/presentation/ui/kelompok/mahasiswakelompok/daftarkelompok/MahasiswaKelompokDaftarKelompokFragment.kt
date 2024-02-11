@@ -14,7 +14,6 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.local.model.jeniskelamin.JenisKelaminModel
-import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.request.DosenRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.DosenRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
@@ -224,12 +223,12 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 							)
 						)
 
-						kelompokViewModel.getDataDosen(
-							DosenRemoteRequestBody(
-								userId,
-								apiToken
-							)
-						)
+//						kelompokViewModel.getDataDosen(
+//							DosenRemoteRequestBody(
+//								userId,
+//								apiToken
+//							)
+//						)
 
 						kelompokViewModel.getDataMahasiswa(
 							MahasiswaIndexRemoteRequestBody(

@@ -2,7 +2,6 @@ package com.kel022322.sicapstonedantatekkom.data.remote.service
 
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthLoginRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.response.AuthLoginRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.response.AuthLogoutRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.BroadcastDetailRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
@@ -39,6 +38,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassw
 import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -52,9 +52,9 @@ interface ApiService {
 		@Body authLoginRequestBody: AuthLoginRequestBody
 	): AuthLoginRemoteResponse
 
-	@POST("capstone_team/public/api/v1/auth/logout")
+	@GET("capstone_team/public/api/v1/auth/logout")
 	suspend fun authLogout(
-		@Body authLogoutRequestBody: AuthLogoutRequestBody
+		@Header("Authorization") apiToken: String,
 	): AuthLogoutRemoteResponse
 
 	@GET("capstone_team/public/api/v1/mahasiswa/broadcast")

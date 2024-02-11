@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.kel022322.sicapstonedantatekkom.data.local.datastore.auth.AuthDataStoreManager
-import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.request.AuthLogoutRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.response.AuthLogoutRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.logout.AuthLogoutRemoteRepository
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
@@ -25,12 +24,12 @@ class LogoutViewModel @Inject constructor(
 	private val _logoutResult = MutableLiveData<Resource<AuthLogoutRemoteResponse>>()
 	val logoutResult : LiveData<Resource<AuthLogoutRemoteResponse>>  get() = _logoutResult
 
-	fun authLogout(authLogoutRequestBody: AuthLogoutRequestBody){
+	fun authLogout(apiToken: String){
 		viewModelScope.launch(Dispatchers.IO) {
 			_logoutResult.postValue(Resource.Loading())
 
 			try {
-				val data = authLogoutRemoteRepository.authLogout(authLogoutRequestBody)
+				val data = authLogoutRemoteRepository.authLogout(apiToken)
 
 				if (data.payload != null){
 					viewModelScope.launch(Dispatchers.Main){

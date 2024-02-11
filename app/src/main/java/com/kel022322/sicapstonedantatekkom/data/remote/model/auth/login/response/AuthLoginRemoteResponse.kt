@@ -3,13 +3,16 @@ package com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.respons
 import com.google.gson.annotations.SerializedName
 
 data class AuthLoginRemoteResponse(
+    @SerializedName("status")
+    val status: String?,
 
-    @SerializedName("data")
-    val userData: UserData? = null,
+    @SerializedName("success")
+    val success: Boolean?,
 
     @SerializedName("message")
     val message: String?,
 
-    @SerializedName("status")
-    val status: Boolean?
+    @SerializedName("data")
+    val userData: UserData? = null,
+
 )

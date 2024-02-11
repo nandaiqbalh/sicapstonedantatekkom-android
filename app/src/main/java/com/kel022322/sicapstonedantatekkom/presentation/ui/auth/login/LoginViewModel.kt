@@ -26,7 +26,6 @@ class LoginViewModel @Inject constructor(
 	private val _authResult = MutableLiveData<Resource<AuthLoginRemoteResponse>>()
 	val authResult: LiveData<Resource<AuthLoginRemoteResponse>> get() = _authResult // LiveData untuk diobserve di luar kelas
 
-	
 	fun authLogin(authLoginRequestBody: AuthLoginRequestBody) {
 		viewModelScope.launch(Dispatchers.IO) {
 			_authResult.postValue(Resource.Loading())
@@ -50,8 +49,6 @@ class LoginViewModel @Inject constructor(
 			}
 		}
 	}
-
-	fun getApiToken(): LiveData<String?> = authDataStoreManager.getApiToken.asLiveData()
 
 	fun setApiToken(apiToken: String) = CoroutineScope(Dispatchers.IO).launch {
 		authDataStoreManager.setApiToken(apiToken)
