@@ -18,15 +18,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.local.action.ActionModel
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaBerandaBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.ActionAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.PengumumanViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.adapter.PengumumanAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
-import com.kel022322.sicapstonedantatekkom.util.GlideApp
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,7 +35,7 @@ class MahasiswaBerandaFragment : Fragment() {
 	private val binding get() = _binding!!
 
 	private val pengumumanViewModel: PengumumanViewModel by viewModels()
-	private val profileViewModel: ProfileSayaViewModel by viewModels()
+	private val profileViewModel: ProfileIndexViewModel by viewModels()
 
 	private lateinit var navController: NavController
 
@@ -66,7 +64,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 		setLoading(true)
 
-		setUpToolbarValue()
+//		setUpToolbarValue()
 
 		setPengumumanRecyclerView()
 
@@ -191,70 +189,70 @@ class MahasiswaBerandaFragment : Fragment() {
 		}
 	}
 
-	private fun setUpToolbarValue() {
-		profileViewModel.getUsername().observe(viewLifecycleOwner) { username ->
-			if (username != null) {
-				binding.namauser.text = username
-			}
-		}
-
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					apiToken?.let {
-						profileViewModel.getPhotoProfile(
-							PhotoProfileRemoteRequestBody(
-								userId.toString(), it
-							)
-						)
-					}
-				}
-			}
-		}
-
-		profileViewModel.getPhotoProfileResult.observe(viewLifecycleOwner) { getPhotoProfileResult ->
-			when (getPhotoProfileResult) {
-				is Resource.Loading -> {
-					setLoading(true)
-				}
-
-				is Resource.Error -> {
-					setLoading(false)
-					val message = getPhotoProfileResult.payload?.message
-
-					showSnackbar(message = message ?: "Terjadi kesalahan!")
-				}
-
-				is Resource.Success -> {
-					setLoading(false)
-					val message = getPhotoProfileResult.payload?.message
-
-					Log.d("Success message", message.toString())
-
-					if (getPhotoProfileResult.payload?.data != null) {
-						// set binding
-						with(binding) {
-							val base64Image = getPhotoProfileResult.payload.data.toString()
-
-							profileViewModel.setPhotoProfile(base64Image)
-
-							if (base64Image != "null") {
-								// Decode base64 string to byte array
-								val decodedBytes = decodeBase64ToBitmap(base64Image)
-
-								GlideApp.with(requireContext()).asBitmap().load(decodedBytes)
-									.into(ivHomeProfilephoto)
-							}
-
-						}
-					}
-				}
-
-				else -> {}
-			}
-		}
-
-	}
+//	private fun setUpToolbarValue() {
+//		profileViewModel.getUsername().observe(viewLifecycleOwner) { username ->
+//			if (username != null) {
+//				binding.namauser.text = username
+//			}
+//		}
+//
+//		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+//			if (userId != null) {
+//				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+//					apiToken?.let {
+//						profileViewModel.getPhotoProfile(
+//							PhotoProfileRemoteRequestBody(
+//								userId.toString(), it
+//							)
+//						)
+//					}
+//				}
+//			}
+//		}
+//
+//		profileViewModel.getPhotoProfileResult.observe(viewLifecycleOwner) { getPhotoProfileResult ->
+//			when (getPhotoProfileResult) {
+//				is Resource.Loading -> {
+//					setLoading(true)
+//				}
+//
+//				is Resource.Error -> {
+//					setLoading(false)
+//					val message = getPhotoProfileResult.payload?.message
+//
+//					showSnackbar(message = message ?: "Terjadi kesalahan!")
+//				}
+//
+//				is Resource.Success -> {
+//					setLoading(false)
+//					val message = getPhotoProfileResult.payload?.message
+//
+//					Log.d("Success message", message.toString())
+//
+//					if (getPhotoProfileResult.payload?.data != null) {
+//						// set binding
+//						with(binding) {
+//							val base64Image = getPhotoProfileResult.payload.data.toString()
+//
+//							profileViewModel.setPhotoProfile(base64Image)
+//
+//							if (base64Image != "null") {
+//								// Decode base64 string to byte array
+//								val decodedBytes = decodeBase64ToBitmap(base64Image)
+//
+//								GlideApp.with(requireContext()).asBitmap().load(decodedBytes)
+//									.into(ivHomeProfilephoto)
+//							}
+//
+//						}
+//					}
+//				}
+//
+//				else -> {}
+//			}
+//		}
+//
+//	}
 
 	private fun decodeBase64ToBitmap(base64: String): Bitmap {
 		val decodedBytes = Base64.decode(base64, Base64.DEFAULT)

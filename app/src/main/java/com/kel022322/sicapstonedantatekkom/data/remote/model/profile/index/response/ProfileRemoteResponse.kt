@@ -10,5 +10,8 @@ data class ProfileRemoteResponse(
     val message: String?,
 
 	@SerializedName("status")
-    val status: Boolean?
+    val status: String?,
+
+	@SerializedName("success")
+	val success: Boolean?
 )

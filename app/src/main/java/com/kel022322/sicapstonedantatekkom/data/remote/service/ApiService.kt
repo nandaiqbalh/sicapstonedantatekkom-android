@@ -27,9 +27,6 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.requ
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.request.MahasiswaIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.response.MahasiswaIndexRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.response.PhotoProfileRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.response.UpdateProfileRemoteResponse
@@ -71,20 +68,29 @@ interface ApiService {
 		@Body broadcastDetailRemoteRequestBody: BroadcastDetailRemoteRequestBody
 	): BroadcastDetailRemoteResponse
 
-	@POST("capstone_team/public/api/v1/mahasiswa/profile")
+	@GET("capstone_team/public/api/v1/mahasiswa/profile")
 	suspend fun getMahasiswaProfile(
-		@Body profileRemoteRequestBody: ProfileRemoteRequestBody
-	): ProfileRemoteResponse
+		@Header("Authorization") apiToken: String,
+		): ProfileRemoteResponse
 
 	@POST("capstone_team/public/api/v1/mahasiswa/profile/editProcess")
 	suspend fun updateMahasiswaProfile(
+		@Header("Authorization") apiToken: String,
 		@Body updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody
 	) : UpdateProfileRemoteResponse
 
 	@POST("capstone_team/public/api/v1/mahasiswa/profile/editPassword")
 	suspend fun updatePasswordProfile(
+		@Header("Authorization") apiToken: String,
 		@Body updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody
 	) : UpdatePasswordRemoteResponse
+
+	@Multipart
+	@POST("capstone_team/public/api/v1/mahasiswa/profile/editPhotoProcess")
+	suspend fun updatePhotoProfile(
+		@Header("Authorization") apiToken: String,
+		@Part user_img: MultipartBody.Part
+	): UpdateProfileRemoteResponse
 
 	@POST("capstone_team/public/api/v1/mahasiswa/data-dosen")
 	suspend fun getDataDosen(
@@ -182,16 +188,5 @@ interface ApiService {
 		@Body viewPdfRemoteRequestBody: ViewPdfRemoteRequestBody
 	) : ViewPdfRemoteResponse
 
-	@POST("capstone_team/public/api/v1/mahasiswa/profile/img-user")
-	suspend fun getPhotoProfile(
-		@Body photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody
-	) : PhotoProfileRemoteResponse
 
-	@Multipart
-	@POST("capstone_team/public/api/v1/mahasiswa/profile/editPhotoProcess")
-	suspend fun updatePhotoProfile(
-		@Query("user_id") userId: String,
-		@Query("api_token") apiToken: String,
-		@Part user_img: MultipartBody.Part
-	): UpdateProfileRemoteResponse
 }

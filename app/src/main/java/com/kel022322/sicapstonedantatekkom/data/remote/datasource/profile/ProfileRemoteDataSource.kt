@@ -1,8 +1,5 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile
 
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.response.PhotoProfileRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.response.UpdateProfileRemoteResponse
@@ -15,51 +12,52 @@ import javax.inject.Inject
 interface ProfileRemoteDataSource {
 
 	suspend fun getMahasiswaProfile(
-		profileRemoteRequestBody: ProfileRemoteRequestBody
-	) : ProfileRemoteResponse
+		apiToken: String,
+	): ProfileRemoteResponse
 
 	suspend fun updateMahasiswaProfile(
-		updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody
-	) : UpdateProfileRemoteResponse
+		apiToken: String,
+		updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody,
+	): UpdateProfileRemoteResponse
 
 	suspend fun updatePasswordProfile(
-		updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody
-	) : UpdatePasswordRemoteResponse
-
-	suspend fun getPhotoProfile(
-		photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody
-	) : PhotoProfileRemoteResponse
+		apiToken: String,
+		updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody,
+	): UpdatePasswordRemoteResponse
 
 	suspend fun updatePhotoProfile(
-		userId: String,
 		apiToken: String,
-		user_img: MultipartBody.Part
+		user_img: MultipartBody.Part,
 	): UpdateProfileRemoteResponse
 }
 
-class ProfileRemoteDataSourceImpl @Inject constructor(private val apiService: ApiService):ProfileRemoteDataSource{
+class ProfileRemoteDataSourceImpl @Inject constructor(private val apiService: ApiService) :
+	ProfileRemoteDataSource {
 
-	override suspend fun getMahasiswaProfile(profileRemoteRequestBody: ProfileRemoteRequestBody): ProfileRemoteResponse {
-		return apiService.getMahasiswaProfile(profileRemoteRequestBody)
+	override suspend fun getMahasiswaProfile(
+		apiToken: String,
+	): ProfileRemoteResponse {
+		return apiService.getMahasiswaProfile(apiToken)
 	}
 
-	override suspend fun updateMahasiswaProfile(updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody): UpdateProfileRemoteResponse {
-		return apiService.updateMahasiswaProfile(updateProfileRemoteRequestBody)
+	override suspend fun updateMahasiswaProfile(
+		apiToken: String,
+		updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody,
+	): UpdateProfileRemoteResponse {
+		return apiService.updateMahasiswaProfile(apiToken, updateProfileRemoteRequestBody)
 	}
 
-	override suspend fun updatePasswordProfile(updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody): UpdatePasswordRemoteResponse {
-		return apiService.updatePasswordProfile(updatePasswordRemoteRequestBody)
-	}
-
-	override suspend fun getPhotoProfile(photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody): PhotoProfileRemoteResponse {
-		return apiService.getPhotoProfile(photoProfileRemoteRequestBody)
+	override suspend fun updatePasswordProfile(
+		apiToken: String,
+		updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody,
+	): UpdatePasswordRemoteResponse {
+		return apiService.updatePasswordProfile(apiToken, updatePasswordRemoteRequestBody)
 	}
 
 	override suspend fun updatePhotoProfile(
-		userId: String,
 		apiToken: String,
 		user_img: MultipartBody.Part,
 	): UpdateProfileRemoteResponse {
-		return apiService.updatePhotoProfile(userId, apiToken, user_img)
+		return apiService.updatePhotoProfile(apiToken, user_img)
 	}
 }

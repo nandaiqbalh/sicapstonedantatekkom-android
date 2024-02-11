@@ -75,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
 
 							customSnackbar.showSnackbarWithAction(
 								findViewById(android.R.id.content),
-								authResult.payload?.message ?: "Terjadi kesalahan!",
+								authResult.payload?.status ?: "Terjadi kesalahan!",
 								"OK"
 							) {
 								customSnackbar.dismissSnackbar()
@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
 								// show snackbar
 								customSnackbar.showSnackbarWithAction(
 									findViewById(android.R.id.content),
-									loginResult.message ?: "Autentikasi berhasil!",
+									loginResult.status ?: "Autentikasi berhasil!",
 									"OK"
 								) {
 									customSnackbar.dismissSnackbar()
@@ -113,7 +113,7 @@ class LoginActivity : AppCompatActivity() {
 							} else {
 								// if the success is false, then just show the snackbar
 								customSnackbar.showSnackbarWithAction(findViewById(android.R.id.content),
-									loginResult?.message ?: "Autentikasi gagal!",
+									loginResult?.status ?: "Autentikasi gagal!",
 									"OK"
 								) {
 									customSnackbar.dismissSnackbar()

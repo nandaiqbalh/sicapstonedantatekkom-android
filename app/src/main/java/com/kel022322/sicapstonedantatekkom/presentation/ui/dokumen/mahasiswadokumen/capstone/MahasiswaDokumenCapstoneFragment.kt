@@ -33,7 +33,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.requ
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDokumenCapstoneBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.DokumenViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
@@ -54,7 +54,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 	private val customSnackbar = CustomSnackbar()
 
 	private val dokumenViewModel: DokumenViewModel by viewModels()
-	private val profileViewModel: ProfileSayaViewModel by viewModels()
+	private val profileViewModel: ProfileIndexViewModel by viewModels()
 	private val kelompokViewModel: KelompokSayaViewModel by viewModels()
 
 	private var id: String? = ""

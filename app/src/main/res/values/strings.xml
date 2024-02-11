@@ -157,6 +157,4 @@
     <string name="tv_title_card_mahasiswa3">Mahasiswa 3</string>
     <string name="tv_error_duplicate_values">Dosen pembimbing 1 dan 2 tidak boleh sama!</string>
     <string name="tv_error_duplicate_nim">Mahasiswa tidak boleh sama!</string>
-
-
 </resources>

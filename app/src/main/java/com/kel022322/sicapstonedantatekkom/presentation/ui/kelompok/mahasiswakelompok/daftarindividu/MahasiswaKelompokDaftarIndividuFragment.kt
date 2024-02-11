@@ -20,7 +20,7 @@ import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompok
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.JenisKelaminAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.SiklusAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
@@ -34,7 +34,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 	private val binding get() = _binding!!
 
 	private val kelompokViewModel: KelompokSayaViewModel by viewModels()
-	private val profileViewModel: ProfileSayaViewModel by viewModels()
+	private val profileViewModel: ProfileIndexViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
 

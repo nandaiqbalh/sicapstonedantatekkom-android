@@ -1,9 +1,6 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.repository.profile
 
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile.ProfileRemoteDataSource
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.response.PhotoProfileRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.response.UpdateProfileRemoteResponse
@@ -16,69 +13,69 @@ import javax.inject.Inject
 interface ProfileRemoteRepository {
 
 	suspend fun getMahasiswaProfile(
-		profileRemoteRequestBody: ProfileRemoteRequestBody
-	) : Resource<ProfileRemoteResponse>
+		apiToken: String,
+	): Resource<ProfileRemoteResponse>
 
 	suspend fun updateMahasiswaProfile(
-		updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody
-	) : Resource<UpdateProfileRemoteResponse>
+		apiToken: String,
+		updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody,
+	): Resource<UpdateProfileRemoteResponse>
 
 	suspend fun updatePasswordProfile(
-		updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody
-	) : Resource<UpdatePasswordRemoteResponse>
+		apiToken: String,
+		updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody,
+	): Resource<UpdatePasswordRemoteResponse>
 
-	suspend fun getPhotoProfile(
-		photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody
-	) : Resource<PhotoProfileRemoteResponse>
 
 	suspend fun updatePhotoProfile(
-		userId: String,
 		apiToken: String,
-		user_img: MultipartBody.Part
-	) : Resource<UpdateProfileRemoteResponse>
+		user_img: MultipartBody.Part,
+	): Resource<UpdateProfileRemoteResponse>
 }
 
-class ProfileRemoteRepositoryImpl @Inject constructor(private val dataSource: ProfileRemoteDataSource) : ProfileRemoteRepository{
+class ProfileRemoteRepositoryImpl @Inject constructor(private val dataSource: ProfileRemoteDataSource) :
+	ProfileRemoteRepository {
 
-	override suspend fun getMahasiswaProfile(profileRemoteRequestBody: ProfileRemoteRequestBody): Resource<ProfileRemoteResponse> {
+	override suspend fun getMahasiswaProfile(
+		apiToken: String,
+	): Resource<ProfileRemoteResponse> {
 
 		return proceed {
-			dataSource.getMahasiswaProfile(profileRemoteRequestBody)
+			dataSource.getMahasiswaProfile(apiToken)
 		}
 	}
 
-	override suspend fun updateMahasiswaProfile(updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody): Resource<UpdateProfileRemoteResponse> {
+	override suspend fun updateMahasiswaProfile(
+		apiToken: String,
+		updateProfileRemoteRequestBody: UpdateProfileRemoteRequestBody,
+	): Resource<UpdateProfileRemoteResponse> {
 		return proceed {
-			dataSource.updateMahasiswaProfile(updateProfileRemoteRequestBody)
+			dataSource.updateMahasiswaProfile(apiToken, updateProfileRemoteRequestBody)
 		}
 	}
 
-	override suspend fun updatePasswordProfile(updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody): Resource<UpdatePasswordRemoteResponse> {
+	override suspend fun updatePasswordProfile(
+		apiToken: String,
+		updatePasswordRemoteRequestBody: UpdatePasswordRemoteRequestBody,
+	): Resource<UpdatePasswordRemoteResponse> {
 		return proceed {
-			dataSource.updatePasswordProfile(updatePasswordRemoteRequestBody)
-		}
-	}
-
-	override suspend fun getPhotoProfile(photoProfileRemoteRequestBody: PhotoProfileRemoteRequestBody): Resource<PhotoProfileRemoteResponse> {
-		return proceed {
-			dataSource.getPhotoProfile(photoProfileRemoteRequestBody)
+			dataSource.updatePasswordProfile(apiToken, updatePasswordRemoteRequestBody)
 		}
 	}
 
 	override suspend fun updatePhotoProfile(
-		userId: String,
 		apiToken: String,
 		user_img: MultipartBody.Part,
 	): Resource<UpdateProfileRemoteResponse> {
 		return proceed {
-			dataSource.updatePhotoProfile(userId, apiToken, user_img)
+			dataSource.updatePhotoProfile(apiToken, user_img)
 		}
 	}
 
-	private suspend fun <T> proceed (coroutines: suspend () -> T): Resource <T> {
-		return  try{
+	private suspend fun <T> proceed(coroutines: suspend () -> T): Resource<T> {
+		return try {
 			Resource.Success(coroutines.invoke())
-		} catch (e: Exception){
+		} catch (e: Exception) {
 			Resource.Error(e)
 		}
 	}

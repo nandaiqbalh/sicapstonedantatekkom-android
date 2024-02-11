@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class DataProfilePassword(
     @SerializedName("alamat")
-    val alamat: Any?,
+    val alamat: String?,
 
     @SerializedName("angkatan")
-    val angkatan: Any?,
+    val angkatan: String?,
 
     @SerializedName("api_token")
     val apiToken: String?,
@@ -19,19 +19,19 @@ data class DataProfilePassword(
     val createdDate: String?,
 
     @SerializedName("ipk")
-    val ipk: Any?,
+    val ipk: String?,
 
     @SerializedName("jenis_kelamin")
-    val jenisKelamin: Any?,
+    val jenisKelamin: String?,
 
     @SerializedName("modified_by")
-    val modifiedBy: Any?,
+    val modifiedBy: String?,
 
     @SerializedName("modified_date")
-    val modifiedDate: Any?,
+    val modifiedDate: String?,
 
     @SerializedName("no_telp")
-    val noTelp: Any?,
+    val noTelp: String?,
 
     @SerializedName("nomor_induk")
     val nomorInduk: String?,
@@ -40,7 +40,7 @@ data class DataProfilePassword(
     val roleId: String?,
 
     @SerializedName("sks")
-    val sks: Any?,
+    val sks: String?,
 
     @SerializedName("updated_at")
     val updatedAt: String?,
@@ -49,16 +49,16 @@ data class DataProfilePassword(
     val userActive: String?,
 
     @SerializedName("user_email")
-    val userEmail: Any?,
+    val userEmail: String?,
 
     @SerializedName("user_id")
     val userId: String?,
 
     @SerializedName("user_img_name")
-    val userImgName: Any?,
+    val userImgName: String?,
 
     @SerializedName("user_img_path")
-    val userImgPath: Any?,
+    val userImgPath: String?,
 
     @SerializedName("user_name")
     val userName: String?,
