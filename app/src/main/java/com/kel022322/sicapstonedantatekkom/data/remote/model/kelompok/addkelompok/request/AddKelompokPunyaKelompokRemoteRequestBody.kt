@@ -3,8 +3,6 @@ package com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelomp
 import com.google.gson.annotations.SerializedName
 
 data class AddKelompokPunyaKelompokRemoteRequestBody(
-	@SerializedName("user_id") val userId: String?,
-	@SerializedName("api_token") val apiToken: String?,
 	@SerializedName("id_siklus") val idSiklus: String?,
 	@SerializedName("email") val email: String?,
 	@SerializedName("angkatan") val angkatan: String?,
@@ -13,7 +11,6 @@ data class AddKelompokPunyaKelompokRemoteRequestBody(
 	@SerializedName("dosbing_1") val dosbingSatu: String?,
 	@SerializedName("dosbing_2") val dosbingDua: String?,
 	@SerializedName("alamat") val alamat: String?,
-
 	@SerializedName("angkatan1") val angkatanSatu: String?,
 	@SerializedName("email1") val emailSatu: String?,
 	@SerializedName("jenis_kelamin1") val jenisKelaminSatu: String?,

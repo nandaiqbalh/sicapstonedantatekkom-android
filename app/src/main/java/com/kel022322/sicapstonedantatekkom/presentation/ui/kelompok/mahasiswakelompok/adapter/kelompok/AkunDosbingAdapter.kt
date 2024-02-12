@@ -1,9 +1,6 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -13,7 +10,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.resp
 import com.kel022322.sicapstonedantatekkom.databinding.ItemListAkunBinding
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
 
-class AkunDosbingAdapter: RecyclerView.Adapter<AkunDosbingAdapter.AkunViewHolder>() {
+class AkunDosbingAdapter : RecyclerView.Adapter<AkunDosbingAdapter.AkunViewHolder>() {
 	private var dosbingList: List<RsDosbing> = emptyList()
 
 	var itemClickListener: ((item: RsDosbing) -> Unit)? = null
@@ -40,7 +37,8 @@ class AkunDosbingAdapter: RecyclerView.Adapter<AkunDosbingAdapter.AkunViewHolder
 		differ.submitList(dosbings)
 	}
 
-	inner class AkunViewHolder(private val binding: ItemListAkunBinding) : RecyclerView.ViewHolder(binding.root) {
+	inner class AkunViewHolder(private val binding: ItemListAkunBinding) :
+		RecyclerView.ViewHolder(binding.root) {
 		@SuppressLint("SetTextI18n")
 		fun bind(dosbing: RsDosbing) {
 			binding.apply {
@@ -48,17 +46,11 @@ class AkunDosbingAdapter: RecyclerView.Adapter<AkunDosbingAdapter.AkunViewHolder
 				tvNamaDosenPembimbing.text = dosbing.userName
 				tvNimDosenPembimbing.text = dosbing.nomorInduk
 
-				val base64Image = dosbing.userImgPath.toString()
+				GlideApp.with(itemView.context)
+					.asBitmap()
+					.load(dosbing.userImgUrl)
+					.into(ivPhotoDosbing)
 
-				if (base64Image != "null" && base64Image != "") {
-					// Decode base64 string to byte array
-					val decodedBytes = decodeBase64ToBitmap(base64Image)
-
-					GlideApp.with(itemView.context)
-						.asBitmap()
-						.load(decodedBytes)
-						.into(ivPhotoDosbing)
-				}
 			}
 
 			binding.root.setOnClickListener {
@@ -66,15 +58,11 @@ class AkunDosbingAdapter: RecyclerView.Adapter<AkunDosbingAdapter.AkunViewHolder
 			}
 		}
 
-
-		private fun decodeBase64ToBitmap(base64: String): Bitmap {
-			val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
-			return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-		}
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AkunViewHolder {
-		val binding = ItemListAkunBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+		val binding =
+			ItemListAkunBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 		return AkunViewHolder(binding)
 	}
 

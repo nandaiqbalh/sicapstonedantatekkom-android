@@ -60,6 +60,9 @@ data class UserData(
     @SerializedName("user_img_path")
     val userImagePath: String?,
 
+    @SerializedName("user_img_url")
+    val userImageUrl: String?,
+
     @SerializedName("user_name")
     val userName: String?,
 )

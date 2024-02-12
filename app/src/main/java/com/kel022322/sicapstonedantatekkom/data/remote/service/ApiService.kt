@@ -23,7 +23,6 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindivid
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.response.AddKelompokIndividuRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.request.MahasiswaIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.response.MahasiswaIndexRemoteResponse
@@ -32,6 +31,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.requ
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.response.UpdateProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.response.UpdatePasswordRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.siklus.response.SiklusRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.topik.response.TopikRemoteResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -92,6 +93,35 @@ interface ApiService {
 		@Part user_img: MultipartBody.Part
 	): UpdateProfileRemoteResponse
 
+	@GET("capstone_team/public/api/v1/mahasiswa/topik")
+	suspend fun getTopikCapstone(
+		@Header("Authorization") apiToken: String,
+	) : TopikRemoteResponse
+
+	@GET("capstone_team/public/api/v1/mahasiswa/siklus")
+	suspend fun getSiklusCapstone(
+		@Header("Authorization") apiToken: String,
+	) : SiklusRemoteResponse
+
+
+	@GET("capstone_team/public/api/v1/mahasiswa/kelompok")
+	suspend fun getKelompokSaya(
+		@Header("Authorization") apiToken: String,
+	) : KelompokSayaRemoteResponse
+
+
+	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/add-kelompok-process")
+	suspend fun addKelompokIndividu(
+		@Header("Authorization") apiToken: String,
+		@Body addKelompokIndividuRemoteRequestBody: AddKelompokIndividuRemoteRequestBody
+	) : AddKelompokIndividuRemoteResponse
+
+	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/add-punya-kelompok-process")
+	suspend fun addKelompokPunyaKelompok(
+		@Header("Authorization") apiToken: String,
+		@Body addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody
+	) : AddKelompokPunyaKelompokRemoteResponse
+
 	@POST("capstone_team/public/api/v1/mahasiswa/data-dosen")
 	suspend fun getDataDosen(
 		@Body dosenRemoteRequestBody: DosenRemoteRequestBody
@@ -103,20 +133,6 @@ interface ApiService {
 	) : MahasiswaIndexRemoteResponse
 
 
-	@POST("capstone_team/public/api/v1/mahasiswa/kelompok")
-	suspend fun getKelompokSaya(
-		@Body kelompokSayaRemoteRequestBody: KelompokSayaRemoteRequestBody
-	) : KelompokSayaRemoteResponse
-
-	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/add-kelompok-process")
-	suspend fun addKelompokIndividu(
-		@Body addKelompokIndividuRemoteRequestBody: AddKelompokIndividuRemoteRequestBody
-	) : AddKelompokIndividuRemoteResponse
-
-	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/add-punya-kelompok-process")
-	suspend fun addKelompokPunyaKelompok(
-		@Body addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody
-	) : AddKelompokPunyaKelompokRemoteResponse
 
 	@POST("capstone_team/public/api/v1/mahasiswa/upload-file")
 	suspend fun getFileIndex(

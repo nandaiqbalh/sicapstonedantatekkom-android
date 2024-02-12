@@ -1,10 +1,6 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda
 
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,12 +15,11 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.local.action.ActionModel
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaBerandaBinding
-import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.ActionAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.PengumumanViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.adapter.PengumumanAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.adapter.ActionAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.adapter.PengumumanAdapter
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
+import com.kel022322.sicapstonedantatekkom.util.GlideApp
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,8 +29,9 @@ class MahasiswaBerandaFragment : Fragment() {
 	private var _binding: FragmentMahasiswaBerandaBinding? = null
 	private val binding get() = _binding!!
 
-	private val pengumumanViewModel: PengumumanViewModel by viewModels()
-	private val profileViewModel: ProfileIndexViewModel by viewModels()
+	private val mahasiswaBerandaViewModel: MahasiswaBerandaViewModel by viewModels()
+
+	private val userViewModel: UserViewModel by viewModels()
 
 	private lateinit var navController: NavController
 
@@ -48,7 +44,6 @@ class MahasiswaBerandaFragment : Fragment() {
 		_binding = FragmentMahasiswaBerandaBinding.inflate(layoutInflater, container, false)
 		return binding.root
 	}
-
 
 	override fun onStart() {
 		super.onStart()
@@ -64,7 +59,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 		setLoading(true)
 
-//		setUpToolbarValue()
+		setToolbar()
 
 		setPengumumanRecyclerView()
 
@@ -72,6 +67,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 	}
 
+	// set action listener
 	private fun setActionListener() {
 
 //		binding.ivHomeProfilephoto.setOnClickListener {
@@ -111,9 +107,7 @@ class MahasiswaBerandaFragment : Fragment() {
 		actionAdapter.setList(dummyActions)
 
 		binding.rvActionMahasiswaBeranda.layoutManager = LinearLayoutManager(
-			requireContext(),
-			LinearLayoutManager.HORIZONTAL,
-			false
+			requireContext(), LinearLayoutManager.HORIZONTAL, false
 		)
 
 		binding.rvActionMahasiswaBeranda.adapter = actionAdapter
@@ -121,9 +115,10 @@ class MahasiswaBerandaFragment : Fragment() {
 
 	private fun setPengumumanRecyclerView() {
 
-		pengumumanViewModel.getBroadcastHome()
+		mahasiswaBerandaViewModel.getBroadcastHome()
 
-		pengumumanViewModel.broadcastHomeResult.observe(viewLifecycleOwner) { broadcastHomeResult ->
+		mahasiswaBerandaViewModel.broadcastHomeResult.observe(viewLifecycleOwner) { broadcastHomeResult ->
+			val resultResponse = broadcastHomeResult.payload
 
 			when (broadcastHomeResult) {
 				is Resource.Loading -> {
@@ -132,12 +127,14 @@ class MahasiswaBerandaFragment : Fragment() {
 
 				is Resource.Error -> {
 					setLoading(false)
-					val message = broadcastHomeResult.payload?.message
-					showSnackbar(message ?: "Terjadi kesalahan!")
+
+					val message = resultResponse?.message
+
+					showSnackbar(message ?: "Terjadi kesalahan!", false)
 
 					binding.tvPengumumanTidakDitemukan.visibility = View.VISIBLE
 
-					Log.d("Result error", broadcastHomeResult.payload?.message.toString())
+					Log.d("Broadcast error", broadcastHomeResult.payload?.message.toString())
 
 				}
 
@@ -149,7 +146,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 					if (broadcastHomeResult.payload?.status == false) {
 						setLoading(false)
-						showSnackbar(message ?: "Terjadi kesalahan!")
+						showSnackbar(message ?: "Terjadi kesalahan!", false)
 
 						binding.tvPengumumanTidakDitemukan.visibility = View.VISIBLE
 
@@ -159,21 +156,24 @@ class MahasiswaBerandaFragment : Fragment() {
 						pengumumanAdapter.setList(broadcastHomeResult.payload.data.rs_broadcast.data)
 
 						binding.rvPengumumanTerbaru.layoutManager = LinearLayoutManager(
-							requireContext(),
-							LinearLayoutManager.VERTICAL,
-							false
+							requireContext(), LinearLayoutManager.VERTICAL, false
 						)
 
-						Log.d("DATA BROADCAST", broadcastHomeResult.payload.data.rs_broadcast.data.toString())
+						Log.d(
+							"DATA BROADCAST",
+							broadcastHomeResult.payload.data.rs_broadcast.data.toString()
+						)
 
 						binding.rvPengumumanTerbaru.adapter = pengumumanAdapter
 
 						// navigate to detail
-						pengumumanAdapter.setOnItemClickCallback(object : PengumumanAdapter.OnItemClickCallBack {
+						pengumumanAdapter.setOnItemClickCallback(object :
+							PengumumanAdapter.OnItemClickCallBack {
 							override fun onItemClicked(broadcastId: String) {
-								val action = MahasiswaBerandaFragmentDirections.actionMahasiswaBerandaFragmentToMahasiswaDetailPengumumanFragment(
-									broadcastId
-								)
+								val action =
+									MahasiswaBerandaFragmentDirections.actionMahasiswaBerandaFragmentToMahasiswaDetailPengumumanFragment(
+										broadcastId
+									)
 								findNavController().navigate(action)
 							}
 						})
@@ -189,112 +189,44 @@ class MahasiswaBerandaFragment : Fragment() {
 		}
 	}
 
-//	private fun setUpToolbarValue() {
-//		profileViewModel.getUsername().observe(viewLifecycleOwner) { username ->
-//			if (username != null) {
-//				binding.namauser.text = username
-//			}
-//		}
-//
-//		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-//			if (userId != null) {
-//				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-//					apiToken?.let {
-//						profileViewModel.getPhotoProfile(
-//							PhotoProfileRemoteRequestBody(
-//								userId.toString(), it
-//							)
-//						)
-//					}
-//				}
-//			}
-//		}
-//
-//		profileViewModel.getPhotoProfileResult.observe(viewLifecycleOwner) { getPhotoProfileResult ->
-//			when (getPhotoProfileResult) {
-//				is Resource.Loading -> {
-//					setLoading(true)
-//				}
-//
-//				is Resource.Error -> {
-//					setLoading(false)
-//					val message = getPhotoProfileResult.payload?.message
-//
-//					showSnackbar(message = message ?: "Terjadi kesalahan!")
-//				}
-//
-//				is Resource.Success -> {
-//					setLoading(false)
-//					val message = getPhotoProfileResult.payload?.message
-//
-//					Log.d("Success message", message.toString())
-//
-//					if (getPhotoProfileResult.payload?.data != null) {
-//						// set binding
-//						with(binding) {
-//							val base64Image = getPhotoProfileResult.payload.data.toString()
-//
-//							profileViewModel.setPhotoProfile(base64Image)
-//
-//							if (base64Image != "null") {
-//								// Decode base64 string to byte array
-//								val decodedBytes = decodeBase64ToBitmap(base64Image)
-//
-//								GlideApp.with(requireContext()).asBitmap().load(decodedBytes)
-//									.into(ivHomeProfilephoto)
-//							}
-//
-//						}
-//					}
-//				}
-//
-//				else -> {}
-//			}
-//		}
-//
-//	}
+	// set toolbar view
+	private fun setToolbar() {
+		setLoading(true)
 
-	private fun decodeBase64ToBitmap(base64: String): Bitmap {
-		val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
-		return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-	}
+		// set username
+		userViewModel.getUsername().observe(viewLifecycleOwner) { username ->
+			setLoading(false)
 
-	private fun showSnackbar(message: String) {
-		val currentFragment = this@MahasiswaBerandaFragment
-
-		if (currentFragment.isVisible){
-			customSnackbar.showSnackbarWithAction(
-				requireActivity().findViewById(android.R.id.content),
-				message,
-				"OK"
-			) {
-				customSnackbar.dismissSnackbar()
-				if (message == "Berhasil keluar!" || message == "Gagal! Anda telah masuk melalui perangkat lain." || message == "Pengguna tidak ditemukan!" || message == "Akses tidak sah!" || message == "Sesi anda telah berakhir, silahkan masuk terlebih dahulu.") {
-
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setUsername("")
-					profileViewModel.setStatusAuth(false)
-
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
-				} else if (message == "null" || message.equals(null) || message == "Terjadi kesalahan!") {
-					restartFragment()
-				} else if (message == "Password berhasil diubah, silahkan masuk kembali.") {
-
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setUsername("")
-					profileViewModel.setStatusAuth(false)
-
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
-				}
+			if (username != null && username != "") {
+				binding.namauser.text = username
 			}
 		}
 
+		// set photo profile
+		userViewModel.getPhotoProfile().observe(viewLifecycleOwner) {
+			setLoading(false)
+
+			if (it != null && it != "") {
+				GlideApp.with(this@MahasiswaBerandaFragment).asBitmap().load(it)
+					.into(binding.ivHomeProfilephoto)
+			}
+		}
+
+	}
+
+	private fun showSnackbar(message: String, isRestart: Boolean) {
+		val currentFragment = this@MahasiswaBerandaFragment
+
+		if (currentFragment.isVisible) {
+			customSnackbar.showSnackbarWithAction(
+				requireActivity().findViewById(android.R.id.content), message, "OK"
+			) {
+				customSnackbar.dismissSnackbar()
+				if (isRestart) {
+					restartFragment()
+				}
+			}
+		}
 	}
 
 	private fun restartFragment() {
@@ -325,7 +257,7 @@ class MahasiswaBerandaFragment : Fragment() {
 			rvPengumumanTerbaru.visibility = if (isLoading) View.GONE else View.VISIBLE
 
 		}
-		if(isLoading){
+		if (isLoading) {
 			binding.tvPengumumanTidakDitemukan.visibility = View.GONE
 		}
 	}

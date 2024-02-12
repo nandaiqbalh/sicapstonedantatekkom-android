@@ -15,8 +15,8 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDokumenBinding
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.mahasiswadokumen.adapter.FragmentPageAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ class MahasiswaDokumenFragment : Fragment() {
 	private var _binding: FragmentMahasiswaDokumenBinding? = null
 	private val binding get() = _binding!!
 
-	private val profileViewModel: ProfileIndexViewModel by viewModels()
+	private val userViewModel: UserViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
 
@@ -89,17 +89,17 @@ class MahasiswaDokumenFragment : Fragment() {
 	}
 
 //	private fun setToolbar() {
-//		profileViewModel.getUsername().observe(viewLifecycleOwner) { username ->
+//		userViewModel.getUsername().observe(viewLifecycleOwner) { username ->
 //			if (username != null) {
 //				binding.tvNamaUserDokumen.text = username
 //			}
 //		}
 //
-//		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+//		userViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
 //			if (userId != null) {
-//				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+//				userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 //					apiToken?.let {
-//						profileViewModel.getPhotoProfile(
+//						userViewModel.getPhotoProfile(
 //							PhotoProfileRemoteRequestBody(
 //								userId.toString(), it
 //							)
@@ -109,7 +109,7 @@ class MahasiswaDokumenFragment : Fragment() {
 //			}
 //		}
 //
-//		profileViewModel.getPhotoProfileResult.observe(viewLifecycleOwner) { getPhotoProfileResult ->
+//		userViewModel.getPhotoProfileResult.observe(viewLifecycleOwner) { getPhotoProfileResult ->
 //			when (getPhotoProfileResult) {
 //				is Resource.Loading -> {
 //					setLoading(true)
@@ -138,7 +138,7 @@ class MahasiswaDokumenFragment : Fragment() {
 //						with(binding) {
 //							val base64Image = getPhotoProfileResult.payload.data.toString()
 //
-//							profileViewModel.setPhotoProfile(base64Image)
+//							userViewModel.setPhotoProfile(base64Image)
 //
 //							if (base64Image != "null") {
 //								// Decode base64 string to byte array
@@ -175,10 +175,10 @@ class MahasiswaDokumenFragment : Fragment() {
 				customSnackbar.dismissSnackbar()
 				if (message == "Berhasil keluar!" || message == "Gagal! Anda telah masuk melalui perangkat lain." || message == "Pengguna tidak ditemukan!" || message == "Akses tidak sah!" || message == "Sesi anda telah berakhir, silahkan masuk terlebih dahulu.") {
 
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setUsername("")
-					profileViewModel.setStatusAuth(false)
+					userViewModel.setApiToken("")
+					userViewModel.setUserId("")
+					userViewModel.setUsername("")
+					userViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
 					requireContext().startActivity(intent)
@@ -187,10 +187,10 @@ class MahasiswaDokumenFragment : Fragment() {
 					restartFragment()
 				} else if (message == "Password berhasil diubah, silahkan masuk kembali.") {
 
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setUsername("")
-					profileViewModel.setStatusAuth(false)
+					userViewModel.setApiToken("")
+					userViewModel.setUserId("")
+					userViewModel.setUsername("")
+					userViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
 					requireContext().startActivity(intent)

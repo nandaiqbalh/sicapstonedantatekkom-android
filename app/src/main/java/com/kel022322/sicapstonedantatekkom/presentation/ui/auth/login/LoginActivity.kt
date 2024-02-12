@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthLoginRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.ActivityLoginBinding
-import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.MainActivity
+import com.kel022322.sicapstonedantatekkom.presentation.ui.MainActivity
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
 	private var _binding: ActivityLoginBinding? = null
 	private val binding get() = _binding!!
 
-	private val loginViewModel: LoginViewModel by viewModels()
+	private val userViewModel: UserViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
 
@@ -58,14 +59,14 @@ class LoginActivity : AppCompatActivity() {
 				val enteredIdPengguna = binding.edtIdPengguna.text.toString().trim()
 				val enteredPassword = binding.edtPassword.text.toString().trim()
 
-				loginViewModel.authLogin(
+				userViewModel.authLogin(
 					AuthLoginRequestBody(
 						nomorInduk = enteredIdPengguna,
 						password = enteredPassword
 					)
 				)
 
-				loginViewModel.authResult.observe(this) { authResult ->
+				userViewModel.authResult.observe(this) { authResult ->
 
 					when (authResult) {
 						is Resource.Loading -> setLoading(true)
@@ -103,16 +104,21 @@ class LoginActivity : AppCompatActivity() {
 								val userId = loginResult.userData.userId.toString()
 								val apiToken = loginResult.userData.apiToken
 								val username = loginResult.userData.userName
+								val photoProfile = loginResult.userData.userImageUrl.toString()
+
 
 								// set auth data store
-								loginViewModel.setStatusAuth(true)
-								loginViewModel.setUserId(userId)
-								loginViewModel.setApiToken("Bearer $apiToken")
-								loginViewModel.setUsername(username ?: "Nama Lengkap Mahasiswa")
+								userViewModel.setStatusAuth(true)
+								userViewModel.setUserId(userId)
+								userViewModel.setApiToken("Bearer $apiToken")
+								userViewModel.setUsername(username ?: "Nama Lengkap Mahasiswa")
+								userViewModel.setPhotoProfile(photoProfile)
+
 
 							} else {
 								// if the success is false, then just show the snackbar
-								customSnackbar.showSnackbarWithAction(findViewById(android.R.id.content),
+								customSnackbar.showSnackbarWithAction(
+									findViewById(android.R.id.content),
 									loginResult?.status ?: "Autentikasi gagal!",
 									"OK"
 								) {
@@ -130,7 +136,7 @@ class LoginActivity : AppCompatActivity() {
 	}
 
 	private fun isAlreadyLogin() {
-		loginViewModel.getStatusAuth().observe(this@LoginActivity) { isLoggedIn ->
+		userViewModel.getStatusAuth().observe(this@LoginActivity) { isLoggedIn ->
 			if (isLoggedIn == true) {
 				val intent = Intent(this@LoginActivity, MainActivity::class.java)
 				startActivity(intent)

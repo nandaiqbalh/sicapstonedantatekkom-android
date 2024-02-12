@@ -16,6 +16,10 @@ import com.kel022322.sicapstonedantatekkom.data.remote.repository.mahasiswa.Maha
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.mahasiswa.MahasiswaRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.profile.ProfileRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.profile.ProfileRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.siklus.SiklusRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.siklus.SiklusRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.topik.TopikRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.topik.TopikRemoteRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -47,5 +51,11 @@ abstract class RepositoryModule {
 
 	@Binds
 	abstract fun bindMahasiswaRemoteRepository(mahasiswaRemoteRepositoryImpl: MahasiswaRemoteRepositoryImpl) : MahasiswaRemoteRepository
+
+	@Binds
+	abstract fun bindTopikRemoteRepository(topikRemoteRepositoryImpl: TopikRemoteRepositoryImpl) : TopikRemoteRepository
+
+	@Binds
+	abstract fun bindSiklusRemoteRepository(siklusRemoteRepositoryImpl: SiklusRemoteRepositoryImpl) : SiklusRemoteRepository
 
 }

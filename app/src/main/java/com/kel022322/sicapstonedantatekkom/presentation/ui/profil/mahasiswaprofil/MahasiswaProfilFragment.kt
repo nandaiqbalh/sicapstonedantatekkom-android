@@ -27,7 +27,7 @@ import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaProfilBinding
-import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.logout.LogoutViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfilePasswordViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileUpdateViewModel
@@ -57,7 +57,7 @@ class MahasiswaProfilFragment : Fragment() {
 	private val profileIndexViewModel: ProfileIndexViewModel by viewModels()
 	private val profileUpdateViewModel: ProfileUpdateViewModel by viewModels()
 	private val profilePasswordViewModel: ProfilePasswordViewModel by viewModels()
-	private val authLogoutViewModel: LogoutViewModel by viewModels()
+	private val userViewModel: UserViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
 
@@ -117,14 +117,14 @@ class MahasiswaProfilFragment : Fragment() {
 			) {
 				setLoading(true)
 
-				profileIndexViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+				userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 					apiToken?.let {
-						authLogoutViewModel.authLogout(apiToken)
+						userViewModel.authLogout(apiToken)
 						Log.d("API TOKEN", apiToken)
 					}
 				}
 
-				authLogoutViewModel.logoutResult.observe(viewLifecycleOwner) { logoutResult ->
+				userViewModel.logoutResult.observe(viewLifecycleOwner) { logoutResult ->
 					when (logoutResult) {
 						is Resource.Loading -> setLoading(true)
 						is Resource.Error -> {
@@ -180,7 +180,7 @@ class MahasiswaProfilFragment : Fragment() {
 	private fun getProfile() {
 		setLoading(true)
 
-		profileIndexViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 			apiToken?.let {
 				profileIndexViewModel.getMahasiswaProfile(apiToken)
 			}
@@ -189,6 +189,7 @@ class MahasiswaProfilFragment : Fragment() {
 		profileIndexViewModel.getProfileResult.observe(viewLifecycleOwner) { getProfileResult ->
 
 			val resultResponse = getProfileResult.payload
+			val status = resultResponse?.status
 
 			when (getProfileResult) {
 				is Resource.Loading -> {
@@ -200,14 +201,11 @@ class MahasiswaProfilFragment : Fragment() {
 
 					setLoading(false)
 
-					val status = resultResponse?.status
 					showSnackbar(status ?: "Terjadi kesalahan!", true)
 				}
 
 				is Resource.Success -> {
 					setLoading(false)
-
-					val status = getProfileResult.payload?.status
 
 					if (resultResponse?.success == true && resultResponse.data != null) {
 						Log.d("Succes status", status.toString())
@@ -295,7 +293,7 @@ class MahasiswaProfilFragment : Fragment() {
 		val emailPenggunaEntered = binding.edtEmailPengguna.text.toString().trim()
 		val noTelpPenggunaEntered = binding.edtNoTelpPengguna.text.toString().trim()
 
-		profileIndexViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 			apiToken?.let {
 				profileUpdateViewModel.updateMahasiswaProfile(
 					apiToken,
@@ -358,6 +356,8 @@ class MahasiswaProfilFragment : Fragment() {
 							GlideApp.with(this@MahasiswaProfilFragment).asBitmap()
 								.load(resultResponse.data.userImgUrl).into(ivProfilephoto)
 
+							userViewModel.setUsername(resultResponse.data.userName.toString())
+							userViewModel.setPhotoProfile(resultResponse.data.userImgUrl.toString())
 						}
 					} else {
 						Log.d("Update Succes status, but failed", status.toString())
@@ -426,7 +426,7 @@ class MahasiswaProfilFragment : Fragment() {
 		val newPassword = binding.edtNewPassword.text.toString().trim()
 		val newPasswordKonfirmation = binding.edtKonfirmasiPasswordBaru.text.toString().trim()
 
-		profileIndexViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 			apiToken?.let {
 				profilePasswordViewModel.updatePasswordProfile(
 					apiToken,
@@ -611,7 +611,7 @@ class MahasiswaProfilFragment : Fragment() {
 			val requestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
 			val photoPart = MultipartBody.Part.createFormData("user_img", file.name, requestBody)
 
-			profileIndexViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 				apiToken?.let {
 					// Kirim token dan photoPart ke fungsi updatePhotoProfile
 					profileUpdateViewModel.updatePhotoProfile(apiToken, photoPart)
@@ -647,6 +647,10 @@ class MahasiswaProfilFragment : Fragment() {
 							showSnackbar(status ?: "Berhasil memperbaharui foto profil!", true)
 
 							restartFragment()
+
+							// set local datastore
+							userViewModel.setUsername(resultResponse.data.userName.toString())
+							userViewModel.setPhotoProfile(resultResponse.data.userImgUrl.toString())
 
 							// set binding
 							with(binding) {
@@ -813,10 +817,10 @@ class MahasiswaProfilFragment : Fragment() {
 
 	private fun actionIfLogoutSucces() {
 		// set auth data store
-		profileIndexViewModel.setApiToken("")
-		profileIndexViewModel.setUserId("")
-		profileIndexViewModel.setUsername("")
-		profileIndexViewModel.setStatusAuth(false)
+		userViewModel.setApiToken("")
+		userViewModel.setUserId("")
+		userViewModel.setUsername("")
+		userViewModel.setStatusAuth(false)
 
 		val intent = Intent(requireContext(), SplashscreenActivity::class.java)
 		requireContext().startActivity(intent)

@@ -2,28 +2,19 @@ package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswake
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kel022322.sicapstonedantatekkom.R
-import com.kel022322.sicapstonedantatekkom.data.local.model.jeniskelamin.JenisKelaminModel
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokDaftarIndividuBinding
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.JenisKelaminAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.SiklusAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
-import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -33,8 +24,8 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 	private var _binding: FragmentMahasiswaKelompokDaftarIndividuBinding? = null
 	private val binding get() = _binding!!
 
-	private val kelompokViewModel: KelompokSayaViewModel by viewModels()
-	private val profileViewModel: ProfileIndexViewModel by viewModels()
+	private val daftarIndividuViewModel: DaftarIndividuViewModel by viewModels()
+	private val userViewModel: UserViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
 
@@ -86,14 +77,13 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 					val topikEntered = edtSkalaTopikIndividu.text.toString().trim()
 					val topikArray = topikEntered.split(",").map { it.trim() }.toTypedArray()
 
-					profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+					userViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
 						if (userId != null) {
-							profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+							userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 								apiToken?.let {
-									kelompokViewModel.addKelompokIndividu(
+									daftarIndividuViewModel.addKelompokIndividu(
+										apiToken,
 										AddKelompokIndividuRemoteRequestBody(
-											userId = userId,
-											apiToken = apiToken,
 											idSiklus = selectedIdSiklus,
 											userName = namaEntered,
 											nomorInduk = nimEntered,
@@ -128,142 +118,141 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 
 	private fun valueObserver() {
 
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					apiToken?.let {
-						kelompokViewModel.getKelompokSaya(
-							KelompokSayaRemoteRequestBody(
-								userId,
-								apiToken
-							)
-						)
-
-					}
-				}
-			}
-		}
-
-		kelompokViewModel.getKelompokSayaResult.observe(viewLifecycleOwner) { getKelompokSayaResult ->
-
-			when (getKelompokSayaResult) {
-				is Resource.Loading -> {
-					setLoading(isLoading = true, isSuccess = true)
-
-				}
-
-				is Resource.Error -> {
-					setLoading(isLoading = false, isSuccess = false)
-					Log.d("Result error", getKelompokSayaResult.toString())
-
-				}
-
-				is Resource.Success -> {
-					setLoading(isLoading = false, isSuccess = true)
-
-
-
-					val message = getKelompokSayaResult.payload
-					Log.d("Result success", message.toString())
-
-					if (getKelompokSayaResult.payload?.status == true) {
-
-						if (getKelompokSayaResult.payload.data?.kelompok == null) {
-							setInitialValue(getKelompokSayaResult)
-
-						}
-
-					}
-
-				}
-
-				else -> {}
-			}
-		}
-
-		kelompokViewModel.addKelompokIndividuResult.observe(viewLifecycleOwner) { addKelompokIndividuResult ->
-
-			when (addKelompokIndividuResult) {
-				is Resource.Loading -> {
-					setLoading(isLoading = true, isSuccess = true)
-
-				}
-
-				is Resource.Error -> {
-					setLoading(isLoading = false, isSuccess = false)
-					Log.d("Result error", addKelompokIndividuResult.toString())
-					showSnackbar("Gagal mendaftar capstone!")
-
-				}
-
-				is Resource.Success -> {
-					setLoading(isLoading = false, isSuccess = true)
-
-					val message = addKelompokIndividuResult.payload?.message
-					Log.d("Result success", message.toString())
-
-					if (addKelompokIndividuResult.payload?.status == true) {
-						showSnackbar("Berhasil mendaftar capstone!")
-						findNavController().navigate(R.id.action_mahasiswaKelompokFragment_to_mahasiswaBerandaFragment)
-					} else {
-						showSnackbar(message?: "Terjadi kesalahan saat mendaftar!")
-					}
-
-				}
-
-				else -> {}
-			}
-		}
+//		userViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+//			if (userId != null) {
+//				userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+//					apiToken?.let {
+//						kelompokViewModel.getKelompokSaya(
+//							KelompokSayaRemoteRequestBody(
+//								userId,
+//								apiToken
+//							)
+//						)
+//
+//					}
+//				}
+//			}
+//		}
+//
+//		kelompokViewModel.getKelompokSayaResult.observe(viewLifecycleOwner) { getKelompokSayaResult ->
+//
+//			when (getKelompokSayaResult) {
+//				is Resource.Loading -> {
+//					setLoading(isLoading = true, isSuccess = true)
+//
+//				}
+//
+//				is Resource.Error -> {
+//					setLoading(isLoading = false, isSuccess = false)
+//					Log.d("Result error", getKelompokSayaResult.toString())
+//
+//				}
+//
+//				is Resource.Success -> {
+//					setLoading(isLoading = false, isSuccess = true)
+//
+//
+//					val message = getKelompokSayaResult.payload
+//					Log.d("Result success", message.toString())
+//
+//					if (getKelompokSayaResult.payload?.status == true) {
+//
+//						if (getKelompokSayaResult.payload.data?.kelompok == null) {
+//							setInitialValue(getKelompokSayaResult)
+//
+//						}
+//
+//					}
+//
+//				}
+//
+//				else -> {}
+//			}
+//		}
+//
+//		daftarIndividuViewModel.addKelompokIndividuResult.observe(viewLifecycleOwner) { addKelompokIndividuResult ->
+//
+//			when (addKelompokIndividuResult) {
+//				is Resource.Loading -> {
+//					setLoading(isLoading = true, isSuccess = true)
+//
+//				}
+//
+//				is Resource.Error -> {
+//					setLoading(isLoading = false, isSuccess = false)
+//					Log.d("Result error", addKelompokIndividuResult.toString())
+//					showSnackbar("Gagal mendaftar capstone!")
+//
+//				}
+//
+//				is Resource.Success -> {
+//					setLoading(isLoading = false, isSuccess = true)
+//
+//					val message = addKelompokIndividuResult.payload?.message
+//					Log.d("Result success", message.toString())
+//
+//					if (addKelompokIndividuResult.payload?.status == true) {
+//						showSnackbar("Berhasil mendaftar capstone!")
+//						findNavController().navigate(R.id.action_mahasiswaKelompokFragment_to_mahasiswaBerandaFragment)
+//					} else {
+//						showSnackbar(message ?: "Terjadi kesalahan saat mendaftar!")
+//					}
+//
+//				}
+//
+//				else -> {}
+//			}
+//		}
 	}
 
-	private fun setInitialValue(getKelompokSayaResult: Resource<KelompokSayaRemoteResponse>) {
-
-		// siklus
-		val siklusAdapter =
-			getKelompokSayaResult.payload?.data?.rsSiklus?.let {
-				SiklusAdapter(
-					requireContext(),
-					it
-				)
-			}
-		binding.edtSiklusIndividu.setAdapter(siklusAdapter)
-
-		binding.edtSiklusIndividu.setOnItemClickListener { _, _, position, _ ->
-			val selectedSiklus = siklusAdapter?.getItem(position)
-			selectedIdSiklus = selectedSiklus?.id.toString()
-
-			binding.edtSiklusIndividu.setText(selectedSiklus?.tahunAjaran)
-			// Lakukan sesuatu dengan ID yang dipilih
-		}
-
-		// mahasiswa
-		with(binding) {
-			val dataAkun = getKelompokSayaResult.payload?.data?.getAkun
-			if (dataAkun != null) {
-				edtNamaLengkapIndividu.setText(dataAkun.userName)
-				edtNimIndividu.setText(dataAkun.nomorInduk)
-				edtEmailIndividu.setText(dataAkun.userEmail)
-				edtNoTelpIndividu.setText(dataAkun.noTelp)
-			}
-		}
-
-		// jenis kelamin
-		val listJenisKelamin = listOf(
-			JenisKelaminModel(1, "Laki-laki"),
-			JenisKelaminModel(2, "Perempuan")
-		)
-		val jenisKelaminAdapter = JenisKelaminAdapter(requireContext(), listJenisKelamin)
-		binding.edtJenisKelaminIndividu.setAdapter(jenisKelaminAdapter)
-
-		binding.edtJenisKelaminIndividu.setOnItemClickListener { _, _, position, _ ->
-			val selectedJenisKelamin = jenisKelaminAdapter.getItem(position)
-
-			binding.edtJenisKelaminIndividu.setText(selectedJenisKelamin?.jenisJelamin)
-			// Lakukan sesuatu dengan ID yang dipilih
-		}
-
-	}
-
+//	private fun setInitialValue(getKelompokSayaResult: Resource<KelompokSayaRemoteResponse>) {
+//
+//		// siklus
+//		val siklusAdapter =
+//			getKelompokSayaResult.payload?.data?.rsSiklus?.let {
+//				SiklusAdapter(
+//					requireContext(),
+//					it
+//				)
+//			}
+//		binding.edtSiklusIndividu.setAdapter(siklusAdapter)
+//
+//		binding.edtSiklusIndividu.setOnItemClickListener { _, _, position, _ ->
+//			val selectedSiklus = siklusAdapter?.getItem(position)
+//			selectedIdSiklus = selectedSiklus?.id.toString()
+//
+//			binding.edtSiklusIndividu.setText(selectedSiklus?.tahunAjaran)
+//			// Lakukan sesuatu dengan ID yang dipilih
+//		}
+//
+//		// mahasiswa
+//		with(binding) {
+//			val dataAkun = getKelompokSayaResult.payload?.data?.getAkun
+//			if (dataAkun != null) {
+//				edtNamaLengkapIndividu.setText(dataAkun.userName)
+//				edtNimIndividu.setText(dataAkun.nomorInduk)
+//				edtEmailIndividu.setText(dataAkun.userEmail)
+//				edtNoTelpIndividu.setText(dataAkun.noTelp)
+//			}
+//		}
+//
+//		// jenis kelamin
+//		val listJenisKelamin = listOf(
+//			JenisKelaminModel(1, "Laki-laki"),
+//			JenisKelaminModel(2, "Perempuan")
+//		)
+//		val jenisKelaminAdapter = JenisKelaminAdapter(requireContext(), listJenisKelamin)
+//		binding.edtJenisKelaminIndividu.setAdapter(jenisKelaminAdapter)
+//
+//		binding.edtJenisKelaminIndividu.setOnItemClickListener { _, _, position, _ ->
+//			val selectedJenisKelamin = jenisKelaminAdapter.getItem(position)
+//
+//			binding.edtJenisKelaminIndividu.setText(selectedJenisKelamin?.jenisJelamin)
+//			// Lakukan sesuatu dengan ID yang dipilih
+//		}
+//
+//	}
+//
 
 	private fun isFormValid(): Boolean {
 
@@ -470,10 +459,10 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 				customSnackbar.dismissSnackbar()
 				if (message == "Berhasil keluar!" || message == "Gagal! Anda telah masuk melalui perangkat lain." || message == "Pengguna tidak ditemukan!" || message == "Akses tidak sah!" || message == "Sesi anda telah berakhir, silahkan masuk terlebih dahulu.") {
 
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setUsername("")
-					profileViewModel.setStatusAuth(false)
+					userViewModel.setApiToken("")
+					userViewModel.setUserId("")
+					userViewModel.setUsername("")
+					userViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
 					requireContext().startActivity(intent)
@@ -485,10 +474,10 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 					restartFragment()
 				} else if (message == "Password berhasil diubah, silahkan masuk kembali.") {
 
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setUsername("")
-					profileViewModel.setStatusAuth(false)
+					userViewModel.setApiToken("")
+					userViewModel.setUserId("")
+					userViewModel.setUsername("")
+					userViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
 					requireContext().startActivity(intent)
@@ -520,56 +509,56 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 		with(binding) {
 			setShimmerVisibility(shimmerFragmentDaftarIndividu, isLoading)
 
-			cvDetailCapstoneIndividu.visibility =  View.GONE
-			tvTitleDetailCapstoneIndividu.visibility =  View.GONE
+			cvDetailCapstoneIndividu.visibility = View.GONE
+			tvTitleDetailCapstoneIndividu.visibility = View.GONE
 
 			tvDetailMahasiswaIndividu.visibility = View.GONE
-			cvDetailMahasiswaIndividu.visibility =  View.GONE
+			cvDetailMahasiswaIndividu.visibility = View.GONE
 
 			tvTitleDetailPeminatanIndividu.visibility = View.GONE
-			cvPeminatanIndividu.visibility =  View.GONE
+			cvPeminatanIndividu.visibility = View.GONE
 
 			tvTitleDetailTopikIndividu.visibility = View.GONE
-			cvTopikIndividu.visibility =  View.GONE
+			cvTopikIndividu.visibility = View.GONE
 
 			btnSimpanDaftarIndividu.visibility = View.GONE
 
-			cvErrorDaftarIndividu.visibility =  View.GONE
+			cvErrorDaftarIndividu.visibility = View.GONE
 
-			if (!isLoading){
-				if (isSuccess){
-					cvDetailCapstoneIndividu.visibility =  View.VISIBLE
-					tvTitleDetailCapstoneIndividu.visibility =  View.VISIBLE
+			if (!isLoading) {
+				if (isSuccess) {
+					cvDetailCapstoneIndividu.visibility = View.VISIBLE
+					tvTitleDetailCapstoneIndividu.visibility = View.VISIBLE
 
 					tvDetailMahasiswaIndividu.visibility = View.VISIBLE
-					cvDetailMahasiswaIndividu.visibility =  View.VISIBLE
+					cvDetailMahasiswaIndividu.visibility = View.VISIBLE
 
 					tvTitleDetailPeminatanIndividu.visibility = View.VISIBLE
-					cvPeminatanIndividu.visibility =  View.VISIBLE
+					cvPeminatanIndividu.visibility = View.VISIBLE
 
 					tvTitleDetailTopikIndividu.visibility = View.VISIBLE
-					cvTopikIndividu.visibility =  View.VISIBLE
+					cvTopikIndividu.visibility = View.VISIBLE
 
 					btnSimpanDaftarIndividu.visibility = View.VISIBLE
 
-					cvErrorDaftarIndividu.visibility =  View.GONE
+					cvErrorDaftarIndividu.visibility = View.GONE
 
 				} else {
-					cvDetailCapstoneIndividu.visibility =  View.GONE
-					tvTitleDetailCapstoneIndividu.visibility =  View.GONE
+					cvDetailCapstoneIndividu.visibility = View.GONE
+					tvTitleDetailCapstoneIndividu.visibility = View.GONE
 
 					tvDetailMahasiswaIndividu.visibility = View.GONE
-					cvDetailMahasiswaIndividu.visibility =  View.GONE
+					cvDetailMahasiswaIndividu.visibility = View.GONE
 
 					tvTitleDetailPeminatanIndividu.visibility = View.GONE
-					cvPeminatanIndividu.visibility =  View.GONE
+					cvPeminatanIndividu.visibility = View.GONE
 
 					tvTitleDetailTopikIndividu.visibility = View.GONE
-					cvTopikIndividu.visibility =  View.GONE
+					cvTopikIndividu.visibility = View.GONE
 
 					btnSimpanDaftarIndividu.visibility = View.GONE
 
-					cvErrorDaftarIndividu.visibility =  View.VISIBLE
+					cvErrorDaftarIndividu.visibility = View.VISIBLE
 				}
 			}
 		}

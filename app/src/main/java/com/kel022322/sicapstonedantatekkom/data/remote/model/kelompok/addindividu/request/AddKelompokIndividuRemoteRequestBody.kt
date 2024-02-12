@@ -3,8 +3,6 @@ package com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindivi
 import com.google.gson.annotations.SerializedName
 
 data class AddKelompokIndividuRemoteRequestBody(
-	@SerializedName("user_id") val userId: String?,
-	@SerializedName("api_token") val apiToken: String?,
 	@SerializedName("id_siklus") val idSiklus: String?,
 	@SerializedName("email") val email: String?,
 	@SerializedName("user_name") val userName: String?,

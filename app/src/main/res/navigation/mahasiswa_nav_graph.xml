@@ -87,7 +87,7 @@
     </fragment>
     <fragment
         android:id="@+id/mahasiswaExpoFragment"
-        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.expo.MahasiswaExpoFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.expo.MahasiswaExpoFragment"
         android:label="fragment_mahasiswa_expo"
         tools:layout="@layout/fragment_mahasiswa_expo" >
         <action
@@ -96,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/mahasiswaPengumumanFragment"
-        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.MahasiswaPengumumanFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.MahasiswaPengumumanFragment"
         android:label="fragment_mahasiswa_pengumuman"
         tools:layout="@layout/fragment_mahasiswa_pengumuman" >
         <action
@@ -111,7 +111,7 @@
     </fragment>
     <fragment
         android:id="@+id/mahasiswaSidangProposalFragment"
-        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.sidangproposal.MahasiswaSidangProposalFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.sidangproposal.MahasiswaSidangProposalFragment"
         android:label="fragment_mahasiswa_sidang_proposal"
         tools:layout="@layout/fragment_mahasiswa_sidang_proposal" >
         <action
@@ -120,7 +120,7 @@
     </fragment>
     <fragment
         android:id="@+id/mahasiswaSidangTugasAkhirFragment"
-        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.sidangta.MahasiswaSidangTugasAkhirFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.sidangta.MahasiswaSidangTugasAkhirFragment"
         android:label="fragment_mahasiswa_sidang_tugas_akhir"
         tools:layout="@layout/fragment_mahasiswa_sidang_tugas_akhir" >
         <action
@@ -129,7 +129,7 @@
     </fragment>
     <fragment
         android:id="@+id/mahasiswaDetailPengumumanFragment"
-        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.detail.MahasiswaDetailPengumumanFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.detail.MahasiswaDetailPengumumanFragment"
         android:label="fragment_mahasiswa_detail_pengumuman"
         tools:layout="@layout/fragment_mahasiswa_detail_pengumuman" >
 

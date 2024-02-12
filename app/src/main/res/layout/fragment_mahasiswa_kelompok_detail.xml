@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/Minimumblue"
     android:orientation="vertical"
-    tools:context=".presentation.ui.beranda.mahasiswaberanda.pengumuman.detail.MahasiswaDetailPengumumanFragment">
+    tools:context=".presentation.ui.beranda.mahasiswaberanda.action.pengumuman.detail.MahasiswaDetailPengumumanFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_toolbar_kelompok_detail"

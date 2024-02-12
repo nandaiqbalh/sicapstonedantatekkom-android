@@ -1,9 +1,6 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -48,17 +45,10 @@ class AkunAnggotaKelompokAdapter: RecyclerView.Adapter<AkunAnggotaKelompokAdapte
 				tvNamaDosenPembimbing.text = mahasiswa.userName
 				tvNimDosenPembimbing.text = mahasiswa.nomorInduk
 
-				val base64Image = mahasiswa.userImgPath.toString()
-
-				if (base64Image != "null" && base64Image != "") {
-					// Decode base64 string to byte array
-					val decodedBytes = decodeBase64ToBitmap(base64Image)
-
-					GlideApp.with(itemView.context)
-						.asBitmap()
-						.load(decodedBytes)
-						.into(ivPhotoDosbing)
-				}
+				GlideApp.with(itemView.context)
+					.asBitmap()
+					.load(mahasiswa.userImgUrl)
+					.into(ivPhotoDosbing)
 			}
 
 			binding.root.setOnClickListener {
@@ -66,11 +56,6 @@ class AkunAnggotaKelompokAdapter: RecyclerView.Adapter<AkunAnggotaKelompokAdapte
 			}
 		}
 
-
-		private fun decodeBase64ToBitmap(base64: String): Bitmap {
-			val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
-			return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-		}
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AkunViewHolder {

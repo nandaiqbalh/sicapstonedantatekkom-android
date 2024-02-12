@@ -16,6 +16,10 @@ import com.kel022322.sicapstonedantatekkom.data.remote.datasource.mahasiswa.Maha
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.mahasiswa.MahasiswaRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile.ProfileRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile.ProfileRemoteDataSourceImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.siklus.SiklusRemoteDataSource
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.siklus.SiklusRemoteDataSourceImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.topik.TopikRemoteDataSource
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.topik.TopikRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -50,5 +54,12 @@ abstract class DataSourceModule {
 
 	@Binds
 	abstract fun provideMahasiswaRemoteDataSource(mahasiswaRemoteDataSourceImpl: MahasiswaRemoteDataSourceImpl): MahasiswaRemoteDataSource
+
+	@Binds
+	abstract fun provideTopikRemoteDataSource(topikRemoteDataSourceImpl: TopikRemoteDataSourceImpl): TopikRemoteDataSource
+
+
+	@Binds
+	abstract fun provideSiklusRemoteDataSource(siklusRemoteDataSourceImpl: SiklusRemoteDataSourceImpl): SiklusRemoteDataSource
 
 }

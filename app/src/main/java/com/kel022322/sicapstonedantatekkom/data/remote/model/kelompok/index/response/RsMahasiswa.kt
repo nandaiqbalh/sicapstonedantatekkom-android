@@ -24,4 +24,5 @@ data class RsMahasiswa(
 	@SerializedName("user_name") val userName: String?,
 	@SerializedName("user_img_path") val userImgPath: String?,
 	@SerializedName("user_img_name") val userImgName: String?,
-)
+	@SerializedName("user_img_url") val userImgUrl: String?,
+	)

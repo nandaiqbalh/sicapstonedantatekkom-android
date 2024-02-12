@@ -4,7 +4,6 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindivid
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.response.AddKelompokIndividuRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.service.ApiService
 import javax.inject.Inject
@@ -12,31 +11,44 @@ import javax.inject.Inject
 interface KelompokSayaRemoteDataSource {
 
 	suspend fun getKelompokSaya(
-		kelompokSayaRemoteRequestBody: KelompokSayaRemoteRequestBody
-	) : KelompokSayaRemoteResponse
+		apiToken: String,
+	): KelompokSayaRemoteResponse
 
 	suspend fun addKelompokIndividu(
-		addKelompokIndividuRemoteRequestBody: AddKelompokIndividuRemoteRequestBody
-	) : AddKelompokIndividuRemoteResponse
+		apiToken: String,
+		addKelompokIndividuRemoteRequestBody: AddKelompokIndividuRemoteRequestBody,
+	): AddKelompokIndividuRemoteResponse
 
 	suspend fun addKelompokPunyaKelompok(
-		addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody
-	) : AddKelompokPunyaKelompokRemoteResponse
+		apiToken: String,
+		addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody,
+	): AddKelompokPunyaKelompokRemoteResponse
 }
 
 class KelompokSayaRemoteDataSourceImpl @Inject constructor(
-	private val apiService: ApiService
+	private val apiService: ApiService,
 ) : KelompokSayaRemoteDataSource {
 
-	override suspend fun getKelompokSaya(kelompokSayaRemoteRequestBody: KelompokSayaRemoteRequestBody): KelompokSayaRemoteResponse {
-		return apiService.getKelompokSaya(kelompokSayaRemoteRequestBody)
+	override suspend fun getKelompokSaya(
+		apiToken: String,
+	): KelompokSayaRemoteResponse {
+		return apiService.getKelompokSaya(apiToken)
 	}
 
-	override suspend fun addKelompokIndividu(addKelompokIndividuRemoteRequestBody: AddKelompokIndividuRemoteRequestBody): AddKelompokIndividuRemoteResponse {
-		return apiService.addKelompokIndividu(addKelompokIndividuRemoteRequestBody)
+	override suspend fun addKelompokIndividu(
+		apiToken: String,
+		addKelompokIndividuRemoteRequestBody: AddKelompokIndividuRemoteRequestBody,
+	): AddKelompokIndividuRemoteResponse {
+		return apiService.addKelompokIndividu(apiToken, addKelompokIndividuRemoteRequestBody)
 	}
 
-	override suspend fun addKelompokPunyaKelompok(addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody): AddKelompokPunyaKelompokRemoteResponse {
-		return apiService.addKelompokPunyaKelompok(addKelompokPunyaKelompokRemoteRequestBody)
+	override suspend fun addKelompokPunyaKelompok(
+		apiToken: String,
+		addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody,
+	): AddKelompokPunyaKelompokRemoteResponse {
+		return apiService.addKelompokPunyaKelompok(
+			apiToken,
+			addKelompokPunyaKelompokRemoteRequestBody
+		)
 	}
 }

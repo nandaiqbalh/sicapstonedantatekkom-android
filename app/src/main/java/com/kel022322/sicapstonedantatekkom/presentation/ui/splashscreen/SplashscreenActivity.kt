@@ -10,7 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.kel022322.sicapstonedantatekkom.databinding.ActivitySplashscreenBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.login.LoginActivity
-import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.MainActivity
+import com.kel022322.sicapstonedantatekkom.presentation.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")

@@ -29,11 +29,10 @@ import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.FileIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.request.ViewPdfRemoteRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDokumenTugasAkhirBinding
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.DokumenViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.KelompokIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
@@ -54,8 +53,8 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 	private val customSnackbar = CustomSnackbar()
 
 	private val dokumenViewModel: DokumenViewModel by viewModels()
-	private val profileViewModel: ProfileIndexViewModel by viewModels()
-	private val kelompokViewModel: KelompokSayaViewModel by viewModels()
+	private val userViewModel: UserViewModel by viewModels()
+	private val kelompokViewModel: KelompokIndexViewModel by viewModels()
 
 	private var id: String? = ""
 
@@ -86,15 +85,12 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 	private fun checkKelompok() {
 		setLoading(true)
 
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+		userViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
 			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+				userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 					apiToken?.let {
 						kelompokViewModel.getKelompokSaya(
-							KelompokSayaRemoteRequestBody(
-								userId,
-								apiToken
-							)
+							apiToken
 						)
 
 					}
@@ -158,9 +154,9 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 	}
 
 	private fun checkDokumen() {
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+		userViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
 			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+				userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 					apiToken?.let {
 						dokumenViewModel.getFileIndex(FileIndexRemoteRequestBody(userId, apiToken))
 
@@ -725,10 +721,10 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 				customSnackbar.dismissSnackbar()
 				if (message == "Berhasil keluar!" || message == "Gagal! Anda telah masuk melalui perangkat lain." || message == "Pengguna tidak ditemukan!" || message == "Akses tidak sah!" || message == "Sesi anda telah berakhir, silahkan masuk terlebih dahulu.") {
 
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setUsername("")
-					profileViewModel.setStatusAuth(false)
+					userViewModel.setApiToken("")
+					userViewModel.setUserId("")
+					userViewModel.setUsername("")
+					userViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
 					requireContext().startActivity(intent)
@@ -740,10 +736,10 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 					restartFragment()
 				} else if (message == "Password berhasil diubah, silahkan masuk kembali.") {
 
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setUsername("")
-					profileViewModel.setStatusAuth(false)
+					userViewModel.setApiToken("")
+					userViewModel.setUserId("")
+					userViewModel.setUsername("")
+					userViewModel.setStatusAuth(false)
 
 					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
 					requireContext().startActivity(intent)
