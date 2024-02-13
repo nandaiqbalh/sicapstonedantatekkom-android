@@ -48,6 +48,7 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 
 		setActionListener()
 	}
+
 	// set button action listener
 	private fun setActionListener() {
 
@@ -63,74 +64,62 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 
 		}
 	}
+
 	private fun setCardKelompok(getKelompokSayaResult: Resource<KelompokSayaRemoteResponse>) {
 
 		val data = getKelompokSayaResult.payload?.data
 
-		if (data?.kelompok?.idKelompok != null) {
+		//  kelompok sudah valid
+		with(binding) {
+			val dataKelompok = data?.kelompok
+			// card kelompok
+			tvValueStatusKelompokDetail.text = dataKelompok?.statusKelompok
+			tvValueNomorKelompokDetail.text = dataKelompok?.nomorKelompok.toString()
+			tvValueTopikDetail.text = dataKelompok?.namaTopik
+			tvValueJudulDetail.text = dataKelompok?.judulCapstone
 
-			//  kelompok sudah valid
-			with(binding) {
+			// card anggota kelompok
+			val dataAnggotaKelompok = data?.rsMahasiswa
+			// card dosbing
+			val akunAnggotaKelompokAdapter = AkunAnggotaKelompokAdapter()
 
-				val dataKelompok = data.kelompok
-				// card kelompok
-				tvValueStatusKelompokDetail.text = dataKelompok.statusKelompok
-				tvValueNomorKelompokDetail.text = dataKelompok.nomorKelompok.toString()
-				tvValueTopikDetail.text = dataKelompok.namaTopik
-				tvValueJudulDetail.text = dataKelompok.judulCapstone
+			akunAnggotaKelompokAdapter.setList(dataAnggotaKelompok)
 
-				// card anggota kelompok
-				val dataAnggotaKelompok = data.rsMahasiswa
-				// card dosbing
-				val akunAnggotaKelompokAdapter = AkunAnggotaKelompokAdapter()
+			rvAkunAnggotaKelompokKelompokDetail.layoutManager = LinearLayoutManager(
+				requireContext(),
+				LinearLayoutManager.VERTICAL,
+				false
+			)
+			rvAkunAnggotaKelompokKelompokDetail.adapter = akunAnggotaKelompokAdapter
 
-				akunAnggotaKelompokAdapter.setList(dataAnggotaKelompok)
+			// navigate to detail if necessary
+			akunAnggotaKelompokAdapter.setOnItemClickCallback(object :
+				AkunAnggotaKelompokAdapter.OnItemClickCallBack {
+				override fun onItemClicked(mahasiswaId: String) {
+				}
+			})
 
-				binding.rvAkunAnggotaKelompokKelompokDetail.layoutManager = LinearLayoutManager(
-					requireContext(),
-					LinearLayoutManager.VERTICAL,
-					false
-				)
-				rvAkunAnggotaKelompokKelompokDetail.adapter = akunAnggotaKelompokAdapter
+			val dataDosbing = data?.rsDosbing
+			// card dosbing
+			val akunDosbingAdapter = AkunDosbingAdapter()
 
-				// navigate to detail if necessary
-				akunAnggotaKelompokAdapter.setOnItemClickCallback(object :
-					AkunAnggotaKelompokAdapter.OnItemClickCallBack {
-					override fun onItemClicked(mahasiswaId: String) {
-					}
-				})
+			akunDosbingAdapter.setList(dataDosbing)
 
-				val dataDosbing = data.rsDosbing
-				// card dosbing
-				val akunDosbingAdapter = AkunDosbingAdapter()
+			rvAkunDosbingKelompokDetail.layoutManager = LinearLayoutManager(
+				requireContext(),
+				LinearLayoutManager.VERTICAL,
+				false
+			)
+			rvAkunDosbingKelompokDetail.adapter = akunDosbingAdapter
 
-				akunDosbingAdapter.setList(dataDosbing)
-
-				binding.rvAkunDosbingKelompokDetail.layoutManager = LinearLayoutManager(
-					requireContext(),
-					LinearLayoutManager.VERTICAL,
-					false
-				)
-				rvAkunDosbingKelompokDetail.adapter = akunDosbingAdapter
-
-				// navigate to detail if necessary
-				akunDosbingAdapter.setOnItemClickCallback(object :
-					AkunDosbingAdapter.OnItemClickCallBack {
-					override fun onItemClicked(dosbingId: String) {
-					}
-				})
-			}
-
-		} else {
-			//  kelompok belum valid
-			with(binding) {
-				// card kelompok
-				"Belum valid!".also { tvValueStatusKelompokDetail.text = it }
-
-				tvErrorKelompokDosbingEmptyDetail.visibility = View.VISIBLE
-			}
-
+			// navigate to detail if necessary
+			akunDosbingAdapter.setOnItemClickCallback(object :
+				AkunDosbingAdapter.OnItemClickCallBack {
+				override fun onItemClicked(dosbingId: String) {
+				}
+			})
 		}
+
 
 	}
 
@@ -190,7 +179,16 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 							setViewVisibility(shimmerFragmentKelompokDetail, false)
 						}
 					} else {
-						Log.d("Succes status, but failed", status.toString())
+						Log.d("Succes, but failed", status.toString())
+
+						with(binding){
+							setViewVisibility(cvValueKelompokDetail, false)
+							setViewVisibility(cvValueDosbingDetail, false)
+							setViewVisibility(cvValueAnggotaKelompokDetail, false)
+							setViewVisibility(cvErrorKelompokDetail, true)
+
+							setViewVisibility(shimmerFragmentKelompokDetail, false)
+						}
 
 						if (status == "Token is Expired" || status == "Token is Invalid") {
 							showSnackbar("Sesi anda telah berakhir :(", false)
@@ -202,6 +200,7 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 						}
 					}
 				}
+
 				else -> {}
 			}
 		}

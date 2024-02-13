@@ -5,5 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class DosenRemoteResponse(
     @SerializedName("data") val data: DataDosen?,
     @SerializedName("message") val message: String?,
-    @SerializedName("status") val status: Boolean?,
+    @SerializedName("status") val status: String?,
+    @SerializedName("success") val success: Boolean?,
 )

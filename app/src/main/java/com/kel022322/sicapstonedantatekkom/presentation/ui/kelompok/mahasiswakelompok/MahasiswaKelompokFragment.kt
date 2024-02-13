@@ -172,7 +172,7 @@ class MahasiswaKelompokFragment : Fragment() {
 		setLoading(true)
 
 		// set username
-		kelompokViewModel.getUsername().observe(viewLifecycleOwner) { username ->
+		userViewModel.getUsername().observe(viewLifecycleOwner) { username ->
 			setLoading(false)
 
 			if (username != null && username != "") {
@@ -181,7 +181,7 @@ class MahasiswaKelompokFragment : Fragment() {
 		}
 
 		// set photo profile
-		kelompokViewModel.getPhotoProfile().observe(viewLifecycleOwner) { photoProfile ->
+		userViewModel.getPhotoProfile().observe(viewLifecycleOwner) { photoProfile ->
 			setLoading(false)
 
 			if (photoProfile != null && photoProfile != "") {
@@ -285,21 +285,6 @@ class MahasiswaKelompokFragment : Fragment() {
 		}
 	}
 
-
-	private fun showSnackbar(message: String, isRestart: Boolean) {
-		val currentFragment = this@MahasiswaKelompokFragment
-
-		if (currentFragment.isVisible) {
-			customSnackbar.showSnackbarWithAction(
-				requireActivity().findViewById(android.R.id.content), message, "OK"
-			) {
-				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
-			}
-		}
-	}
 	private fun restartFragment() {
 		val currentFragment = this@MahasiswaKelompokFragment
 
@@ -317,19 +302,34 @@ class MahasiswaKelompokFragment : Fragment() {
 		}
 	}
 
+	private fun showSnackbar(message: String, isRestart: Boolean) {
+		val currentFragment = this@MahasiswaKelompokFragment
 
+		if (currentFragment.isVisible) {
+			customSnackbar.showSnackbarWithAction(
+				requireActivity().findViewById(android.R.id.content), message, "OK"
+			) {
+				customSnackbar.dismissSnackbar()
+				if (isRestart) {
+					restartFragment()
+				}
+			}
+		}
+	}
 	private fun actionIfLogoutSucces() {
 		// set auth data store
-		kelompokViewModel.setApiToken("")
-		kelompokViewModel.setUserId("")
-		kelompokViewModel.setUsername("")
-		kelompokViewModel.setStatusAuth(false)
+		userViewModel.setApiToken("")
+		userViewModel.setUserId("")
+		userViewModel.setUsername("")
+		userViewModel.setStatusAuth(false)
 
 		val intent = Intent(requireContext(), SplashscreenActivity::class.java)
 		requireContext().startActivity(intent)
 		requireActivity().finishAffinity()
 	}
-
+	private fun setViewVisibility(view: View, isVisible: Boolean) {
+		view.visibility = if (isVisible) View.VISIBLE else View.GONE
+	}
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerBerandaNamauser, isLoading)
@@ -355,10 +355,6 @@ class MahasiswaKelompokFragment : Fragment() {
 		(shimmerView as? ShimmerFrameLayout)?.run {
 			if (isLoading) startShimmer() else stopShimmer()
 		}
-	}
-
-	private fun setViewVisibility(view: View, isVisible: Boolean) {
-		view.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
 
 	override fun onDestroyView() {

@@ -12,7 +12,6 @@ data class AddKelompokIndividuRemoteRequestBody(
 	@SerializedName("ipk") val ipk: String?,
 	@SerializedName("sks") val sks: String?,
 	@SerializedName("no_telp") val noTelp: String?,
-	@SerializedName("alamat") val alamat: String?,
 	@SerializedName("judul_capstone") val judulCapstone: String?,
 	@SerializedName("s") val s: String?,
 	@SerializedName("e") val e: String?,

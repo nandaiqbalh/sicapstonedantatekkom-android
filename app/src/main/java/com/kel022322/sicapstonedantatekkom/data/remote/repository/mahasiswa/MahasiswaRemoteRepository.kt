@@ -1,7 +1,6 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.repository.mahasiswa
 
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.mahasiswa.MahasiswaRemoteDataSource
-import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.request.MahasiswaIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.response.MahasiswaIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import javax.inject.Inject
@@ -9,25 +8,27 @@ import javax.inject.Inject
 interface MahasiswaRemoteRepository {
 
 	suspend fun getDataMahasiswa(
-		mahasiswaIndexRemoteRequestBody: MahasiswaIndexRemoteRequestBody
-	) : Resource<MahasiswaIndexRemoteResponse>
+		apiToken: String,
+	): Resource<MahasiswaIndexRemoteResponse>
 
 }
 
 class MahasiswaRemoteRepositoryImpl @Inject constructor(
-	private val dataSource: MahasiswaRemoteDataSource
+	private val dataSource: MahasiswaRemoteDataSource,
 ) : MahasiswaRemoteRepository {
 
-	override suspend fun getDataMahasiswa(mahasiswaIndexRemoteRequestBody: MahasiswaIndexRemoteRequestBody): Resource<MahasiswaIndexRemoteResponse> {
+	override suspend fun getDataMahasiswa(
+		apiToken: String,
+	): Resource<MahasiswaIndexRemoteResponse> {
 		return proceed {
-			dataSource.getDataMahasiswa(mahasiswaIndexRemoteRequestBody)
+			dataSource.getDataMahasiswa(apiToken)
 		}
 	}
 
-	private suspend fun <T> proceed(coroutines: suspend () -> T ): Resource<T> {
+	private suspend fun <T> proceed(coroutines: suspend () -> T): Resource<T> {
 		return try {
 			Resource.Success(coroutines.invoke())
-		} catch (e:Exception){
+		} catch (e: Exception) {
 			Resource.Error(e)
 		}
 	}

@@ -21,7 +21,7 @@ class SiklusViewModel @Inject constructor(
 	private var _getSiklusResult = MutableLiveData<Resource<SiklusRemoteResponse>>()
 	val getSiklusResult: LiveData<Resource<SiklusRemoteResponse>> get() = _getSiklusResult
 
-	fun getTopik(apiToken: String) {
+	fun getSiklus(apiToken: String) {
 
 		viewModelScope.launch(Dispatchers.IO) {
 			_getSiklusResult.postValue(Resource.Loading())

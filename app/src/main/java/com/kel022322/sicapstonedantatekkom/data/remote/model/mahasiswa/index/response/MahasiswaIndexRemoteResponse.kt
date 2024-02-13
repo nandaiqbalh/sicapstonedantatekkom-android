@@ -5,5 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class MahasiswaIndexRemoteResponse(
     @SerializedName("data") val data: DataMahasiswa?,
     @SerializedName("message") val message: String?,
-    @SerializedName("status") val status: Boolean?,
+    @SerializedName("status") val status: String?,
+    @SerializedName("success") val success: Boolean?,
 )

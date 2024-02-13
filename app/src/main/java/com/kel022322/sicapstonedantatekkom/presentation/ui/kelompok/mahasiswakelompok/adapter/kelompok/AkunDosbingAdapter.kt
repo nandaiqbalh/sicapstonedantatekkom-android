@@ -23,7 +23,7 @@ class AkunDosbingAdapter : RecyclerView.Adapter<AkunDosbingAdapter.AkunViewHolde
 
 	private val diffCallback = object : DiffUtil.ItemCallback<RsDosbing>() {
 		override fun areItemsTheSame(oldItem: RsDosbing, newItem: RsDosbing): Boolean {
-			return oldItem.id == newItem.id
+			return oldItem.userId == newItem.userId
 		}
 
 		override fun areContentsTheSame(oldItem: RsDosbing, newItem: RsDosbing): Boolean {
@@ -54,7 +54,7 @@ class AkunDosbingAdapter : RecyclerView.Adapter<AkunDosbingAdapter.AkunViewHolde
 			}
 
 			binding.root.setOnClickListener {
-				onItemClickCallBack.onItemClicked(dosbing.id.toString())
+				onItemClickCallBack.onItemClicked(dosbing.userId.toString())
 			}
 		}
 
