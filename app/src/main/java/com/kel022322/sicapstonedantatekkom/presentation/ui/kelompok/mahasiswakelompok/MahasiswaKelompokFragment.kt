@@ -151,12 +151,13 @@ class MahasiswaKelompokFragment : Fragment() {
 					} else {
 						Log.d("Succes status, but failed", status.toString())
 
-						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+
+						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(", true)
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Terjadi kesalahan!", true)
 
 						}
 					}

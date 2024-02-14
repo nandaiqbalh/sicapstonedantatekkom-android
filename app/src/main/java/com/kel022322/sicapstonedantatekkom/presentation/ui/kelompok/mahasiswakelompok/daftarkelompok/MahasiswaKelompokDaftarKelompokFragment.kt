@@ -257,7 +257,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 						Log.d("Succes status, but failed", status.toString())
 
-						if (status == "Token is Expired" || status == "Token is Invalid") {
+						if (status == "Authorization Token not found" ||  status == "Token is Expired" || status == "Token is Invalid") {
 							showSnackbar("Sesi anda telah berakhir :(", false)
 
 							actionIfLogoutSucces()
@@ -608,7 +608,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 	private fun setDropdownMahasiswa(getMahasiswaResult: Resource<MahasiswaIndexRemoteResponse>) {
 
-		// mahasiswa
+		// mahasiswa 2
 		val mahasiswa2Adapter =
 			getMahasiswaResult.payload?.data?.rs_mahasiswa?.let {
 				ListMahasiswaDuaAdapter(

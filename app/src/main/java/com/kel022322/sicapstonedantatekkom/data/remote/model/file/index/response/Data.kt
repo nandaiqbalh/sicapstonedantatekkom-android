@@ -2,6 +2,7 @@ package com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.respons
 
 import com.google.gson.annotations.SerializedName
 
-data class DataFileIndex(
-   @SerializedName("file_mhs") val fileMhs: FileMhs?
+data class Data(
+    @SerializedName("file_mhs")
+    val fileMhs: FileMhs?
 )

@@ -3,12 +3,15 @@ package com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.respons
 import com.google.gson.annotations.SerializedName
 
 data class FileIndexRemoteResponse(
-	@SerializedName("data")
-	val data: DataFileIndex?,
+    @SerializedName("message")
+    val message: String?,
 
-	@SerializedName("message")
-	val message: String?,
+    @SerializedName("status")
+    val status: String?,
 
-	@SerializedName("status")
-	val status: Boolean?
+    @SerializedName("success")
+    val success: Boolean?,
+
+    @SerializedName("data")
+    val data: Data?
 )

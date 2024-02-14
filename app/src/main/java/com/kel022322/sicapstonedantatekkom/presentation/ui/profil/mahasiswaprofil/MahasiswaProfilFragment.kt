@@ -362,7 +362,7 @@ class MahasiswaProfilFragment : Fragment() {
 					} else {
 						Log.d("Update Succes status, but failed", status.toString())
 
-						if (status == "Token is Expired" || status == "Token is Invalid") {
+						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
 							showSnackbar("Sesi anda telah berakhir :(", true)
 
 							actionIfLogoutSucces()
