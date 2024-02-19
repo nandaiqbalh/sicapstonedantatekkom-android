@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MahasiswaBerandaViewModel @Inject constructor(
-	private val authDataStoreManager: AuthDataStoreManager,
 	private val broadcastRemoteRepository: BroadcastRemoteRepository
 ) : ViewModel(){
 

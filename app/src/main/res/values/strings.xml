@@ -157,4 +157,11 @@
     <string name="tv_title_card_mahasiswa3">Mahasiswa 3</string>
     <string name="tv_error_duplicate_values">Dosen pembimbing 1 dan 2 tidak boleh sama!</string>
     <string name="tv_error_duplicate_nim">Mahasiswa tidak boleh sama!</string>
+    <string name="tv_titile_jadwal_sidang_proposal">Jadwal Sidang Proposal</string>
+    <string name="tv_waktu">Waktu</string>
+    <string name="ruang_sidang">Ruang Sidang</string>
+    <string name="btn_unduh_jadwal">Unduh Jadwal</string>
+    <string name="tv_hari">Hari, Tanggal</string>
+    <string name="tv_title_detail_sidang_proposal">Detail Sidang Proposal</string>
+    <string name="tv_title_dospeng">Dosen Penguji</string>
 </resources>

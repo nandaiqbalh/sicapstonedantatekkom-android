@@ -117,6 +117,9 @@
         <action
             android:id="@+id/action_mahasiswaSidangProposalFragment_to_mahasiswaBerandaFragment"
             app:destination="@id/mahasiswaBerandaFragment" />
+        <action
+            android:id="@+id/action_mahasiswaSidangProposalFragment_to_mahasiswaSidangProposalDetailFragment"
+            app:destination="@id/mahasiswaSidangProposalDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/mahasiswaSidangTugasAkhirFragment"
@@ -148,12 +151,20 @@
     </fragment>
     <fragment
         android:id="@+id/mahasiswaKelompokDetailFragment"
-        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.detailkelompok.MahasiswaKelompokDetailFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.sidangproposal.detail.MahasiswaKelompokDetailFragment"
         android:label="fragment_mahasiswa_kelompok_detail"
         tools:layout="@layout/fragment_mahasiswa_kelompok_detail" >
         <action
             android:id="@+id/action_mahasiswaKelompokDetailFragment_to_mahasiswaKelompokFragment"
             app:destination="@id/mahasiswaKelompokFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mahasiswaSidangProposalDetailFragment"
+        android:name="com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.sidangproposal.detail.MahasiswaSidangProposalDetailFragment"
+        android:label="MahasiswaSidangProposalDetailFragment" >
+        <action
+            android:id="@+id/action_mahasiswaSidangProposalDetailFragment_to_mahasiswaSidangProposalFragment"
+            app:destination="@id/mahasiswaSidangProposalFragment" />
     </fragment>
 
 </navigation>

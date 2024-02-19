@@ -26,6 +26,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.requ
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.response.UpdateProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.response.UpdatePasswordRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangproposal.response.SidangProposalByKelompokResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.siklus.response.SiklusRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.topik.response.TopikRemoteResponse
 import okhttp3.MultipartBody
@@ -127,8 +128,6 @@ interface ApiService {
 		@Header("Authorization") apiToken: String,
 	) : MahasiswaIndexRemoteResponse
 
-
-
 	@GET("capstone_team/public/api/v1/mahasiswa/upload-file")
 	suspend fun getFileIndex(
 		@Header("Authorization") apiToken: String,
@@ -184,5 +183,10 @@ interface ApiService {
 		@Query("id_kelompok") idKelompok: String,
 		@Part c500: MultipartBody.Part
 	): UploadC500ProcessRemoteResponse
+
+	@GET("capstone_team/public/api/v1/mahasiswa/sidang-proposal-kelompok")
+	suspend fun getSidangProposalByKelompok(
+		@Header("Authorization") apiToken: String,
+	) : SidangProposalByKelompokResponse
 
 }

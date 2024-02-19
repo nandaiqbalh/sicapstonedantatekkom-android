@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Minimumblue"
-    android:orientation="vertical"
-    tools:context=".presentation.ui.beranda.mahasiswaberanda.action.pengumuman.detail.MahasiswaDetailPengumumanFragment">
-
+    android:orientation="vertical">
+    
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_toolbar_sidang_proposal"
+        android:id="@+id/cv_toolbar_sidang_proposal_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/White"
@@ -34,20 +33,20 @@
                 android:id="@+id/ic_back_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/ic_back"
                 android:src="@drawable/ic_back_arrow"
-                app:layout_constraintTop_toTopOf="@id/iv_circle_back_arrow"
-                app:layout_constraintStart_toStartOf="@id/iv_circle_back_arrow"
-                app:layout_constraintEnd_toEndOf="@id/iv_circle_back_arrow"
                 app:layout_constraintBottom_toBottomOf="@id/iv_circle_back_arrow"
-                android:contentDescription="@string/ic_back" />
+                app:layout_constraintEnd_toEndOf="@id/iv_circle_back_arrow"
+                app:layout_constraintStart_toStartOf="@id/iv_circle_back_arrow"
+                app:layout_constraintTop_toTopOf="@id/iv_circle_back_arrow" />
 
             <TextView
-                android:id="@+id/tv_toolbar_title_sidang_proposal"
+                android:id="@+id/tv_title_pengumuman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/poppinssemibold"
-                android:text="@string/tv_title_sidang_proposal"
+                android:text="@string/tv_title_detail_sidang_proposal"
                 android:textColor="@color/lightblue"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_circle_back_arrow"
@@ -61,19 +60,15 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/Minimumblue"
-        android:contentDescription="@string/scroll_pengumuman"
         android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@color/Minimumblue"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_error_sidang_proposal"
+                android:id="@+id/cv_error_sidang_proposal_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -87,7 +82,7 @@
                 app:strokeColor="@android:color/transparent">
 
                 <TextView
-                    android:id="@+id/tv_error_sidang_proposal"
+                    android:id="@+id/tv_error_sidang_proposal_detail"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
@@ -102,25 +97,25 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_fragment_sidang_proposal"
+                android:id="@+id/shimmer_fragment_sidang_proposal_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone">
+                android:visibility="visible">
 
-                <include layout="@layout/shimmer_sidang_fragment" />
+                <include layout="@layout/shimmer_kelompok_fragment" />
 
             </com.facebook.shimmer.ShimmerFrameLayout>
 
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_value_sidang_proposal"
+                android:id="@+id/cv_value_sidang_proposal_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="16dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
@@ -344,42 +339,189 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/btn_selengkapnya_sidang_proposal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:backgroundTint="@color/White"
-                        android:text="@string/btn_selengkapnya"
-                        android:textColor="@color/OrangeRed"
-                        android:textSize="12sp"
-                        app:cornerRadius="6dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/linear_layout_sidang_proposal"
-                        tools:ignore="TextContrastCheck" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <Button
-                android:id="@+id/btn_download_sidang_proposal"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_value_anggota_sidang_proposal_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="20sp"
-                android:backgroundTint="@color/RoyalBlue"
-                android:fontFamily="@font/poppinsbold"
-                android:text="@string/btn_unduh_jadwal"
-                android:textAllCaps="false"
-                android:textColor="@color/White"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
                 android:visibility="gone"
-                android:textSize="14sp"
-                app:cornerRadius="6dp"
-                tools:ignore="DuplicateSpeakableTextCheck" />
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:contentPadding="16dp"
+                app:strokeColor="@android:color/transparent">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_title_anggota_sidang_proposal_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinssemibold"
+                        android:gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_anggota_kelompok"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_error_sidang_proposal_anggota_sidang_proposal_empty_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:visibility="gone"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:background="@drawable/rounded_outline_text_view"
+                        android:fontFamily="@font/poppinsregular"
+                        android:gravity="center"
+                        android:text="@string/tv_belum_memiliki_dosen_pembimbing"
+                        android:textColor="@color/DarkGrey"
+                        android:textSize="11sp" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_akun_anggota_sidang_proposal_sidang_proposal_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:nestedScrollingEnabled="true"
+                        tools:listitem="@layout/item_list_akun" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_value_dosbing_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:contentPadding="16dp"
+                app:strokeColor="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_title_dosbing_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinssemibold"
+                        android:gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_dosbing"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_error_sidang_proposal_dosbing_empty_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:visibility="gone"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:background="@drawable/rounded_outline_text_view"
+                        android:fontFamily="@font/poppinsregular"
+                        android:gravity="center"
+                        android:text="@string/tv_belum_memiliki_dosen_pembimbing"
+                        android:textColor="@color/DarkGrey"
+                        android:textSize="11sp" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_akun_dosbing_sidang_proposal_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:nestedScrollingEnabled="true"
+                        tools:listitem="@layout/item_list_akun" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_value_dospeng_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:contentPadding="16dp"
+                app:strokeColor="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_title_dospeng_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinssemibold"
+                        android:gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_dospeng"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_error_sidang_proposal_dospeng_empty_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:visibility="gone"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:background="@drawable/rounded_outline_text_view"
+                        android:fontFamily="@font/poppinsregular"
+                        android:gravity="center"
+                        android:text="@string/tv_belum_memiliki_dosen_pembimbing"
+                        android:textColor="@color/DarkGrey"
+                        android:textSize="11sp" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_akun_dospeng_sidang_proposal_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:nestedScrollingEnabled="true"
+                        tools:listitem="@layout/item_list_akun" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
