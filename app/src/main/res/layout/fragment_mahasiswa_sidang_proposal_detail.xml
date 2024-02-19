@@ -289,9 +289,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:ellipsize="end"
                                 android:fontFamily="@font/poppinsmedium"
-                                android:maxLines="1"
                                 android:textColor="@color/BlackPearl"
                                 android:textSize="12sp"
                                 tools:text="Ruang Sekretaris Prodi" />
@@ -329,9 +327,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:ellipsize="end"
                                 android:fontFamily="@font/poppinsmedium"
-                                android:maxLines="2"
                                 android:textColor="@color/BlackPearl"
                                 android:textSize="12sp"
                                 tools:text="@string/tv_value_judul" />

@@ -144,9 +144,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 							showSnackbar("Sesi anda telah berakhir :(", true)
 
 							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", true)
-
 						}
 					}
 
@@ -196,9 +193,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 							showSnackbar("Sesi anda telah berakhir :(", true)
 
 							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", true)
-
 						}
 					}
 

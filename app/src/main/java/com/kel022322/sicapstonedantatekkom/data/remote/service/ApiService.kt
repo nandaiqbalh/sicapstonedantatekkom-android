@@ -7,6 +7,9 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.Br
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.DosenRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.expo.daftar.request.DaftarExpoRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.expo.daftar.response.DaftarExpoRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.expo.index.response.ExpoIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c100.response.UploadC100ProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c200.response.UploadC200ProcessRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.c300.response.UploadC300ProcessRemoteResponse
@@ -188,5 +191,16 @@ interface ApiService {
 	suspend fun getSidangProposalByKelompok(
 		@Header("Authorization") apiToken: String,
 	) : SidangProposalByKelompokResponse
+
+	@GET("capstone_team/public/api/v1/mahasiswa/expo")
+	suspend fun getDataExpo(
+		@Header("Authorization") apiToken: String,
+	) : ExpoIndexRemoteResponse
+
+	@POST("capstone_team/public/api/v1/mahasiswa/expo-daftar")
+	suspend fun daftarExpo(
+		@Header("Authorization") apiToken: String,
+		@Body daftarExpoRemoteRequestBody: DaftarExpoRemoteRequestBody
+	) : DaftarExpoRemoteResponse
 
 }

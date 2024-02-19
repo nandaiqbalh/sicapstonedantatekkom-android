@@ -34,15 +34,15 @@
                 android:id="@+id/ic_back_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/ic_back"
                 android:src="@drawable/ic_back_arrow"
-                app:layout_constraintTop_toTopOf="@id/iv_circle_back_arrow"
-                app:layout_constraintStart_toStartOf="@id/iv_circle_back_arrow"
-                app:layout_constraintEnd_toEndOf="@id/iv_circle_back_arrow"
                 app:layout_constraintBottom_toBottomOf="@id/iv_circle_back_arrow"
-                android:contentDescription="@string/ic_back" />
+                app:layout_constraintEnd_toEndOf="@id/iv_circle_back_arrow"
+                app:layout_constraintStart_toStartOf="@id/iv_circle_back_arrow"
+                app:layout_constraintTop_toTopOf="@id/iv_circle_back_arrow" />
 
             <TextView
-                android:id="@+id/tv_title_expo"
+                android:id="@+id/tv_toolbar_title_expo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -72,6 +72,345 @@
             android:layout_marginBottom="16dp"
             android:background="@color/Minimumblue"
             android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_error_expo_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@android:color/transparent">
+
+                <TextView
+                    android:id="@+id/tv_error_expo_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/rounded_outline_text_view"
+                    android:fontFamily="@font/poppinsregular"
+                    android:gravity="center"
+                    android:text="@string/tv_terjadi_kesalahan"
+                    android:textColor="@color/DarkGrey"
+                    android:textSize="11sp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_fragment_expo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <include layout="@layout/shimmer_kelompok_fragment" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linear_layout_expo_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title_expo_tersedia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_expo_tersedia"
+                    android:textColor="@color/lightblue"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_nim_user" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_expo_tersedia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/White"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    app:contentPadding="16dp"
+                    app:strokeColor="@android:color/transparent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_title_expo_card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/poppinssemibold"
+                            android:maxLines="1"
+                            android:text="@string/tv_detail_expo"
+                            android:textColor="@color/RoyalBlue"
+                            android:textSize="12sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/linear_layout_expo_project"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_title_expo_card">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tv_title_status_kelompok"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:text="@string/tv_title_status_kelompok"
+                                    android:textColor="@color/BlackPearl"
+                                    android:textSize="12sp"
+                                    tools:ignore="TextSizeCheck" />
+
+                                <TextView
+                                    android:id="@+id/tv_titik_dua_status_kelompok"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:text="@string/tv_titik_dua"
+                                    android:textColor="@color/BlackPearl"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_value_status_kelompok"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:textColor="@color/BlackPearl"
+                                    android:textSize="12sp"
+                                    tools:text="@string/tv_value_status_kelompok" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tv_title_siklus_expo"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:text="@string/tv_siklus_expo"
+                                    android:textColor="@color/BlackPearl"
+                                    android:textSize="12sp"
+                                    tools:ignore="TextSizeCheck" />
+
+                                <TextView
+                                    android:id="@+id/tv_titik_dua_nomor_siklus_expo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:text="@string/tv_titik_dua"
+                                    android:textColor="@color/BlackPearl"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_value_siklus_expo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:textColor="@color/BlackPearl"
+                                    android:textSize="12sp"
+                                    tools:text="2/2024" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tv_title_batas_pendaftaran"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:text="@string/tv_batas_pendaftaran"
+                                    android:textColor="@color/BlackPearl"
+                                    android:textSize="12sp"
+                                    tools:ignore="TextSizeCheck" />
+
+                                <TextView
+                                    android:id="@+id/tv_titik_dua_nomor_batas_pendaftaran"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:text="@string/tv_titik_dua"
+                                    android:textColor="@color/BlackPearl"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_value_batas_pendaftaran"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:textColor="@color/BlackPearl"
+                                    android:textSize="12sp"
+                                    tools:text="Jumat, 12 Februari 2024" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tv_title_expo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_expo_project_mahasiswa"
+                    android:textColor="@color/lightblue"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_nim_user" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_detail_expo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+
+                    <LinearLayout
+                        android:id="@+id/linear_layout_data_expo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv_title_judul_tugas_akhir"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:text="@string/tv_title_judul_tugas_akhir"
+                            android:textColor="@color/RoyalBlue"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_judul_tugas_akhir"
+                            style="@style/CustomTextInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            app:hintEnabled="false">
+
+                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
+                                android:id="@+id/edt_judul_tugas_akhir"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsregular"
+                                android:hint="@string/tv_hint_judul_tugas_akhir"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="12dp"
+                                android:textColor="@color/BlueFontFilled"
+                                android:textColorHint="@color/DarkGrey"
+                                android:textSize="12sp"
+                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/tv_link_pendukung_expo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:text="@string/tv_link_pendukung_expo"
+                            android:textColor="@color/RoyalBlue"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_link_pendukung_expo"
+                            style="@style/CustomTextInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:focusable="false"
+                            app:hintEnabled="false">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_link_pendukung_expo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsregular"
+                                android:hint="@string/tv_hint_link_pendukung_expo"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="12dp"
+                                android:textColor="@color/BlueFontFilled"
+                                android:textColorHint="@color/DarkGrey"
+                                android:textSize="12sp"
+                                tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/btn_simpan_expo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="20dp"
+                            android:backgroundTint="@color/RoyalBlue"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:text="@string/tv_daftar_expo"
+                            android:textAllCaps="false"
+                            android:textColor="@color/White"
+                            android:textSize="12sp"
+                            app:cornerRadius="6dp"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
 
         </LinearLayout>
 

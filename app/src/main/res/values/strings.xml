@@ -164,4 +164,14 @@
     <string name="tv_hari">Hari, Tanggal</string>
     <string name="tv_title_detail_sidang_proposal">Detail Sidang Proposal</string>
     <string name="tv_title_dospeng">Dosen Penguji</string>
+    <string name="tv_expo_project_mahasiswa">Expo Project Mahasiswa</string>
+    <string name="tv_daftar_expo">Daftar Expo</string>
+    <string name="tv_title_judul_tugas_akhir">Judul Tugas Akhir</string>
+    <string name="tv_hint_judul_tugas_akhir">Masukkan judul tugas akhir</string>
+    <string name="tv_link_pendukung_expo">Link Berkas Pendukung</string>
+    <string name="tv_hint_link_pendukung_expo">Masukkan link berkas pendukung</string>
+    <string name="tv_expo_tersedia">Expo Tersedia</string>
+    <string name="tv_detail_expo">Detail Expo Project</string>
+    <string name="tv_batas_pendaftaran">Batas Pendaftaran</string>
+    <string name="tv_siklus_expo">Siklus</string>
 </resources>

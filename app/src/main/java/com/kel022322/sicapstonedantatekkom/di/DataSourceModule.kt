@@ -8,6 +8,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast.Broa
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast.BroadcastRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.dosen.DosenRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.dosen.DosenRemoteDataSourceImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.expo.ExpoRemoteDataSource
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.expo.ExpoRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.file.FileRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.file.FileRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.kelompok.KelompokSayaRemoteDataSource
@@ -66,5 +68,8 @@ abstract class DataSourceModule {
 
 	@Binds
 	abstract fun provideSidangProposalRemoteDataSource(sidangProposalDataSourceImpl: SidangProposalRemoteDataSourceImpl): SidangProposalRemoteDataSource
+
+	@Binds
+	abstract fun provideExpoRemoteDataSource(expoRemoteDataSourceImpl: ExpoRemoteDataSourceImpl): ExpoRemoteDataSource
 
 }
