@@ -70,6 +70,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/White"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 
@@ -135,11 +136,11 @@
                         android:id="@+id/edt_siklus_individu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
                         android:fontFamily="@font/poppinsregular"
                         android:hint="@string/tv_hint_siklus"
-                        android:paddingHorizontal="8dp"
                         android:maxLines="1"
-                        android:ellipsize="end"
+                        android:paddingHorizontal="8dp"
                         android:paddingVertical="12dp"
                         android:textColor="@color/BlueFontFilled"
                         android:textColorHint="@color/DarkGrey"
@@ -171,6 +172,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/White"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 
@@ -305,11 +307,11 @@
                         android:id="@+id/edt_jenis_kelamin_individu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
                         android:fontFamily="@font/poppinsregular"
                         android:hint="@string/tv_hint_jenis_kelamin"
-                        android:paddingHorizontal="8dp"
                         android:maxLines="1"
-                        android:ellipsize="end"
+                        android:paddingHorizontal="8dp"
                         android:paddingVertical="12dp"
                         android:textColor="@color/BlueFontFilled"
                         android:textColorHint="@color/DarkGrey"
@@ -480,6 +482,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/White"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 
@@ -602,6 +605,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/White"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 
@@ -707,8 +711,8 @@
             android:id="@+id/btn_simpan_daftar_individu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="20sp"
             android:backgroundTint="@color/RoyalBlue"
             android:fontFamily="@font/poppinsbold"

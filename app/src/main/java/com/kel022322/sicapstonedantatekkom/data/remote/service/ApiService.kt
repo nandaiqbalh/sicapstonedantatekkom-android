@@ -30,6 +30,9 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.resp
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.response.UpdatePasswordRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangproposal.response.SidangProposalByKelompokResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.request.DaftarSidangTARemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.response.DaftarSidangTARemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.index.response.SidangTARemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.siklus.response.SiklusRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.topik.response.TopikRemoteResponse
 import okhttp3.MultipartBody
@@ -202,5 +205,16 @@ interface ApiService {
 		@Header("Authorization") apiToken: String,
 		@Body daftarExpoRemoteRequestBody: DaftarExpoRemoteRequestBody
 	) : DaftarExpoRemoteResponse
+
+	@GET("capstone_team/public/api/v1/mahasiswa/sidang-tugas-akhir-mahasiswa")
+	suspend fun getJadwalSidangTA(
+		@Header("Authorization") apiToken: String,
+	) : SidangTARemoteResponse
+
+	@POST("capstone_team/public/api/v1/mahasiswa/sidang-tugas-akhir-daftar")
+	suspend fun daftarSidangTA(
+		@Header("Authorization") apiToken: String,
+		@Body daftarSidangTARemoteRequestBody: DaftarSidangTARemoteRequestBody
+	) : DaftarSidangTARemoteResponse
 
 }

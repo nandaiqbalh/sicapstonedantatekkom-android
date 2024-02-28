@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Minimumblue"
-    android:orientation="vertical"
-    tools:context=".presentation.ui.beranda.mahasiswaberanda.action.pengumuman.detail.MahasiswaDetailPengumumanFragment">
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_toolbar_tugas_akhir"
+        android:id="@+id/cv_toolbar_sidang_ta_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/White"
@@ -42,13 +41,15 @@
                 app:layout_constraintTop_toTopOf="@id/iv_circle_back_arrow" />
 
             <TextView
-                android:id="@+id/tv_title_tugas_akhir"
+                android:id="@+id/tv_title_detail_sidang_ta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/poppinssemibold"
-                android:text="@string/tv_title_tugas_akhir"
+                android:text="@string/tv_title_detail_sidang_ta"
                 android:textColor="@color/lightblue"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_circle_back_arrow"
                 app:layout_constraintStart_toEndOf="@id/iv_circle_back_arrow"
@@ -61,32 +62,29 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/Minimumblue"
-        android:contentDescription="@string/scroll_pengumuman"
         android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="@color/Minimumblue"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_error_sidang_ta_fragment"
+                android:id="@+id/cv_error_sidang_ta_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
-                android:visibility="visible"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:strokeColor="@android:color/transparent">
 
                 <TextView
-                    android:id="@+id/tv_error_sidang_ta_fragment"
+                    android:id="@+id/tv_error_sidang_ta_detail"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
@@ -101,7 +99,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_fragment_sidang_ta"
+                android:id="@+id/shimmer_fragment_sidang_ta_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="visible">
@@ -110,25 +108,15 @@
 
             </com.facebook.shimmer.ShimmerFrameLayout>
 
-            <TextView
-                android:id="@+id/tv_title_sidang_ta_tersedia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/poppinsmedium"
-                android:text="@string/tv_sidang_ta_tersedia"
-                android:textColor="@color/lightblue"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_nim_user" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_value_sidang_ta"
+                android:id="@+id/cv_value_sidang_ta_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
                 android:visibility="gone"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
@@ -147,7 +135,7 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/poppinssemibold"
                         android:maxLines="1"
-                        android:text="@string/tv_sidang_ta_tersedia"
+                        android:text="@string/tv_title_jadwal_sidang_ta"
                         android:textColor="@color/RoyalBlue"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -170,7 +158,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tv_title_status_individu"
+                                android:id="@+id/tv_title_status_kelompok"
                                 android:layout_width="120dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
@@ -180,7 +168,7 @@
                                 tools:ignore="TextSizeCheck" />
 
                             <TextView
-                                android:id="@+id/tv_titik_dua_status_individu"
+                                android:id="@+id/tv_titik_dua_status_kelompok"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
@@ -189,7 +177,7 @@
                                 android:textSize="12sp" />
 
                             <TextView
-                                android:id="@+id/tv_value_status_individu"
+                                android:id="@+id/tv_value_status_kelompok"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -303,9 +291,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:ellipsize="end"
                                 android:fontFamily="@font/poppinsmedium"
-                                android:maxLines="1"
                                 android:textColor="@color/BlackPearl"
                                 android:textSize="12sp"
                                 tools:text="Ruang Sekretaris Prodi" />
@@ -343,9 +329,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:ellipsize="end"
                                 android:fontFamily="@font/poppinsmedium"
-                                android:maxLines="2"
                                 android:textColor="@color/BlackPearl"
                                 android:textSize="12sp"
                                 tools:text="@string/tv_value_judul" />
@@ -353,293 +337,189 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/btn_selengkapnya_sidang_ta"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:backgroundTint="@color/White"
-                        android:text="@string/btn_selengkapnya"
-                        android:textColor="@color/OrangeRed"
-                        android:textSize="12sp"
-                        app:cornerRadius="6dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/linear_layout_sidang_ta"
-                        tools:ignore="TextContrastCheck" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_sidang_ta_tersedia"
+                android:id="@+id/cv_value_anggota_sidang_ta_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="20dp"
-                android:visibility="visible"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:contentPadding="16dp"
                 app:strokeColor="@android:color/transparent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_title_sidang_ta_card"
+                        android:id="@+id/tv_title_anggota_sidang_ta_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:ellipsize="end"
                         android:fontFamily="@font/poppinssemibold"
+                        android:gravity="center_horizontal"
                         android:maxLines="1"
-                        android:text="@string/tv_detail_sidang_ta"
+                        android:text="@string/tv_title_anggota_kelompok"
                         android:textColor="@color/RoyalBlue"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="12sp" />
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tv_error_anggota_sidang_ta_empty_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:visibility="gone"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:background="@drawable/rounded_outline_text_view"
+                        android:fontFamily="@font/poppinsregular"
+                        android:gravity="center"
+                        android:text="@string/tv_belum_memiliki_dosen_pembimbing"
+                        android:textColor="@color/DarkGrey"
+                        android:textSize="11sp" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_akun_anggota_sidang_ta_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title_sidang_ta_card">
+                        android:layout_gravity="center_horizontal"
+                        android:nestedScrollingEnabled="true"
+                        tools:listitem="@layout/item_list_akun" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_title_status_pendaftaran"
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:text="@string/tv_title_status_pendaftaran"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
-                                tools:ignore="TextSizeCheck" />
-
-                            <TextView
-                                android:id="@+id/tv_titik_dua_status_pendaftaran"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:text="@string/tv_titik_dua"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:id="@+id/tv_value_status_pendaftaran"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
-                                android:text="@string/tv_value_status_pendaftaran" />
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_title_nama_periode"
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:text="@string/tv_nama_periode"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
-                                tools:ignore="TextSizeCheck" />
-
-                            <TextView
-                                android:id="@+id/tv_titik_dua_nomor_nama_periode"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:text="@string/tv_titik_dua"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:id="@+id/tv_value_nama_periode"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
-                                tools:text="Maret 2024" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_title_batas_pendaftaran"
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:text="@string/tv_batas_pendaftaran"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
-                                tools:ignore="TextSizeCheck" />
-
-                            <TextView
-                                android:id="@+id/tv_titik_dua_nomor_batas_pendaftaran"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:text="@string/tv_titik_dua"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:id="@+id/tv_value_batas_pendaftaran"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-
-                                android:fontFamily="@font/poppinsmedium"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
-                                tools:text="Jumat, 12 Februari 2024" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/tv_title_form_pendaftaran_sidang_ta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/poppinsmedium"
-                android:text="@string/tv_sidang_ta_project_mahasiswa"
-                android:textColor="@color/lightblue"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_nim_user" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_detail_form_sidang_ta"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_value_dosbing_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="20dp"
-                android:backgroundTint="@color/White"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="8dp">
-
+                app:cardElevation="8dp"
+                app:contentPadding="16dp"
+                app:strokeColor="@android:color/transparent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_title_judul_tugas_akhir"
+                        android:id="@+id/tv_title_dosbing_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:text="@string/tv_title_judul_tugas_akhir"
+                        android:layout_gravity="center_horizontal"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinssemibold"
+                        android:gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_dosbing"
                         android:textColor="@color/RoyalBlue"
                         android:textSize="12sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_judul_tugas_akhir"
-                        style="@style/CustomTextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        app:hintEnabled="false">
-
-                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
-                            android:id="@+id/edt_judul_tugas_akhir"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsregular"
-                            android:hint="@string/tv_hint_judul_tugas_akhir"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="12dp"
-                            android:textColor="@color/BlueFontFilled"
-                            android:textColorHint="@color/DarkGrey"
-                            android:textSize="12sp"
-                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
                     <TextView
-                        android:id="@+id/tv_link_pendukung_sidang_ta"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:text="@string/tv_link_pendukung_sidang_ta"
-                        android:textColor="@color/RoyalBlue"
-                        android:textSize="12sp" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_link_pendukung_sidang_ta"
-                        style="@style/CustomTextInputLayout"
+                        android:id="@+id/tv_error_sidang_ta_dosbing_empty_detail"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:focusable="false"
-                        app:hintEnabled="false">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edt_link_pendukung_sidang_ta"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsregular"
-                            android:hint="@string/tv_hint_link_pendukung_sidang_ta"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="12dp"
-                            android:textColor="@color/BlueFontFilled"
-                            android:textColorHint="@color/DarkGrey"
-                            android:textSize="12sp"
-                            tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <Button
-                        android:id="@+id/btn_simpan_sidang_ta"
-                        android:layout_width="wrap_content"
                         android:layout_height="48dp"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="20dp"
-                        android:backgroundTint="@color/RoyalBlue"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:text="@string/tv_daftar_sidang_ta"
-                        android:textAllCaps="false"
-                        android:textColor="@color/White"
-                        android:textSize="12sp"
-                        app:cornerRadius="6dp"
-                        tools:ignore="DuplicateSpeakableTextCheck" />
+                        android:visibility="gone"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:background="@drawable/rounded_outline_text_view"
+                        android:fontFamily="@font/poppinsregular"
+                        android:gravity="center"
+                        android:text="@string/tv_belum_memiliki_dosen_pembimbing"
+                        android:textColor="@color/DarkGrey"
+                        android:textSize="11sp" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_akun_dosbing_sidang_ta_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:nestedScrollingEnabled="true"
+                        tools:listitem="@layout/item_list_akun" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_value_dospeng_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:contentPadding="16dp"
+                app:strokeColor="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_title_dospeng_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinssemibold"
+                        android:gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_dospeng"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_error_sidang_ta_dospeng_empty_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:visibility="gone"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:background="@drawable/rounded_outline_text_view"
+                        android:fontFamily="@font/poppinsregular"
+                        android:gravity="center"
+                        android:text="@string/tv_belum_memiliki_dosen_pembimbing"
+                        android:textColor="@color/DarkGrey"
+                        android:textSize="11sp" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_akun_dospeng_sidang_ta_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:nestedScrollingEnabled="true"
+                        tools:listitem="@layout/item_list_akun" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 

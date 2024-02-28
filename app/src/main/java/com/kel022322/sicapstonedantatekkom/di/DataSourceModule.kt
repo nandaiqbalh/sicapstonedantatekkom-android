@@ -20,6 +20,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile.Profil
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.profile.ProfileRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.sidangproposal.SidangProposalRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.sidangproposal.SidangProposalRemoteDataSourceImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.sidangta.SidangTARemoteDataSource
+import com.kel022322.sicapstonedantatekkom.data.remote.datasource.sidangta.SidangTARemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.siklus.SiklusRemoteDataSource
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.siklus.SiklusRemoteDataSourceImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.topik.TopikRemoteDataSource
@@ -71,5 +73,8 @@ abstract class DataSourceModule {
 
 	@Binds
 	abstract fun provideExpoRemoteDataSource(expoRemoteDataSourceImpl: ExpoRemoteDataSourceImpl): ExpoRemoteDataSource
+
+	@Binds
+	abstract fun provideSidangTARemoteDataSource(sidangTARemoteDataSourceImpl: SidangTARemoteDataSourceImpl): SidangTARemoteDataSource
 
 }
