@@ -214,7 +214,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 			// c100
 			btnUnduhC100.setOnClickListener {
 
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlC100?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -235,7 +235,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 			// c200
 			btnUnduhC200.setOnClickListener {
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlC200?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -255,7 +255,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 			// c300
 			btnUnduhC300.setOnClickListener {
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlC300?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -275,7 +275,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 			// c400
 			btnUnduhC400.setOnClickListener {
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlC400?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -295,7 +295,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 			// c500
 			btnUnduhC500.setOnClickListener {
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlC500?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =

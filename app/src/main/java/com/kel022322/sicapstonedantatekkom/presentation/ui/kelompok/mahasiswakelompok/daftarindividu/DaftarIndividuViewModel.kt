@@ -1,5 +1,6 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.daftarindividu
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,6 +36,8 @@ class DaftarIndividuViewModel @Inject constructor(
 					apiToken,
 					addKelompokIndividuRemoteRequestBody
 				)
+
+				Log.d("PAYLOAD", data.payload.toString())
 
 				if (data.payload != null) {
 					viewModelScope.launch(Dispatchers.Main) {

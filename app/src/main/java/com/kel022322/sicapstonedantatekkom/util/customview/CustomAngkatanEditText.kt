@@ -41,7 +41,7 @@ class CustomAngkatanEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val angkatan = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (angkatan.isNotEmpty() && angkatan.isAllDigits() && angkatan.length in 1..4) {
+				if (angkatan.isNotEmpty() && angkatan.isAllDigits() && angkatan.length == 4 && s != null) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {

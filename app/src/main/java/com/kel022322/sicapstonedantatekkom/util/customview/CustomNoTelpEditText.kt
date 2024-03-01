@@ -41,7 +41,7 @@ class CustomNoTelpEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val phoneNumber = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (phoneNumber.isNotEmpty() && phoneNumber.length in 10..14) {
+				if (phoneNumber.isNotEmpty() && phoneNumber.length in 10..14 && s != null) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 

@@ -41,7 +41,7 @@ class CustomPeminatanEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val peminatan = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (isValidPeminatan(peminatan)) {
+				if (isValidPeminatan(peminatan) && s != null) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {

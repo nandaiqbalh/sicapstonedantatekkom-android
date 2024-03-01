@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
-import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaPengumumanBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.adapter.PengumumanAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
@@ -80,7 +79,7 @@ class MahasiswaPengumumanFragment : Fragment() {
 
 					// Log and show the message
 					val message = broadcastResult.payload?.message
-					showSnackbar(message ?: R.string.tv_terjadi_kesalahan.toString())
+					showSnackbar(message ?: "Terjadi kesalahan")
 
 					binding.shimmerCvPengumuman.visibility = View.VISIBLE
 					binding.rvPengumuman.visibility = View.GONE

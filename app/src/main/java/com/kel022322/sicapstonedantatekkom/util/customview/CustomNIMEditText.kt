@@ -41,7 +41,7 @@ class CustomNIMEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val userId = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (userId.isNotEmpty() && userId.length == 14 && userId.all { it.isDigit() }) {
+				if (userId.isNotEmpty() && userId.length == 14 && userId.all { it.isDigit() } && s != null) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 

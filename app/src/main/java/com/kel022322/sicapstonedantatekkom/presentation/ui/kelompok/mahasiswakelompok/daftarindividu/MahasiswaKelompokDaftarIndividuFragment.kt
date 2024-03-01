@@ -151,8 +151,6 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 					Log.d("Error Siklus", getSiklusResult.payload?.status.toString())
 
 					setLoading(isLoading = false, isSuccess = false)
-
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
 				}
 
 				is Resource.Success -> {
@@ -163,11 +161,23 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 						Log.d("Succes Siklus", status.toString())
 
 						setSiklusDropdown(getSiklusResult)
+						if (selectedIdSiklus == "") {
+							// Clear the text in edtSiklusIndividu when selectedIdSiklus is empty
+							binding.edtSiklusIndividu.text = null
+						}
+
+						dataObserver()
 
 					} else {
 						setLoading(isLoading = false, isSuccess = false)
 
 						Log.d("Succes Siklus, but failed", status.toString())
+
+						with(binding){
+							setViewVisibility(linearLayoutDataPendaftaran, false)
+							setViewVisibility(cvErrorDaftarIndividu, true)
+							tvErrorDaftarIndividu.text = status ?: "Belum memasuki periode pendaftaran capstone"
+						}
 
 						if (status == "Token is Expired" || status == "Token is Invalid") {
 							showSnackbar("Sesi anda telah berakhir :(", false)
@@ -185,51 +195,6 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 			}
 		}
 
-		profileIndexViewModel.getProfileResult.observe(viewLifecycleOwner) { getProfileResult ->
-
-			val resultResponse = getProfileResult.payload
-			val status = resultResponse?.status
-
-			when (getProfileResult) {
-				is Resource.Loading -> {
-					setLoading(isLoading = true, isSuccess = false)
-				}
-
-				is Resource.Error -> {
-					Log.d("Error Profile Index", getProfileResult.payload?.status.toString())
-
-					setLoading(isLoading = false, isSuccess = false)
-
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
-				}
-
-				is Resource.Success -> {
-
-					if (resultResponse?.success == true && resultResponse.data != null) {
-						setLoading(isLoading = false, isSuccess = true)
-						Log.d("Succes status", status.toString())
-
-						setInitialValue(getProfileResult)
-					} else {
-						setLoading(isLoading = false, isSuccess = false)
-
-						Log.d("Succes status, but failed", status.toString())
-
-						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
-
-							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
-
-						}
-
-					}
-				}
-
-				else -> {}
-			}
-		}
 
 		daftarIndividuViewModel.addKelompokIndividuResult.observe(viewLifecycleOwner) { addKelompokIndividuResult ->
 			val resultResponse = addKelompokIndividuResult.payload
@@ -281,6 +246,55 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 		}
 	}
 
+	private fun dataObserver(){
+		profileIndexViewModel.getProfileResult.observe(viewLifecycleOwner) { getProfileResult ->
+
+			val resultResponse = getProfileResult.payload
+			val status = resultResponse?.status
+
+			when (getProfileResult) {
+				is Resource.Loading -> {
+					setLoading(isLoading = true, isSuccess = false)
+				}
+
+				is Resource.Error -> {
+					Log.d("Error Profile Index", getProfileResult.payload?.status.toString())
+
+					setLoading(isLoading = false, isSuccess = false)
+
+					showSnackbar(status ?: "Terjadi kesalahan!", true)
+				}
+
+				is Resource.Success -> {
+
+					if (resultResponse?.success == true && resultResponse.data != null) {
+						setLoading(isLoading = false, isSuccess = true)
+						Log.d("Succes status", status.toString())
+
+						setInitialValue(getProfileResult)
+					} else {
+						setLoading(isLoading = false, isSuccess = false)
+
+						Log.d("Succes status, but failed", status.toString())
+
+						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(", false)
+
+							actionIfLogoutSucces()
+						} else {
+							showSnackbar(status ?: "Terjadi kesalahan!", false)
+
+						}
+
+					}
+				}
+
+				else -> {}
+			}
+		}
+
+	}
+
 	private fun setSiklusDropdown(getSiklusResult: Resource<SiklusRemoteResponse>) {
 		// siklus
 		val siklusAdapter =
@@ -298,8 +312,9 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 			val selectedSiklus = siklusAdapter?.getItem(position)
 			selectedIdSiklus = selectedSiklus?.id.toString()
 
-			binding.edtSiklusIndividu.setText(selectedSiklus?.tahunAjaran)
-			// Lakukan sesuatu dengan ID yang dipilih
+			if(selectedIdSiklus != ""){
+				binding.edtSiklusIndividu.setText(selectedSiklus?.tahunAjaran)
+			}
 		}
 	}
 
@@ -579,72 +594,21 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 		with(binding) {
 			setShimmerVisibility(shimmerFragmentDaftarIndividu, isLoading)
 
-			// card capstone
-			setViewVisibility(cvDetailCapstoneIndividu, false)
-			setViewVisibility(tvTitleDetailCapstoneIndividu, false)
-
-			// card mahasiswa
-			setViewVisibility(tvDetailMahasiswaIndividu, false)
-			setViewVisibility(cvDetailMahasiswaIndividu, false)
-
-			// card peminatan
-			setViewVisibility(tvTitleDetailPeminatanIndividu, false)
-			setViewVisibility(cvPeminatanIndividu, false)
-
-			// card topik
-			setViewVisibility(tvTitleDetailTopikIndividu, false)
-			setViewVisibility(cvTopikIndividu, false)
-
-			// button simpan
-			setViewVisibility(btnSimpanDaftarIndividu, false)
+			setViewVisibility(linearLayoutDataPendaftaran, false)
 
 			// card error
 			setViewVisibility(cvErrorDaftarIndividu, false)
 
 			if (!isLoading) {
 				if (isSuccess) {
-					// card capstone
-					setViewVisibility(cvDetailCapstoneIndividu, true)
-					setViewVisibility(tvTitleDetailCapstoneIndividu, true)
-
-					// card mahasiswa
-					setViewVisibility(tvDetailMahasiswaIndividu, true)
-					setViewVisibility(cvDetailMahasiswaIndividu, true)
-
-					// card peminatan
-					setViewVisibility(tvTitleDetailPeminatanIndividu, true)
-					setViewVisibility(cvPeminatanIndividu, true)
-
-					// card topik
-					setViewVisibility(tvTitleDetailTopikIndividu, true)
-					setViewVisibility(cvTopikIndividu, true)
-
-					// button simpan
-					setViewVisibility(btnSimpanDaftarIndividu, true)
+					setViewVisibility(linearLayoutDataPendaftaran, true)
 
 					// card error
 					setViewVisibility(cvErrorDaftarIndividu, false)
 
 
 				} else {
-					// card capstone
-					setViewVisibility(cvDetailCapstoneIndividu, false)
-					setViewVisibility(tvTitleDetailCapstoneIndividu, false)
-
-					// card mahasiswa
-					setViewVisibility(tvDetailMahasiswaIndividu, false)
-					setViewVisibility(cvDetailMahasiswaIndividu, false)
-
-					// card peminatan
-					setViewVisibility(tvTitleDetailPeminatanIndividu, false)
-					setViewVisibility(cvPeminatanIndividu, false)
-
-					// card topik
-					setViewVisibility(tvTitleDetailTopikIndividu, false)
-					setViewVisibility(cvTopikIndividu, false)
-
-					// button simpan
-					setViewVisibility(btnSimpanDaftarIndividu, false)
+					setViewVisibility(linearLayoutDataPendaftaran, false)
 
 					// card error
 					setViewVisibility(cvErrorDaftarIndividu, true)

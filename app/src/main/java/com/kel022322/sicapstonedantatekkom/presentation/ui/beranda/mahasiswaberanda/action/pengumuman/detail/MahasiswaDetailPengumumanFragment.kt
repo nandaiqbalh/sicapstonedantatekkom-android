@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.facebook.shimmer.ShimmerFrameLayout
-import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDetailPengumumanBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.PengumumanViewModel
@@ -98,7 +97,7 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 
 					// get the error message and show the snackbar
 					val message = broadcastDetailResult.payload?.message
-					showSnackbar(message ?: R.string.tv_terjadi_kesalahan.toString())
+					showSnackbar(message ?: "Terjadi kesalahan!")
 				}
 
 				is Resource.Success -> {

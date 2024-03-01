@@ -43,7 +43,7 @@ class CustomEmailEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val email = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (email.isNotEmpty() && !email.matches(emailPattern)) {
+				if (email.isNotEmpty() && !email.matches(emailPattern) && s == null) {
 					parentLayout?.error = "Email tidak valid!"
 					setCustomErrorTypeface(parentLayout)
 					parentLayout?.isErrorEnabled = true

@@ -216,7 +216,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 			// LaporanTa
 			btnUnduhLaporan.setOnClickListener {
 
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlLaporanTa?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -237,7 +237,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 			// Makalah
 			btnUnduhMakalahTa.setOnClickListener {
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlMakalah?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
