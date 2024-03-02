@@ -1,12 +1,17 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.sidangproposal
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -102,37 +107,20 @@ class MahasiswaSidangProposalFragment : Fragment() {
 					val message = getSidangProposalByKelompokResult.payload
 					Log.d("Result success", message.toString())
 
-					if (resultResponse?.success == true && resultResponse.data != null) {
+					if (resultResponse?.success == true) {
 
 						setCardSidangProposal(getSidangProposalByKelompokResult)
 
-						val dataKelompok = resultResponse.data.kelompok
+						// if already have kelompok
+						with(binding) {
+							setViewVisibility(cvValueSidangProposal, true)
+							setViewVisibility(linearLayoutSidangProposal, true)
+							setViewVisibility(cvErrorSidangProposal, false)
+							setViewVisibility(btnDownloadSidangProposal, true)
 
-						if (dataKelompok.nomorKelompok == null) {
-
-							// (kelompok still null) set conditionally view
-							with(binding) {
-								setViewVisibility(cvValueSidangProposal, false)
-								setViewVisibility(linearLayoutSidangProposal, true)
-								setViewVisibility(btnDownloadSidangProposal, false)
-
-								setViewVisibility(shimmerFragmentSidangProposal, false)
-
-								setViewVisibility(cvErrorSidangProposal, true)
-								this.tvErrorSidangProposal.text = "Kelompok anda belum valid!"
-
-							}
-						} else {
-							// if already have kelompok
-							with(binding) {
-								setViewVisibility(cvValueSidangProposal, true)
-								setViewVisibility(linearLayoutSidangProposal, true)
-								setViewVisibility(cvErrorSidangProposal, false)
-								setViewVisibility(btnDownloadSidangProposal, true)
-
-								setViewVisibility(shimmerFragmentSidangProposal, false)
-							}
+							setViewVisibility(shimmerFragmentSidangProposal, false)
 						}
+
 					} else {
 						Log.d("Succes status, but failed", status.toString())
 
@@ -141,18 +129,11 @@ class MahasiswaSidangProposalFragment : Fragment() {
 
 							actionIfLogoutSucces()
 						} else {
-
-							if (resultResponse?.data?.kelompok?.nomorKelompok == null){
-								showSnackbar(status ?: "Terjadi kesalahan!", true)
-								setViewVisibility(binding.cvErrorSidangProposal, true)
-								binding.tvErrorSidangProposal.text = "Kelompok anda belum valid"
-							} else {
-								showSnackbar(status ?: "Terjadi kesalahan!", true)
-								setViewVisibility(binding.cvErrorSidangProposal, true)
-								binding.tvErrorSidangProposal.text = status ?: "Terjadi kesalahan!"
-							}
-
+							showSnackbar(status ?: "Terjadi kesalahan!", true)
+							setViewVisibility(binding.cvErrorSidangProposal, true)
+							binding.tvErrorSidangProposal.text = status ?: "Terjadi kesalahan!"
 						}
+
 					}
 
 				}
@@ -272,7 +253,36 @@ class MahasiswaSidangProposalFragment : Fragment() {
 		}
 	}
 
+	private fun showCustomAlertDialog(
+		title: String,
+		message: String,
+		positiveAction: () -> Unit,
+	) {
+		val builder = AlertDialog.Builder(requireContext()).create()
+		val view = layoutInflater.inflate(R.layout.dialog_custom_alert_dialog, null)
+		builder.setView(view)
+		builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
+		val buttonYes = view.findViewById<Button>(R.id.btn_alert_yes)
+		val buttonNo = view.findViewById<Button>(R.id.btn_alert_no)
+		val alertTitle = view.findViewById<TextView>(R.id.tv_alert_title)
+		val alertMessage = view.findViewById<TextView>(R.id.tv_alert_message)
+
+		alertTitle.text = title
+		alertMessage.text = message
+
+		buttonYes.setOnClickListener {
+			positiveAction.invoke()
+			builder.dismiss()
+		}
+
+		buttonNo.setOnClickListener {
+			builder.dismiss()
+		}
+
+		builder.setCanceledOnTouchOutside(true)
+		builder.show()
+	}
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null

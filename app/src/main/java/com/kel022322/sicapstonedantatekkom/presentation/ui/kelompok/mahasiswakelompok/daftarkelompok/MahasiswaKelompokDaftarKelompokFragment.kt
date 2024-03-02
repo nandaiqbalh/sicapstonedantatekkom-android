@@ -1,12 +1,17 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.daftarkelompok
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -163,46 +168,52 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 			btnSimpanDaftarKelompok.setOnClickListener {
 				if (isFormValid()) {
-					setLoading(isLoading = true, isSuccess = true)
+					showCustomAlertDialog(
+						"Konfirmasi", "Apakah anda yakin data yang anda masukan sudah sesuai?"
+					) {
 
-					userViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-						if (userId != null) {
-							userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-								apiToken?.let {
-									daftarKelompokViewModel.addKelompokPunyaKelompok(
-										apiToken,
-										AddKelompokPunyaKelompokRemoteRequestBody(
-											idSiklus = selectedIdSiklus,
-											judulCapstone = judulCapstoneEntered,
-											idTopik = selectedIdTopik,
-											dosbingSatu = selectedIdDosbing1,
-											dosbingDua = selectedIdDosbing2,
+						setLoading(isLoading = true, isSuccess = true)
 
-											angkatanSatu = angkatanMahasiswa1Entered,
-											emailSatu = emailMahasiswa1Entered,
-											jenisKelaminSatu = jenisKelaminMahasiswa1Entered,
-											ipkSatu = ipkMahasiswa1Entered,
-											sksSatu = sksMahasiswa1Entered,
-											noTelpSatu = noTelpMahasiswa1Entered,
+						userViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
+							if (userId != null) {
+								userViewModel.getApiToken()
+									.observe(viewLifecycleOwner) { apiToken ->
+										apiToken?.let {
+											daftarKelompokViewModel.addKelompokPunyaKelompok(
+												apiToken,
+												AddKelompokPunyaKelompokRemoteRequestBody(
+													idSiklus = selectedIdSiklus,
+													judulCapstone = judulCapstoneEntered,
+													idTopik = selectedIdTopik,
+													dosbingSatu = selectedIdDosbing1,
+													dosbingDua = selectedIdDosbing2,
 
-											userIdDua = selectedIdMahasiswa2,
-											angkatanDua = angkatanMahasiswa2Entered,
-											emailDua = emailMahasiswa2Entered,
-											jenisKelaminDua = jenisKelaminMahasiswa2Entered,
-											ipkDua = ipkMahasiswa2Entered,
-											sksDua = sksMahasiswa2Entered,
-											noTelpDua = noTelpMahasiswa2Entered,
+													angkatanSatu = angkatanMahasiswa1Entered,
+													emailSatu = emailMahasiswa1Entered,
+													jenisKelaminSatu = jenisKelaminMahasiswa1Entered,
+													ipkSatu = ipkMahasiswa1Entered,
+													sksSatu = sksMahasiswa1Entered,
+													noTelpSatu = noTelpMahasiswa1Entered,
 
-											userIdTiga = selectedIdMahasiswa3,
-											angkatanTiga = angkatanMahasiswa3Entered,
-											emailTiga = emailMahasiswa3Entered,
-											jenisKelaminTiga = jenisKelaminMahasiswa3Entered,
-											ipkTiga = ipkMahasiswa3Entered,
-											sksTiga = sksMahasiswa3Entered,
-											noTelpTiga = noTelpMahasiswa3Entered,
-										)
-									)
-								}
+													userIdDua = selectedIdMahasiswa2,
+													angkatanDua = angkatanMahasiswa2Entered,
+													emailDua = emailMahasiswa2Entered,
+													jenisKelaminDua = jenisKelaminMahasiswa2Entered,
+													ipkDua = ipkMahasiswa2Entered,
+													sksDua = sksMahasiswa2Entered,
+													noTelpDua = noTelpMahasiswa2Entered,
+
+													userIdTiga = selectedIdMahasiswa3,
+													angkatanTiga = angkatanMahasiswa3Entered,
+													emailTiga = emailMahasiswa3Entered,
+													jenisKelaminTiga = jenisKelaminMahasiswa3Entered,
+													ipkTiga = ipkMahasiswa3Entered,
+													sksTiga = sksMahasiswa3Entered,
+													noTelpTiga = noTelpMahasiswa3Entered,
+												)
+											)
+										}
+									}
 							}
 						}
 					}
@@ -1131,6 +1142,37 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 	private fun setViewVisibility(view: View, isVisible: Boolean) {
 		view.visibility = if (isVisible) View.VISIBLE else View.GONE
+	}
+
+	private fun showCustomAlertDialog(
+		title: String,
+		message: String,
+		positiveAction: () -> Unit,
+	) {
+		val builder = AlertDialog.Builder(requireContext()).create()
+		val view = layoutInflater.inflate(R.layout.dialog_custom_alert_dialog, null)
+		builder.setView(view)
+		builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+		val buttonYes = view.findViewById<Button>(R.id.btn_alert_yes)
+		val buttonNo = view.findViewById<Button>(R.id.btn_alert_no)
+		val alertTitle = view.findViewById<TextView>(R.id.tv_alert_title)
+		val alertMessage = view.findViewById<TextView>(R.id.tv_alert_message)
+
+		alertTitle.text = title
+		alertMessage.text = message
+
+		buttonYes.setOnClickListener {
+			positiveAction.invoke()
+			builder.dismiss()
+		}
+
+		buttonNo.setOnClickListener {
+			builder.dismiss()
+		}
+
+		builder.setCanceledOnTouchOutside(true)
+		builder.show()
 	}
 
 	override fun onDestroyView() {

@@ -1,12 +1,17 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.sidangta
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -115,7 +120,40 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 						with(binding) {
 
-							if (resultResponse.data?.statusPendaftaran == null) {
+							setCardSidangProposal(getSidangTAResult)
+
+							setViewVisibility(tvTitleSidangTaTersedia, true)
+							setViewVisibility(cvValueSidangTa, true)
+							setViewVisibility(cvSidangTaTersedia, false)
+							setViewVisibility(tvTitleFormPendaftaranSidangTa, true)
+							setViewVisibility(cvDetailFormSidangTa, true)
+
+							setViewVisibility(cvErrorSidangTaFragment, false)
+
+							setViewVisibility(shimmerFragmentSidangTa, false)
+
+						}
+					} else {
+						Log.d("Succes status, but failed", status.toString())
+						with(binding) {
+							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+								showSnackbar("Sesi anda telah berakhir :(", true)
+
+								actionIfLogoutSucces()
+							} else if (resultResponse?.data?.rsSidang == null) {
+								setViewVisibility(binding.cvErrorSidangTaFragment, true)
+								binding.tvErrorSidangTaFragment.text =
+									status ?: "Terjadi kesalahan!"
+
+								setViewVisibility(tvTitleSidangTaTersedia, false)
+								setViewVisibility(cvValueSidangTa, false)
+								setViewVisibility(cvSidangTaTersedia, false)
+								setViewVisibility(tvTitleFormPendaftaranSidangTa, false)
+								setViewVisibility(cvDetailFormSidangTa, false)
+
+								setViewVisibility(shimmerFragmentSidangTa, false)
+
+							} else if (resultResponse.data.statusPendaftaran == null) {
 
 								setCardBelumMendaftar(getSidangTAResult)
 
@@ -129,30 +167,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 								setViewVisibility(shimmerFragmentSidangTa, false)
 							} else {
-								setCardSidangProposal(getSidangTAResult)
 
-								setViewVisibility(tvTitleSidangTaTersedia, true)
-								setViewVisibility(cvValueSidangTa, true)
-								setViewVisibility(cvSidangTaTersedia, false)
-								setViewVisibility(tvTitleFormPendaftaranSidangTa, true)
-								setViewVisibility(cvDetailFormSidangTa, true)
-
-								setViewVisibility(cvErrorSidangTaFragment, false)
-
-								setViewVisibility(shimmerFragmentSidangTa, false)
-							}
-
-						}
-					} else {
-						Log.d("Succes status, but failed", status.toString())
-
-						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
-
-							actionIfLogoutSucces()
-						} else {
-
-							with(binding) {
 								showSnackbar(status ?: "Terjadi kesalahan!", true)
 								setViewVisibility(binding.cvErrorSidangTaFragment, true)
 								binding.tvErrorSidangTaFragment.text =
@@ -179,75 +194,81 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 	}
 
 	private fun daftarSidangTA() {
-		if (isFormProfilValid()) {
-			setLoading(true)
+		if (isFormValid()) {
 
-			val judulTaEntered = binding.edtJudulTugasAkhir.text.toString().trim()
-			val linkPendukungEntered = binding.edtLinkPendukungSidangTa.text.toString().trim()
+			showCustomAlertDialog(
+				"Konfirmasi", "Apakah anda yakin data yang anda masukan sudah sesuai?"
+			) {
+				setLoading(true)
 
-			userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-				apiToken?.let {
-					sidangTugasAkhirViewModel.daftarSidangTA(
-						it, DaftarSidangTARemoteRequestBody(
-							judulTaMhs = judulTaEntered,
-							linkUpload = linkPendukungEntered
-						)
-					)
-				}
-			}
+				val judulTaEntered = binding.edtJudulTugasAkhir.text.toString().trim()
+				val linkPendukungEntered = binding.edtLinkPendukungSidangTa.text.toString().trim()
 
-			sidangTugasAkhirViewModel.daftarSidangTAResult.observe(viewLifecycleOwner) { daftarSidangTAResult ->
-				val resultResponse = daftarSidangTAResult.payload
-
-				when (daftarSidangTAResult) {
-					is Resource.Loading -> {
-						setLoading(true)
-					}
-
-					is Resource.Error -> {
-						Log.d(
-							"Daftar SidangTA Error",
-							daftarSidangTAResult.payload?.status.toString()
-						)
-
-						setLoading(false)
-
-						val status = resultResponse?.status
-						showSnackbar(status ?: "Terjadi kesalahan!", false)
-
-					}
-
-					is Resource.Success -> {
-						setLoading(false)
-
-						val status = daftarSidangTAResult.payload?.status
-
-						if (resultResponse?.success == true && resultResponse.data != null) {
-							Log.d("Daftar TA Succes status", status.toString())
-							showSnackbar(
-								resultResponse.status ?: "Berhasil mendaftar sidang tugas akhir!",
-								true
+				userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+					apiToken?.let {
+						sidangTugasAkhirViewModel.daftarSidangTA(
+							it, DaftarSidangTARemoteRequestBody(
+								judulTaMhs = judulTaEntered,
+								linkUpload = linkPendukungEntered
 							)
+						)
+					}
+				}
 
-							findNavController().navigate(R.id.action_mahasiswaSidangTugasAkhirFragment_to_mahasiswaBerandaFragment)
-						} else {
-							Log.d("Daftar TA Succes status, but failed", status.toString())
+				sidangTugasAkhirViewModel.daftarSidangTAResult.observe(viewLifecycleOwner) { daftarSidangTAResult ->
+					val resultResponse = daftarSidangTAResult.payload
 
-							if (status == "Token is Expired" || status == "Token is Invalid") {
-								showSnackbar("Sesi anda telah berakhir :(", true)
-
-								actionIfLogoutSucces()
-							} else {
-								showSnackbar(status ?: "Terjadi kesalahan!", true)
-
-							}
+					when (daftarSidangTAResult) {
+						is Resource.Loading -> {
+							setLoading(true)
 						}
 
-					}
+						is Resource.Error -> {
+							Log.d(
+								"Daftar SidangTA Error",
+								daftarSidangTAResult.payload?.status.toString()
+							)
 
-					else -> {}
+							setLoading(false)
+
+							val status = resultResponse?.status
+							showSnackbar(status ?: "Terjadi kesalahan!", false)
+
+						}
+
+						is Resource.Success -> {
+							setLoading(false)
+
+							val status = daftarSidangTAResult.payload?.status
+
+							if (resultResponse?.success == true && resultResponse.data != null) {
+								Log.d("Daftar TA Succes status", status.toString())
+								showSnackbar(
+									resultResponse.status ?: "Berhasil mendaftar sidang tugas akhir!",
+									true
+								)
+
+								findNavController().navigate(R.id.action_mahasiswaSidangTugasAkhirFragment_to_mahasiswaBerandaFragment)
+							} else {
+								Log.d("Daftar TA Succes status, but failed", status.toString())
+
+								if (status == "Token is Expired" || status == "Token is Invalid") {
+									showSnackbar("Sesi anda telah berakhir :(", true)
+
+									actionIfLogoutSucces()
+								} else {
+									showSnackbar(status ?: "Terjadi kesalahan!", true)
+
+								}
+							}
+
+						}
+
+						else -> {}
+					}
 				}
 			}
+
 		}
 
 
@@ -391,7 +412,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 		}
 	}
 
-	private fun isFormProfilValid(): Boolean {
+	private fun isFormValid(): Boolean {
 		val judulTaEntered = binding.edtJudulTugasAkhir.text.toString().trim()
 		val linkPendukungEntered = binding.edtLinkPendukungSidangTa.text.toString().trim()
 
@@ -413,6 +434,37 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 		}
 
 		return isFormValid
+	}
+
+	private fun showCustomAlertDialog(
+		title: String,
+		message: String,
+		positiveAction: () -> Unit,
+	) {
+		val builder = AlertDialog.Builder(requireContext()).create()
+		val view = layoutInflater.inflate(R.layout.dialog_custom_alert_dialog, null)
+		builder.setView(view)
+		builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+		val buttonYes = view.findViewById<Button>(R.id.btn_alert_yes)
+		val buttonNo = view.findViewById<Button>(R.id.btn_alert_no)
+		val alertTitle = view.findViewById<TextView>(R.id.tv_alert_title)
+		val alertMessage = view.findViewById<TextView>(R.id.tv_alert_message)
+
+		alertTitle.text = title
+		alertMessage.text = message
+
+		buttonYes.setOnClickListener {
+			positiveAction.invoke()
+			builder.dismiss()
+		}
+
+		buttonNo.setOnClickListener {
+			builder.dismiss()
+		}
+
+		builder.setCanceledOnTouchOutside(true)
+		builder.show()
 	}
 
 	override fun onDestroyView() {
