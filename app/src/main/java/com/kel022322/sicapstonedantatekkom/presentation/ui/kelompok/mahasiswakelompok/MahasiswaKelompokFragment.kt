@@ -142,6 +142,7 @@ class MahasiswaKelompokFragment : Fragment() {
 
 							actionIfLogoutSucces()
 						} else if (resultResponse?.data?.kelompok?.idSiklus == 0) {
+							// siklus sudah tidak aktif
 							with(binding) {
 								setViewVisibility(cvValueKelompok, false)
 								setViewVisibility(cvValueDosbing, false)

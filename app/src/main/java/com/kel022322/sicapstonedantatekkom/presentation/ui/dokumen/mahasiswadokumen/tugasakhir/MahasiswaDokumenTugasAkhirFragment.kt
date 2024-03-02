@@ -120,32 +120,34 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 					val status = getKelompokSayaResult.payload?.status
 
 					if (getKelompokSayaResult.payload?.success == true) {
-						if (dataKelompok?.kelompok != null) {
 
-							if (dataKelompok.kelompok.nomorKelompok != null) {
-								binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.GONE
+						if (dataKelompok?.kelompok?.nomorKelompok != null) {
+							binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.GONE
 
-								binding.linearLayoutDokumenTugasAkhir.visibility = View.VISIBLE
-							} else {
-								binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.VISIBLE
-								binding.tvBelumMemilikiKelompokTugasAkhir.setText(R.string.kelompok_belum_valid)
-
-								binding.linearLayoutDokumenTugasAkhir.visibility = View.GONE
-							}
-
+							binding.linearLayoutDokumenTugasAkhir.visibility = View.VISIBLE
 						} else {
 							binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.VISIBLE
-							binding.tvBelumMemilikiKelompokTugasAkhir.setText(R.string.belum_memiliki_kelompok)
+							binding.tvBelumMemilikiKelompokTugasAkhir.setText(R.string.kelompok_belum_valid)
 
 							binding.linearLayoutDokumenTugasAkhir.visibility = View.GONE
 						}
+
 					} else {
-						Log.d("Update Succes status, but failed", status.toString())
 
-						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+						with(binding){
+							Log.d("Update Succes status, but failed", status.toString())
 
-							actionIfLogoutSucces()
+							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+								showSnackbar("Sesi anda telah berakhir :(", true)
+
+								actionIfLogoutSucces()
+							} else {
+								setViewVisibility(linearLayoutDokumenTugasAkhir, false)
+								setViewVisibility(cvBelumMemilikiKelompokTugasAkhir, true)
+								tvBelumMemilikiKelompokTugasAkhir.text =
+									status ?: "Belum mendaftar capstone"
+
+							}
 						}
 					}
 
@@ -653,7 +655,9 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 		builder.setCanceledOnTouchOutside(true)
 		builder.show()
 	}
-
+	private fun setViewVisibility(view: View, isVisible: Boolean) {
+		view.visibility = if (isVisible) View.VISIBLE else View.GONE
+	}
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null

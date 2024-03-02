@@ -118,32 +118,34 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 					val status = getKelompokSayaResult.payload?.status
 
 					if (getKelompokSayaResult.payload?.success == true) {
-						if (dataKelompok?.kelompok != null) {
 
-							if (dataKelompok.kelompok.nomorKelompok != null) {
-								binding.cvBelumMemilikiKelompok.visibility = View.GONE
+						if (dataKelompok?.kelompok?.nomorKelompok != null) {
+							binding.cvBelumMemilikiKelompok.visibility = View.GONE
 
-								binding.linearLayoutDokumenCapstone.visibility = View.VISIBLE
-							} else {
-								binding.cvBelumMemilikiKelompok.visibility = View.VISIBLE
-								binding.tvBelumMemilikiKelompok.setText(R.string.kelompok_belum_valid)
-
-								binding.linearLayoutDokumenCapstone.visibility = View.GONE
-							}
-
+							binding.linearLayoutDokumenCapstone.visibility = View.VISIBLE
 						} else {
 							binding.cvBelumMemilikiKelompok.visibility = View.VISIBLE
-							binding.tvBelumMemilikiKelompok.setText(R.string.belum_memiliki_kelompok)
+							binding.tvBelumMemilikiKelompok.setText(R.string.kelompok_belum_valid)
 
 							binding.linearLayoutDokumenCapstone.visibility = View.GONE
 						}
+
+
 					} else {
-						Log.d("Update Succes status, but failed", status.toString())
+						with(binding) {
+							Log.d("Update Succes status, but failed", status.toString())
 
-						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+								showSnackbar("Sesi anda telah berakhir :(", true)
 
-							actionIfLogoutSucces()
+								actionIfLogoutSucces()
+							} else {
+								setViewVisibility(linearLayoutDokumenCapstone, false)
+								setViewVisibility(cvBelumMemilikiKelompok, true)
+								tvBelumMemilikiKelompok.text =
+									status ?: "Belum mendaftar capstone"
+
+							}
 						}
 					}
 
@@ -999,6 +1001,10 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 		builder.setCanceledOnTouchOutside(true)
 		builder.show()
+	}
+
+	private fun setViewVisibility(view: View, isVisible: Boolean) {
+		view.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
 
 	override fun onDestroyView() {
