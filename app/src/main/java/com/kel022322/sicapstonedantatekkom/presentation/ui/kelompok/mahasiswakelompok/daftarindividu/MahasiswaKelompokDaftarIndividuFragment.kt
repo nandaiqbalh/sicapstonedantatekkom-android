@@ -155,7 +155,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 
 				is Resource.Success -> {
 
-					if (resultResponse?.success == true && resultResponse.data != null) {
+					if (resultResponse?.success == true && resultResponse.data?.rs_siklus!!.isNotEmpty() && resultResponse.data.periode_pendaftaran!!.isNotEmpty()) {
 						setLoading(isLoading = false, isSuccess = true)
 
 						Log.d("Succes Siklus", status.toString())
@@ -174,18 +174,26 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 						Log.d("Succes Siklus, but failed", status.toString())
 
 						with(binding){
-							setViewVisibility(linearLayoutDataPendaftaran, false)
-							setViewVisibility(cvErrorDaftarIndividu, true)
-							tvErrorDaftarIndividu.text = status ?: "Belum memasuki periode pendaftaran capstone"
-						}
 
-						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+							if (status == "Token is Expired" || status == "Token is Invalid") {
+								showSnackbar("Sesi anda telah berakhir :(", false)
 
-							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+								actionIfLogoutSucces()
+							} else if (resultResponse?.data?.rs_siklus == null){
+								setViewVisibility(linearLayoutDataPendaftaran, false)
+								setViewVisibility(cvErrorDaftarIndividu, true)
+								tvErrorDaftarIndividu.text = status ?: "Siklus tidak aktif"
+							} else if (resultResponse.data.periode_pendaftaran == null){
+								setViewVisibility(linearLayoutDataPendaftaran, false)
+								setViewVisibility(cvErrorDaftarIndividu, true)
+								tvErrorDaftarIndividu.text = status ?: "Belum memasuki periode pendaftaran capstone"
 
+							} else {
+								setViewVisibility(linearLayoutDataPendaftaran, false)
+								setViewVisibility(cvErrorDaftarIndividu, true)
+								tvErrorDaftarIndividu.text = status ?: "Belum memasuki periode pendaftaran capstone"
+
+							}
 						}
 
 					}
@@ -302,7 +310,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 			getSiklusResult.payload?.data?.let {
 				SiklusAdapter(
 					requireContext(),
-					it.rs_siklus
+					it.periode_pendaftaran!!
 				)
 			}
 

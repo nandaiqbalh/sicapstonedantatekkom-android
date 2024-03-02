@@ -108,7 +108,7 @@ class MahasiswaSidangProposalFragment : Fragment() {
 
 						val dataKelompok = resultResponse.data.kelompok
 
-						if (dataKelompok.idKelompok == null) {
+						if (dataKelompok.nomorKelompok == null) {
 
 							// (kelompok still null) set conditionally view
 							with(binding) {
@@ -141,9 +141,17 @@ class MahasiswaSidangProposalFragment : Fragment() {
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", true)
-							setViewVisibility(binding.cvErrorSidangProposal, true)
-							binding.tvErrorSidangProposal.text = status ?: "Terjadi kesalahan!"
+
+							if (resultResponse?.data?.kelompok?.nomorKelompok == null){
+								showSnackbar(status ?: "Terjadi kesalahan!", true)
+								setViewVisibility(binding.cvErrorSidangProposal, true)
+								binding.tvErrorSidangProposal.text = "Kelompok anda belum valid"
+							} else {
+								showSnackbar(status ?: "Terjadi kesalahan!", true)
+								setViewVisibility(binding.cvErrorSidangProposal, true)
+								binding.tvErrorSidangProposal.text = status ?: "Terjadi kesalahan!"
+							}
+
 						}
 					}
 

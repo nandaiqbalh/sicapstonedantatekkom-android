@@ -70,6 +70,7 @@ class MahasiswaKelompokFragment : Fragment() {
 
 		}
 	}
+
 	private fun checkKelompok() {
 		setLoading(true)
 
@@ -99,7 +100,7 @@ class MahasiswaKelompokFragment : Fragment() {
 					Log.d("Error Kelompok Index", getKelompokSayaResult.payload?.status.toString())
 
 					// set view condition
-					with(binding){
+					with(binding) {
 						setViewVisibility(cvValueKelompok, false)
 						setViewVisibility(cvValueDosbing, false)
 						setViewVisibility(cvValueKelompok, false)
@@ -117,39 +118,21 @@ class MahasiswaKelompokFragment : Fragment() {
 					val message = getKelompokSayaResult.payload
 					Log.d("Result success", message.toString())
 
-					if (resultResponse?.success == true && resultResponse.data != null) {
+					if (resultResponse?.success == true) {
 
 						setCardKelompok(getKelompokSayaResult)
 
-						val dataKelompok = resultResponse.data
+						// if already have kelompok
+						with(binding) {
+							setViewVisibility(cvValueKelompok, true)
+							setViewVisibility(cvValueDosbing, true)
+							setViewVisibility(linearLayoutDaftarCapstone, false)
+							setViewVisibility(cvErrorKelompok, false)
 
-						// set conditional value if kelompok mahasiswa already apply for kelompok
-						if (dataKelompok.kelompok == null) {
-
-							// (kelompok still null) set conditionally view
-							with(binding){
-								setViewVisibility(cvValueKelompok, false)
-								setViewVisibility(cvValueDosbing, false)
-								setViewVisibility(linearLayoutDaftarCapstone, true)
-								setViewVisibility(cvErrorKelompok, false)
-
-								setViewVisibility(shimmerFragmentKelompok, false)
-
-							}
-
-						} else {
-							// if already have kelompok
-							with(binding){
-								setViewVisibility(cvValueKelompok, true)
-								setViewVisibility(cvValueDosbing, true)
-								setViewVisibility(linearLayoutDaftarCapstone, false)
-								setViewVisibility(cvErrorKelompok, false)
-
-								setViewVisibility(shimmerFragmentKelompok, false)
-
-							}
+							setViewVisibility(shimmerFragmentKelompok, false)
 
 						}
+
 					} else {
 						Log.d("Succes status, but failed", status.toString())
 
@@ -158,6 +141,27 @@ class MahasiswaKelompokFragment : Fragment() {
 							showSnackbar("Sesi anda telah berakhir :(", true)
 
 							actionIfLogoutSucces()
+						} else if (resultResponse?.data?.kelompok?.idSiklus == 0) {
+							with(binding) {
+								setViewVisibility(cvValueKelompok, false)
+								setViewVisibility(cvValueDosbing, false)
+								setViewVisibility(linearLayoutDaftarCapstone, false)
+								setViewVisibility(cvErrorKelompok, true)
+								tvErrorKelompok.text = status ?: "Terjadi kesalahan"
+
+								setViewVisibility(shimmerFragmentKelompok, false)
+
+							}
+						} else if (resultResponse?.data?.kelompok == null) {
+							// (kelompok still null) set conditionally view
+							with(binding) {
+								setViewVisibility(cvValueKelompok, false)
+								setViewVisibility(cvValueDosbing, false)
+								setViewVisibility(linearLayoutDaftarCapstone, true)
+								setViewVisibility(cvErrorKelompok, false)
+
+								setViewVisibility(shimmerFragmentKelompok, false)
+							}
 						} else {
 							showSnackbar(status ?: "Terjadi kesalahan!", true)
 
@@ -319,6 +323,7 @@ class MahasiswaKelompokFragment : Fragment() {
 			}
 		}
 	}
+
 	private fun actionIfLogoutSucces() {
 		// set auth data store
 		userViewModel.setApiToken("")
@@ -330,9 +335,11 @@ class MahasiswaKelompokFragment : Fragment() {
 		requireContext().startActivity(intent)
 		requireActivity().finishAffinity()
 	}
+
 	private fun setViewVisibility(view: View, isVisible: Boolean) {
 		view.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
+
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerBerandaNamauser, isLoading)

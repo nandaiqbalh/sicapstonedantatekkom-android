@@ -107,7 +107,7 @@ class MahasiswaExpoFragment : Fragment() {
 					val message = getExpoResult.payload
 					Log.d("Result success", message.toString())
 
-					if (resultResponse?.success == true && resultResponse.data != null) {
+					if (resultResponse?.success == true && resultResponse.data?.kelompok?.nomorKelompok != null) {
 
 						setCardSidangProposal(getExpoResult)
 
@@ -126,9 +126,13 @@ class MahasiswaExpoFragment : Fragment() {
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", true)
-							setViewVisibility(binding.cvErrorExpoFragment, true)
-							binding.tvErrorExpoFragment.text = status ?: "Terjadi kesalahan!"
+							if (resultResponse?.data?.kelompok?.nomorKelompok == null){
+								setViewVisibility(binding.cvErrorExpoFragment, true)
+								binding.tvErrorExpoFragment.text = "Kelompok anda belum valid"
+							} else {
+								setViewVisibility(binding.cvErrorExpoFragment, true)
+								binding.tvErrorExpoFragment.text = status ?: "Terjadi kesalahan!"
+							}
 						}
 					}
 

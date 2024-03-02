@@ -227,7 +227,8 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 		}
 
 		siklusViewModel.getSiklusResult.observe(viewLifecycleOwner) { getSiklusResult ->
-			val status = getSiklusResult.payload?.status
+			val resultResponse = getSiklusResult.payload
+			val status = resultResponse?.status
 
 			when (getSiklusResult) {
 				is Resource.Loading -> {
@@ -246,7 +247,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 					val message = getSiklusResult.payload?.message
 					Log.d("Result success", message.toString())
 
-					if (getSiklusResult.payload?.success == true && getSiklusResult.payload.data != null) {
+					if (resultResponse?.success == true && resultResponse.data?.rs_siklus!!.isNotEmpty() && resultResponse.data.periode_pendaftaran!!.isNotEmpty()) {
 						setLoading(isLoading = false, isSuccess = true)
 						setSiklusDropdown(getSiklusResult)
 
@@ -260,19 +261,31 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 						setLoading(isLoading = false, isSuccess = false)
 
 						with(binding) {
-							setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
-							setViewVisibility(cvErrorDaftarKelompok, true)
-							tvErrorDaftarKelompok.text =
-								status ?: "Belum memasuki periode pendaftaran capstone"
-						}
 
-						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+							with(binding) {
 
-							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+								if (status == "Token is Expired" || status == "Token is Invalid") {
+									showSnackbar("Sesi anda telah berakhir :(", false)
 
+									actionIfLogoutSucces()
+								} else if (resultResponse?.data?.rs_siklus == null) {
+									setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
+									setViewVisibility(cvErrorDaftarKelompok, true)
+									tvErrorDaftarKelompok.text = status ?: "Siklus tidak aktif"
+								} else if (resultResponse.data.periode_pendaftaran == null) {
+									setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
+									setViewVisibility(cvErrorDaftarKelompok, true)
+									tvErrorDaftarKelompok.text =
+										status ?: "Belum memasuki periode pendaftaran capstone"
+
+								} else {
+									setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
+									setViewVisibility(cvErrorDaftarKelompok, true)
+									tvErrorDaftarKelompok.text =
+										status ?: "Belum memasuki periode pendaftaran capstone"
+
+								}
+							}
 						}
 					}
 
@@ -682,7 +695,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 			getSiklusResult.payload?.data?.let {
 				SiklusAdapter(
 					requireContext(),
-					it.rs_siklus
+					it.periode_pendaftaran!!
 				)
 			}
 
