@@ -130,9 +130,15 @@ class MahasiswaBerandaFragment : Fragment() {
 
 					val message = resultResponse?.message
 
-					showSnackbar(message ?: "Terjadi kesalahan!", false)
+					with(binding){
+						setViewVisibility(cvErrorPengumumanTerbaru, true)
+						tvErrorPengumumanTerbaru.text = message ?: "Terjadi kesalahan"
 
-					binding.tvPengumumanTidakDitemukan.visibility = View.VISIBLE
+						setViewVisibility(cvPengumumanTerbaru, false)
+						setViewVisibility(shimmerBerandaNamauser, false)
+
+						showSnackbar(message ?: "Terjadi kesalahan!", false)
+					}
 
 					Log.d("Broadcast error", broadcastHomeResult.payload?.message.toString())
 
@@ -146,9 +152,15 @@ class MahasiswaBerandaFragment : Fragment() {
 
 					if (broadcastHomeResult.payload?.status == false) {
 						setLoading(false)
-						showSnackbar(message ?: "Terjadi kesalahan!", false)
+						with(binding){
+							setViewVisibility(cvErrorPengumumanTerbaru, true)
+							tvErrorPengumumanTerbaru.text = message ?: "Terjadi kesalahan"
 
-						binding.tvPengumumanTidakDitemukan.visibility = View.VISIBLE
+							setViewVisibility(cvPengumumanTerbaru, false)
+							setViewVisibility(shimmerBerandaNamauser, false)
+
+							showSnackbar(message ?: "Terjadi kesalahan!", false)
+						}
 
 					} else if (broadcastHomeResult.payload?.status == true && broadcastHomeResult.payload.data?.rs_broadcast?.data != null) {
 						val pengumumanAdapter = PengumumanAdapter()
@@ -254,11 +266,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 			namauser.visibility = if (isLoading) View.GONE else View.VISIBLE
 			ivHomeProfilephoto.visibility = if (isLoading) View.GONE else View.VISIBLE
-			rvPengumumanTerbaru.visibility = if (isLoading) View.GONE else View.VISIBLE
 
-		}
-		if (isLoading) {
-			binding.tvPengumumanTidakDitemukan.visibility = View.GONE
 		}
 	}
 
@@ -267,6 +275,10 @@ class MahasiswaBerandaFragment : Fragment() {
 		(shimmerView as? ShimmerFrameLayout)?.run {
 			if (isLoading) startShimmer() else stopShimmer()
 		}
+	}
+
+	private fun setViewVisibility(view: View, isVisible: Boolean) {
+		view.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
 
 	override fun onDestroyView() {

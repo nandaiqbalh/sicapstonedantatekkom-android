@@ -627,13 +627,12 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 	private fun setDropdownDosen(getDosenResult: Resource<DosenRemoteResponse>) {
 
 		// dosen
-		val dosbing1Adapter =
-			getDosenResult.payload?.data?.rs_dosen?.let {
-				ListDosenAdapter(
-					requireContext(),
-					it
-				)
-			}
+		val dosbing1Adapter = getDosenResult.payload?.data?.rs_dosen?.let {
+			ListDosenAdapter(
+				requireContext(),
+				it
+			)
+		}
 		binding.edtDosbing1Kelompok.setAdapter(dosbing1Adapter)
 
 		binding.edtDosbing1Kelompok.setOnItemClickListener { _, _, position, _ ->
@@ -642,7 +641,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 			binding.edtDosbing1Kelompok.setText(selectedDosbing1?.userName)
 		}
-
+		dosbing1Adapter?.setNotifyOnChange(true)
 		// dosen
 		val dosbing2Adapter =
 			getDosenResult.payload?.data?.rs_dosen?.let {

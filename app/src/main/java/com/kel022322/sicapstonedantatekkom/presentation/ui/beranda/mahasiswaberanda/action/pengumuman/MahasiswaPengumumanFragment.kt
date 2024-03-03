@@ -81,8 +81,14 @@ class MahasiswaPengumumanFragment : Fragment() {
 					val message = broadcastResult.payload?.message
 					showSnackbar(message ?: "Terjadi kesalahan")
 
-					binding.shimmerCvPengumuman.visibility = View.VISIBLE
-					binding.rvPengumuman.visibility = View.GONE
+					with(binding){
+						setViewVisibility(cvErrorPengumuman, true)
+						tvErrorPengumuman.text = message ?: "Terjadi kesalahan"
+
+						setViewVisibility(cvPengumuman, false)
+
+						showSnackbar(message ?: "Terjadi kesalahan!")
+					}
 
 					Log.d("Result error", broadcastResult.payload?.message.toString())
 
@@ -98,8 +104,14 @@ class MahasiswaPengumumanFragment : Fragment() {
 						setLoading(false)
 						showSnackbar(message ?: "Terjadi kesalahan!")
 
-						binding.shimmerCvPengumuman.visibility = View.VISIBLE
-						binding.rvPengumuman.visibility = View.GONE
+						with(binding){
+							setViewVisibility(cvErrorPengumuman, true)
+							tvErrorPengumuman.text = message ?: "Terjadi kesalahan"
+
+							setViewVisibility(cvPengumuman, false)
+
+							showSnackbar(message ?: "Terjadi kesalahan!")
+						}
 
 					} else if (broadcastResult.payload?.status == true && broadcastResult.payload.data?.rs_broadcast?.data != null) {
 						val pengumumanAdapter = PengumumanAdapter()
@@ -186,12 +198,6 @@ class MahasiswaPengumumanFragment : Fragment() {
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerCvPengumuman, isLoading)
-
-			rvPengumuman.visibility = if (isLoading) View.GONE else View.VISIBLE
-
-		}
-		if (isLoading) {
-			binding.tvPengumumanTidakDitemukan.visibility = View.GONE
 		}
 	}
 
@@ -200,6 +206,10 @@ class MahasiswaPengumumanFragment : Fragment() {
 		(shimmerView as? ShimmerFrameLayout)?.run {
 			if (isLoading) startShimmer() else stopShimmer()
 		}
+	}
+
+	private fun setViewVisibility(view: View, isVisible: Boolean) {
+		view.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
 
 	override fun onDestroyView() {

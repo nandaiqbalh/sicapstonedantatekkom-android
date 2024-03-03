@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDetailPengumumanBinding
-import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.PengumumanViewModel
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
@@ -31,7 +30,6 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 	private var _binding: FragmentMahasiswaDetailPengumumanBinding? = null
 	private val binding get() = _binding!!
 
-	private val pengumumanViewModel: PengumumanViewModel by viewModels()
 	private val detailPengumumanViewModel: DetailPengumumanViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
@@ -97,7 +95,16 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 
 					// get the error message and show the snackbar
 					val message = broadcastDetailResult.payload?.message
-					showSnackbar(message ?: "Terjadi kesalahan!")
+
+					with(binding){
+						setViewVisibility(cvErrorDetailPengumuman, true)
+						tvErrorDetailPengumuman.text = message ?: "Terjadi kesalahan"
+
+						setViewVisibility(linearLayoutDetailPengumuman, false)
+						setViewVisibility(shimmerDetailPengumumanFragment, false)
+
+						showSnackbar(message ?: "Terjadi kesalahan!")
+					}
 				}
 
 				is Resource.Success -> {
@@ -111,9 +118,9 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 					Log.d("Result data", broadcastDetailResult.payload?.data.toString())
 
 					// data is not null, then set the view with the data
-					if (broadcastDetailResult.payload?.data != null) {
+					if (broadcastDetailResult.payload?.status == true) {
 
-						val broadcastResult = broadcastDetailResult.payload.data.broadcast
+						val broadcastResult = broadcastDetailResult.payload.data!!.broadcast
 
 						binding.apply {
 
@@ -149,10 +156,21 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 								formatTimeDifference(broadcastResult?.createdDate.toString())
 							tvPosdatePengumumanDetail.text = formattedTimeDifference
 
+							setViewVisibility(cvErrorDetailPengumuman, false)
 						}
 					} else {
 						setLoading(true)
-						showSnackbar(message ?: "Terjadi kesalahan!")
+
+						with(binding){
+							setViewVisibility(cvErrorDetailPengumuman, true)
+							tvErrorDetailPengumuman.text = message ?: "Terjadi kesalahan"
+
+							setViewVisibility(linearLayoutDetailPengumuman, false)
+							setViewVisibility(shimmerDetailPengumumanFragment, false)
+
+							showSnackbar(message ?: "Terjadi kesalahan!")
+						}
+
 					}
 				}
 
@@ -232,9 +250,6 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDetailPengumumanFragment, isLoading)
-
-			linearLayoutDetailPengumuman.visibility = if (isLoading) View.GONE else View.VISIBLE
-
 		}
 
 	}
@@ -244,6 +259,10 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 		(shimmerView as? ShimmerFrameLayout)?.run {
 			if (isLoading) startShimmer() else stopShimmer()
 		}
+	}
+
+	private fun setViewVisibility(view: View, isVisible: Boolean) {
+		view.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
 
 	override fun onDestroyView() {
