@@ -23,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
@@ -130,7 +131,7 @@ class MahasiswaProfilFragment : Fragment() {
 						is Resource.Error -> {
 							setLoading(false)
 							Log.d("Logout error", logoutResult.payload?.status.toString())
-							showSnackbar("Gagal keluar!", false)
+							showSnackbar("Gagal keluar!")
 						}
 
 						is Resource.Success -> {
@@ -143,7 +144,7 @@ class MahasiswaProfilFragment : Fragment() {
 							if (loginResult?.success == true) {
 								Log.d("Logout success", status.toString())
 
-								showSnackbar(logoutResult.payload.status ?: "Berhasil keluar!", false)
+								showSnackbar(logoutResult.payload.status ?: "Berhasil keluar!")
 
 								actionIfLogoutSucces()
 
@@ -154,11 +155,11 @@ class MahasiswaProfilFragment : Fragment() {
 									logoutResult.payload?.status.toString()
 								)
 								if (status == "Token is Expired" || status == "Token is Invalid") {
-									showSnackbar("Sesi anda telah berakhir :(", false)
+									showSnackbar("Sesi anda telah berakhir :(")
 
 									actionIfLogoutSucces()
 								} else {
-									showSnackbar(status ?: "Terjadi kesalahan!", false)
+									showSnackbar(status ?: "Terjadi kesalahan!")
 
 								}
 							}
@@ -201,7 +202,7 @@ class MahasiswaProfilFragment : Fragment() {
 
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
+					showSnackbar(status ?: "Terjadi kesalahan!")
 				}
 
 				is Resource.Success -> {
@@ -242,11 +243,11 @@ class MahasiswaProfilFragment : Fragment() {
 						Log.d("Succes status, but failed", status.toString())
 
 						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Terjadi kesalahan!")
 
 						}
 
@@ -321,7 +322,7 @@ class MahasiswaProfilFragment : Fragment() {
 					setLoading(false)
 
 					val status = resultResponse?.status
-					showSnackbar(status ?: "Terjadi kesalahan!", false)
+					showSnackbar(status ?: "Terjadi kesalahan!")
 
 				}
 
@@ -333,41 +334,20 @@ class MahasiswaProfilFragment : Fragment() {
 					if (resultResponse?.success == true && resultResponse.data != null) {
 						Log.d("Update Succes status", status.toString())
 
-						showSnackbar(status ?: "Berhasil memperbaharui profil!", true)
+						showSnackbar(status ?: "Berhasil memperbaharui profil!")
 						// set binding
-						with(binding) {
 
-							tvNamaUser.text = resultResponse.data.userName
-							tvNimUser.text = resultResponse.data.nomorInduk
+						findNavController().navigate(R.id.action_mahasiswaProfilFragment_to_mahasiswaBerandaFragment)
 
-							// form
-							edtNamaLengkapPengguna.setTextOrHint(
-								resultResponse.data.userName, R.string.tv_hint_nama_lengkap
-							)
-							edtNimPengguna.setTextOrHint(
-								resultResponse.data.nomorInduk,
-								R.string.tv_hint_nim
-							)
-							edtEmailPengguna.setTextOrHint(
-								resultResponse.data.userEmail, R.string.tv_hint_email
-							)
-							edtNoTelpPengguna.setTextOrHint(
-								resultResponse.data.noTelp, R.string.tv_hint_no_telp
-							)
-
-							GlideApp.with(this@MahasiswaProfilFragment).asBitmap()
-								.load(resultResponse.data.userImgUrl).into(ivProfilephoto)
-
-						}
 					} else {
 						Log.d("Update Succes status, but failed", status.toString())
 
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", true)
+							showSnackbar(status ?: "Terjadi kesalahan!")
 
 						}
 					}
@@ -453,7 +433,7 @@ class MahasiswaProfilFragment : Fragment() {
 					setLoading(false)
 
 					val status = resultResponse?.status
-					showSnackbar(status ?: "Terjadi kesalahan!", false)
+					showSnackbar(status ?: "Terjadi kesalahan!")
 
 				}
 
@@ -464,17 +444,19 @@ class MahasiswaProfilFragment : Fragment() {
 
 					if (resultResponse?.success == true && resultResponse.data != null) {
 						Log.d("Password Succes status", status.toString())
-						showSnackbar(resultResponse.status ?: "Berhasil memperbaharui password!", true)
+						showSnackbar(resultResponse.status ?: "Berhasil memperbaharui password!")
+
+						findNavController().navigate(R.id.action_mahasiswaProfilFragment_to_mahasiswaBerandaFragment)
 
 					} else {
 						Log.d("Password Succes status, but failed", status.toString())
 
 						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", true)
+							showSnackbar(status ?: "Terjadi kesalahan!")
 
 						}
 					}
@@ -632,7 +614,7 @@ class MahasiswaProfilFragment : Fragment() {
 						setLoading(false)
 
 						val status = resultResponse?.status
-						showSnackbar(status ?: "Terjadi kesalahan!", false)
+						showSnackbar(status ?: "Terjadi kesalahan!")
 
 					}
 
@@ -644,29 +626,18 @@ class MahasiswaProfilFragment : Fragment() {
 						if (resultResponse?.success == true) {
 							Log.d("Photo Succes status", status.toString())
 
-							showSnackbar(status ?: "Berhasil memperbaharui foto profil!", true)
+							showSnackbar(status ?: "Berhasil memperbaharui foto profil!")
+							findNavController().navigate(R.id.action_mahasiswaProfilFragment_to_mahasiswaBerandaFragment)
 
-							restartFragment()
-
-							Log.d("PHOTO BARU", resultResponse.data.toString())
-
-
-
-							// set binding
-							with(binding) {
-								GlideApp.with(this@MahasiswaProfilFragment).asBitmap()
-									.load(resultResponse.data?.userImgUrl).into(ivProfilephoto)
-
-							}
 						} else {
 							Log.d("Photo Succes status, but failed", status.toString())
 
 							if (status == "Token is Expired" || status == "Token is Invalid") {
-								showSnackbar("Sesi anda telah berakhir :(", true)
+								showSnackbar("Sesi anda telah berakhir :(")
 
 								actionIfLogoutSucces()
 							} else {
-								showSnackbar(status ?: "Terjadi kesalahan!", true)
+								showSnackbar(status ?: "Terjadi kesalahan!")
 
 							}
 						}
@@ -677,7 +648,7 @@ class MahasiswaProfilFragment : Fragment() {
 			}
 
 		} else {
-			showSnackbar("Gagal! Ukuran foto melebihi 3MB!", false)
+			showSnackbar("Gagal! Ukuran foto melebihi 3MB!")
 		}
 	}
 
@@ -758,7 +729,7 @@ class MahasiswaProfilFragment : Fragment() {
 		builder.show()
 	}
 
-	private fun showSnackbar(message: String, isRestart: Boolean) {
+	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaProfilFragment
 
 		if (currentFragment.isVisible) {
@@ -766,29 +737,9 @@ class MahasiswaProfilFragment : Fragment() {
 				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
 			}
 		}
 	}
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaProfilFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
-	}
-
 
 	private fun isValidEmail(email: String): Boolean {
 		return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()

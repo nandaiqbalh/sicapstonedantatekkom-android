@@ -1,5 +1,6 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +19,8 @@ import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaBerandaB
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.adapter.ActionAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.adapter.PengumumanAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
@@ -32,6 +35,7 @@ class MahasiswaBerandaFragment : Fragment() {
 	private val mahasiswaBerandaViewModel: MahasiswaBerandaViewModel by viewModels()
 
 	private val userViewModel: UserViewModel by viewModels()
+	private val profileIndexViewModel: ProfileIndexViewModel by viewModels()
 
 	private lateinit var navController: NavController
 
@@ -59,7 +63,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 		setLoading(true)
 
-		setToolbar()
+		getProfile()
 
 		setPengumumanRecyclerView()
 
@@ -202,7 +206,7 @@ class MahasiswaBerandaFragment : Fragment() {
 	}
 
 	// set toolbar view
-	private fun setToolbar() {
+	private fun setToolbarWithLocalData() {
 		setLoading(true)
 
 		// set username
@@ -227,6 +231,76 @@ class MahasiswaBerandaFragment : Fragment() {
 		}
 
 	}
+
+	private fun getProfile() {
+		setLoading(true)
+
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				profileIndexViewModel.getMahasiswaProfile(apiToken)
+			}
+		}
+
+		profileIndexViewModel.getProfileResult.observe(viewLifecycleOwner) { getProfileResult ->
+
+			val resultResponse = getProfileResult.payload
+			val status = resultResponse?.status
+
+			when (getProfileResult) {
+				is Resource.Loading -> {
+					setLoading(true)
+				}
+
+				is Resource.Error -> {
+					Log.d("Error Profile Index", getProfileResult.payload?.status.toString())
+
+					setLoading(false)
+
+					showSnackbar(status ?: "Terjadi kesalahan!", true)
+
+					setToolbarWithLocalData()
+
+				}
+
+				is Resource.Success -> {
+					setLoading(false)
+
+					if (resultResponse?.success == true && resultResponse.data != null) {
+						Log.d("Succes status", status.toString())
+
+						// set binding
+						with(binding) {
+
+							// toolbar
+							namauser.text = resultResponse.data.userName
+
+							GlideApp.with(this@MahasiswaBerandaFragment).asBitmap()
+								.load(resultResponse.data.userImgUrl).into(ivHomeProfilephoto)
+
+							userViewModel.setPhotoProfile(resultResponse.data.userImgUrl.toString())
+							userViewModel.setUsername(resultResponse.data.userName.toString())
+
+						}
+					} else {
+						Log.d("Succes status, but failed", status.toString())
+
+						if (status == "Token is Expired" || status == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(", false)
+
+							actionIfLogoutSucces()
+						} else {
+							setToolbarWithLocalData()
+						}
+
+					}
+				}
+
+				else -> {}
+			}
+		}
+
+	}
+
 
 	private fun showSnackbar(message: String, isRestart: Boolean) {
 		val currentFragment = this@MahasiswaBerandaFragment
@@ -260,6 +334,17 @@ class MahasiswaBerandaFragment : Fragment() {
 		}
 	}
 
+	private fun actionIfLogoutSucces() {
+		// set auth data store
+		userViewModel.setApiToken("")
+		userViewModel.setUserId("")
+		userViewModel.setUsername("")
+		userViewModel.setStatusAuth(false)
+
+		val intent = Intent(requireContext(), SplashscreenActivity::class.java)
+		requireContext().startActivity(intent)
+		requireActivity().finishAffinity()
+	}
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerBerandaNamauser, isLoading)
