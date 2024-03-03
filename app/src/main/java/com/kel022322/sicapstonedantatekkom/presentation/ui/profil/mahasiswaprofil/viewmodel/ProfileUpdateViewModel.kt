@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.response.UpdateProfileRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatephoto.response.UpdateProfilePhotoRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.profile.ProfileRemoteRepository
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -57,8 +58,8 @@ class ProfileUpdateViewModel @Inject constructor(
 	}
 
 	// update photo profile
-	private var _updatePhotoProfileResult = MutableLiveData<Resource<UpdateProfileRemoteResponse>>()
-	val updatePhotoProfileResult: LiveData<Resource<UpdateProfileRemoteResponse>> get() = _updatePhotoProfileResult
+	private var _updatePhotoProfileResult = MutableLiveData<Resource<UpdateProfilePhotoRemoteResponse>>()
+	val updatePhotoProfileResult: LiveData<Resource<UpdateProfilePhotoRemoteResponse>> get() = _updatePhotoProfileResult
 
 	fun updatePhotoProfile(
 		apiToken: String,

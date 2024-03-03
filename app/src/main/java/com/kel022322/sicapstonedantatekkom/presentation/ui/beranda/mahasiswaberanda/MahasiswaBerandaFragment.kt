@@ -215,11 +215,13 @@ class MahasiswaBerandaFragment : Fragment() {
 		}
 
 		// set photo profile
-		userViewModel.getPhotoProfile().observe(viewLifecycleOwner) {
+		userViewModel.getPhotoProfile().observe(viewLifecycleOwner) { photoUri ->
 			setLoading(false)
 
-			if (it != null && it != "") {
-				GlideApp.with(this@MahasiswaBerandaFragment).asBitmap().load(it)
+			Log.d("PHOTO", photoUri.toString())
+
+			if (photoUri != null && photoUri != "") {
+				GlideApp.with(this@MahasiswaBerandaFragment).asBitmap().load(photoUri)
 					.into(binding.ivHomeProfilephoto)
 			}
 		}

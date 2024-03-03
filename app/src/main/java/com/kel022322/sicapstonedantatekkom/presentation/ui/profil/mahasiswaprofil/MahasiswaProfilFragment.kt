@@ -234,6 +234,8 @@ class MahasiswaProfilFragment : Fragment() {
 							GlideApp.with(this@MahasiswaProfilFragment).asBitmap()
 								.load(resultResponse.data.userImgUrl).into(ivProfilephoto)
 
+							userViewModel.setPhotoProfile(resultResponse.data.userImgUrl.toString())
+							userViewModel.setUsername(resultResponse.data.userName.toString())
 
 						}
 					} else {
@@ -356,8 +358,6 @@ class MahasiswaProfilFragment : Fragment() {
 							GlideApp.with(this@MahasiswaProfilFragment).asBitmap()
 								.load(resultResponse.data.userImgUrl).into(ivProfilephoto)
 
-							userViewModel.setUsername(resultResponse.data.userName.toString())
-							userViewModel.setPhotoProfile(resultResponse.data.userImgUrl.toString())
 						}
 					} else {
 						Log.d("Update Succes status, but failed", status.toString())
@@ -641,22 +641,21 @@ class MahasiswaProfilFragment : Fragment() {
 
 						val status = updatePhotoProfileResult.payload?.status
 
-						if (resultResponse?.success == true && resultResponse.data != null) {
+						if (resultResponse?.success == true) {
 							Log.d("Photo Succes status", status.toString())
 
 							showSnackbar(status ?: "Berhasil memperbaharui foto profil!", true)
 
 							restartFragment()
 
-							// set local datastore
-							userViewModel.setUsername(resultResponse.data.userName.toString())
-							userViewModel.setPhotoProfile(resultResponse.data.userImgUrl.toString())
+							Log.d("PHOTO BARU", resultResponse.data.toString())
+
+
 
 							// set binding
 							with(binding) {
-								getProfile()
 								GlideApp.with(this@MahasiswaProfilFragment).asBitmap()
-									.load(resultResponse.data.userImgUrl).into(ivProfilephoto)
+									.load(resultResponse.data?.userImgUrl).into(ivProfilephoto)
 
 							}
 						} else {

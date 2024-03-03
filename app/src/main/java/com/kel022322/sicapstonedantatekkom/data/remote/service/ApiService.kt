@@ -29,6 +29,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.requ
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.response.UpdateProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.response.UpdatePasswordRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatephoto.response.UpdateProfilePhotoRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangproposal.response.SidangProposalByKelompokResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.request.DaftarSidangTARemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.response.DaftarSidangTARemoteResponse
@@ -93,7 +94,7 @@ interface ApiService {
 	suspend fun updatePhotoProfile(
 		@Header("Authorization") apiToken: String,
 		@Part user_img: MultipartBody.Part
-	): UpdateProfileRemoteResponse
+	): UpdateProfilePhotoRemoteResponse
 
 	@GET("capstone_team/public/api/v1/mahasiswa/topik")
 	suspend fun getTopikCapstone(
