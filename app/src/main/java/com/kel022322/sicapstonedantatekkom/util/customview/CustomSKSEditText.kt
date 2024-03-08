@@ -41,7 +41,7 @@ class CustomSKSEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val sks = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (sks.isNotEmpty() && sks.isAllDigits() && sks.length in 1..3) {
+				if (sks.isNotEmpty() && sks.isAllDigits() && sks.length in 1..3 && s != null) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {

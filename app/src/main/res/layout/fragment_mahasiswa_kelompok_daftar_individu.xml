@@ -51,674 +51,684 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
-        <TextView
-            android:id="@+id/tv_title_detail_capstone_individu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/poppinssemibold"
-            android:text="@string/tv_detail_capstone_individu"
-            android:textColor="@color/lightblue"
-            android:textSize="16sp" />
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_detail_capstone_individu"
+        <LinearLayout
+            android:id="@+id/linear_layout_data_pendaftaran"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/linear_layout_data_capstone_individu"
+            <TextView
+                android:id="@+id/tv_title_detail_capstone_individu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="@string/tv_detail_capstone_individu"
+                android:textColor="@color/lightblue"
+                android:textSize="16sp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_detail_capstone_individu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
 
-                <TextView
-                    android:id="@+id/tv_title_judul_capstone_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_title_judul_capstone"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_judul_capstone_individu"
-                    style="@style/CustomTextInputLayout"
+                <LinearLayout
+                    android:id="@+id/linear_layout_data_capstone_individu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    app:hintEnabled="false">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
-                        android:id="@+id/edt_judul_capstone_individu"
+                    <TextView
+                        android:id="@+id/tv_title_judul_capstone_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_title_judul_capstone"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_judul_capstone_individu"
+                        style="@style/CustomTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_judul_capstone"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="12dp"
-                        android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                        android:layout_marginTop="2dp"
+                        app:hintEnabled="false">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
+                            android:id="@+id/edt_judul_capstone_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_judul_capstone"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
-                <TextView
-                    android:id="@+id/tv_title_siklus_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_title_siklus"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_siklus_individu"
-                    style="@style/CustomTextInputLayoutWithDropdown"
+                    <TextView
+                        android:id="@+id/tv_title_siklus_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_title_siklus"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_siklus_individu"
+                        style="@style/CustomTextInputLayoutWithDropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        app:hintEnabled="false">
+
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                            android:id="@+id/edt_siklus_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_siklus"
+                            android:maxLines="1"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_detail_mahasiswa_individu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="@string/tv_detail_mahasiswa_individu"
+                android:textColor="@color/lightblue"
+                android:textSize="16sp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_detail_mahasiswa_individu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_detail_capstone_indivdu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    app:hintEnabled="false">
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:visibility="visible">
 
-                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
-                        android:id="@+id/edt_siklus_individu"
+                    <TextView
+                        android:id="@+id/tv_title_nama_lengkap_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/title_nama_lengkap"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_nama_individu"
+                        style="@style/CustomTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_siklus"
-                        android:paddingHorizontal="8dp"
-                        android:maxLines="1"
+                        android:layout_marginTop="2dp"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_nama_lengkap_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_nama_lengkap"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_title_nim_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/title_nim"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_nim_individu"
+                        style="@style/CustomTextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:focusable="false"
+                        app:hintEnabled="false">
+
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomNIMEditText
+                            android:id="@+id/edt_nim_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_nim"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_title_angkatan_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_title_angkatan"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_angkatan_individu"
+                        style="@style/CustomTextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        app:hintEnabled="false">
+
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomAngkatanEditText
+                            android:id="@+id/edt_angkatan_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_angkatan"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_title_jenis_kelamin_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_title_jenis_kelamin"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_jenis_kelamin_individu"
+                        style="@style/CustomTextInputLayoutWithDropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        app:hintEnabled="false">
+
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                            android:id="@+id/edt_jenis_kelamin_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_jenis_kelamin"
+                            android:maxLines="1"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_title_no_telp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/title_no_telp"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_no_telp_individu"
+                        style="@style/CustomTextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        app:hintEnabled="false">
+
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
+                            android:id="@+id/edt_no_telp_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_no_telp"
+                            android:inputType="number"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_title_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/title_email"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_email_individu"
+                        style="@style/CustomTextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        app:hintEnabled="false">
+
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
+                            android:id="@+id/edt_email_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_email"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_title_sks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_title_sks"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_sks_individu"
+                        style="@style/CustomTextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        app:hintEnabled="false">
+
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomSKSEditText
+                            android:id="@+id/edt_sks_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_sks"
+                            android:inputType="number"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_title_ipk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_title_ipk"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_ipk_individu"
+                        style="@style/CustomTextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        app:hintEnabled="false">
+
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomIPKEditText
+                            android:id="@+id/edt_ipk_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_ipk"
+                            android:inputType="numberDecimal"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_title_detail_peminatan_individu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="@string/tv_detail_peminatan_individu"
+                android:textColor="@color/lightblue"
+                android:textSize="16sp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_peminatan_individu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_peminatan_individu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_title_judul_peminatan_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_skala_prioritas_peminatan"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_deskripsi_peminatan_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:ellipsize="end"
-                        android:paddingVertical="12dp"
-                        android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/tv_detail_mahasiswa_individu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/poppinssemibold"
-            android:text="@string/tv_detail_mahasiswa_individu"
-            android:textColor="@color/lightblue"
-            android:textSize="16sp" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_detail_mahasiswa_individu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:id="@+id/ll_detail_capstone_indivdu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:visibility="visible">
-
-                <TextView
-                    android:id="@+id/tv_title_nama_lengkap_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/title_nama_lengkap"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_nama_individu"
-                    style="@style/CustomTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    app:hintEnabled="false">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_nama_lengkap_individu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_nama_lengkap"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="12dp"
+                        android:maxLines="2"
+                        android:text="@string/tv_ket_peminatan_individu"
                         android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                        android:textSize="11sp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_title_nim_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/title_nim"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_nim_individu"
-                    style="@style/CustomTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:focusable="false"
-                    app:hintEnabled="false">
-
-                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomNIMEditText
-                        android:id="@+id/edt_nim_individu"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tv_ket_s_individu"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:editable="false"
+                        android:ellipsize="middle"
                         android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_nim"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="12dp"
-                        android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_title_angkatan_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_title_angkatan"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_angkatan_individu"
-                    style="@style/CustomTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    app:hintEnabled="false">
-
-                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAngkatanEditText
-                        android:id="@+id/edt_angkatan_individu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_angkatan"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="12dp"
-                        android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <TextView
-                    android:id="@+id/tv_title_jenis_kelamin_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_title_jenis_kelamin"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_jenis_kelamin_individu"
-                    style="@style/CustomTextInputLayoutWithDropdown"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    app:hintEnabled="false">
-
-                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
-                        android:id="@+id/edt_jenis_kelamin_individu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_jenis_kelamin"
-                        android:paddingHorizontal="8dp"
                         android:maxLines="1"
+                        android:text="@string/tv_title_peminatan1"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tv_ket_e_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:fontFamily="@font/poppinsregular"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_peminatan2"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tv_ket_c_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:fontFamily="@font/poppinsregular"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_peminatan3"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tv_ket_m_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:fontFamily="@font/poppinsregular"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_peminatan4"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textSize="11sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_skala_peminatan_individu"
+                        style="@style/CustomTextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:hintEnabled="false">
+
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomPeminatanEditText
+                            android:id="@+id/edt_skala_peminatan_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_skala_peminatan"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_title_detail_topik_individu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="@string/tv_detail_topik_individu"
+                android:textColor="@color/lightblue"
+                android:textSize="16sp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_topik_individu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_topik_individu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_title_judul_topik_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:text="@string/tv_skala_prioritas_topik"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_deskripsi_topik_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:ellipsize="end"
-                        android:paddingVertical="12dp"
+                        android:fontFamily="@font/poppinsregular"
+                        android:maxLines="2"
+                        android:text="@string/tv_ket_topik_individu"
                         android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                        android:textSize="11sp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:id="@+id/tv_ket_topik_s_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:fontFamily="@font/poppinsregular"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_topik1"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textSize="11sp" />
 
-                <TextView
-                    android:id="@+id/tv_title_no_telp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/title_no_telp"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/tv_ket_topik_e_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:fontFamily="@font/poppinsregular"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_topik2"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textSize="11sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_no_telp_individu"
-                    style="@style/CustomTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    app:hintEnabled="false">
+                    <TextView
+                        android:id="@+id/tv_ket_topik_c_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:fontFamily="@font/poppinsregular"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_topik3"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textSize="11sp" />
 
-                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
-                        android:id="@+id/edt_no_telp_individu"
+                    <TextView
+                        android:id="@+id/tv_ket_topik_m_individu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:fontFamily="@font/poppinsregular"
+                        android:maxLines="1"
+                        android:text="@string/tv_title_topik4"
+                        android:textColor="@color/BlueFontFilled"
+                        android:textSize="11sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_skala_topik_individu"
+                        style="@style/CustomTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_no_telp"
-                        android:inputType="number"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="12dp"
-                        android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                        android:layout_marginTop="8dp"
+                        app:hintEnabled="false">
 
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomPeminatanEditText
+                            android:id="@+id/edt_skala_topik_individu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsregular"
+                            android:hint="@string/tv_hint_skala_topik"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="12dp"
+                            android:textColor="@color/BlueFontFilled"
+                            android:textColorHint="@color/DarkGrey"
+                            android:textSize="12sp"
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tv_title_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/title_email"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
+                </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_email_individu"
-                    style="@style/CustomTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    app:hintEnabled="false">
+            </androidx.cardview.widget.CardView>
 
-                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
-                        android:id="@+id/edt_email_individu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_email"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="12dp"
-                        android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_title_sks"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_title_sks"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_sks_individu"
-                    style="@style/CustomTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    app:hintEnabled="false">
-
-                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomSKSEditText
-                        android:id="@+id/edt_sks_individu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_sks"
-                        android:inputType="number"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="12dp"
-                        android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_title_ipk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_title_ipk"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_ipk_individu"
-                    style="@style/CustomTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    app:hintEnabled="false">
-
-                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomIPKEditText
-                        android:id="@+id/edt_ipk_individu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_ipk"
-                        android:inputType="numberDecimal"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="12dp"
-                        android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/tv_title_detail_peminatan_individu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/poppinssemibold"
-            android:text="@string/tv_detail_peminatan_individu"
-            android:textColor="@color/lightblue"
-            android:textSize="16sp" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_peminatan_individu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:id="@+id/linear_layout_peminatan_individu"
+            <Button
+                android:id="@+id/btn_simpan_daftar_individu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20sp"
+                android:backgroundTint="@color/RoyalBlue"
+                android:fontFamily="@font/poppinsbold"
+                android:text="@string/btn_simpan"
+                android:textAllCaps="false"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:cornerRadius="6dp"
+                tools:ignore="DuplicateSpeakableTextCheck" />
 
-                <TextView
-                    android:id="@+id/tv_title_judul_peminatan_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_skala_prioritas_peminatan"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_deskripsi_peminatan_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/poppinsregular"
-                    android:maxLines="2"
-                    android:text="@string/tv_ket_peminatan_individu"
-                    android:textColor="@color/BlueFontFilled"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/tv_ket_s_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:fontFamily="@font/poppinsregular"
-                    android:maxLines="1"
-                    android:text="@string/tv_title_peminatan1"
-                    android:textColor="@color/BlueFontFilled"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/tv_ket_e_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:fontFamily="@font/poppinsregular"
-                    android:maxLines="1"
-                    android:text="@string/tv_title_peminatan2"
-                    android:textColor="@color/BlueFontFilled"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/tv_ket_c_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:fontFamily="@font/poppinsregular"
-                    android:maxLines="1"
-                    android:text="@string/tv_title_peminatan3"
-                    android:textColor="@color/BlueFontFilled"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/tv_ket_m_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:fontFamily="@font/poppinsregular"
-                    android:maxLines="1"
-                    android:text="@string/tv_title_peminatan4"
-                    android:textColor="@color/BlueFontFilled"
-                    android:textSize="11sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_skala_peminatan_individu"
-                    style="@style/CustomTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:hintEnabled="false">
-
-                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomPeminatanEditText
-                        android:id="@+id/edt_skala_peminatan_individu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_skala_peminatan"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="12dp"
-                        android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-            </LinearLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/tv_title_detail_topik_individu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/poppinssemibold"
-            android:text="@string/tv_detail_topik_individu"
-            android:textColor="@color/lightblue"
-            android:textSize="16sp" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_topik_individu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:id="@+id/linear_layout_topik_individu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/tv_title_judul_topik_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="@string/tv_skala_prioritas_topik"
-                    android:textColor="@color/RoyalBlue"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_deskripsi_topik_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/poppinsregular"
-                    android:maxLines="2"
-                    android:text="@string/tv_ket_topik_individu"
-                    android:textColor="@color/BlueFontFilled"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/tv_ket_topik_s_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:fontFamily="@font/poppinsregular"
-                    android:maxLines="1"
-                    android:text="@string/tv_title_topik1"
-                    android:textColor="@color/BlueFontFilled"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/tv_ket_topik_e_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:fontFamily="@font/poppinsregular"
-                    android:maxLines="1"
-                    android:text="@string/tv_title_topik2"
-                    android:textColor="@color/BlueFontFilled"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/tv_ket_topik_c_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:fontFamily="@font/poppinsregular"
-                    android:maxLines="1"
-                    android:text="@string/tv_title_topik3"
-                    android:textColor="@color/BlueFontFilled"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/tv_ket_topik_m_individu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:fontFamily="@font/poppinsregular"
-                    android:maxLines="1"
-                    android:text="@string/tv_title_topik4"
-                    android:textColor="@color/BlueFontFilled"
-                    android:textSize="11sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_skala_topik_individu"
-                    style="@style/CustomTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:hintEnabled="false">
-
-                    <com.kel022322.sicapstonedantatekkom.util.customview.CustomPeminatanEditText
-                        android:id="@+id/edt_skala_topik_individu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinsregular"
-                        android:hint="@string/tv_hint_skala_topik"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="12dp"
-                        android:textColor="@color/BlueFontFilled"
-                        android:textColorHint="@color/DarkGrey"
-                        android:textSize="12sp"
-                        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <Button
-            android:id="@+id/btn_simpan_daftar_individu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="20sp"
-            android:backgroundTint="@color/RoyalBlue"
-            android:fontFamily="@font/poppinsbold"
-            android:text="@string/btn_simpan"
-            android:textAllCaps="false"
-            android:textColor="@color/White"
-            android:textSize="14sp"
-            app:cornerRadius="6dp"
-            tools:ignore="DuplicateSpeakableTextCheck" />
-
+        </LinearLayout>
 
     </LinearLayout>
 

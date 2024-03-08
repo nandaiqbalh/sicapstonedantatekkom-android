@@ -33,4 +33,6 @@ class ListDosenAdapter(context: Context, private val dosenList: List<RsDosen>) :
 
 		return listItemView
 	}
+
 }
+

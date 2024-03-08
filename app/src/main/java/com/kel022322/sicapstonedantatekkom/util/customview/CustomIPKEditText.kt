@@ -41,7 +41,7 @@ class CustomIPKEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val ipk = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (isValidIPK(ipk)) {
+				if (isValidIPK(ipk) && s != null) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {

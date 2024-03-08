@@ -22,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
 import com.kel022322.sicapstonedantatekkom.R
@@ -118,32 +119,34 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 					val status = getKelompokSayaResult.payload?.status
 
 					if (getKelompokSayaResult.payload?.success == true) {
-						if (dataKelompok?.kelompok != null) {
 
-							if (dataKelompok.kelompok.nomorKelompok != null) {
-								binding.cvBelumMemilikiKelompok.visibility = View.GONE
+						if (dataKelompok?.kelompok?.nomorKelompok != null) {
+							binding.cvBelumMemilikiKelompok.visibility = View.GONE
 
-								binding.linearLayoutDokumenCapstone.visibility = View.VISIBLE
-							} else {
-								binding.cvBelumMemilikiKelompok.visibility = View.VISIBLE
-								binding.tvBelumMemilikiKelompok.setText(R.string.kelompok_belum_valid)
-
-								binding.linearLayoutDokumenCapstone.visibility = View.GONE
-							}
-
+							binding.linearLayoutDokumenCapstone.visibility = View.VISIBLE
 						} else {
 							binding.cvBelumMemilikiKelompok.visibility = View.VISIBLE
-							binding.tvBelumMemilikiKelompok.setText(R.string.belum_memiliki_kelompok)
+							binding.tvBelumMemilikiKelompok.setText(R.string.kelompok_belum_valid)
 
 							binding.linearLayoutDokumenCapstone.visibility = View.GONE
 						}
+
+
 					} else {
-						Log.d("Update Succes status, but failed", status.toString())
+						with(binding) {
+							Log.d("Update Succes status, but failed", status.toString())
 
-						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+								showSnackbar("Sesi anda telah berakhir :(")
 
-							actionIfLogoutSucces()
+								actionIfLogoutSucces()
+							} else {
+								setViewVisibility(linearLayoutDokumenCapstone, false)
+								setViewVisibility(cvBelumMemilikiKelompok, true)
+								tvBelumMemilikiKelompok.text =
+									status ?: "Belum mendaftar capstone"
+
+							}
 						}
 					}
 
@@ -175,7 +178,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan saat mengakses dokumen :(", false)
+					showSnackbar(status ?: "Terjadi kesalahan saat mengakses dokumen :(")
 
 				}
 
@@ -190,7 +193,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 						viewDokumen(getFileIndexResult)
 					} else {
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						}
@@ -214,7 +217,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 			// c100
 			btnUnduhC100.setOnClickListener {
 
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlC100?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -235,7 +238,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 			// c200
 			btnUnduhC200.setOnClickListener {
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlC200?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -255,7 +258,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 			// c300
 			btnUnduhC300.setOnClickListener {
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlC300?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -275,7 +278,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 			// c400
 			btnUnduhC400.setOnClickListener {
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlC400?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -295,7 +298,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 			// c500
 			btnUnduhC500.setOnClickListener {
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlC500?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -392,7 +395,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 								val status = uploadC100ProcessResult.payload?.status
 								Log.d("HASIL UPLOAD ERROR", status.toString())
-								showSnackbar(status ?: "Terjadi kesalahan!", false)
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
@@ -401,18 +404,19 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								val status = uploadC100ProcessResult.payload?.status
 
 								if (uploadC100ProcessResult.payload?.success == true && uploadC100ProcessResult.payload.data != null) {
-									showSnackbar(status ?: "Berhasil!", true)
-									checkDokumen()
+
+									showSnackbar(status ?: "Berhasil!")
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
 
 								} else {
 									Log.d("Update Succes status, but failed", status.toString())
 
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-										showSnackbar("Sesi anda telah berakhir :(", true)
+										showSnackbar("Sesi anda telah berakhir :(")
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!", true)
+										showSnackbar(status ?: "Terjadi kesalahan!")
 
 									}
 								}
@@ -425,7 +429,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 				} catch (e: Exception) {
 					e.printStackTrace()
 					setLoading(false)
-					showSnackbar("Terjadi kesalahan! ${e.message}", false)
+					showSnackbar("Terjadi kesalahan! ${e.message}")
 
 				}
 			}
@@ -472,7 +476,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								setLoading(false)
 
 								val status = uploadC200ProcessResult.payload?.status
-								showSnackbar(status ?: "Terjadi kesalahan!", false)
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
@@ -482,18 +486,18 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 								Log.d("C200 RESULT", uploadC200ProcessResult.toString())
 								if (uploadC200ProcessResult.payload?.success == true && uploadC200ProcessResult.payload.data != null) {
-									showSnackbar(status ?: "Berhasil!", true)
-									checkDokumen()
+									showSnackbar(status ?: "Berhasil!")
 
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
 								} else {
 									Log.d("Update Succes status, but failed", status.toString())
 
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-										showSnackbar("Sesi anda telah berakhir :(", true)
+										showSnackbar("Sesi anda telah berakhir :(")
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!", true)
+										showSnackbar(status ?: "Terjadi kesalahan!")
 
 									}
 								}
@@ -505,7 +509,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 				} catch (e: Exception) {
 					e.printStackTrace()
-					showSnackbar("Terjadi kesalahan! ${e.message}", false)
+					showSnackbar("Terjadi kesalahan! ${e.message}")
 
 					setLoading(false)
 				}
@@ -555,7 +559,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								setLoading(false)
 
 								val status = uploadC300ProcessResult.payload?.status
-								showSnackbar(status ?: "Terjadi kesalahan!", false)
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
@@ -564,18 +568,19 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								val status = uploadC300ProcessResult.payload?.status
 
 								if (uploadC300ProcessResult.payload?.success == true && uploadC300ProcessResult.payload.data != null) {
-									showSnackbar(status ?: "Berhasil!", true)
-									checkDokumen()
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
+
+									showSnackbar(status ?: "Berhasil!")
 
 								} else {
 									Log.d("Update Succes status, but failed", status.toString())
 
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-										showSnackbar("Sesi anda telah berakhir :(", true)
+										showSnackbar("Sesi anda telah berakhir :(")
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!", true)
+										showSnackbar(status ?: "Terjadi kesalahan!")
 
 									}
 								}
@@ -588,7 +593,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 				} catch (e: Exception) {
 					e.printStackTrace()
-					showSnackbar("Terjadi kesalahan! ${e.message}", false)
+					showSnackbar("Terjadi kesalahan! ${e.message}")
 
 					setLoading(false)
 				}
@@ -636,7 +641,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								setLoading(false)
 
 								val status = uploadC400ProcessResult.payload?.status
-								showSnackbar(status ?: "Terjadi kesalahan!", false)
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
@@ -645,18 +650,19 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								val status = uploadC400ProcessResult.payload?.status
 
 								if (uploadC400ProcessResult.payload?.success == true && uploadC400ProcessResult.payload.data != null) {
-									showSnackbar(status ?: "Berhasil!", true)
-									checkDokumen()
+
+									showSnackbar(status ?: "Berhasil!")
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
 
 								} else {
 									Log.d("Update Succes status, but failed", status.toString())
 
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-										showSnackbar("Sesi anda telah berakhir :(", true)
+										showSnackbar("Sesi anda telah berakhir :(")
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!", true)
+										showSnackbar(status ?: "Terjadi kesalahan!")
 
 									}
 								}
@@ -669,7 +675,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 				} catch (e: Exception) {
 					e.printStackTrace()
-					showSnackbar("Terjadi kesalahan! ${e.message}", false)
+					showSnackbar("Terjadi kesalahan! ${e.message}")
 
 					setLoading(false)
 				}
@@ -718,7 +724,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								setLoading(false)
 
 								val status = uploadC500ProcessResult.payload?.status
-								showSnackbar(status ?: "Terjadi kesalahan!", false)
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
@@ -726,18 +732,19 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								val status = uploadC500ProcessResult.payload?.status
 
 								if (uploadC500ProcessResult.payload?.success == true && uploadC500ProcessResult.payload.data != null) {
-									showSnackbar(status ?: "Berhasil!", true)
-									checkDokumen()
+
+									showSnackbar(status ?: "Berhasil!")
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
 
 								} else {
 									Log.d("Update Succes status, but failed", status.toString())
 
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-										showSnackbar("Sesi anda telah berakhir :(", true)
+										showSnackbar("Sesi anda telah berakhir :(")
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!", true)
+										showSnackbar(status ?: "Terjadi kesalahan!")
 
 									}
 								}
@@ -751,7 +758,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 				} catch (e: Exception) {
 					e.printStackTrace()
-					showSnackbar("Terjadi kesalahan! ${e.message}", false)
+					showSnackbar("Terjadi kesalahan! ${e.message}")
 
 					setLoading(false)
 				}
@@ -903,7 +910,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 			}.setNegativeButton("Batalkan") { dialog, _ -> dialog.cancel() }.show()
 	}
 
-	private fun showSnackbar(status: String, isRestart: Boolean) {
+	private fun showSnackbar(status: String) {
 		val currentFragment = this@MahasiswaDokumenCapstoneFragment
 
 		if (currentFragment.isVisible) {
@@ -911,9 +918,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 				requireActivity().findViewById(android.R.id.content), status, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
 			}
 		}
 	}
@@ -945,24 +949,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 		}
 	}
-
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaDokumenCapstoneFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
-	}
-
+	
 	private fun setShimmerVisibility(shimmerView: View, isLoading: Boolean) {
 		shimmerView.visibility = if (isLoading) View.VISIBLE else View.GONE
 		(shimmerView as? ShimmerFrameLayout)?.run {
@@ -999,6 +986,10 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 		builder.setCanceledOnTouchOutside(true)
 		builder.show()
+	}
+
+	private fun setViewVisibility(view: View, isVisible: Boolean) {
+		view.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
 
 	override fun onDestroyView() {

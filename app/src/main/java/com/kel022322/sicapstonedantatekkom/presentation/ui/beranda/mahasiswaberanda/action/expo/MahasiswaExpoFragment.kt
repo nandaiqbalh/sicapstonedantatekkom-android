@@ -1,12 +1,17 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.expo
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -107,7 +112,7 @@ class MahasiswaExpoFragment : Fragment() {
 					val message = getExpoResult.payload
 					Log.d("Result success", message.toString())
 
-					if (resultResponse?.success == true && resultResponse.data != null) {
+					if (resultResponse?.success == true && resultResponse.data?.kelompok?.nomorKelompok != null) {
 
 						setCardSidangProposal(getExpoResult)
 
@@ -119,16 +124,22 @@ class MahasiswaExpoFragment : Fragment() {
 							setViewVisibility(shimmerFragmentExpo, false)
 						}
 					} else {
-						Log.d("Succes status, but failed", status.toString())
+						with(binding) {
+							Log.d("Succes status, but failed", status.toString())
 
-						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+								showSnackbar("Sesi anda telah berakhir :(", true)
 
-							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", true)
-							setViewVisibility(binding.cvErrorExpoFragment, true)
-							binding.tvErrorExpoFragment.text = status ?: "Terjadi kesalahan!"
+								actionIfLogoutSucces()
+							} else {
+								setViewVisibility(cvErrorExpoFragment, false)
+
+								setViewVisibility(shimmerFragmentExpo, false)
+								setViewVisibility(binding.cvErrorExpoFragment, true)
+								tvErrorExpoFragment.text = status ?: "Terjadi kesalahan!"
+
+							}
+
 						}
 					}
 
@@ -140,73 +151,78 @@ class MahasiswaExpoFragment : Fragment() {
 	}
 
 	private fun daftarExpo() {
-		if (isFormProfilValid()) {
-			setLoading(true)
+		if (isFormValid()) {
+			showCustomAlertDialog(
+				"Konfirmasi", "Apakah anda yakin data yang anda masukan sudah sesuai?"
+			) {
+				setLoading(true)
 
-			val judulTaEntered = binding.edtJudulTugasAkhir.text.toString().trim()
-			val linkPendukungEntered = binding.edtLinkPendukungExpo.text.toString().trim()
+				val judulTaEntered = binding.edtJudulTugasAkhir.text.toString().trim()
+				val linkPendukungEntered = binding.edtLinkPendukungExpo.text.toString().trim()
 
-			userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-				apiToken?.let {
-					expoViewModel.daftarExpo(
-						it, DaftarExpoRemoteRequestBody(
-							idExpo = idExpo,
-							judulTaMhs = judulTaEntered,
-							linkBerkasExpo = linkPendukungEntered
+				userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+					apiToken?.let {
+						expoViewModel.daftarExpo(
+							it, DaftarExpoRemoteRequestBody(
+								idExpo = idExpo,
+								judulTaMhs = judulTaEntered,
+								linkBerkasExpo = linkPendukungEntered
+							)
 						)
-					)
+					}
 				}
-			}
 
-			expoViewModel.daftarExpoResult.observe(viewLifecycleOwner) { daftarExpoResult ->
-				val resultResponse = daftarExpoResult.payload
+				expoViewModel.daftarExpoResult.observe(viewLifecycleOwner) { daftarExpoResult ->
+					val resultResponse = daftarExpoResult.payload
 
-				when (daftarExpoResult) {
-					is Resource.Loading -> {
-						setLoading(true)
-					}
-
-					is Resource.Error -> {
-						Log.d("Daftar Expo Error", daftarExpoResult.payload?.status.toString())
-
-						setLoading(false)
-
-						val status = resultResponse?.status
-						showSnackbar(status ?: "Terjadi kesalahan!", false)
-
-					}
-
-					is Resource.Success -> {
-						setLoading(false)
-
-						val status = daftarExpoResult.payload?.status
-
-						if (resultResponse?.success == true && resultResponse.data != null) {
-							Log.d("Daftar Expo Succes status", status.toString())
-							showSnackbar(resultResponse.status ?: "Berhasil mendaftar expo!", true)
-
-							findNavController().navigate(R.id.action_mahasiswaExpoFragment_to_mahasiswaBerandaFragment)
-						} else {
-							Log.d("Daftar Expo Succes status, but failed", status.toString())
-
-							if (status == "Token is Expired" || status == "Token is Invalid") {
-								showSnackbar("Sesi anda telah berakhir :(", true)
-
-								actionIfLogoutSucces()
-							} else {
-								showSnackbar(status ?: "Terjadi kesalahan!", true)
-
-							}
+					when (daftarExpoResult) {
+						is Resource.Loading -> {
+							setLoading(true)
 						}
 
-					}
+						is Resource.Error -> {
+							Log.d("Daftar Expo Error", daftarExpoResult.payload?.status.toString())
 
-					else -> {}
+							setLoading(false)
+
+							val status = resultResponse?.status
+							showSnackbar(status ?: "Terjadi kesalahan!", false)
+
+						}
+
+						is Resource.Success -> {
+							setLoading(false)
+
+							val status = daftarExpoResult.payload?.status
+
+							if (resultResponse?.success == true && resultResponse.data != null) {
+								Log.d("Daftar Expo Succes status", status.toString())
+								showSnackbar(resultResponse.status ?: "Berhasil mendaftar expo!", true)
+
+								findNavController().navigate(R.id.action_mahasiswaExpoFragment_to_mahasiswaBerandaFragment)
+							} else {
+								Log.d("Daftar Expo Succes status, but failed", status.toString())
+
+								if (status == "Token is Expired" || status == "Token is Invalid") {
+									showSnackbar("Sesi anda telah berakhir :(", true)
+
+									actionIfLogoutSucces()
+								} else {
+									showSnackbar(status ?: "Terjadi kesalahan!", true)
+
+								}
+							}
+
+						}
+
+						else -> {}
+					}
 				}
 			}
+
 		}
-		
-		
+
+
 	}
 
 	@SuppressLint("SetTextI18n")
@@ -214,11 +230,11 @@ class MahasiswaExpoFragment : Fragment() {
 
 		val data = getExpoResult.payload?.data
 
-		if (data?.cekExpo != null){
-			binding.tvValueStatusKelompok.text = data.cekExpo.statusExpo
+		if (data?.cekStatusExpo != null) {
+			binding.tvValueStatusKelompok.text = data.cekStatusExpo.statusExpo
 		}
 
-		if (data?.rsExpo != null){
+		if (data?.rsExpo != null) {
 			// set id expo
 			idExpo = data.rsExpo.id.toString()
 		}
@@ -316,7 +332,7 @@ class MahasiswaExpoFragment : Fragment() {
 		}
 	}
 
-	private fun isFormProfilValid(): Boolean {
+	private fun isFormValid(): Boolean {
 		val judulTaEntered = binding.edtJudulTugasAkhir.text.toString().trim()
 		val linkPendukungEntered = binding.edtLinkPendukungExpo.text.toString().trim()
 
@@ -338,6 +354,37 @@ class MahasiswaExpoFragment : Fragment() {
 		}
 
 		return isFormValid
+	}
+
+	private fun showCustomAlertDialog(
+		title: String,
+		message: String,
+		positiveAction: () -> Unit,
+	) {
+		val builder = AlertDialog.Builder(requireContext()).create()
+		val view = layoutInflater.inflate(R.layout.dialog_custom_alert_dialog, null)
+		builder.setView(view)
+		builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+		val buttonYes = view.findViewById<Button>(R.id.btn_alert_yes)
+		val buttonNo = view.findViewById<Button>(R.id.btn_alert_no)
+		val alertTitle = view.findViewById<TextView>(R.id.tv_alert_title)
+		val alertMessage = view.findViewById<TextView>(R.id.tv_alert_message)
+
+		alertTitle.text = title
+		alertMessage.text = message
+
+		buttonYes.setOnClickListener {
+			positiveAction.invoke()
+			builder.dismiss()
+		}
+
+		buttonNo.setOnClickListener {
+			builder.dismiss()
+		}
+
+		builder.setCanceledOnTouchOutside(true)
+		builder.show()
 	}
 
 	override fun onDestroyView() {

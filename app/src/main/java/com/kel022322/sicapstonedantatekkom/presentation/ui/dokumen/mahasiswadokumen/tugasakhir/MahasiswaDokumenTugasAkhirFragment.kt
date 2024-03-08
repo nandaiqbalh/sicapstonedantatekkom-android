@@ -22,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
 import com.kel022322.sicapstonedantatekkom.R
@@ -120,32 +121,34 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 					val status = getKelompokSayaResult.payload?.status
 
 					if (getKelompokSayaResult.payload?.success == true) {
-						if (dataKelompok?.kelompok != null) {
 
-							if (dataKelompok.kelompok.nomorKelompok != null) {
-								binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.GONE
+						if (dataKelompok?.kelompok?.nomorKelompok != null) {
+							binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.GONE
 
-								binding.linearLayoutDokumenTugasAkhir.visibility = View.VISIBLE
-							} else {
-								binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.VISIBLE
-								binding.tvBelumMemilikiKelompokTugasAkhir.setText(R.string.kelompok_belum_valid)
-
-								binding.linearLayoutDokumenTugasAkhir.visibility = View.GONE
-							}
-
+							binding.linearLayoutDokumenTugasAkhir.visibility = View.VISIBLE
 						} else {
 							binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.VISIBLE
-							binding.tvBelumMemilikiKelompokTugasAkhir.setText(R.string.belum_memiliki_kelompok)
+							binding.tvBelumMemilikiKelompokTugasAkhir.setText(R.string.kelompok_belum_valid)
 
 							binding.linearLayoutDokumenTugasAkhir.visibility = View.GONE
 						}
+
 					} else {
-						Log.d("Update Succes status, but failed", status.toString())
 
-						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+						with(binding){
+							Log.d("Update Succes status, but failed", status.toString())
 
-							actionIfLogoutSucces()
+							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+								showSnackbar("Sesi anda telah berakhir :(")
+
+								actionIfLogoutSucces()
+							} else {
+								setViewVisibility(linearLayoutDokumenTugasAkhir, false)
+								setViewVisibility(cvBelumMemilikiKelompokTugasAkhir, true)
+								tvBelumMemilikiKelompokTugasAkhir.text =
+									status ?: "Belum mendaftar capstone"
+
+							}
 						}
 					}
 
@@ -177,7 +180,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan saat mengakses dokumen :(", false)
+					showSnackbar(status ?: "Terjadi kesalahan saat mengakses dokumen :(")
 
 				}
 
@@ -192,7 +195,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 						viewDokumen(getFileIndexResult)
 					} else {
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						}
@@ -216,7 +219,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 			// LaporanTa
 			btnUnduhLaporan.setOnClickListener {
 
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlLaporanTa?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -237,7 +240,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 			// Makalah
 			btnUnduhMakalahTa.setOnClickListener {
-				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk mengunduh dokumen?") {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
 					resultResponse?.data?.fileMhs?.fileUrlMakalah?.takeIf { it.isNotBlank() }
 						?.let {
 							val url =
@@ -315,7 +318,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 								val status = uploadLaporanProcessResult.payload?.status
 								Log.d("HASIL UPLOAD ERROR", status.toString())
-								showSnackbar(status ?: "Terjadi kesalahan!", false)
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
@@ -324,18 +327,18 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 								val status = uploadLaporanProcessResult.payload?.status
 
 								if (uploadLaporanProcessResult.payload?.success == true && uploadLaporanProcessResult.payload.data != null) {
-									showSnackbar(status ?: "Berhasil!", true)
-									checkDokumen()
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
+									showSnackbar(status ?: "Berhasil!")
 
 								} else {
 									Log.d("Update Succes status, but failed", status.toString())
 
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-										showSnackbar("Sesi anda telah berakhir :(", true)
+										showSnackbar("Sesi anda telah berakhir :(")
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!", true)
+										showSnackbar(status ?: "Terjadi kesalahan!")
 
 									}
 								}
@@ -348,7 +351,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 				} catch (e: Exception) {
 					e.printStackTrace()
 					setLoading(false)
-					showSnackbar("Terjadi kesalahan! ${e.message}", false)
+					showSnackbar("Terjadi kesalahan! ${e.message}")
 
 				}
 			}
@@ -395,7 +398,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 								setLoading(false)
 
 								val status = uploadMakalahProcessResult.payload?.status
-								showSnackbar(status ?: "Terjadi kesalahan!", false)
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
@@ -405,18 +408,19 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 								Log.d("C200 RESULT", uploadMakalahProcessResult.toString())
 								if (uploadMakalahProcessResult.payload?.success == true && uploadMakalahProcessResult.payload.data != null) {
-									showSnackbar(status ?: "Berhasil!", true)
-									checkDokumen()
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
+
+									showSnackbar(status ?: "Berhasil!")
 
 								} else {
 									Log.d("Update Succes status, but failed", status.toString())
 
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-										showSnackbar("Sesi anda telah berakhir :(", true)
+										showSnackbar("Sesi anda telah berakhir :(")
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!", true)
+										showSnackbar(status ?: "Terjadi kesalahan!")
 
 									}
 								}
@@ -428,7 +432,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 				} catch (e: Exception) {
 					e.printStackTrace()
-					showSnackbar("Terjadi kesalahan! ${e.message}", false)
+					showSnackbar("Terjadi kesalahan! ${e.message}")
 
 					setLoading(false)
 				}
@@ -557,7 +561,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 			}.setNegativeButton("Batalkan") { dialog, _ -> dialog.cancel() }.show()
 	}
 
-	private fun showSnackbar(status: String, isRestart: Boolean) {
+	private fun showSnackbar(status: String) {
 		val currentFragment = this@MahasiswaDokumenTugasAkhirFragment
 
 		if (currentFragment.isVisible) {
@@ -565,9 +569,6 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 				requireActivity().findViewById(android.R.id.content), status, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
 			}
 		}
 	}
@@ -596,23 +597,6 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 			binding.linearLayoutDokumenTugasAkhir.visibility =
 				if (isLoading) View.GONE else View.VISIBLE
 
-		}
-	}
-
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaDokumenTugasAkhirFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
 		}
 	}
 
@@ -653,7 +637,9 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 		builder.setCanceledOnTouchOutside(true)
 		builder.show()
 	}
-
+	private fun setViewVisibility(view: View, isVisible: Boolean) {
+		view.visibility = if (isVisible) View.VISIBLE else View.GONE
+	}
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null

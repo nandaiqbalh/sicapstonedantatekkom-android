@@ -20,6 +20,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.repository.profile.Profil
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.profile.ProfileRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.sidangproposal.SidangProposalRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.sidangproposal.SidangProposalRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.sidangta.SidangTARemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.sidangta.SidangTARemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.siklus.SiklusRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.siklus.SiklusRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.topik.TopikRemoteRepository
@@ -67,5 +69,8 @@ abstract class RepositoryModule {
 
 	@Binds
 	abstract fun bindExpoRemoteRepository(expoRemoteRepositoryImpl: ExpoRemoteRepositoryImpl) : ExpoRemoteRepository
+
+	@Binds
+	abstract fun bindSidangTARemoteRepository(sidangTARemoteRepositoryImpl: SidangTARemoteRepositoryImpl) : SidangTARemoteRepository
 
 }

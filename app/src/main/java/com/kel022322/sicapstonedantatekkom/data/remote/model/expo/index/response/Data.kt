@@ -3,8 +3,8 @@ package com.kel022322.sicapstonedantatekkom.data.remote.model.expo.index.respons
 import com.google.gson.annotations.SerializedName
 
 data class Data(
-    @SerializedName("cekExpo")
-    val cekExpo: CekExpo,
+    @SerializedName("cekStatusExpo")
+    val cekStatusExpo: CekExpo,
 
     @SerializedName("id_kelompok")
     val idKelompok: Int,

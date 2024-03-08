@@ -42,7 +42,7 @@ class CustomAutoCompleteTextView : AppCompatAutoCompleteTextView {
 				val inputText = s.toString()
 				val parentLayout = getParentTextInputLayout()
 
-				if (inputText.isNotEmpty()) {
+				if (inputText.isNotEmpty() && s != null ) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {

@@ -6,7 +6,7 @@ data class Kelompok(
     @SerializedName("id_kelompok") val idKelompok: Int?,
     @SerializedName("id") val id: Int?,
     @SerializedName("id_siklus") val idSiklus: Int?,
-    @SerializedName("nomor_kelompok") val nomorKelompok: Int?,
+    @SerializedName("nomor_kelompok") val nomorKelompok: String?,
     @SerializedName("id_topik") val idTopik: Int?,
     @SerializedName("status_kelompok") val statusKelompok: String?,
     @SerializedName("judul_capstone") val judulCapstone: String?,
