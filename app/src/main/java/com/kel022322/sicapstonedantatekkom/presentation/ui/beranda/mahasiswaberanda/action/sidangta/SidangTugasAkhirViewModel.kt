@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.request.DaftarSidangTARemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.response.DaftarSidangTARemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.index.response.SidangTARemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.status.UpdateStatusIndividuBackwardRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.status.UpdateStatusIndividuForwardRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.sidangta.SidangTARemoteRepository
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +21,7 @@ import javax.inject.Inject
 class SidangTugasAkhirViewModel @Inject constructor(
 	private val sidangTARemoteRepository: SidangTARemoteRepository
 ): ViewModel(){
+
 	private var _getSidangTAResult = MutableLiveData<Resource<SidangTARemoteResponse>>()
 	val getSidangTAResult: LiveData<Resource<SidangTARemoteResponse>> get() = _getSidangTAResult
 
@@ -50,6 +53,73 @@ class SidangTugasAkhirViewModel @Inject constructor(
 			}
 		}
 	}
+
+
+	private var _updateStatusIndividuForwardResult = MutableLiveData<Resource<UpdateStatusIndividuForwardRemoteResponse>>()
+	val updateStatusIndividuForwardResult: LiveData<Resource<UpdateStatusIndividuForwardRemoteResponse>> get() = _updateStatusIndividuForwardResult
+
+	fun updateStatusIndividuForward(apiToken: String) {
+
+		viewModelScope.launch(Dispatchers.IO) {
+			_updateStatusIndividuForwardResult.postValue(Resource.Loading())
+
+			try {
+				val data =
+					sidangTARemoteRepository.updateStatusIndividuForward(apiToken)
+
+				Log.d("PAYLOAD", data.payload.toString())
+				Log.d("PAYLOAD ERROR", data.message.toString())
+				if (data.payload != null) {
+
+					viewModelScope.launch(Dispatchers.Main) {
+						_updateStatusIndividuForwardResult.postValue(Resource.Success(data.payload))
+					}
+
+				} else {
+					_updateStatusIndividuForwardResult.postValue(Resource.Error(data.exception, null))
+				}
+
+			} catch (e: Exception) {
+				viewModelScope.launch(Dispatchers.Main) {
+					_updateStatusIndividuForwardResult.postValue(Resource.Error(e, null))
+				}
+			}
+		}
+	}
+
+	private var _updateStatusIndividuBackwardResult = MutableLiveData<Resource<UpdateStatusIndividuBackwardRemoteResponse>>()
+	val updateStatusIndividuBackwardResult: LiveData<Resource<UpdateStatusIndividuBackwardRemoteResponse>> get() = _updateStatusIndividuBackwardResult
+
+	fun updateStatusIndividuBackward(apiToken: String) {
+
+		viewModelScope.launch(Dispatchers.IO) {
+			_updateStatusIndividuBackwardResult.postValue(Resource.Loading())
+
+			try {
+				val data =
+					sidangTARemoteRepository.updateStatusIndividuBackward(apiToken)
+
+				Log.d("PAYLOAD", data.payload.toString())
+				Log.d("PAYLOAD ERROR", data.message.toString())
+				if (data.payload != null) {
+
+					viewModelScope.launch(Dispatchers.Main) {
+						_updateStatusIndividuBackwardResult.postValue(Resource.Success(data.payload))
+					}
+
+				} else {
+					_updateStatusIndividuBackwardResult.postValue(Resource.Error(data.exception, null))
+				}
+
+			} catch (e: Exception) {
+				viewModelScope.launch(Dispatchers.Main) {
+					_updateStatusIndividuBackwardResult.postValue(Resource.Error(e, null))
+				}
+			}
+		}
+	}
+
+
 
 	private var _daftarSidangTAResult = MutableLiveData<Resource<DaftarSidangTARemoteResponse>>()
 	val daftarSidangTAResult: LiveData<Resource<DaftarSidangTARemoteResponse>> get() = _daftarSidangTAResult

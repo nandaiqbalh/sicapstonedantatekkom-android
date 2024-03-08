@@ -4,6 +4,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.datasource.sidangta.Sidan
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.request.DaftarSidangTARemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.response.DaftarSidangTARemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.index.response.SidangTARemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.status.UpdateStatusIndividuBackwardRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.status.UpdateStatusIndividuForwardRemoteResponse
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import javax.inject.Inject
 
@@ -11,6 +13,14 @@ interface SidangTARemoteRepository {
 	suspend fun getJadwalSidangTA(
 		apiToken: String,
 	): Resource<SidangTARemoteResponse>
+
+	suspend fun updateStatusIndividuForward(
+		apiToken: String,
+	): Resource<UpdateStatusIndividuForwardRemoteResponse>
+
+	suspend fun updateStatusIndividuBackward(
+		apiToken: String,
+	): Resource<UpdateStatusIndividuBackwardRemoteResponse>
 
 	suspend fun daftarSidangTA(
 		apiToken: String,
@@ -28,6 +38,18 @@ class SidangTARemoteRepositoryImpl @Inject constructor(private val dataSource: S
 
 		return proceed {
 			dataSource.getJadwalSidangTA(apiToken)
+		}
+	}
+
+	override suspend fun updateStatusIndividuForward(apiToken: String): Resource<UpdateStatusIndividuForwardRemoteResponse> {
+		return proceed {
+			dataSource.updateStatusIndividuForward(apiToken)
+		}
+	}
+
+	override suspend fun updateStatusIndividuBackward(apiToken: String): Resource<UpdateStatusIndividuBackwardRemoteResponse> {
+		return proceed {
+			dataSource.updateStatusIndividuBackward(apiToken)
 		}
 	}
 

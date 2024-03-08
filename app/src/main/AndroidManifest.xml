@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".SICapstonedanTATekkomApp"
@@ -42,6 +41,7 @@
             android:name=".presentation.ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.CustomAppBar"/>
+
     </application>
 
 </manifest>

@@ -72,13 +72,6 @@ class MahasiswaProfilFragment : Fragment() {
 			}
 		}
 
-	private val cameraResult =
-		registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-			if (result.resultCode == Activity.RESULT_OK) {
-				handleCameraImage(result.data)
-			}
-		}
-
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?,
@@ -174,7 +167,7 @@ class MahasiswaProfilFragment : Fragment() {
 
 		// update photo profile button
 		binding.btnEditPhotoProfile.setOnClickListener {
-			showTakePhotoOptions()
+			checkGalleryPermission()
 		}
 	}
 
@@ -510,42 +503,6 @@ class MahasiswaProfilFragment : Fragment() {
 	}
 
 	// update photo profile
-	private fun showTakePhotoOptions() {
-		val options = arrayOf("Buka kamera", "Pilih dari galeri")
-		val builder = AlertDialog.Builder(requireContext())
-		builder.setTitle("Pilih opsi")
-		builder.setItems(options) { _, which ->
-			when (which) {
-				0 -> checkCameraPermission()
-				1 -> checkGalleryPermission()
-			}
-		}
-		builder.show()
-	}
-
-	private fun checkCameraPermission() {
-		if (isPermissionGranted(
-				Manifest.permission.CAMERA, arrayOf(
-					Manifest.permission.CAMERA,
-					Manifest.permission.READ_EXTERNAL_STORAGE,
-					Manifest.permission.WRITE_EXTERNAL_STORAGE
-				), REQUEST_CODE_PERMISSION
-			)
-		) {
-			openCamera()
-		}
-	}
-
-	private fun openCamera() {
-		val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-		cameraResult.launch(cameraIntent)
-	}
-
-	private fun handleCameraImage(intent: Intent?) {
-		val photo = intent?.extras?.get("data") as Bitmap
-
-		saveSelectedImage(photo)
-	}
 
 	private fun checkGalleryPermission() {
 		if (isPermissionGranted(

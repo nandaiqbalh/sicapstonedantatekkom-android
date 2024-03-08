@@ -23,6 +23,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindivid
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.status.UpdateStatusKelompokBackwardRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.status.UpdateStatusKelompokForwardRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.response.MahasiswaIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
@@ -34,6 +36,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangproposal.resp
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.request.DaftarSidangTARemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.response.DaftarSidangTARemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.index.response.SidangTARemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.status.UpdateStatusIndividuBackwardRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.status.UpdateStatusIndividuForwardRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.siklus.response.SiklusRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.topik.response.TopikRemoteResponse
 import okhttp3.MultipartBody
@@ -106,12 +110,20 @@ interface ApiService {
 		@Header("Authorization") apiToken: String,
 	) : SiklusRemoteResponse
 
-
 	@GET("capstone_team/public/api/v1/mahasiswa/kelompok")
 	suspend fun getKelompokSaya(
 		@Header("Authorization") apiToken: String,
 	) : KelompokSayaRemoteResponse
 
+	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/updateStatusForward")
+	suspend fun updateStatusKelompokForward(
+		@Header("Authorization") apiToken: String,
+	) : UpdateStatusKelompokForwardRemoteResponse
+
+	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/updateStatusForward")
+	suspend fun updateStatusKelompokBackward(
+		@Header("Authorization") apiToken: String,
+	) : UpdateStatusKelompokBackwardRemoteResponse
 
 	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/add-kelompok-process")
 	suspend fun addKelompokIndividu(
@@ -211,6 +223,18 @@ interface ApiService {
 	suspend fun getJadwalSidangTA(
 		@Header("Authorization") apiToken: String,
 	) : SidangTARemoteResponse
+
+	@GET("capstone_team/public/api/v1/mahasiswa/sidang-tugas-akhir/updateStatusForward")
+	suspend fun updateStatusIndividuForward(
+		@Header("Authorization") apiToken: String,
+	) : UpdateStatusIndividuForwardRemoteResponse
+
+
+	@GET("capstone_team/public/api/v1/mahasiswa/sidang-tugas-akhir/updateStatusForward")
+	suspend fun updateStatusIndividuBackward(
+		@Header("Authorization") apiToken: String,
+	) : UpdateStatusIndividuBackwardRemoteResponse
+
 
 	@POST("capstone_team/public/api/v1/mahasiswa/sidang-tugas-akhir-daftar")
 	suspend fun daftarSidangTA(
