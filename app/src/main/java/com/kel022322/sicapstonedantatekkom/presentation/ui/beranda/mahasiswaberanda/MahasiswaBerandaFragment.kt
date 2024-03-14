@@ -132,7 +132,7 @@ class MahasiswaBerandaFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					val message = resultResponse?.message
+					val message = resultResponse?.status
 
 					with(binding){
 						setViewVisibility(cvErrorPengumumanTerbaru, true)
@@ -144,17 +144,17 @@ class MahasiswaBerandaFragment : Fragment() {
 						showSnackbar(message ?: "Terjadi kesalahan!", false)
 					}
 
-					Log.d("Broadcast error", broadcastHomeResult.payload?.message.toString())
+					Log.d("Broadcast error", broadcastHomeResult.payload?.status.toString())
 
 				}
 
 				is Resource.Success -> {
 					setLoading(false)
 
-					val message = broadcastHomeResult.payload?.message
+					val message = broadcastHomeResult.payload?.status
 					Log.d("Result success", message.toString())
 
-					if (broadcastHomeResult.payload?.status == false) {
+					if (broadcastHomeResult.payload?.success == false) {
 						setLoading(false)
 						with(binding){
 							setViewVisibility(cvErrorPengumumanTerbaru, true)
@@ -166,7 +166,7 @@ class MahasiswaBerandaFragment : Fragment() {
 							showSnackbar(message ?: "Terjadi kesalahan!", false)
 						}
 
-					} else if (broadcastHomeResult.payload?.status == true && broadcastHomeResult.payload.data?.rs_broadcast?.data != null) {
+					} else if (broadcastHomeResult.payload?.success == true && broadcastHomeResult.payload.data?.rs_broadcast?.data != null) {
 						val pengumumanAdapter = PengumumanAdapter()
 
 						pengumumanAdapter.setList(broadcastHomeResult.payload.data.rs_broadcast.data)

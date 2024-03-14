@@ -94,7 +94,7 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 					setLoading(false)
 
 					// get the error message and show the snackbar
-					val message = broadcastDetailResult.payload?.message
+					val message = broadcastDetailResult.payload?.status
 
 					with(binding){
 						setViewVisibility(cvErrorDetailPengumuman, true)
@@ -113,12 +113,12 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 					setLoading(false)
 
 					// log the message and data
-					val message = broadcastDetailResult.payload?.message
+					val message = broadcastDetailResult.payload?.status
 					Log.d("Result message", message.toString())
 					Log.d("Result data", broadcastDetailResult.payload?.data.toString())
 
 					// data is not null, then set the view with the data
-					if (broadcastDetailResult.payload?.status == true) {
+					if (broadcastDetailResult.payload?.success == true) {
 
 						val broadcastResult = broadcastDetailResult.payload.data!!.broadcast
 

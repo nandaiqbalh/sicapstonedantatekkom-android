@@ -255,7 +255,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 				is Resource.Success -> {
 
-					val message = getSiklusResult.payload?.message
+					val message = getSiklusResult.payload?.status
 					Log.d("Result success", message.toString())
 
 					if (resultResponse?.success == true && resultResponse.data?.rs_siklus!!.isNotEmpty() && resultResponse.data.periode_pendaftaran!!.isNotEmpty()) {
@@ -379,7 +379,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 				is Resource.Success -> {
 
-					val message = getMahasiswaResult.payload?.message
+					val message = getMahasiswaResult.payload?.status
 					Log.d("Result success", message.toString())
 
 					if (getMahasiswaResult.payload?.success == true && getMahasiswaResult.payload.data != null) {
@@ -477,7 +477,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 				is Resource.Success -> {
 
-					val message = getDosenResult.payload?.message
+					val message = getDosenResult.payload?.status
 					Log.d("Result", message.toString())
 
 					if (getDosenResult.payload?.success == true) {
@@ -532,7 +532,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 				is Resource.Success -> {
 
-					val message = getTopikResult.payload?.message
+					val message = getTopikResult.payload?.status
 					Log.d("Result success", message.toString())
 
 					if (getTopikResult.payload?.success == true) {

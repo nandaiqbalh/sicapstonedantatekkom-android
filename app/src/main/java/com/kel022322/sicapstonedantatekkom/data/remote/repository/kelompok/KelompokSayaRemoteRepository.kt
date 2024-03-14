@@ -6,8 +6,6 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindivid
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.status.UpdateStatusKelompokBackwardRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.status.UpdateStatusKelompokForwardRemoteResponse
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import javax.inject.Inject
 
@@ -16,14 +14,6 @@ interface KelompokSayaRemoteRepository {
 	suspend fun getKelompokSaya(
 		apiToken: String,
 	): Resource<KelompokSayaRemoteResponse>
-
-	suspend fun updateStatusKelompokForward(
-		apiToken: String,
-	): Resource<UpdateStatusKelompokForwardRemoteResponse>
-
-	suspend fun updateStatusKelompokBackward(
-		apiToken: String,
-	): Resource<UpdateStatusKelompokBackwardRemoteResponse>
 
 	suspend fun addKelompokIndividu(
 		apiToken: String,
@@ -45,21 +35,6 @@ class KelompokSayaRemoteRepositoryImpl @Inject constructor(
 	): Resource<KelompokSayaRemoteResponse> {
 		return proceed {
 			dataSource.getKelompokSaya(apiToken)
-		}
-	}
-
-	override suspend fun updateStatusKelompokForward(
-		apiToken: String,
-	): Resource<UpdateStatusKelompokForwardRemoteResponse> {
-		return proceed {
-			dataSource.updateStatusKelompokForward(apiToken)
-		}
-	}
-	override suspend fun updateStatusKelompokBackward(
-		apiToken: String,
-	): Resource<UpdateStatusKelompokBackwardRemoteResponse> {
-		return proceed {
-			dataSource.updateStatusKelompokBackward(apiToken)
 		}
 	}
 

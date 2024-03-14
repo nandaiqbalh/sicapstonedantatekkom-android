@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
 						is Resource.Loading -> setLoading(true)
 						is Resource.Error -> {
 							setLoading(false)
-							Log.d("Result message", authResult.payload?.message.toString())
+							Log.d("Result status", authResult.payload?.status.toString())
 
 							customSnackbar.showSnackbarWithAction(
 								findViewById(android.R.id.content),
@@ -85,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
 
 						is Resource.Success -> {
 							setLoading(false)
-							Log.d("Result message", authResult.payload?.message.toString())
+							Log.d("Result status", authResult.payload?.status.toString())
 
 							val loginResult = authResult.payload
 

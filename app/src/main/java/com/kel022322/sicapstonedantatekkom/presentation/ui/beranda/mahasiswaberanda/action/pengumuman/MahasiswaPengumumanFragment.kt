@@ -78,7 +78,7 @@ class MahasiswaPengumumanFragment : Fragment() {
 					setLoading(false)
 
 					// Log and show the message
-					val message = broadcastResult.payload?.message
+					val message = broadcastResult.payload?.status
 					showSnackbar(message ?: "Terjadi kesalahan")
 
 					with(binding){
@@ -90,17 +90,17 @@ class MahasiswaPengumumanFragment : Fragment() {
 						showSnackbar(message ?: "Terjadi kesalahan!")
 					}
 
-					Log.d("Result error", broadcastResult.payload?.message.toString())
+					Log.d("Result error", broadcastResult.payload?.status.toString())
 
 				}
 
 				is Resource.Success -> {
 					setLoading(false)
 
-					val message = broadcastResult.payload?.message
+					val message = broadcastResult.payload?.status
 					Log.d("Result success", message.toString())
 
-					if (broadcastResult.payload?.status == false) {
+					if (broadcastResult.payload?.success == false) {
 						setLoading(false)
 						showSnackbar(message ?: "Terjadi kesalahan!")
 
@@ -113,7 +113,7 @@ class MahasiswaPengumumanFragment : Fragment() {
 							showSnackbar(message ?: "Terjadi kesalahan!")
 						}
 
-					} else if (broadcastResult.payload?.status == true && broadcastResult.payload.data?.rs_broadcast?.data != null) {
+					} else if (broadcastResult.payload?.success == true && broadcastResult.payload.data?.rs_broadcast?.data != null) {
 						val pengumumanAdapter = PengumumanAdapter()
 
 						pengumumanAdapter.setList(broadcastResult.payload.data.rs_broadcast.data)
