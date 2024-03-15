@@ -159,7 +159,7 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 							setViewVisibility(cvErrorDetailPengumuman, false)
 						}
 					} else {
-						setLoading(true)
+						setLoading(false)
 
 						with(binding){
 							setViewVisibility(cvErrorDetailPengumuman, true)
@@ -221,37 +221,18 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (message == "null" || message.equals(null) || message == "Terjadi kesalahan!") {
-					restartFragment()
-				}
 			}
 		}
 
 	}
 
 
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaDetailPengumumanFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
-	}
-
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDetailPengumumanFragment, isLoading)
+			linearLayoutDetailPengumuman.visibility = if (isLoading) View.GONE else View.VISIBLE
+			cvErrorDetailPengumuman.visibility = if (isLoading) View.GONE else View.VISIBLE
 		}
-
 	}
 
 	private fun setShimmerVisibility(shimmerView: View, isLoading: Boolean) {

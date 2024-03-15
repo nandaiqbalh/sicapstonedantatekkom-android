@@ -86,8 +86,7 @@ class MahasiswaSidangProposalDetailFragment : Fragment() {
 				tvValueHariSidang.text = "${data.hariSidang}, ${data.tanggalSidang}"
 				tvValueWaktuSidang.text = "${data.waktuSidang} WIB"
 
-				tvValueJudul.text = dataKelompok.judulCapstone
-
+				tvValueJudul.text = dataKelompok?.judulCapstone
 
 			}
 

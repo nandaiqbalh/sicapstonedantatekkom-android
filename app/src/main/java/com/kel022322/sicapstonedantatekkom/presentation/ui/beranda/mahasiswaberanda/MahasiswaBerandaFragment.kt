@@ -62,6 +62,7 @@ class MahasiswaBerandaFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 
 		setLoading(true)
+		setLoadingPengumuman(true)
 
 		getProfile()
 
@@ -126,11 +127,11 @@ class MahasiswaBerandaFragment : Fragment() {
 
 			when (broadcastHomeResult) {
 				is Resource.Loading -> {
-					setLoading(true)
+					setLoadingPengumuman(true)
 				}
 
 				is Resource.Error -> {
-					setLoading(false)
+					setLoadingPengumuman(false)
 
 					val message = resultResponse?.status
 
@@ -149,13 +150,13 @@ class MahasiswaBerandaFragment : Fragment() {
 				}
 
 				is Resource.Success -> {
-					setLoading(false)
+					setLoadingPengumuman(false)
 
 					val message = broadcastHomeResult.payload?.status
 					Log.d("Result success", message.toString())
 
 					if (broadcastHomeResult.payload?.success == false) {
-						setLoading(false)
+						setLoadingPengumuman(false)
 						with(binding){
 							setViewVisibility(cvErrorPengumumanTerbaru, true)
 							tvErrorPengumumanTerbaru.text = message ?: "Terjadi kesalahan"
@@ -349,11 +350,18 @@ class MahasiswaBerandaFragment : Fragment() {
 		with(binding) {
 			setShimmerVisibility(shimmerBerandaNamauser, isLoading)
 			setShimmerVisibility(shimmerIvHomeProfilephoto, isLoading)
-			setShimmerVisibility(shimmerCvPengumumanTerbaru, isLoading)
 
 			namauser.visibility = if (isLoading) View.GONE else View.VISIBLE
 			ivHomeProfilephoto.visibility = if (isLoading) View.GONE else View.VISIBLE
 
+		}
+	}
+
+	private fun setLoadingPengumuman(isLoading: Boolean){
+		with(binding) {
+			setShimmerVisibility(shimmerCvPengumumanTerbaru, isLoading)
+
+			rvPengumumanTerbaru.visibility = if (isLoading) View.GONE else View.VISIBLE
 		}
 	}
 

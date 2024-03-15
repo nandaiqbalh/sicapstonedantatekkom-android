@@ -363,24 +363,6 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <Button
-                android:id="@+id/btn_download_sidang_proposal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="20sp"
-                android:backgroundTint="@color/RoyalBlue"
-                android:fontFamily="@font/poppinsbold"
-                android:text="@string/btn_unduh_jadwal"
-                android:textAllCaps="false"
-                android:textColor="@color/White"
-                android:visibility="gone"
-                android:textSize="14sp"
-                app:cornerRadius="6dp"
-                tools:ignore="DuplicateSpeakableTextCheck" />
-
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

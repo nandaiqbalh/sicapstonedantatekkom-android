@@ -1,17 +1,12 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.sidangproposal
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -82,10 +77,10 @@ class MahasiswaSidangProposalFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
+					showSnackbar(status ?: "Terjadi kesalahan!")
 
 					Log.d(
-						"Error Kelompok Index",
+						"Error proposal",
 						getSidangProposalByKelompokResult.payload?.status.toString()
 					)
 
@@ -94,7 +89,6 @@ class MahasiswaSidangProposalFragment : Fragment() {
 						setViewVisibility(cvValueSidangProposal, false)
 						setViewVisibility(linearLayoutSidangProposal, false)
 						setViewVisibility(cvErrorSidangProposal, true)
-						setViewVisibility(btnDownloadSidangProposal, true)
 
 						setViewVisibility(shimmerFragmentSidangProposal, false)
 
@@ -105,7 +99,7 @@ class MahasiswaSidangProposalFragment : Fragment() {
 					setLoading(false)
 
 					val message = getSidangProposalByKelompokResult.payload
-					Log.d("Result success", message.toString())
+					Log.d("Result proposal", message.toString())
 
 					if (resultResponse?.success == true) {
 
@@ -116,7 +110,6 @@ class MahasiswaSidangProposalFragment : Fragment() {
 							setViewVisibility(cvValueSidangProposal, true)
 							setViewVisibility(linearLayoutSidangProposal, true)
 							setViewVisibility(cvErrorSidangProposal, false)
-							setViewVisibility(btnDownloadSidangProposal, true)
 
 							setViewVisibility(shimmerFragmentSidangProposal, false)
 						}
@@ -125,11 +118,11 @@ class MahasiswaSidangProposalFragment : Fragment() {
 						Log.d("Succes status, but failed", status.toString())
 
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", true)
+							showSnackbar(status ?: "Terjadi kesalahan!")
 							setViewVisibility(binding.cvErrorSidangProposal, true)
 							binding.tvErrorSidangProposal.text = status ?: "Terjadi kesalahan!"
 						}
@@ -160,7 +153,7 @@ class MahasiswaSidangProposalFragment : Fragment() {
 				tvValueHariSidang.text = "${data.hariSidang}, ${data.tanggalSidang}"
 				tvValueWaktuSidang.text = "${data.waktuSidang} WIB"
 
-				tvValueJudul.text = dataKelompok.judulCapstone
+				tvValueJudul.text = dataKelompok?.judulCapstone
 
 				btnSelengkapnyaSidangProposal.setOnClickListener {
 					findNavController().navigate(R.id.action_mahasiswaSidangProposalFragment_to_mahasiswaSidangProposalDetailFragment)
@@ -181,24 +174,7 @@ class MahasiswaSidangProposalFragment : Fragment() {
 
 	}
 
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaSidangProposalFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
-	}
-
-	private fun showSnackbar(message: String, isRestart: Boolean) {
+	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaSidangProposalFragment
 
 		if (currentFragment.isVisible) {
@@ -206,9 +182,6 @@ class MahasiswaSidangProposalFragment : Fragment() {
 				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
 			}
 		}
 	}
@@ -233,12 +206,10 @@ class MahasiswaSidangProposalFragment : Fragment() {
 		with(binding) {
 			setShimmerVisibility(shimmerFragmentSidangProposal, isLoading)
 
-
 			if (isLoading) {
 				cvValueSidangProposal.visibility = View.GONE
 				cvErrorSidangProposal.visibility = View.GONE
 				linearLayoutSidangProposal.visibility = View.GONE
-				btnDownloadSidangProposal.visibility = View.GONE
 
 			}
 		}
@@ -253,36 +224,6 @@ class MahasiswaSidangProposalFragment : Fragment() {
 		}
 	}
 
-	private fun showCustomAlertDialog(
-		title: String,
-		message: String,
-		positiveAction: () -> Unit,
-	) {
-		val builder = AlertDialog.Builder(requireContext()).create()
-		val view = layoutInflater.inflate(R.layout.dialog_custom_alert_dialog, null)
-		builder.setView(view)
-		builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-		val buttonYes = view.findViewById<Button>(R.id.btn_alert_yes)
-		val buttonNo = view.findViewById<Button>(R.id.btn_alert_no)
-		val alertTitle = view.findViewById<TextView>(R.id.tv_alert_title)
-		val alertMessage = view.findViewById<TextView>(R.id.tv_alert_message)
-
-		alertTitle.text = title
-		alertMessage.text = message
-
-		buttonYes.setOnClickListener {
-			positiveAction.invoke()
-			builder.dismiss()
-		}
-
-		buttonNo.setOnClickListener {
-			builder.dismiss()
-		}
-
-		builder.setCanceledOnTouchOutside(true)
-		builder.show()
-	}
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null
