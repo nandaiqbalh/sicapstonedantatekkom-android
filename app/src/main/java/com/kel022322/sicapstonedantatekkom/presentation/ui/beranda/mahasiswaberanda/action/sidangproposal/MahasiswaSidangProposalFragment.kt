@@ -77,7 +77,7 @@ class MahasiswaSidangProposalFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!")
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 					Log.d(
 						"Error proposal",
@@ -122,9 +122,9 @@ class MahasiswaSidangProposalFragment : Fragment() {
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!")
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 							setViewVisibility(binding.cvErrorSidangProposal, true)
-							binding.tvErrorSidangProposal.text = status ?: "Terjadi kesalahan!"
+							binding.tvErrorSidangProposal.text = status ?: "Mohon periksa kembali koneksi internet Anda!"
 						}
 
 					}

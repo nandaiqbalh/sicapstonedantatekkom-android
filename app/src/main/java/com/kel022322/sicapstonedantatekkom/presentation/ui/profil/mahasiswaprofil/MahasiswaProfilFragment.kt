@@ -25,11 +25,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kel022322.sicapstonedantatekkom.R
+import com.kel022322.sicapstonedantatekkom.data.local.model.jeniskelamin.JenisKelaminModel
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaProfilBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.login.LoginActivity
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.JenisKelaminAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.JenisKelaminDuaAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.JenisKelaminTigaAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfilePasswordViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileUpdateViewModel
@@ -153,7 +157,7 @@ class MahasiswaProfilFragment : Fragment() {
 
 									actionIfLogoutSucces()
 								} else {
-									showSnackbar(status ?: "Terjadi kesalahan!")
+									showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 								}
 							}
@@ -196,7 +200,7 @@ class MahasiswaProfilFragment : Fragment() {
 
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!")
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 				}
 
 				is Resource.Success -> {
@@ -225,6 +229,12 @@ class MahasiswaProfilFragment : Fragment() {
 							edtNoTelpPengguna.setTextOrHint(
 								resultResponse.data.noTelp, R.string.tv_hint_no_telp
 							)
+							
+							setDropdownJenisKelamin()
+
+							edtJenisKelaminIndividu.setTextOrHint(
+								resultResponse.data.jenisKelamin, R.string.tv_hint_jenis_kelamin
+							)
 
 							GlideApp.with(this@MahasiswaProfilFragment).asBitmap()
 								.load(resultResponse.data.userImgUrl).into(ivProfilephoto)
@@ -241,7 +251,7 @@ class MahasiswaProfilFragment : Fragment() {
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!")
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 
@@ -289,6 +299,7 @@ class MahasiswaProfilFragment : Fragment() {
 		val namaPenggunaEntered = binding.edtNamaLengkapPengguna.text.toString().trim()
 		val emailPenggunaEntered = binding.edtEmailPengguna.text.toString().trim()
 		val noTelpPenggunaEntered = binding.edtNoTelpPengguna.text.toString().trim()
+		val jenisKelaminPenggunaEntered = binding.edtJenisKelaminIndividu.text.toString().trim()
 
 		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 			apiToken?.let {
@@ -298,6 +309,7 @@ class MahasiswaProfilFragment : Fragment() {
 						userName = namaPenggunaEntered,
 						userEmail = emailPenggunaEntered,
 						noTelp = noTelpPenggunaEntered,
+						jenisKelamin = jenisKelaminPenggunaEntered
 					)
 				)
 			}
@@ -316,7 +328,7 @@ class MahasiswaProfilFragment : Fragment() {
 					setLoading(false)
 
 					val status = resultResponse?.status
-					showSnackbar(status ?: "Terjadi kesalahan!")
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 				}
 
@@ -341,7 +353,7 @@ class MahasiswaProfilFragment : Fragment() {
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!")
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 					}
@@ -357,6 +369,7 @@ class MahasiswaProfilFragment : Fragment() {
 		val namaPenggunaEntered = binding.edtNamaLengkapPengguna.text.toString()
 		val emailPenggunaEntered = binding.edtEmailPengguna.text.toString()
 		val noTelpPenggunaEntered = binding.edtNoTelpPengguna.text.toString()
+		val jenisKelaminPenggunaEntered = binding.edtJenisKelaminIndividu.text.toString()
 
 		var isFormValid = true
 
@@ -366,6 +379,14 @@ class MahasiswaProfilFragment : Fragment() {
 			binding.tilNamaPengguna.error = getString(R.string.tv_error_input_blank)
 		} else {
 			binding.tilNamaPengguna.error = null
+		}
+
+		// Validate name
+		if (jenisKelaminPenggunaEntered.isEmpty()) {
+			isFormValid = false
+			binding.tilJenisKelaminIndividu.error = getString(R.string.tv_error_input_blank)
+		} else {
+			binding.tilJenisKelaminIndividu.error = null
 		}
 
 		// Validate email
@@ -427,7 +448,7 @@ class MahasiswaProfilFragment : Fragment() {
 					setLoading(false)
 
 					val status = resultResponse?.status
-					showSnackbar(status ?: "Terjadi kesalahan!")
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 				}
 
@@ -455,7 +476,7 @@ class MahasiswaProfilFragment : Fragment() {
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!")
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 					}
@@ -577,7 +598,7 @@ class MahasiswaProfilFragment : Fragment() {
 						setLoading(false)
 
 						val status = resultResponse?.status
-						showSnackbar(status ?: "Terjadi kesalahan!")
+						showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 					}
 
@@ -600,7 +621,7 @@ class MahasiswaProfilFragment : Fragment() {
 
 								actionIfLogoutSucces()
 							} else {
-								showSnackbar(status ?: "Terjadi kesalahan!")
+								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 							}
 						}
@@ -614,6 +635,27 @@ class MahasiswaProfilFragment : Fragment() {
 			showSnackbar("Gagal! Ukuran foto melebihi 3MB!")
 		}
 	}
+
+	private fun setDropdownJenisKelamin() {
+
+		val listJenisKelamin = listOf(
+			JenisKelaminModel(1, "Laki-laki"),
+			JenisKelaminModel(2, "Perempuan")
+		)
+
+		// jenis kelamin mahasiswa 1
+		val jenisKelaminAdapter = JenisKelaminAdapter(requireContext(), listJenisKelamin)
+		binding.edtJenisKelaminIndividu.setAdapter(jenisKelaminAdapter)
+
+		binding.edtJenisKelaminIndividu.setOnItemClickListener { _, _, position, _ ->
+			val selectedJenisKelamin = jenisKelaminAdapter.getItem(position)
+
+			binding.edtJenisKelaminIndividu.setText(selectedJenisKelamin?.jenisJelamin)
+			// Lakukan sesuatu dengan ID yang dipilih
+		}
+
+	}
+
 
 
 	private fun calculateFileSize(bitmap: Bitmap): Long {

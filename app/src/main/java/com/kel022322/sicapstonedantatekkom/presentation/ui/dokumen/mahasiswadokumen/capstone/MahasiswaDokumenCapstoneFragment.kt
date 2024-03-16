@@ -180,7 +180,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan saat mengakses dokumen :(")
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 				}
 
@@ -397,7 +397,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 								val status = uploadC100ProcessResult.payload?.status
 								Log.d("HASIL UPLOAD ERROR", status.toString())
-								showSnackbar(status ?: "Terjadi kesalahan!")
+								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 							}
 
 							is Resource.Success -> {
@@ -418,7 +418,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!")
+										showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 									}
 								}
@@ -431,7 +431,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 				} catch (e: Exception) {
 					e.printStackTrace()
 					setLoading(false)
-					showSnackbar("Terjadi kesalahan! ${e.message}")
+					showSnackbar("Mohon periksa kembali koneksi internet Anda! ${e.message}")
 
 				}
 			}
@@ -478,7 +478,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								setLoading(false)
 
 								val status = uploadC200ProcessResult.payload?.status
-								showSnackbar(status ?: "Terjadi kesalahan!")
+								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 							}
 
 							is Resource.Success -> {
@@ -499,7 +499,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!")
+										showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 									}
 								}
@@ -511,7 +511,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 				} catch (e: Exception) {
 					e.printStackTrace()
-					showSnackbar("Terjadi kesalahan! ${e.message}")
+					showSnackbar("Mohon periksa kembali koneksi internet Anda! ${e.message}")
 
 					setLoading(false)
 				}
@@ -561,7 +561,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								setLoading(false)
 
 								val status = uploadC300ProcessResult.payload?.status
-								showSnackbar(status ?: "Terjadi kesalahan!")
+								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 							}
 
 							is Resource.Success -> {
@@ -582,7 +582,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!")
+										showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 									}
 								}
@@ -595,7 +595,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 				} catch (e: Exception) {
 					e.printStackTrace()
-					showSnackbar("Terjadi kesalahan! ${e.message}")
+					showSnackbar("Mohon periksa kembali koneksi internet Anda! ${e.message}")
 
 					setLoading(false)
 				}
@@ -643,7 +643,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								setLoading(false)
 
 								val status = uploadC400ProcessResult.payload?.status
-								showSnackbar(status ?: "Terjadi kesalahan!")
+								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 							}
 
 							is Resource.Success -> {
@@ -664,7 +664,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!")
+										showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 									}
 								}
@@ -677,7 +677,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 				} catch (e: Exception) {
 					e.printStackTrace()
-					showSnackbar("Terjadi kesalahan! ${e.message}")
+					showSnackbar("Mohon periksa kembali koneksi internet Anda! ${e.message}")
 
 					setLoading(false)
 				}
@@ -726,7 +726,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								setLoading(false)
 
 								val status = uploadC500ProcessResult.payload?.status
-								showSnackbar(status ?: "Terjadi kesalahan!")
+								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 							}
 
 							is Resource.Success -> {
@@ -746,7 +746,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!")
+										showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 									}
 								}
@@ -760,7 +760,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 				} catch (e: Exception) {
 					e.printStackTrace()
-					showSnackbar("Terjadi kesalahan! ${e.message}")
+					showSnackbar("Mohon periksa kembali koneksi internet Anda! ${e.message}")
 
 					setLoading(false)
 				}

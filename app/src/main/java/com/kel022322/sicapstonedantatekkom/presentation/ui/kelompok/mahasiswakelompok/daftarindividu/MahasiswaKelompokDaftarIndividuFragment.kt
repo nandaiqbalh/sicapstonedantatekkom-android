@@ -131,7 +131,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 
 				}
 			} else {
-				showSnackbar("Form belum valid!", false)
+				showSnackbar("Form belum valid!")
 			}
 		}
 	}
@@ -188,7 +188,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 						with(binding) {
 
 							if (status == "Token is Expired" || status == "Token is Invalid") {
-								showSnackbar("Sesi anda telah berakhir :(", false)
+								showSnackbar("Sesi anda telah berakhir :(")
 
 								actionIfLogoutSucces()
 							} else if (resultResponse?.data?.rs_siklus == null) {
@@ -233,7 +233,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 
 					setLoading(isLoading = false, isSuccess = false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", false)
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 				}
 
@@ -243,23 +243,21 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 						setLoading(isLoading = false, isSuccess = true)
 
 						Log.d("Succes status", status.toString())
-						showSnackbar(resultResponse.status ?: "Berhasil mendaftar capstone!", false)
+						showSnackbar(resultResponse.status ?: "Berhasil mendaftar capstone!")
 
 						findNavController().navigate(R.id.action_mahasiswaKelompokFragment_to_mahasiswaBerandaFragment)
 					} else {
 						setLoading(isLoading = false, isSuccess = false)
 
 						showSnackbar(
-							resultResponse?.status ?: "Terjadi kesalahan saat mendaftar!",
-							false
-						)
+							resultResponse?.status ?: "Terjadi kesalahan saat mendaftar!")
 
 						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 					}
@@ -287,7 +285,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 
 					setLoading(isLoading = false, isSuccess = false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 				}
 
 				is Resource.Success -> {
@@ -303,11 +301,11 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 						Log.d("Succes status, but failed", status.toString())
 
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 
@@ -567,7 +565,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 		}
 	}
 
-	private fun showSnackbar(message: String, isRestart: Boolean) {
+	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaKelompokDaftarIndividuFragment
 
 		if (currentFragment.isVisible) {
@@ -575,9 +573,6 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
 			}
 		}
 	}
@@ -596,23 +591,6 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 
 	private fun setViewVisibility(view: View, isVisible: Boolean) {
 		view.visibility = if (isVisible) View.VISIBLE else View.GONE
-	}
-
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaKelompokDaftarIndividuFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
 	}
 
 	private fun setLoading(isLoading: Boolean, isSuccess: Boolean) {

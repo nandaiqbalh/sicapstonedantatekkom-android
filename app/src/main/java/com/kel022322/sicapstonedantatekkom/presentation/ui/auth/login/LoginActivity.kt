@@ -76,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
 
 							customSnackbar.showSnackbarWithAction(
 								findViewById(android.R.id.content),
-								authResult.payload?.status ?: "Terjadi kesalahan!",
+								authResult.payload?.status ?: "Mohon periksa kembali koneksi internet Anda!",
 								"OK"
 							) {
 								customSnackbar.dismissSnackbar()

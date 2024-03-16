@@ -88,7 +88,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!")
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 					Log.d(
 						"Error SidangTA Index",
@@ -149,10 +149,10 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 								actionIfLogoutSucces()
 							} else if (resultResponse?.data == null){
-								showSnackbar(status ?: "Terjadi kesalahan!")
+								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 								setViewVisibility(binding.cvErrorSidangTaFragment, true)
 								binding.tvErrorSidangTaFragment.text =
-									status ?: "Terjadi kesalahan!"
+									status ?: "Mohon periksa kembali koneksi internet Anda!"
 
 								setViewVisibility(tvTitleSidangTaTersedia, false)
 								setViewVisibility(cvValueSidangTa, false)
@@ -188,7 +188,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 							} else if (resultResponse.data.rsSidang == null) {
 								setViewVisibility(binding.cvErrorSidangTaFragment, false)
 								binding.tvValueStatusPendaftaran.text =
-									status ?: "Terjadi kesalahan!"
+									status ?: "Mohon periksa kembali koneksi internet Anda!"
 
 								setViewVisibility(tvTitleSidangTaTersedia, true)
 								setViewVisibility(cvValueSidangTa, false)
@@ -207,10 +207,10 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 							} else {
 
-								showSnackbar(status ?: "Terjadi kesalahan!")
+								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 								setViewVisibility(binding.cvErrorSidangTaFragment, true)
 								binding.tvErrorSidangTaFragment.text =
-									status ?: "Terjadi kesalahan!"
+									status ?: "Mohon periksa kembali koneksi internet Anda!"
 
 								setViewVisibility(tvTitleSidangTaTersedia, false)
 								setViewVisibility(cvValueSidangTa, false)
@@ -271,7 +271,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 							setLoading(false)
 
 							val status = resultResponse?.status
-							showSnackbar(status ?: "Terjadi kesalahan!")
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 
@@ -294,7 +294,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 									actionIfLogoutSucces()
 								} else {
-									showSnackbar(status ?: "Terjadi kesalahan!")
+									showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 								}
 							}

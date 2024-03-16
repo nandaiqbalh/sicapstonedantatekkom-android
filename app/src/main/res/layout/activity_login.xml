@@ -59,7 +59,7 @@
                     android:layout_marginTop="36dp"
                     android:fontFamily="@font/poppinsmedium"
                     android:text="@string/tv_nim_mahasiswa"
-                    android:textColor="@color/lightblue"
+                    android:textColor="@color/BlueFontFilled"
                     android:textSize="12sp"
                     tools:ignore="TextSizeCheck" />
 
@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints=""
-                        android:fontFamily="@font/poppinsregular"
+                        android:fontFamily="@font/poppinsmedium"
                         android:hint="@string/edt_hint_id_pengguna"
                         android:inputType="text"
                         android:paddingHorizontal="8dp"
@@ -94,7 +94,7 @@
                     android:layout_marginTop="14dp"
                     android:fontFamily="@font/poppinsmedium"
                     android:text="@string/tv_kata_sandi"
-                    android:textColor="@color/lightblue"
+                    android:textColor="@color/BlueFontFilled"
                     android:textSize="12sp"
                     tools:ignore="TextSizeCheck" />
 
@@ -111,7 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints=""
-                        android:fontFamily="@font/poppinsregular"
+                        android:fontFamily="@font/poppinsmedium"
                         android:hint="@string/edt_hint_password"
                         android:inputType="textPassword"
                         android:padding="8dp"
