@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     app:layout_constraintEnd_toEndOf="parent"
-    android:padding="8dp"
+    android:padding="4dp"
     android:background="@color/White"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/tv_title_dosbing">
@@ -37,8 +37,8 @@
             android:fontFamily="@font/poppinsmedium"
             android:maxLines="1"
             android:text="@string/tv_nama_dosen_pembimbing"
-            android:textColor="@color/BlackPearl"
-            android:textSize="12sp" />
+            android:textColor="@color/lightblue"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/tv_nim_dosen_pembimbing"
@@ -48,8 +48,8 @@
             android:fontFamily="@font/poppinsmedium"
             android:maxLines="1"
             android:text="@string/tv_nim_dosen_pembimbing"
-            android:textColor="@color/BlackPearl"
-            android:textSize="12sp" />
+            android:textColor="@color/lightblue"
+            android:textSize="11sp" />
     </LinearLayout>
 
 </LinearLayout>

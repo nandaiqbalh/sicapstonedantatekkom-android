@@ -180,7 +180,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan saat mengakses dokumen :(")
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 				}
 
@@ -318,7 +318,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 								val status = uploadLaporanProcessResult.payload?.status
 								Log.d("HASIL UPLOAD ERROR", status.toString())
-								showSnackbar(status ?: "Terjadi kesalahan!")
+								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 							}
 
 							is Resource.Success -> {
@@ -338,7 +338,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!")
+										showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 									}
 								}
@@ -351,7 +351,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 				} catch (e: Exception) {
 					e.printStackTrace()
 					setLoading(false)
-					showSnackbar("Terjadi kesalahan! ${e.message}")
+					showSnackbar("Mohon periksa kembali koneksi internet Anda! ${e.message}")
 
 				}
 			}
@@ -398,7 +398,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 								setLoading(false)
 
 								val status = uploadMakalahProcessResult.payload?.status
-								showSnackbar(status ?: "Terjadi kesalahan!")
+								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 							}
 
 							is Resource.Success -> {
@@ -420,7 +420,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 										actionIfLogoutSucces()
 									} else {
-										showSnackbar(status ?: "Terjadi kesalahan!")
+										showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 									}
 								}
@@ -432,7 +432,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 				} catch (e: Exception) {
 					e.printStackTrace()
-					showSnackbar("Terjadi kesalahan! ${e.message}")
+					showSnackbar("Mohon periksa kembali koneksi internet Anda! ${e.message}")
 
 					setLoading(false)
 				}

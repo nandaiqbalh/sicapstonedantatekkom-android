@@ -39,7 +39,7 @@
                 android:gravity="center"
                 android:text="@string/tv_anda_belum_memiliki_kelompok"
                 android:textColor="@color/DarkGrey"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
         </com.google.android.material.card.MaterialCardView>
 

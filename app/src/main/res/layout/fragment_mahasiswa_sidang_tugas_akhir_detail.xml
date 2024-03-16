@@ -31,8 +31,8 @@
 
             <ImageView
                 android:id="@+id/ic_back_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:contentDescription="@string/ic_back"
                 android:src="@drawable/ic_back_arrow"
                 app:layout_constraintBottom_toBottomOf="@id/iv_circle_back_arrow"
@@ -67,6 +67,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
@@ -96,7 +97,7 @@
                     android:gravity="center"
                     android:text="@string/tv_terjadi_kesalahan"
                     android:textColor="@color/DarkGrey"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -104,7 +105,7 @@
                 android:id="@+id/shimmer_fragment_sidang_ta_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <include layout="@layout/shimmer_kelompok_fragment" />
 
@@ -116,18 +117,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="24dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="16dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
-                app:contentPadding="16dp"
+                app:contentPadding="12dp"
                 app:strokeColor="@android:color/transparent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:paddingHorizontal="4dp"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -148,7 +148,7 @@
                         android:id="@+id/linear_layout_sidang_ta"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -165,8 +165,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:text="@string/tv_title_status_kelompok"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp"
                                 tools:ignore="TextSizeCheck" />
 
                             <TextView
@@ -175,8 +175,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:text="@string/tv_titik_dua"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp" />
 
                             <TextView
                                 android:id="@+id/tv_value_status_kelompok"
@@ -185,8 +185,8 @@
                                 android:layout_marginStart="8dp"
 
                                 android:fontFamily="@font/poppinsmedium"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp"
                                 tools:text="@string/tv_value_status_kelompok" />
 
                         </LinearLayout>
@@ -202,8 +202,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:text="@string/tv_hari"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp"
                                 tools:ignore="TextSizeCheck" />
 
                             <TextView
@@ -212,8 +212,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:text="@string/tv_titik_dua"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp" />
 
                             <TextView
                                 android:id="@+id/tv_value_hari_sidang"
@@ -222,8 +222,8 @@
                                 android:layout_marginStart="8dp"
 
                                 android:fontFamily="@font/poppinsmedium"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp"
                                 tools:text="Jumat, 12 Februari 2024" />
 
                         </LinearLayout>
@@ -239,8 +239,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:text="@string/tv_waktu"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp"
                                 tools:ignore="TextSizeCheck" />
 
                             <TextView
@@ -249,8 +249,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:text="@string/tv_titik_dua"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp" />
 
                             <TextView
                                 android:id="@+id/tv_value_waktu_sidang"
@@ -259,8 +259,8 @@
                                 android:layout_marginStart="8dp"
 
                                 android:fontFamily="@font/poppinsmedium"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp"
                                 tools:text="07:30 WIB" />
 
                         </LinearLayout>
@@ -276,8 +276,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:text="@string/ruang_sidang"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp" />
 
                             <TextView
                                 android:id="@+id/tv_titik_dua_topik"
@@ -285,8 +285,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:text="@string/tv_titik_dua"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp" />
 
                             <TextView
                                 android:id="@+id/tv_value_ruang_sidang"
@@ -294,8 +294,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:fontFamily="@font/poppinsmedium"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp"
                                 tools:text="Ruang Sekretaris Prodi" />
 
                         </LinearLayout>
@@ -314,8 +314,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:text="@string/tv_title_judul"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp" />
 
                             <TextView
                                 android:id="@+id/tv_titik_dua_judl"
@@ -323,8 +323,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:text="@string/tv_titik_dua"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp" />
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp" />
 
                             <TextView
                                 android:id="@+id/tv_value_judul"
@@ -332,8 +332,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:fontFamily="@font/poppinsmedium"
-                                android:textColor="@color/BlackPearl"
-                                android:textSize="12sp"
+                                android:textColor="@color/lightblue"
+                                android:textSize="11sp"
                                 tools:text="@string/tv_value_judul" />
 
                         </LinearLayout>
@@ -348,19 +348,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="21dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="16dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
-                app:contentPadding="16dp"
+                app:contentPadding="12dp"
                 app:strokeColor="@android:color/transparent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="4dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -408,19 +408,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="21dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="16dp"
-                android:visibility="gone"
+                android:layout_marginBottom="18dp"
+                android:visibility="visible"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
-                app:contentPadding="16dp"
+                app:contentPadding="12dp"
                 app:strokeColor="@android:color/transparent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="4dp"
                     android:orientation="vertical">
 
                     <TextView

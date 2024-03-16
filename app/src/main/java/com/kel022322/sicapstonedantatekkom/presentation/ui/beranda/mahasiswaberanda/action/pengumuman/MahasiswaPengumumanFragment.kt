@@ -77,15 +77,15 @@ class MahasiswaPengumumanFragment : Fragment() {
 
 					// Log and show the message
 					val message = broadcastResult.payload?.status
-					showSnackbar(message ?: "Terjadi kesalahan")
+					showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!")
 
 					with(binding){
 						setViewVisibility(cvErrorPengumuman, true)
-						tvErrorPengumuman.text = message ?: "Terjadi kesalahan"
+						tvErrorPengumuman.text = message ?: "Mohon periksa kembali koneksi internet Anda!"
 
 						setViewVisibility(cvPengumuman, false)
 
-						showSnackbar(message ?: "Terjadi kesalahan!")
+						showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!")
 					}
 
 					Log.d("Result error", broadcastResult.payload?.status.toString())
@@ -100,15 +100,15 @@ class MahasiswaPengumumanFragment : Fragment() {
 
 					if (broadcastResult.payload?.success == false) {
 						setLoading(false)
-						showSnackbar(message ?: "Terjadi kesalahan!")
+						showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						with(binding){
 							setViewVisibility(cvErrorPengumuman, true)
-							tvErrorPengumuman.text = message ?: "Terjadi kesalahan"
+							tvErrorPengumuman.text = message ?: "Mohon periksa kembali koneksi internet Anda!"
 
 							setViewVisibility(cvPengumuman, false)
 
-							showSnackbar(message ?: "Terjadi kesalahan!")
+							showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!")
 						}
 
 					} else if (broadcastResult.payload?.success == true && broadcastResult.payload.data?.rs_broadcast?.data != null) {

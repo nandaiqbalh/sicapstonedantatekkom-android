@@ -98,12 +98,11 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 
 					with(binding){
 						setViewVisibility(cvErrorDetailPengumuman, true)
-						tvErrorDetailPengumuman.text = message ?: "Terjadi kesalahan"
+						tvErrorDetailPengumuman.text = message ?: "Mohon periksa kembali koneksi internet Anda!"
 
 						setViewVisibility(linearLayoutDetailPengumuman, false)
 						setViewVisibility(shimmerDetailPengumumanFragment, false)
 
-						showSnackbar(message ?: "Terjadi kesalahan!")
 					}
 				}
 
@@ -163,12 +162,12 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 
 						with(binding){
 							setViewVisibility(cvErrorDetailPengumuman, true)
-							tvErrorDetailPengumuman.text = message ?: "Terjadi kesalahan"
+							tvErrorDetailPengumuman.text = message ?: "Mohon periksa kembali koneksi internet Anda!"
 
 							setViewVisibility(linearLayoutDetailPengumuman, false)
 							setViewVisibility(shimmerDetailPengumumanFragment, false)
 
-							showSnackbar(message ?: "Terjadi kesalahan!")
+							showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!")
 						}
 
 					}

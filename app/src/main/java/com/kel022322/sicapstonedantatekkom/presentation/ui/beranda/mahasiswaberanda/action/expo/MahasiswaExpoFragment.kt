@@ -88,8 +88,6 @@ class MahasiswaExpoFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
-
 					Log.d(
 						"Error Kelompok Index",
 						getExpoResult.payload?.status.toString()
@@ -128,7 +126,6 @@ class MahasiswaExpoFragment : Fragment() {
 							Log.d("Succes status, but failed", status.toString())
 
 							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-								showSnackbar("Sesi anda telah berakhir :(", true)
 
 								actionIfLogoutSucces()
 							} else {
@@ -136,7 +133,7 @@ class MahasiswaExpoFragment : Fragment() {
 
 								setViewVisibility(shimmerFragmentExpo, false)
 								setViewVisibility(binding.cvErrorExpoFragment, true)
-								tvErrorExpoFragment.text = status ?: "Terjadi kesalahan!"
+								tvErrorExpoFragment.text = status ?: "Mohon periksa kembali koneksi internet Anda!"
 
 							}
 
@@ -186,7 +183,7 @@ class MahasiswaExpoFragment : Fragment() {
 							setLoading(false)
 
 							val status = resultResponse?.status
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 
@@ -197,18 +194,17 @@ class MahasiswaExpoFragment : Fragment() {
 
 							if (resultResponse?.success == true && resultResponse.data != null) {
 								Log.d("Daftar Expo Succes status", status.toString())
-								showSnackbar(resultResponse.status ?: "Berhasil mendaftar expo!", true)
+								showSnackbar(resultResponse.status ?: "Berhasil mendaftar expo!")
 
 								findNavController().navigate(R.id.action_mahasiswaExpoFragment_to_mahasiswaBerandaFragment)
 							} else {
 								Log.d("Daftar Expo Succes status, but failed", status.toString())
 
 								if (status == "Token is Expired" || status == "Token is Invalid") {
-									showSnackbar("Sesi anda telah berakhir :(", true)
 
 									actionIfLogoutSucces()
 								} else {
-									showSnackbar(status ?: "Terjadi kesalahan!", true)
+									showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 								}
 							}
@@ -261,24 +257,7 @@ class MahasiswaExpoFragment : Fragment() {
 		}
 	}
 
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaExpoFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
-	}
-
-	private fun showSnackbar(message: String, isRestart: Boolean) {
+	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaExpoFragment
 
 		if (currentFragment.isVisible) {
@@ -286,9 +265,6 @@ class MahasiswaExpoFragment : Fragment() {
 				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
 			}
 		}
 	}

@@ -180,7 +180,7 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
 
 					Log.d("Error Kelompok Detail", getKelompokSayaResult.payload?.status.toString())
 
@@ -234,7 +234,7 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", false)
 
 						}
 					}
@@ -257,7 +257,7 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
 
 					Log.d(
 						"Error Kelompok Index",
@@ -284,7 +284,7 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", true)
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
 						}
 					}
 

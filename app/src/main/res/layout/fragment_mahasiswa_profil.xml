@@ -32,8 +32,10 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_profilephoto"
@@ -64,9 +66,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/poppinssemibold"
+                android:fontFamily="@font/poppinsmedium"
                 android:text="@string/nama_lengkap_mahasiswa"
-                android:textColor="@color/BlackPearl"
+                android:textColor="@color/lightblue"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,10 +78,10 @@
                 android:id="@+id/tv_nim_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="1dp"
                 android:fontFamily="@font/poppinsmedium"
                 android:text="@string/nim_mahasiswa"
-                android:textColor="#546E7A"
+                android:textColor="@color/DarkGrey"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,8 +92,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="32dp"
-                android:fontFamily="@font/poppinsmedium"
+                android:layout_marginTop="36dp"
+                android:fontFamily="@font/poppinssemibold"
                 android:text="@string/tv_title_profile_detail"
                 android:textColor="@color/lightblue"
                 android:textSize="16sp"
@@ -103,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="20dp"
                 android:backgroundTint="@color/White"
                 app:cardCornerRadius="8dp"
@@ -121,7 +123,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
+                        android:padding="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -139,21 +141,23 @@
                             android:id="@+id/til_nama_pengguna"
                             style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
+                            android:layout_marginTop="4dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
                             app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edt_nama_lengkap_pengguna"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsregular"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/poppinsmedium"
                                 android:hint="@string/tv_hint_nama_lengkap"
+                                android:maxLines="1"
                                 android:paddingHorizontal="8dp"
                                 android:paddingVertical="12dp"
-                                android:textColor="@color/BlueFontFilled"
+                                android:textColor="@color/lightblue"
                                 android:textColorHint="@color/DarkGrey"
-                                android:textSize="12sp"
+                                android:textSize="11sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -162,7 +166,7 @@
                             android:id="@+id/tv_title_nim"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="11dp"
                             android:fontFamily="@font/poppinsmedium"
                             android:text="@string/title_nim"
                             android:textColor="@color/RoyalBlue"
@@ -173,7 +177,7 @@
                             style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="4dp"
                             android:focusable="false"
                             app:hintEnabled="false">
 
@@ -181,15 +185,16 @@
                                 android:id="@+id/edt_nim_pengguna"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:editable="false"
-                                android:fontFamily="@font/poppinsregular"
-                                android:hint="@string/tv_hint_nim"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:hint="@string/tv_hint_nama_lengkap"
+                                android:maxLines="1"
                                 android:paddingHorizontal="8dp"
                                 android:paddingVertical="12dp"
-                                android:textColor="@color/BlueFontFilled"
+                                android:textColor="@color/lightblue"
                                 android:textColorHint="@color/DarkGrey"
-                                android:textSize="12sp"
-                                tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+                                android:textSize="11sp"
+                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -197,7 +202,7 @@
                             android:id="@+id/tv_title_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="11dp"
                             android:fontFamily="@font/poppinsmedium"
                             android:text="@string/title_email"
                             android:textColor="@color/RoyalBlue"
@@ -208,20 +213,22 @@
                             style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="4dp"
                             app:hintEnabled="false">
 
                             <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
                                 android:id="@+id/edt_email_pengguna"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsregular"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/poppinsmedium"
                                 android:hint="@string/tv_hint_email"
+                                android:maxLines="1"
                                 android:paddingHorizontal="8dp"
                                 android:paddingVertical="12dp"
-                                android:textColor="@color/BlueFontFilled"
+                                android:textColor="@color/lightblue"
                                 android:textColorHint="@color/DarkGrey"
-                                android:textSize="12sp"
+                                android:textSize="11sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -231,7 +238,7 @@
                             android:id="@+id/tv_title_no_telp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="11dp"
                             android:fontFamily="@font/poppinsmedium"
                             android:text="@string/title_no_telp"
                             android:textColor="@color/RoyalBlue"
@@ -242,23 +249,59 @@
                             style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="4dp"
                             app:hintEnabled="false">
 
                             <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
                                 android:id="@+id/edt_no_telp_pengguna"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsregular"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/poppinsmedium"
                                 android:hint="@string/tv_hint_no_telp"
-                                android:inputType="number"
+                                android:maxLines="1"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="12dp"
+                                android:textColor="@color/lightblue"
+                                android:textColorHint="@color/DarkGrey"
+                                android:textSize="11sp"
+                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/tv_title_jenis_kelamin_individu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:text="@string/tv_title_jenis_kelamin"
+                            android:textColor="@color/RoyalBlue"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_jenis_kelamin_individu"
+                            style="@style/CustomTextInputLayoutWithDropdown"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            app:hintEnabled="false">
+
+                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                                android:id="@+id/edt_jenis_kelamin_individu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:hint="@string/tv_hint_jenis_kelamin"
+                                android:maxLines="1"
                                 android:paddingHorizontal="8dp"
                                 android:paddingVertical="12dp"
                                 android:textColor="@color/BlueFontFilled"
                                 android:textColorHint="@color/DarkGrey"
-                                android:textSize="12sp"
-                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
+                                android:textSize="11sp"
+                                tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -276,7 +319,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/White"
                         android:textSize="12sp"
-                        app:cornerRadius="6dp"
+                        app:cornerRadius="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/linear_layout_data_profil_akun"
@@ -290,11 +333,10 @@
                 android:id="@+id/tv_title_change_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/poppinsmedium"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppinssemibold"
                 android:text="@string/tv_title_change_password"
-
                 android:textColor="@color/lightblue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -304,10 +346,9 @@
                 android:id="@+id/cv_change_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="6dp"
-                android:layout_marginEnd="21dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginEnd="20dp"
                 android:backgroundTint="@color/White"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
@@ -324,7 +365,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
+                        android:padding="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -343,7 +384,7 @@
                             style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="4dp"
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
@@ -351,13 +392,13 @@
                                 android:id="@+id/edt_current_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsregular"
+                                android:fontFamily="@font/poppinsmedium"
                                 android:hint="@string/tv_hint_current_password"
                                 android:inputType="textPassword"
                                 android:padding="8dp"
                                 android:textColor="@color/BlueFontFilled"
                                 android:textColorHint="@color/DarkGrey"
-                                android:textSize="12sp"
+                                android:textSize="11sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -377,7 +418,7 @@
                             style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="4dp"
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
@@ -385,13 +426,13 @@
                                 android:id="@+id/edt_new_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsregular"
+                                android:fontFamily="@font/poppinsmedium"
                                 android:hint="@string/tv_new_password"
                                 android:inputType="textPassword"
                                 android:padding="8dp"
                                 android:textColor="@color/BlueFontFilled"
                                 android:textColorHint="@color/DarkGrey"
-                                android:textSize="12sp"
+                                android:textSize="11sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -411,7 +452,7 @@
                             style="@style/CustomTextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="4dp"
                             app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
@@ -419,13 +460,13 @@
                                 android:id="@+id/edt_konfirmasi_password_baru"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsregular"
+                                android:fontFamily="@font/poppinsmedium"
                                 android:hint="@string/tv_konfirmasi_password_baru"
                                 android:inputType="textPassword"
                                 android:padding="8dp"
                                 android:textColor="@color/BlueFontFilled"
                                 android:textColorHint="@color/DarkGrey"
-                                android:textSize="12sp"
+                                android:textSize="11sp"
                                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -455,19 +496,25 @@
 
             <Button
                 android:id="@+id/btn_logout"
-                android:layout_width="150dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginHorizontal="20dp"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"
                 android:backgroundTint="@color/RoyalBlue"
+                android:fontFamily="@font/poppinsbold"
                 android:text="@string/btn_logout"
+                android:textAllCaps="false"
                 android:textColor="@color/White"
                 android:textSize="14sp"
-                app:cornerRadius="6dp"
+                app:cornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cv_change_password"
-                tools:ignore="DuplicateSpeakableTextCheck" />
+                app:layout_constraintTop_toBottomOf="@id/cv_change_password"/>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

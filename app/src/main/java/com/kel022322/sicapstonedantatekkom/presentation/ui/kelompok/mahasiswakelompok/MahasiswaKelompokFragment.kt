@@ -19,7 +19,6 @@ import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompok
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.FragmentDaftarCapstonePageAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok.AkunDosbingAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.viewmodel.SiklusViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
@@ -33,7 +32,6 @@ class MahasiswaKelompokFragment : Fragment() {
 	private val binding get() = _binding!!
 
 	private val userViewModel: UserViewModel by viewModels()
-	private val siklusViewModel: SiklusViewModel by viewModels()
 	private val kelompokViewModel: KelompokIndexViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
@@ -95,7 +93,7 @@ class MahasiswaKelompokFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 					Log.d("Error Kelompok Index", getKelompokSayaResult.payload?.status.toString())
 
@@ -138,7 +136,7 @@ class MahasiswaKelompokFragment : Fragment() {
 
 
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else if (resultResponse?.data?.kelompok?.idSiklus == 0) {
@@ -164,7 +162,7 @@ class MahasiswaKelompokFragment : Fragment() {
 								setViewVisibility(shimmerFragmentKelompok, false)
 							}
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", true)
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 					}
@@ -293,24 +291,7 @@ class MahasiswaKelompokFragment : Fragment() {
 		}
 	}
 
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaKelompokFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
-	}
-
-	private fun showSnackbar(message: String, isRestart: Boolean) {
+	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaKelompokFragment
 
 		if (currentFragment.isVisible) {
@@ -318,9 +299,6 @@ class MahasiswaKelompokFragment : Fragment() {
 				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
 			}
 		}
 	}

@@ -174,9 +174,9 @@
     <string name="tv_detail_expo">Jadwal Expo Project</string>
     <string name="tv_batas_pendaftaran">Batas Pendaftaran</string>
     <string name="tv_siklus_expo">Siklus</string>
-    <string name="tv_sidang_ta_tersedia">Jadwal Sidang Tugas Akhir</string>
+    <string name="tv_sidang_ta_tersedia">Periode Sidang Tugas Akhir</string>
     <string name="tv_detail_sidang_ta">Sidang Tugas Akhir</string>
-    <string name="tv_sidang_ta_project_mahasiswa">Data Sidang Tugas Akhir</string>
+    <string name="tv_sidang_ta_project_mahasiswa">Pendaftaran Sidang Tugas Akhir</string>
     <string name="tv_link_pendukung_sidang_ta">Link berkas pendukung</string>
     <string name="tv_hint_link_pendukung_sidang_ta">Masukan link berkas pendukung</string>
     <string name="tv_daftar_sidang_ta">Simpan</string>
@@ -185,6 +185,6 @@
     <string name="tv_nama_periode">Periode</string>
     <string name="tv_title_detail_sidang_sidang_ta">Detail Sidang Tugas Akhir</string>
     <string name="tv_title_detail_sidang_ta">Detail Sidang Tugas Akhir</string>
-    <string name="tv_title_jadwal_sidang_ta">Jadwal</string>
+    <string name="tv_title_jadwal_sidang_ta">Jadwal Sidang Tugas Akhir</string>
     <string name="btn_daftar">Daftar</string>
 </resources>

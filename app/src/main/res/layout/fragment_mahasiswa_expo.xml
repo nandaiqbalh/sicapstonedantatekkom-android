@@ -32,8 +32,8 @@
 
             <ImageView
                 android:id="@+id/ic_back_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:contentDescription="@string/ic_back"
                 android:src="@drawable/ic_back_arrow"
                 app:layout_constraintBottom_toBottomOf="@id/iv_circle_back_arrow"
@@ -99,7 +99,7 @@
                     android:paddingHorizontal="16dp"
                     android:text="@string/tv_terjadi_kesalahan"
                     android:textColor="@color/DarkGrey"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -107,7 +107,7 @@
                 android:id="@+id/shimmer_fragment_expo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <include layout="@layout/shimmer_kelompok_fragment" />
 
@@ -119,17 +119,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/tv_title_expo_tersedia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:fontFamily="@font/poppinsmedium"
+                    android:fontFamily="@font/poppinssemibold"
                     android:text="@string/tv_expo_tersedia"
                     android:textColor="@color/lightblue"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_nim_user" />
 
@@ -144,11 +144,12 @@
                     app:cardBackgroundColor="@color/White"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp"
-                    app:contentPadding="16dp"
+                    app:contentPadding="12dp"
                     app:strokeColor="@android:color/transparent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
+                        android:paddingHorizontal="4dp"
                         android:layout_height="wrap_content">
 
                         <TextView
@@ -169,7 +170,7 @@
                             android:id="@+id/linear_layout_expo_project"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="10dp"
                             android:orientation="vertical"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -295,10 +296,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="26dp"
-                    android:fontFamily="@font/poppinsmedium"
+                    android:fontFamily="@font/poppinssemibold"
                     android:text="@string/tv_expo_project_mahasiswa"
                     android:textColor="@color/lightblue"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_nim_user" />
 
@@ -397,14 +398,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="48dp"
                             android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="16dp"
                             android:backgroundTint="@color/RoyalBlue"
                             android:fontFamily="@font/poppinsmedium"
                             android:text="@string/btn_daftar"
                             android:textAllCaps="false"
                             android:textColor="@color/White"
                             android:textSize="11sp"
-                            app:cornerRadius="6dp"
+                            app:cornerRadius="4dp"
                             tools:ignore="DuplicateSpeakableTextCheck" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
