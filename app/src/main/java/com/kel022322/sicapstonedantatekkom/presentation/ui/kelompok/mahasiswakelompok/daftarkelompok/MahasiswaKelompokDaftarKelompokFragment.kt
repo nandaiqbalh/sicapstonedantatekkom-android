@@ -218,7 +218,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 						}
 					}
 				} else {
-					showSnackbar("Form belum valid!", false)
+					showSnackbar("Form belum valid!")
 				}
 			}
 		}
@@ -273,29 +273,26 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 						with(binding) {
 
-							with(binding) {
+							if (status == "Token is Expired" || status == "Token is Invalid") {
+								showSnackbar("Sesi anda telah berakhir :(")
 
-								if (status == "Token is Expired" || status == "Token is Invalid") {
-									showSnackbar("Sesi anda telah berakhir :(", false)
+								actionIfLogoutSucces()
+							} else if (resultResponse?.data?.rs_siklus == null) {
+								setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
+								setViewVisibility(cvErrorDaftarKelompok, true)
+								tvErrorDaftarKelompok.text = status ?: "Siklus tidak aktif"
+							} else if (resultResponse.data.periode_pendaftaran == null) {
+								setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
+								setViewVisibility(cvErrorDaftarKelompok, true)
+								tvErrorDaftarKelompok.text =
+									status ?: "Belum memasuki periode pendaftaran capstone"
 
-									actionIfLogoutSucces()
-								} else if (resultResponse?.data?.rs_siklus == null) {
-									setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
-									setViewVisibility(cvErrorDaftarKelompok, true)
-									tvErrorDaftarKelompok.text = status ?: "Siklus tidak aktif"
-								} else if (resultResponse.data.periode_pendaftaran == null) {
-									setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
-									setViewVisibility(cvErrorDaftarKelompok, true)
-									tvErrorDaftarKelompok.text =
-										status ?: "Belum memasuki periode pendaftaran capstone"
+							} else {
+								setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
+								setViewVisibility(cvErrorDaftarKelompok, true)
+								tvErrorDaftarKelompok.text =
+									status ?: "Belum memasuki periode pendaftaran capstone"
 
-								} else {
-									setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
-									setViewVisibility(cvErrorDaftarKelompok, true)
-									tvErrorDaftarKelompok.text =
-										status ?: "Belum memasuki periode pendaftaran capstone"
-
-								}
 							}
 						}
 					}
@@ -322,7 +319,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 					setLoading(isLoading = false, isSuccess = false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", false)
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 				}
 
@@ -332,7 +329,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 						setLoading(isLoading = false, isSuccess = true)
 
 						Log.d("Succes status", status.toString())
-						showSnackbar(resultResponse.status ?: "Berhasil mendaftar capstone!", false)
+						showSnackbar(resultResponse.status ?: "Berhasil mendaftar capstone!")
 
 						findNavController().navigate(R.id.action_mahasiswaKelompokFragment_to_mahasiswaBerandaFragment)
 					} else {
@@ -340,15 +337,14 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 						showSnackbar(
 							resultResponse?.status ?: "Terjadi kesalahan saat mendaftar!",
-							false
 						)
 
 						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 					}
@@ -400,11 +396,11 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 						setLoading(isLoading = false, isSuccess = false)
 
 						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 					}
@@ -429,7 +425,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 					setLoading(isLoading = false, isSuccess = false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 				}
 
 				is Resource.Success -> {
@@ -446,11 +442,11 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 						Log.d("Succes status, but failed", status.toString())
 
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 
@@ -501,11 +497,11 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 						setLoading(isLoading = false, isSuccess = false)
 
 						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 					}
@@ -550,11 +546,11 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 						setLoading(isLoading = false, isSuccess = false)
 
 						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						}
 					}
@@ -1065,7 +1061,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 		}
 	}
 
-	private fun showSnackbar(message: String, isRestart: Boolean) {
+	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaKelompokDaftarKelompokFragment
 
 		if (currentFragment.isVisible) {
@@ -1073,9 +1069,6 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
 			}
 		}
 	}
@@ -1090,23 +1083,6 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 		val intent = Intent(requireContext(), SplashscreenActivity::class.java)
 		requireContext().startActivity(intent)
 		requireActivity().finishAffinity()
-	}
-
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaKelompokDaftarKelompokFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
 	}
 
 	private fun setLoading(isLoading: Boolean, isSuccess: Boolean) {

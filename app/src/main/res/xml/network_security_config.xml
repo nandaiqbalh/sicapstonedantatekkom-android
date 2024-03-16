@@ -8,6 +8,18 @@
         <domain includeSubdomains="true">10.106.227.171</domain>
         <domain includeSubdomains="true">192.168.1.14</domain>
         <domain includeSubdomains="true">10.106.244.1</domain>
+<<<<<<< HEAD
+=======
+        <domain includeSubdomains="true">192.168.1.5</domain>
+        <domain includeSubdomains="true">192.168.96.22</domain>
+        <domain includeSubdomains="true">192.168.1.24</domain>
+        <domain includeSubdomains="true">10.105.191.189</domain>
+        <domain includeSubdomains="true">10.106.61.22</domain>
+        <domain includeSubdomains="true">192.168.87.220</domain>
+        <domain includeSubdomains="true">172.20.10.3</domain>
+        <domain includeSubdomains="true">10.107.52.232</domain>
+        <domain includeSubdomains="true">192.168.1.28</domain>
+>>>>>>> cf45ce21367c9a5f47e25aa04d963cacd9f9ecf4
 
     </domain-config>
 </network-security-config>

@@ -6,4 +6,6 @@ data class UpdateProfileRemoteRequestBody(
 	@SerializedName("user_name") val userName: String?,
 	@SerializedName("no_telp") val noTelp: String?,
 	@SerializedName("user_email") val userEmail: String?,
+	@SerializedName("jenis_kelamin") val jenisKelamin: String?,
+
 	)
