@@ -21,6 +21,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="16dp"
             android:visibility="gone"
+            android:paddingHorizontal="16dp"
             app:cardBackgroundColor="@color/White"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
@@ -32,12 +33,13 @@
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
+                android:paddingHorizontal="16dp"
                 android:background="@drawable/rounded_outline_text_view"
-                android:fontFamily="@font/poppinsregular"
+                android:fontFamily="@font/poppinsmedium"
                 android:gravity="center"
                 android:text="@string/tv_anda_belum_memiliki_kelompok"
                 android:textColor="@color/DarkGrey"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -69,7 +71,7 @@
         <LinearLayout
             android:id="@+id/linear_layout_dokumen_capstone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
@@ -164,7 +166,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/RoyalBlue"
+                        android:backgroundTint="@color/tabUnselected"
                         android:fontFamily="@font/poppinsmedium"
                         android:text="@string/btn_unduh"
                         android:textAllCaps="false"
@@ -272,7 +274,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/RoyalBlue"
+                        android:backgroundTint="@color/tabUnselected"
                         android:fontFamily="@font/poppinsmedium"
                         android:text="@string/btn_unduh"
                         android:textAllCaps="false"
@@ -380,7 +382,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/RoyalBlue"
+                        android:backgroundTint="@color/tabUnselected"
                         android:fontFamily="@font/poppinsmedium"
                         android:text="@string/btn_unduh"
                         android:textAllCaps="false"
@@ -487,7 +489,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/RoyalBlue"
+                        android:backgroundTint="@color/tabUnselected"
                         android:fontFamily="@font/poppinsmedium"
                         android:text="@string/btn_unduh"
                         android:textAllCaps="false"
@@ -596,7 +598,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/RoyalBlue"
+                        android:backgroundTint="@color/tabUnselected"
                         android:fontFamily="@font/poppinsmedium"
                         android:text="@string/btn_unduh"
                         android:textAllCaps="false"

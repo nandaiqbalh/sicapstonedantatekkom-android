@@ -15,15 +15,26 @@ class CustomEmailEditText : TextInputEditText {
 
 	private var emailPattern: Regex = Patterns.EMAIL_ADDRESS.toRegex()
 
-	constructor(context: Context) : super(context)
-	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+	constructor(context: Context) : super(context) {
+		init()
+	}
+
+	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+		init()
+	}
+
 	constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
 		context,
 		attrs,
 		defStyleAttr
-	)
+	) {
+		init()
+	}
 
-	init {
+	private fun init() {
+		val parentLayout = getParentTextInputLayout()
+		parentLayout?.error = null
+
 		addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -32,11 +43,14 @@ class CustomEmailEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val email = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (email.isNotEmpty() && !email.matches(emailPattern)) {
+				if (email.isNotEmpty() && !email.matches(emailPattern) && s == null) {
 					parentLayout?.error = "Email tidak valid!"
 					setCustomErrorTypeface(parentLayout)
+					parentLayout?.isErrorEnabled = true
+
 				} else {
 					parentLayout?.error = null
+					parentLayout?.isErrorEnabled = false
 				}
 			}
 		})
@@ -52,6 +66,7 @@ class CustomEmailEditText : TextInputEditText {
 
 	private fun setCustomErrorTypeface(textInputLayout: TextInputLayout?) {
 		val typeface = ResourcesCompat.getFont(context, R.font.poppinsregular)
-		textInputLayout?.setTypeface(typeface)
+		textInputLayout?.typeface = typeface
 	}
+
 }

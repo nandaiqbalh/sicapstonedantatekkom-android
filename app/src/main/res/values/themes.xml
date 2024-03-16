@@ -41,6 +41,11 @@
     </style>
 
 
+    <style name="bottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="fontFamily">@font/poppinsmedium</item>
+        <item name="checkedIconSize">32dp</item>
+    </style>
+
     <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">0dp</item>
@@ -50,6 +55,18 @@
     </style>
 
     <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Default state -->
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+
+        <!-- Color selector -->
+        <item name="boxStrokeColor">@color/color_outlined_text_input_layout</item>
+
+    </style>
+
+    <style name="CustomTextInputLayoutWithDropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <!-- Default state -->
         <item name="boxCornerRadiusBottomEnd">8dp</item>
         <item name="boxCornerRadiusTopEnd">8dp</item>

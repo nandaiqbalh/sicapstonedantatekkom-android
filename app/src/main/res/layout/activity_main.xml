@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.beranda.MainActivity">
+    tools:context=".presentation.ui.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerViewHome"
@@ -26,6 +26,7 @@
         android:background="@color/White"
         app:itemTextColor="@drawable/color_navigation_text_color"
         app:labelVisibilityMode="labeled"
+        app:itemTextAppearanceActive="@style/bottomNavigationView.Active"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

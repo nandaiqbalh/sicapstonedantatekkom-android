@@ -6,28 +6,33 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.kel022322.sicapstonedantatekkom.R
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.request.ProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaProfilBinding
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.login.LoginActivity
+import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfilePasswordViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileUpdateViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.util.EditTextHelper.Companion.setTextOrHint
@@ -51,24 +56,22 @@ class MahasiswaProfilFragment : Fragment() {
 	private var _binding: FragmentMahasiswaProfilBinding? = null
 	private val binding get() = _binding!!
 
-	private val profileViewModel: ProfileSayaViewModel by viewModels()
+	private val profileIndexViewModel: ProfileIndexViewModel by viewModels()
+	private val profileUpdateViewModel: ProfileUpdateViewModel by viewModels()
+	private val profilePasswordViewModel: ProfilePasswordViewModel by viewModels()
+	private val userViewModel: UserViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
 
 	private val REQUEST_CODE_PERMISSION = 3
 	private val MAX_FILE_SIZE = 3 * 1024 * 1024 // 1MB
 
-	private val galleryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-		if (result.resultCode == Activity.RESULT_OK) {
-			handleGaleriImage(result.data)
+	private val galleryResult =
+		registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+			if (result.resultCode == Activity.RESULT_OK) {
+				handleGaleriImage(result.data)
+			}
 		}
-	}
-
-	private val cameraResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-		if (result.resultCode == Activity.RESULT_OK) {
-			handleCameraImage(result.data)
-		}
-	}
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -86,13 +89,13 @@ class MahasiswaProfilFragment : Fragment() {
 
 		// button listener
 		doButtonListener()
+
 	}
 
 	private fun doButtonListener() {
 
 		// simpan profil button
 		binding.btnSimpanProfil.setOnClickListener {
-
 			simpanProfil()
 		}
 
@@ -103,52 +106,85 @@ class MahasiswaProfilFragment : Fragment() {
 
 		// logout button
 		binding.btnLogout.setOnClickListener {
-			val alertDialogBuilder = AlertDialog.Builder(requireContext())
-			alertDialogBuilder.setTitle("Konfirmasi")
-			alertDialogBuilder.setMessage("Apakah anda yakin untuk keluar?")
-			alertDialogBuilder.setPositiveButton("Ya") { dialog, _ ->
+
+			showCustomAlertDialog(
+				"Konfirmasi", "Apakah anda yakin untuk keluar?"
+			) {
 				setLoading(true)
 
-				showSnackbar("Berhasil keluar!")
+				userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+					apiToken?.let {
+						userViewModel.authLogout(apiToken)
+						Log.d("API TOKEN", apiToken)
+					}
+				}
 
-				dialog.dismiss()
+				userViewModel.logoutResult.observe(viewLifecycleOwner) { logoutResult ->
+					when (logoutResult) {
+						is Resource.Loading -> setLoading(true)
+						is Resource.Error -> {
+							setLoading(false)
+							Log.d("Logout error", logoutResult.payload?.status.toString())
+							showSnackbar("Gagal keluar!")
+						}
+
+						is Resource.Success -> {
+							setLoading(false)
+
+							val status = logoutResult.payload?.status
+
+							val loginResult = logoutResult.payload
+
+							if (loginResult?.success == true) {
+								Log.d("Logout success", status.toString())
+
+								showSnackbar(logoutResult.payload.status ?: "Berhasil keluar!")
+
+								actionIfLogoutSucces()
+
+							} else {
+								// if the success is false, then just show the snackbar
+								Log.d(
+									"Logout success, but failed!",
+									logoutResult.payload?.status.toString()
+								)
+								if (status == "Token is Expired" || status == "Token is Invalid") {
+									showSnackbar("Sesi anda telah berakhir :(")
+
+									actionIfLogoutSucces()
+								} else {
+									showSnackbar(status ?: "Terjadi kesalahan!")
+
+								}
+							}
+						}
+
+						else -> {}
+
+					}
+				}
 			}
-			alertDialogBuilder.setNegativeButton("Tidak") { dialog, _ ->
-				dialog.dismiss()
-			}
-			val alertDialog = alertDialogBuilder.create()
-			alertDialog.show()
 		}
 
 		// update photo profile button
 		binding.btnEditPhotoProfile.setOnClickListener {
-			showTakePhotoOptions()
+			checkGalleryPermission()
 		}
 	}
 
 	private fun getProfile() {
 		setLoading(true)
 
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					apiToken?.let {
-						profileViewModel.getMahasiswaProfile(
-							ProfileRemoteRequestBody(
-								userId.toString(), it
-							)
-						)
-						profileViewModel.getPhotoProfile(
-							PhotoProfileRemoteRequestBody(
-								userId.toString(), it
-							)
-						)
-					}
-				}
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				profileIndexViewModel.getMahasiswaProfile(apiToken)
 			}
 		}
 
-		profileViewModel.getProfileResult.observe(viewLifecycleOwner) { getProfileResult ->
+		profileIndexViewModel.getProfileResult.observe(viewLifecycleOwner) { getProfileResult ->
+
+			val resultResponse = getProfileResult.payload
+			val status = resultResponse?.status
 
 			when (getProfileResult) {
 				is Resource.Loading -> {
@@ -156,210 +192,157 @@ class MahasiswaProfilFragment : Fragment() {
 				}
 
 				is Resource.Error -> {
+					Log.d("Error Profile Index", getProfileResult.payload?.status.toString())
+
 					setLoading(false)
 
-					val message = getProfileResult.payload?.message
-					showSnackbar(message ?: "Terjadi kesalahan!")
+					showSnackbar(status ?: "Terjadi kesalahan!")
 				}
 
 				is Resource.Success -> {
 					setLoading(false)
 
-					val message = getProfileResult.payload?.message
-					Log.d("Result message", message.toString())
+					if (resultResponse?.success == true && resultResponse.data != null) {
+						Log.d("Succes status", status.toString())
 
-					if (getProfileResult.payload?.data != null) {
-						val dataUser = getProfileResult.payload.data
-
-						Log.d("DATA USER", dataUser.toString())
 						// set binding
 						with(binding) {
 
-							tvNamaUser.text = dataUser.userName
-							tvNimUser.text = dataUser.nomorInduk
+							tvNamaUser.text = resultResponse.data.userName
+							tvNimUser.text = resultResponse.data.nomorInduk
 
 							// form
 							edtNamaLengkapPengguna.setTextOrHint(
-								dataUser.userName, R.string.tv_hint_nama_lengkap
+								resultResponse.data.userName, R.string.tv_hint_nama_lengkap
 							)
-							edtNimPengguna.setTextOrHint(dataUser.nomorInduk, R.string.tv_hint_nim)
+							edtNimPengguna.setTextOrHint(
+								resultResponse.data.nomorInduk,
+								R.string.tv_hint_nim
+							)
 							edtEmailPengguna.setTextOrHint(
-								dataUser.userEmail, R.string.tv_hint_email
+								resultResponse.data.userEmail, R.string.tv_hint_email
 							)
 							edtNoTelpPengguna.setTextOrHint(
-								dataUser.noTelp, R.string.tv_hint_no_telp
+								resultResponse.data.noTelp, R.string.tv_hint_no_telp
 							)
+
+							GlideApp.with(this@MahasiswaProfilFragment).asBitmap()
+								.load(resultResponse.data.userImgUrl).into(ivProfilephoto)
+
+							userViewModel.setPhotoProfile(resultResponse.data.userImgUrl.toString())
+							userViewModel.setUsername(resultResponse.data.userName.toString())
 
 						}
 					} else {
-						showSnackbar(message ?: "Terjadi kesalahan!")
-					}
-				}
+						Log.d("Succes status, but failed", status.toString())
 
-				else -> {}
-			}
-		}
+						if (status == "Token is Expired" || status == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(")
 
-		profileViewModel.getPhotoProfileResult.observe(viewLifecycleOwner) { getPhotoProfileResult ->
-			when (getPhotoProfileResult) {
-				is Resource.Loading -> {
-					setLoading(true)
-				}
-
-				is Resource.Error -> {
-					setLoading(false)
-
-					val message = getPhotoProfileResult.payload?.message
-
-					showSnackbar(message ?: "Terjadi kesalahan!")
-				}
-
-				is Resource.Success -> {
-					setLoading(false)
-					val message = getPhotoProfileResult.payload?.message
-
-					Log.d("Success message", message.toString())
-
-					if (getPhotoProfileResult.payload?.data != null) {
-						// set binding
-						with(binding) {
-							val base64Image = getPhotoProfileResult.payload.data.toString()
-
-							profileViewModel.setPhotoProfile(base64Image)
-
-							if (base64Image != "null") {
-								// Decode base64 string to byte array
-								val decodedBytes = decodeBase64ToBitmap(base64Image)
-
-								GlideApp.with(requireContext()).asBitmap().load(decodedBytes)
-									.into(ivProfilephoto)
-							}
+							actionIfLogoutSucces()
+						} else {
+							showSnackbar(status ?: "Terjadi kesalahan!")
 
 						}
+
 					}
 				}
 
 				else -> {}
 			}
 		}
+
 	}
 
 	private fun simpanProfil() {
+		if (isFormProfilValid()) {
 
-		if (validateFormSimpanProfil()) {
-			val alertDialogBuilder = AlertDialog.Builder(requireContext())
-			alertDialogBuilder.setTitle("Konfirmasi")
-			alertDialogBuilder.setMessage("Apakah anda yakin untuk mengubah profil anda?")
-			alertDialogBuilder.setPositiveButton("Ya") { dialog, _ ->
+			showCustomAlertDialog(
+				title = "Konfirmasi",
+				message = "Apakah anda yakin untuk mengubah profil anda?"
+			) {
 				setLoading(true)
 
+				// Assuming doNetworkingUpdateProfile() is a function that performs the update profile operation
 				doNetworkingUpdateProfile()
+			}
 
-				dialog.dismiss()
-			}
-			alertDialogBuilder.setNegativeButton("Tidak") { dialog, _ ->
-				dialog.dismiss()
-			}
-			val alertDialog = alertDialogBuilder.create()
-			alertDialog.show()
 		}
 	}
 
 	private fun ubahPassword() {
-		if (validateFormUbahPassword()) {
-			val alertDialogBuilder = AlertDialog.Builder(requireContext())
-			alertDialogBuilder.setTitle("Konfirmasi")
-			alertDialogBuilder.setMessage("Apakah anda yakin untuk mengubah password anda?")
-			alertDialogBuilder.setPositiveButton("Ya") { dialog, _ ->
+		if (isFormPasswordValid()) {
+			showCustomAlertDialog(
+				title = "Konfirmasi",
+				message = "Apakah anda yakin untuk mengubah password anda?"
+			) {
 				setLoading(true)
 
 				doNetworkingUbahPassword()
 
-				dialog.dismiss()
 			}
-			alertDialogBuilder.setNegativeButton("Tidak") { dialog, _ ->
-				dialog.dismiss()
-			}
-			val alertDialog = alertDialogBuilder.create()
-			alertDialog.show()
 		}
 	}
 
-	// bind input menjadi dalam bentuk request body
 	private fun doNetworkingUpdateProfile() {
 
 		val namaPenggunaEntered = binding.edtNamaLengkapPengguna.text.toString().trim()
 		val emailPenggunaEntered = binding.edtEmailPengguna.text.toString().trim()
 		val noTelpPenggunaEntered = binding.edtNoTelpPengguna.text.toString().trim()
 
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					apiToken?.let {
-						profileViewModel.updateMahasiswaProfile(
-							UpdateProfileRemoteRequestBody(
-								userName = namaPenggunaEntered,
-								userEmail = emailPenggunaEntered,
-								noTelp = noTelpPenggunaEntered,
-								sks = null,
-								ipk = null,
-								userId = userId,
-								userImage = null,
-								apiToken = it,
-								jenisKelamin = null,
-								angkatan = null,
-								alamat = null,
-
-								)
-						)
-					}
-				}
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				profileUpdateViewModel.updateMahasiswaProfile(
+					apiToken,
+					UpdateProfileRemoteRequestBody(
+						userName = namaPenggunaEntered,
+						userEmail = emailPenggunaEntered,
+						noTelp = noTelpPenggunaEntered,
+					)
+				)
 			}
 		}
+		profileUpdateViewModel.updateProfileResult.observe(viewLifecycleOwner) { updateProfileResult ->
+			val resultResponse = updateProfileResult.payload
 
-		profileViewModel.updateProfileResult.observe(viewLifecycleOwner){updateProfileResult ->
 			when (updateProfileResult) {
 				is Resource.Loading -> {
 					setLoading(true)
 				}
 
 				is Resource.Error -> {
+					Log.d("Update Error Profile", updateProfileResult.payload?.status.toString())
+
 					setLoading(false)
 
-					val message = updateProfileResult.payload?.message
-					showSnackbar(message ?: "Terjadi kesalahan!")
+					val status = resultResponse?.status
+					showSnackbar(status ?: "Terjadi kesalahan!")
 
 				}
 
 				is Resource.Success -> {
 					setLoading(false)
 
-					val message = updateProfileResult.payload?.message
-					Log.d("Result message", message.toString())
+					val status = updateProfileResult.payload?.status
 
-					showSnackbar(message ?: "Berhasil!")
+					if (resultResponse?.success == true && resultResponse.data != null) {
+						Log.d("Update Succes status", status.toString())
 
-					if (updateProfileResult.payload?.data != null) {
-						val dataUser = updateProfileResult.payload.data
+						showSnackbar(status ?: "Berhasil memperbaharui profil!")
 						// set binding
-						with(binding) {
 
-							tvNamaUser.text = dataUser.userName
-							tvNimUser.text = dataUser.nomorInduk
+						findNavController().navigate(R.id.action_mahasiswaProfilFragment_to_mahasiswaBerandaFragment)
 
-							// form
-							edtNamaLengkapPengguna.setTextOrHint(
-								dataUser.userName, R.string.tv_hint_nama_lengkap
-							)
-							edtNimPengguna.setTextOrHint(dataUser.nomorInduk, R.string.tv_hint_nim)
-							edtEmailPengguna.setTextOrHint(
-								dataUser.userEmail, R.string.tv_hint_email
-							)
-							edtNoTelpPengguna.setTextOrHint(
-								dataUser.noTelp, R.string.tv_hint_no_telp
-							)
+					} else {
+						Log.d("Update Succes status, but failed", status.toString())
 
-							profileViewModel.setUsername(dataUser.userName.toString())
+						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(")
+
+							actionIfLogoutSucces()
+						} else {
+							showSnackbar(status ?: "Terjadi kesalahan!")
+
 						}
 					}
 				}
@@ -367,11 +350,10 @@ class MahasiswaProfilFragment : Fragment() {
 				else -> {}
 			}
 		}
-
 	}
 
 	// validate form simpanProfil
-	private fun validateFormSimpanProfil(): Boolean {
+	private fun isFormProfilValid(): Boolean {
 		val namaPenggunaEntered = binding.edtNamaLengkapPengguna.text.toString()
 		val emailPenggunaEntered = binding.edtEmailPengguna.text.toString()
 		val noTelpPenggunaEntered = binding.edtNoTelpPengguna.text.toString()
@@ -418,47 +400,64 @@ class MahasiswaProfilFragment : Fragment() {
 		val newPassword = binding.edtNewPassword.text.toString().trim()
 		val newPasswordKonfirmation = binding.edtKonfirmasiPasswordBaru.text.toString().trim()
 
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					apiToken?.let {
-						profileViewModel.updatePasswordProfile(
-							UpdatePasswordRemoteRequestBody(
-								userId = userId,
-								apiToken = it,
-								currentPassword = currentPassword,
-								newPassword = newPassword,
-								repeatNewPassword = newPasswordKonfirmation
-								)
-						)
-					}
-				}
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				profilePasswordViewModel.updatePasswordProfile(
+					apiToken,
+					UpdatePasswordRemoteRequestBody(
+						currentPassword = currentPassword,
+						newPassword = newPassword,
+						repeatNewPassword = newPasswordKonfirmation
+					)
+				)
 			}
 		}
 
-		profileViewModel.updatePasswordResult.observe(viewLifecycleOwner){updateProfileResult ->
+		profilePasswordViewModel.updatePasswordResult.observe(viewLifecycleOwner) { updateProfileResult ->
+			val resultResponse = updateProfileResult.payload
+
 			when (updateProfileResult) {
 				is Resource.Loading -> {
 					setLoading(true)
 				}
 
 				is Resource.Error -> {
+					Log.d("Password Error Password", updateProfileResult.payload?.status.toString())
+
 					setLoading(false)
 
-					val message = updateProfileResult.payload?.message
-					showSnackbar(message ?: "Terjadi kesalahan!")
+					val status = resultResponse?.status
+					showSnackbar(status ?: "Terjadi kesalahan!")
 
 				}
 
 				is Resource.Success -> {
 					setLoading(false)
 
-					val message = updateProfileResult.payload?.message
-					Log.d("Result message", message.toString())
+					val status = updateProfileResult.payload?.status
 
-					if (message =="Password baru berhasil disimpan."){
-						showSnackbar("Password berhasil diubah, silahkan masuk kembali.")
+					if (resultResponse?.success == true && resultResponse.data != null) {
+						Log.d("Password Succes status", status.toString())
+						showSnackbar(resultResponse.status ?: "Berhasil memperbaharui password!")
 
+						actionIfLogoutSucces()
+
+						val intent = Intent(requireContext(), LoginActivity::class.java)
+						startActivity(intent)
+						requireActivity().finishAffinity()
+
+
+					} else {
+						Log.d("Password Succes status, but failed", status.toString())
+
+						if (status == "Token is Expired" || status == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(")
+
+							actionIfLogoutSucces()
+						} else {
+							showSnackbar(status ?: "Terjadi kesalahan!")
+
+						}
 					}
 
 				}
@@ -468,7 +467,8 @@ class MahasiswaProfilFragment : Fragment() {
 		}
 
 	}
-	private fun validateFormUbahPassword(): Boolean {
+
+	private fun isFormPasswordValid(): Boolean {
 		val currentPassword = binding.edtCurrentPassword.text.toString().trim()
 		val newPassword = binding.edtNewPassword.text.toString().trim()
 		val newPasswordKonfirmation = binding.edtKonfirmasiPasswordBaru.text.toString().trim()
@@ -509,53 +509,13 @@ class MahasiswaProfilFragment : Fragment() {
 	}
 
 	// update photo profile
-	private fun showTakePhotoOptions() {
-		val options = arrayOf("Buka kamera", "Pilih dari galeri")
-		val builder = AlertDialog.Builder(requireContext())
-		builder.setTitle("Pilih opsi")
-		builder.setItems(options) { _, which ->
-			when (which) {
-				0 -> checkCameraPermission()
-				1 -> checkGalleryPermission()
-			}
-		}
-		builder.show()
-	}
-
-	private fun checkCameraPermission() {
-		if (isPermissionGranted(
-				Manifest.permission.CAMERA,
-				arrayOf(
-					Manifest.permission.CAMERA,
-					Manifest.permission.READ_EXTERNAL_STORAGE,
-					Manifest.permission.WRITE_EXTERNAL_STORAGE
-				),
-				REQUEST_CODE_PERMISSION
-			)
-		) {
-			openCamera()
-		}
-	}
-
-	private fun openCamera() {
-		val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-		cameraResult.launch(cameraIntent)
-	}
-
-	private fun handleCameraImage(intent: Intent?) {
-		val photo = intent?.extras?.get("data") as Bitmap
-
-		saveSelectedImage(photo)
-	}
 
 	private fun checkGalleryPermission() {
 		if (isPermissionGranted(
-				Manifest.permission.READ_EXTERNAL_STORAGE,
-				arrayOf(
+				Manifest.permission.READ_EXTERNAL_STORAGE, arrayOf(
 					Manifest.permission.READ_EXTERNAL_STORAGE,
 					Manifest.permission.WRITE_EXTERNAL_STORAGE
-				),
-				REQUEST_CODE_PERMISSION
+				), REQUEST_CODE_PERMISSION
 			)
 		) {
 			openGallery()
@@ -569,21 +529,24 @@ class MahasiswaProfilFragment : Fragment() {
 
 	private fun handleGaleriImage(intent: Intent?) {
 		val selectedImageUri = intent?.data
-		val photo = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, selectedImageUri)
+		val photo =
+			MediaStore.Images.Media.getBitmap(requireContext().contentResolver, selectedImageUri)
 
 		saveSelectedImage(photo)
 
 	}
 
-	private fun saveSelectedImage(photo: Bitmap){
+	private fun saveSelectedImage(photo: Bitmap) {
 		val fileSize = calculateFileSize(photo)
 
 		if (fileSize <= MAX_FILE_SIZE) {
 			val squarePhoto = cropToSquare(photo) // Crop the photo to a square
 
-			val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+			val timeStamp: String =
+				SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
 			val imageFileName = "JPEG_${timeStamp}_"
-			val storageDir: File? = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+			val storageDir: File? =
+				Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
 			val file = File.createTempFile(imageFileName, ".jpg", storageDir)
 
 			FileOutputStream(file).use { output ->
@@ -593,47 +556,60 @@ class MahasiswaProfilFragment : Fragment() {
 			val requestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
 			val photoPart = MultipartBody.Part.createFormData("user_img", file.name, requestBody)
 
-			profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-				userId?.let {
-					profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-						apiToken?.let {
-							// Kirim token dan photoPart ke fungsi updatePhotoProfile
-							profileViewModel.updatePhotoProfile(userId, it, photoPart)
-						}
-					}
+			userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+				apiToken?.let {
+					// Kirim token dan photoPart ke fungsi updatePhotoProfile
+					profileUpdateViewModel.updatePhotoProfile(apiToken, photoPart)
 				}
 			}
 
-			profileViewModel.updatePhotoProfileResult.observe(viewLifecycleOwner) { updatePhotoProfileResult ->
+			profileUpdateViewModel.updatePhotoProfileResult.observe(viewLifecycleOwner) { updatePhotoProfileResult ->
+				val resultResponse = updatePhotoProfileResult.payload
+
 				when (updatePhotoProfileResult) {
 					is Resource.Loading -> {
 						setLoading(true)
 					}
 
 					is Resource.Error -> {
+						Log.d("Photo Error Profile", updatePhotoProfileResult.payload?.status.toString())
+
 						setLoading(false)
-						val message = updatePhotoProfileResult.payload?.message
-						showSnackbar(message ?: "Terjadi kesalahan!")
+
+						val status = resultResponse?.status
+						showSnackbar(status ?: "Terjadi kesalahan!")
+
 					}
 
 					is Resource.Success -> {
 						setLoading(false)
-						val message = updatePhotoProfileResult.payload?.message
-						Log.d("Result Upload", message.toString())
 
-						if (updatePhotoProfileResult.payload?.data != null) {
+						val status = updatePhotoProfileResult.payload?.status
 
-							restartFragment()
+						if (resultResponse?.success == true) {
+							Log.d("Photo Succes status", status.toString())
 
-							showSnackbar(message ?: "Berhasil!")
+							showSnackbar(status ?: "Berhasil memperbaharui foto profil!")
+							findNavController().navigate(R.id.action_mahasiswaProfilFragment_to_mahasiswaBerandaFragment)
+
 						} else {
-							showSnackbar(message ?: "Terjadi kesalahan!")
+							Log.d("Photo Succes status, but failed", status.toString())
+
+							if (status == "Token is Expired" || status == "Token is Invalid") {
+								showSnackbar("Sesi anda telah berakhir :(")
+
+								actionIfLogoutSucces()
+							} else {
+								showSnackbar(status ?: "Terjadi kesalahan!")
+
+							}
 						}
 					}
 
 					else -> {}
 				}
 			}
+
 		} else {
 			showSnackbar("Gagal! Ukuran foto melebihi 3MB!")
 		}
@@ -650,11 +626,14 @@ class MahasiswaProfilFragment : Fragment() {
 	private fun isPermissionGranted(
 		permission: String,
 		permissions: Array<String>,
-		request: Int
+		request: Int,
 	): Boolean {
 		val permissionCheck = ActivityCompat.checkSelfPermission(requireContext(), permission)
 		return if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-			if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permission)) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(
+					requireActivity(), permission
+				)
+			) {
 				showPermissionDeniedDialog()
 			} else {
 				ActivityCompat.requestPermissions(requireActivity(), permissions, request)
@@ -671,7 +650,7 @@ class MahasiswaProfilFragment : Fragment() {
 			.setPositiveButton("App Settings") { _, _ ->
 				val intent = Intent()
 				intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-				val uri = Uri.fromParts("package",requireContext().packageName, null)
+				val uri = Uri.fromParts("package", requireContext().packageName, null)
 				intent.data = uri
 				startActivity(intent)
 			}.setNegativeButton("Batalkan") { dialog, _ -> dialog.cancel() }.show()
@@ -682,64 +661,48 @@ class MahasiswaProfilFragment : Fragment() {
 		return Bitmap.createBitmap(bitmap, 0, 0, dimension, dimension)
 	}
 
-	private fun decodeBase64ToBitmap(base64: String): Bitmap {
-		val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
-		return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+	private fun showCustomAlertDialog(
+		title: String,
+		message: String,
+		positiveAction: () -> Unit,
+	) {
+		val builder = AlertDialog.Builder(requireContext()).create()
+		val view = layoutInflater.inflate(R.layout.dialog_custom_alert_dialog, null)
+		builder.setView(view)
+		builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+		val buttonYes = view.findViewById<Button>(R.id.btn_alert_yes)
+		val buttonNo = view.findViewById<Button>(R.id.btn_alert_no)
+		val alertTitle = view.findViewById<TextView>(R.id.tv_alert_title)
+		val alertMessage = view.findViewById<TextView>(R.id.tv_alert_message)
+
+		alertTitle.text = title
+		alertMessage.text = message
+
+		buttonYes.setOnClickListener {
+			positiveAction.invoke()
+			builder.dismiss()
+		}
+
+		buttonNo.setOnClickListener {
+			builder.dismiss()
+		}
+
+		builder.setCanceledOnTouchOutside(true)
+		builder.show()
 	}
 
 	private fun showSnackbar(message: String) {
-
 		val currentFragment = this@MahasiswaProfilFragment
-		if (currentFragment.isVisible){
+
+		if (currentFragment.isVisible) {
 			customSnackbar.showSnackbarWithAction(
-				requireActivity().findViewById(android.R.id.content),
-				message,
-				"OK"
+				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (message == "Berhasil keluar!" || message == "Gagal! Anda telah masuk melalui perangkat lain." || message == "Pengguna tidak ditemukan!" || message == "Akses tidak sah!" || message == "Sesi anda telah berakhir, silahkan masuk terlebih dahulu.") {
-
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setStatusAuth(false)
-
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
-				} else if (message == "null" || message.equals(null) || message == "Terjadi kesalahan!") {
-					restartFragment()
-				} else if (message == "Password berhasil diubah, silahkan masuk kembali."){
-
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setStatusAuth(false)
-
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
-				}
 			}
 		}
-
 	}
-
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaProfilFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
-	}
-
 
 	private fun isValidEmail(email: String): Boolean {
 		return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -763,6 +726,18 @@ class MahasiswaProfilFragment : Fragment() {
 
 			binding.constraintProfilMahasiswa.visibility = View.VISIBLE
 		}
+	}
+
+	private fun actionIfLogoutSucces() {
+		// set auth data store
+		userViewModel.setApiToken("")
+		userViewModel.setUserId("")
+		userViewModel.setUsername("")
+		userViewModel.setStatusAuth(false)
+
+		val intent = Intent(requireContext(), SplashscreenActivity::class.java)
+		requireContext().startActivity(intent)
+		requireActivity().finishAffinity()
 	}
 
 	override fun onDestroyView() {

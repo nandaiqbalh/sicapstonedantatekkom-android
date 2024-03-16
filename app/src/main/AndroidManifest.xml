@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".SICapstonedanTATekkomApp"
@@ -37,18 +36,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.ui.test.TestUploadActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.ui.test.TestActivity"
-            android:exported="true">
 
-        </activity>
         <activity
-            android:name=".presentation.ui.beranda.MainActivity"
+            android:name=".presentation.ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.CustomAppBar"/>
+
     </application>
 
 </manifest>

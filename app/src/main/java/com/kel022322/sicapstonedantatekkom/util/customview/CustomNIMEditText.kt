@@ -11,15 +11,26 @@ import com.kel022322.sicapstonedantatekkom.R
 
 class CustomNIMEditText : TextInputEditText {
 
-	constructor(context: Context) : super(context)
-	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+	constructor(context: Context) : super(context) {
+		init()
+	}
+
+	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+		init()
+	}
+
 	constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
 		context,
 		attrs,
 		defStyleAttr
-	)
+	) {
+		init()
+	}
 
-	init {
+	private fun init() {
+		val parentLayout = getParentTextInputLayout()
+		parentLayout?.error = null
+
 		addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 			}
@@ -30,11 +41,15 @@ class CustomNIMEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val userId = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (userId.length == 14 && userId.all { it.isDigit() }) {
+				if (userId.isNotEmpty() && userId.length == 14 && userId.all { it.isDigit() } && s != null) {
 					parentLayout?.error = null
+					parentLayout?.isErrorEnabled = false
+
 				} else {
 					parentLayout?.error = "14 digit NIM tidak valid!"
 					setCustomErrorTypeface(parentLayout)
+					parentLayout?.isErrorEnabled = true
+
 				}
 			}
 		})
@@ -50,6 +65,7 @@ class CustomNIMEditText : TextInputEditText {
 
 	private fun setCustomErrorTypeface(textInputLayout: TextInputLayout?) {
 		val typeface = ResourcesCompat.getFont(context, R.font.poppinsregular)
-		textInputLayout?.setTypeface(typeface)
+		textInputLayout?.typeface = typeface
 	}
+
 }

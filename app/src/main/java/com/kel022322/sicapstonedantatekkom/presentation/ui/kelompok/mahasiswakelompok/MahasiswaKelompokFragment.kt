@@ -1,10 +1,7 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,14 +14,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.tabs.TabLayout
 import com.kel022322.sicapstonedantatekkom.R
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokBinding
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.AkunDosbingAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.FragmentDaftarCapstonePageAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok.AkunDosbingAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.viewmodel.SiklusViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
@@ -37,8 +32,9 @@ class MahasiswaKelompokFragment : Fragment() {
 	private var _binding: FragmentMahasiswaKelompokBinding? = null
 	private val binding get() = _binding!!
 
-	private val profileViewModel: ProfileSayaViewModel by viewModels()
-	private val kelompokViewModel: KelompokSayaViewModel by viewModels()
+	private val userViewModel: UserViewModel by viewModels()
+	private val siklusViewModel: SiklusViewModel by viewModels()
+	private val kelompokViewModel: KelompokIndexViewModel by viewModels()
 
 	private val customSnackbar = CustomSnackbar()
 
@@ -64,9 +60,9 @@ class MahasiswaKelompokFragment : Fragment() {
 		buttonActionListener()
 	}
 
-	private fun buttonActionListener(){
+	private fun buttonActionListener() {
 
-		with(binding){
+		with(binding) {
 
 			btnSelengkapnyaKelompok.setOnClickListener {
 				findNavController().navigate(R.id.action_mahasiswaKelompokFragment_to_mahasiswaKelompokDetailFragment)
@@ -75,16 +71,145 @@ class MahasiswaKelompokFragment : Fragment() {
 		}
 	}
 
-	private fun setCardKelompok(getKelompokSayaResult: Resource<KelompokSayaRemoteResponse>){
+	private fun checkKelompok() {
+		setLoading(true)
+
+		// get status kelompok
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				kelompokViewModel.getKelompokSaya(apiToken)
+
+			}
+		}
+
+		kelompokViewModel.getKelompokSayaResult.observe(viewLifecycleOwner) { getKelompokSayaResult ->
+			val resultResponse = getKelompokSayaResult.payload
+			val status = resultResponse?.status
+
+			when (getKelompokSayaResult) {
+				is Resource.Loading -> {
+					setLoading(true)
+
+				}
+
+				is Resource.Error -> {
+					setLoading(false)
+
+					showSnackbar(status ?: "Terjadi kesalahan!", true)
+
+					Log.d("Error Kelompok Index", getKelompokSayaResult.payload?.status.toString())
+
+					// set view condition
+					with(binding) {
+						setViewVisibility(cvValueKelompok, false)
+						setViewVisibility(cvValueDosbing, false)
+						setViewVisibility(cvValueKelompok, false)
+						setViewVisibility(linearLayoutDaftarCapstone, false)
+						setViewVisibility(cvErrorKelompok, true)
+
+						setViewVisibility(shimmerFragmentKelompok, false)
+
+					}
+				}
+
+				is Resource.Success -> {
+					setLoading(false)
+
+					val message = getKelompokSayaResult.payload
+					Log.d("Result success", message.toString())
+
+					if (resultResponse?.success == true) {
+
+						setCardKelompok(getKelompokSayaResult)
+
+						// if already have kelompok
+						with(binding) {
+							setViewVisibility(cvValueKelompok, true)
+							setViewVisibility(cvValueDosbing, true)
+							setViewVisibility(linearLayoutDaftarCapstone, false)
+							setViewVisibility(cvErrorKelompok, false)
+
+							setViewVisibility(shimmerFragmentKelompok, false)
+
+						}
+
+					} else {
+						Log.d("Succes status, but failed", status.toString())
+
+
+						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(", true)
+
+							actionIfLogoutSucces()
+						} else if (resultResponse?.data?.kelompok?.idSiklus == 0) {
+							// siklus sudah tidak aktif
+							with(binding) {
+								setViewVisibility(cvValueKelompok, false)
+								setViewVisibility(cvValueDosbing, false)
+								setViewVisibility(linearLayoutDaftarCapstone, false)
+								setViewVisibility(cvErrorKelompok, true)
+								tvErrorKelompok.text = status ?: "Terjadi kesalahan"
+
+								setViewVisibility(shimmerFragmentKelompok, false)
+
+							}
+						} else if (resultResponse?.data?.kelompok == null) {
+							// (kelompok still null) set conditionally view
+							with(binding) {
+								setViewVisibility(cvValueKelompok, false)
+								setViewVisibility(cvValueDosbing, false)
+								setViewVisibility(linearLayoutDaftarCapstone, true)
+								setViewVisibility(cvErrorKelompok, false)
+
+								setViewVisibility(shimmerFragmentKelompok, false)
+							}
+						} else {
+							showSnackbar(status ?: "Terjadi kesalahan!", true)
+
+						}
+					}
+
+				}
+
+				else -> {}
+			}
+		}
+	}
+
+	private fun setToolbar() {
+		setLoading(true)
+
+		// set username
+		userViewModel.getUsername().observe(viewLifecycleOwner) { username ->
+			setLoading(false)
+
+			if (username != null && username != "") {
+				binding.tvNamaUserKelompok.text = username
+			}
+		}
+
+		// set photo profile
+		userViewModel.getPhotoProfile().observe(viewLifecycleOwner) { photoProfile ->
+			setLoading(false)
+
+			if (photoProfile != null && photoProfile != "") {
+				GlideApp.with(this@MahasiswaKelompokFragment).asBitmap().load(photoProfile)
+					.into(binding.ivHomeProfilephotoKelompok)
+			}
+		}
+
+	}
+
+	private fun setCardKelompok(getKelompokSayaResult: Resource<KelompokSayaRemoteResponse>) {
 
 		val data = getKelompokSayaResult.payload?.data
 
-		if (data?.kelompok?.idKelompok != null){
+		if (data?.kelompok?.idKelompok != null) {
 
 			//  kelompok sudah valid
-			with(binding){
+			with(binding) {
 
-				val dataKelompok =  data.kelompok
+				val dataKelompok = data.kelompok
 				// card kelompok
 				tvValueStatusKelompok.text = dataKelompok.statusKelompok
 				tvValueNomorKelompok.text = dataKelompok.nomorKelompok.toString()
@@ -105,7 +230,8 @@ class MahasiswaKelompokFragment : Fragment() {
 				rvAkunDosbingKelompok.adapter = akunDosbingAdapter
 
 				// navigate to detail if necessary
-				akunDosbingAdapter.setOnItemClickCallback(object : AkunDosbingAdapter.OnItemClickCallBack {
+				akunDosbingAdapter.setOnItemClickCallback(object :
+					AkunDosbingAdapter.OnItemClickCallBack {
 					override fun onItemClicked(dosbingId: String) {
 					}
 				})
@@ -113,7 +239,7 @@ class MahasiswaKelompokFragment : Fragment() {
 
 		} else {
 			//  kelompok belum valid
-			with(binding){
+			with(binding) {
 				// card kelompok
 				"Belum valid!".also { tvValueStatusKelompok.text = it }
 
@@ -125,83 +251,7 @@ class MahasiswaKelompokFragment : Fragment() {
 		}
 
 	}
-	private fun checkKelompok() {
-		setLoading(true)
 
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					apiToken?.let {
-						kelompokViewModel.getKelompokSaya(
-							KelompokSayaRemoteRequestBody(
-								userId,
-								apiToken
-							)
-						)
-
-					}
-				}
-			}
-		}
-
-		kelompokViewModel.getKelompokSayaResult.observe(viewLifecycleOwner) { getKelompokSayaResult ->
-
-			when (getKelompokSayaResult) {
-				is Resource.Loading -> {
-					setLoading(true)
-
-				}
-
-				is Resource.Error -> {
-					setLoading(false)
-					Log.d("Result error", getKelompokSayaResult.toString())
-
-					binding.cvValueKelompok.visibility = View.GONE
-					binding.cvValueDosbing.visibility = View.GONE
-					binding.cvValueDosbing.visibility = View.GONE
-					binding.linearLayoutDaftarCapstone.visibility = View.GONE
-					binding.cvErrorKelompok.visibility = View.VISIBLE
-
-					binding.shimmerFragmentKelompok.visibility = View.GONE
-				}
-
-				is Resource.Success -> {
-					setLoading(false)
-
-					val message = getKelompokSayaResult.payload
-					Log.d("Result success", message.toString())
-
-					if (getKelompokSayaResult.payload?.status == true){
-
-						setCardKelompok(getKelompokSayaResult)
-
-						val dataKelompok = getKelompokSayaResult.payload.data
-
-						if (dataKelompok?.kelompok == null) {
-							binding.cvValueKelompok.visibility = View.GONE
-							binding.cvValueDosbing.visibility = View.GONE
-							binding.linearLayoutDaftarCapstone.visibility = View.VISIBLE
-							binding.cvErrorKelompok.visibility = View.GONE
-
-							binding.shimmerFragmentKelompok.visibility  = View.GONE
-
-						} else {
-							binding.cvValueKelompok.visibility = View.VISIBLE
-							binding.cvValueDosbing.visibility = View.VISIBLE
-							binding.linearLayoutDaftarCapstone.visibility = View.GONE
-							binding.cvErrorKelompok.visibility = View.GONE
-
-							binding.shimmerFragmentKelompok.visibility = View.GONE
-
-						}
-					}
-
-				}
-
-				else -> {}
-			}
-		}
-	}
 
 	private fun setViewPager() {
 
@@ -243,112 +293,6 @@ class MahasiswaKelompokFragment : Fragment() {
 		}
 	}
 
-	private fun setToolbar() {
-		profileViewModel.getUsername().observe(viewLifecycleOwner) { username ->
-			if (username != null) {
-				binding.tvNamaUserKelompok.text = username
-			}
-		}
-
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					apiToken?.let {
-						profileViewModel.getPhotoProfile(
-							PhotoProfileRemoteRequestBody(
-								userId.toString(), it
-							)
-						)
-					}
-				}
-			}
-		}
-
-		profileViewModel.getPhotoProfileResult.observe(viewLifecycleOwner) { getPhotoProfileResult ->
-			when (getPhotoProfileResult) {
-				is Resource.Loading -> {
-					setLoading(true)
-				}
-
-				is Resource.Error -> {
-					setLoading(false)
-					val message = getPhotoProfileResult.payload?.message
-
-					showSnackbar(message = message ?: "Terjadi kesalahan!")
-				}
-
-				is Resource.Success -> {
-					setLoading(false)
-					val message = getPhotoProfileResult.payload?.message
-
-					Log.d("Success message", message.toString())
-
-					if (getPhotoProfileResult.payload?.data != null) {
-						// set binding
-						with(binding) {
-							val base64Image = getPhotoProfileResult.payload.data.toString()
-
-							profileViewModel.setPhotoProfile(base64Image)
-
-							if (base64Image != "null") {
-								// Decode base64 string to byte array
-								val decodedBytes = decodeBase64ToBitmap(base64Image)
-
-								GlideApp.with(requireContext()).asBitmap().load(decodedBytes)
-									.into(ivHomeProfilephotoKelompok)
-							}
-
-						}
-					}
-				}
-
-				else -> {}
-			}
-		}
-	}
-
-
-	private fun decodeBase64ToBitmap(base64: String): Bitmap {
-		val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
-		return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-	}
-
-	private fun showSnackbar(message: String) {
-		val currentFragment = this@MahasiswaKelompokFragment
-
-		if (currentFragment.isVisible) {
-			customSnackbar.showSnackbarWithAction(
-				requireActivity().findViewById(android.R.id.content),
-				message,
-				"OK"
-			) {
-				customSnackbar.dismissSnackbar()
-				if (message == "Berhasil keluar!" || message == "Gagal! Anda telah masuk melalui perangkat lain." || message == "Pengguna tidak ditemukan!" || message == "Akses tidak sah!" || message == "Sesi anda telah berakhir, silahkan masuk terlebih dahulu.") {
-
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setStatusAuth(false)
-
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
-				} else if (message == "null" || message.equals(null) || message == "Terjadi kesalahan!") {
-					restartFragment()
-				} else if (message == "Password berhasil diubah, silahkan masuk kembali.") {
-
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setStatusAuth(false)
-
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
-				}
-			}
-		}
-
-	}
-
 	private fun restartFragment() {
 		val currentFragment = this@MahasiswaKelompokFragment
 
@@ -366,6 +310,37 @@ class MahasiswaKelompokFragment : Fragment() {
 		}
 	}
 
+	private fun showSnackbar(message: String, isRestart: Boolean) {
+		val currentFragment = this@MahasiswaKelompokFragment
+
+		if (currentFragment.isVisible) {
+			customSnackbar.showSnackbarWithAction(
+				requireActivity().findViewById(android.R.id.content), message, "OK"
+			) {
+				customSnackbar.dismissSnackbar()
+				if (isRestart) {
+					restartFragment()
+				}
+			}
+		}
+	}
+
+	private fun actionIfLogoutSucces() {
+		// set auth data store
+		userViewModel.setApiToken("")
+		userViewModel.setUserId("")
+		userViewModel.setUsername("")
+		userViewModel.setStatusAuth(false)
+
+		val intent = Intent(requireContext(), SplashscreenActivity::class.java)
+		requireContext().startActivity(intent)
+		requireActivity().finishAffinity()
+	}
+
+	private fun setViewVisibility(view: View, isVisible: Boolean) {
+		view.visibility = if (isVisible) View.VISIBLE else View.GONE
+	}
+
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerBerandaNamauser, isLoading)
@@ -375,10 +350,11 @@ class MahasiswaKelompokFragment : Fragment() {
 			tvNamaUserKelompok.visibility = if (isLoading) View.GONE else View.VISIBLE
 			ivHomeProfilephotoKelompok.visibility = if (isLoading) View.GONE else View.VISIBLE
 
-			if (isLoading){
+			if (isLoading) {
 				cvValueKelompok.visibility = View.GONE
 				cvValueDosbing.visibility = View.GONE
 				cvErrorKelompok.visibility = View.GONE
+				linearLayoutDaftarCapstone.visibility = View.GONE
 			}
 		}
 

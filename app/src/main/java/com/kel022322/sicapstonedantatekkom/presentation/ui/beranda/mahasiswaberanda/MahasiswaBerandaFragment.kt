@@ -1,10 +1,7 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,12 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.local.action.ActionModel
-import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.image.request.PhotoProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaBerandaBinding
-import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.ActionAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.PengumumanViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.pengumuman.adapter.PengumumanAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.adapter.ActionAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.adapter.PengumumanAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
@@ -36,8 +32,10 @@ class MahasiswaBerandaFragment : Fragment() {
 	private var _binding: FragmentMahasiswaBerandaBinding? = null
 	private val binding get() = _binding!!
 
-	private val pengumumanViewModel: PengumumanViewModel by viewModels()
-	private val profileViewModel: ProfileSayaViewModel by viewModels()
+	private val mahasiswaBerandaViewModel: MahasiswaBerandaViewModel by viewModels()
+
+	private val userViewModel: UserViewModel by viewModels()
+	private val profileIndexViewModel: ProfileIndexViewModel by viewModels()
 
 	private lateinit var navController: NavController
 
@@ -50,7 +48,6 @@ class MahasiswaBerandaFragment : Fragment() {
 		_binding = FragmentMahasiswaBerandaBinding.inflate(layoutInflater, container, false)
 		return binding.root
 	}
-
 
 	override fun onStart() {
 		super.onStart()
@@ -65,8 +62,9 @@ class MahasiswaBerandaFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 
 		setLoading(true)
+		setLoadingPengumuman(true)
 
-		setUpToolbarValue()
+		getProfile()
 
 		setPengumumanRecyclerView()
 
@@ -74,6 +72,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 	}
 
+	// set action listener
 	private fun setActionListener() {
 
 //		binding.ivHomeProfilephoto.setOnClickListener {
@@ -113,9 +112,7 @@ class MahasiswaBerandaFragment : Fragment() {
 		actionAdapter.setList(dummyActions)
 
 		binding.rvActionMahasiswaBeranda.layoutManager = LinearLayoutManager(
-			requireContext(),
-			LinearLayoutManager.HORIZONTAL,
-			false
+			requireContext(), LinearLayoutManager.HORIZONTAL, false
 		)
 
 		binding.rvActionMahasiswaBeranda.adapter = actionAdapter
@@ -123,59 +120,77 @@ class MahasiswaBerandaFragment : Fragment() {
 
 	private fun setPengumumanRecyclerView() {
 
-		pengumumanViewModel.getBroadcastHome()
+		mahasiswaBerandaViewModel.getBroadcastHome()
 
-		pengumumanViewModel.broadcastHomeResult.observe(viewLifecycleOwner) { broadcastHomeResult ->
+		mahasiswaBerandaViewModel.broadcastHomeResult.observe(viewLifecycleOwner) { broadcastHomeResult ->
+			val resultResponse = broadcastHomeResult.payload
 
 			when (broadcastHomeResult) {
 				is Resource.Loading -> {
-					setLoading(true)
+					setLoadingPengumuman(true)
 				}
 
 				is Resource.Error -> {
-					setLoading(false)
-					val message = broadcastHomeResult.payload?.message
-					showSnackbar(message ?: "Terjadi kesalahan!")
+					setLoadingPengumuman(false)
 
-					binding.tvPengumumanTidakDitemukan.visibility = View.VISIBLE
+					val message = resultResponse?.status
 
-					Log.d("Result error", broadcastHomeResult.payload?.message.toString())
+					with(binding){
+						setViewVisibility(cvErrorPengumumanTerbaru, true)
+						tvErrorPengumumanTerbaru.text = message ?: "Mohon periksa kembali koneksi internet Anda!"
+
+						setViewVisibility(cvPengumumanTerbaru, false)
+						setViewVisibility(shimmerBerandaNamauser, false)
+
+						showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!", false)
+					}
+
+					Log.d("Broadcast error", broadcastHomeResult.payload?.status.toString())
 
 				}
 
 				is Resource.Success -> {
-					setLoading(false)
+					setLoadingPengumuman(false)
 
-					val message = broadcastHomeResult.payload?.message
+					val message = broadcastHomeResult.payload?.status
 					Log.d("Result success", message.toString())
 
-					if (broadcastHomeResult.payload?.status == false) {
-						setLoading(false)
-						showSnackbar(message ?: "Terjadi kesalahan!")
+					if (broadcastHomeResult.payload?.success == false) {
+						setLoadingPengumuman(false)
+						with(binding){
+							setViewVisibility(cvErrorPengumumanTerbaru, true)
+							tvErrorPengumumanTerbaru.text = message ?: "Mohon periksa kembali koneksi internet Anda!"
 
-						binding.tvPengumumanTidakDitemukan.visibility = View.VISIBLE
+							setViewVisibility(cvPengumumanTerbaru, false)
+							setViewVisibility(shimmerBerandaNamauser, false)
 
-					} else if (broadcastHomeResult.payload?.status == true && broadcastHomeResult.payload.data?.rs_broadcast?.data != null) {
+							showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!", false)
+						}
+
+					} else if (broadcastHomeResult.payload?.success == true && broadcastHomeResult.payload.data?.rs_broadcast?.data != null) {
 						val pengumumanAdapter = PengumumanAdapter()
 
 						pengumumanAdapter.setList(broadcastHomeResult.payload.data.rs_broadcast.data)
 
 						binding.rvPengumumanTerbaru.layoutManager = LinearLayoutManager(
-							requireContext(),
-							LinearLayoutManager.VERTICAL,
-							false
+							requireContext(), LinearLayoutManager.VERTICAL, false
 						)
 
-						Log.d("DATA BROADCAST", broadcastHomeResult.payload.data.rs_broadcast.data.toString())
+						Log.d(
+							"DATA BROADCAST",
+							broadcastHomeResult.payload.data.rs_broadcast.data.toString()
+						)
 
 						binding.rvPengumumanTerbaru.adapter = pengumumanAdapter
 
 						// navigate to detail
-						pengumumanAdapter.setOnItemClickCallback(object : PengumumanAdapter.OnItemClickCallBack {
+						pengumumanAdapter.setOnItemClickCallback(object :
+							PengumumanAdapter.OnItemClickCallBack {
 							override fun onItemClicked(broadcastId: String) {
-								val action = MahasiswaBerandaFragmentDirections.actionMahasiswaBerandaFragmentToMahasiswaDetailPengumumanFragment(
-									broadcastId
-								)
+								val action =
+									MahasiswaBerandaFragmentDirections.actionMahasiswaBerandaFragmentToMahasiswaDetailPengumumanFragment(
+										broadcastId
+									)
 								findNavController().navigate(action)
 							}
 						})
@@ -191,62 +206,93 @@ class MahasiswaBerandaFragment : Fragment() {
 		}
 	}
 
-	private fun setUpToolbarValue() {
-		profileViewModel.getUsername().observe(viewLifecycleOwner) { username ->
-			if (username != null) {
+	// set toolbar view
+	private fun setToolbarWithLocalData() {
+		setLoading(true)
+
+		// set username
+		userViewModel.getUsername().observe(viewLifecycleOwner) { username ->
+			setLoading(false)
+
+			if (username != null && username != "") {
 				binding.namauser.text = username
 			}
 		}
 
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					apiToken?.let {
-						profileViewModel.getPhotoProfile(
-							PhotoProfileRemoteRequestBody(
-								userId.toString(), it
-							)
-						)
-					}
-				}
+		// set photo profile
+		userViewModel.getPhotoProfile().observe(viewLifecycleOwner) { photoUri ->
+			setLoading(false)
+
+			Log.d("PHOTO", photoUri.toString())
+
+			if (photoUri != null && photoUri != "") {
+				GlideApp.with(this@MahasiswaBerandaFragment).asBitmap().load(photoUri)
+					.into(binding.ivHomeProfilephoto)
 			}
 		}
 
-		profileViewModel.getPhotoProfileResult.observe(viewLifecycleOwner) { getPhotoProfileResult ->
-			when (getPhotoProfileResult) {
+	}
+
+	private fun getProfile() {
+		setLoading(true)
+
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				profileIndexViewModel.getMahasiswaProfile(apiToken)
+			}
+		}
+
+		profileIndexViewModel.getProfileResult.observe(viewLifecycleOwner) { getProfileResult ->
+
+			val resultResponse = getProfileResult.payload
+			val status = resultResponse?.status
+
+			when (getProfileResult) {
 				is Resource.Loading -> {
 					setLoading(true)
 				}
 
 				is Resource.Error -> {
-					setLoading(false)
-					val message = getPhotoProfileResult.payload?.message
+					Log.d("Error Profile Index", getProfileResult.payload?.status.toString())
 
-					showSnackbar(message = message ?: "Terjadi kesalahan!")
+					setLoading(false)
+
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
+
+					setToolbarWithLocalData()
+
 				}
 
 				is Resource.Success -> {
 					setLoading(false)
-					val message = getPhotoProfileResult.payload?.message
 
-					Log.d("Success message", message.toString())
+					if (resultResponse?.success == true && resultResponse.data != null) {
+						Log.d("Succes status", status.toString())
 
-					if (getPhotoProfileResult.payload?.data != null) {
 						// set binding
 						with(binding) {
-							val base64Image = getPhotoProfileResult.payload.data.toString()
 
-							profileViewModel.setPhotoProfile(base64Image)
+							// toolbar
+							namauser.text = resultResponse.data.userName
 
-							if (base64Image != "null") {
-								// Decode base64 string to byte array
-								val decodedBytes = decodeBase64ToBitmap(base64Image)
+							GlideApp.with(this@MahasiswaBerandaFragment).asBitmap()
+								.load(resultResponse.data.userImgUrl).into(ivHomeProfilephoto)
 
-								GlideApp.with(requireContext()).asBitmap().load(decodedBytes)
-									.into(ivHomeProfilephoto)
-							}
+							userViewModel.setPhotoProfile(resultResponse.data.userImgUrl.toString())
+							userViewModel.setUsername(resultResponse.data.userName.toString())
 
 						}
+					} else {
+						Log.d("Succes status, but failed", status.toString())
+
+						if (status == "Token is Expired" || status == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(", false)
+
+							actionIfLogoutSucces()
+						} else {
+							setToolbarWithLocalData()
+						}
+
 					}
 				}
 
@@ -256,45 +302,20 @@ class MahasiswaBerandaFragment : Fragment() {
 
 	}
 
-	private fun decodeBase64ToBitmap(base64: String): Bitmap {
-		val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
-		return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-	}
 
-	private fun showSnackbar(message: String) {
+	private fun showSnackbar(message: String, isRestart: Boolean) {
 		val currentFragment = this@MahasiswaBerandaFragment
 
-		if (currentFragment.isVisible){
+		if (currentFragment.isVisible) {
 			customSnackbar.showSnackbarWithAction(
-				requireActivity().findViewById(android.R.id.content),
-				message,
-				"OK"
+				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (message == "Berhasil keluar!" || message == "Gagal! Anda telah masuk melalui perangkat lain." || message == "Pengguna tidak ditemukan!" || message == "Akses tidak sah!" || message == "Sesi anda telah berakhir, silahkan masuk terlebih dahulu.") {
-
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setStatusAuth(false)
-
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
-				} else if (message == "null" || message.equals(null) || message == "Terjadi kesalahan!") {
+				if (isRestart) {
 					restartFragment()
-				} else if (message == "Password berhasil diubah, silahkan masuk kembali.") {
-
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setStatusAuth(false)
-
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
 				}
 			}
 		}
-
 	}
 
 	private fun restartFragment() {
@@ -314,19 +335,33 @@ class MahasiswaBerandaFragment : Fragment() {
 		}
 	}
 
+	private fun actionIfLogoutSucces() {
+		// set auth data store
+		userViewModel.setApiToken("")
+		userViewModel.setUserId("")
+		userViewModel.setUsername("")
+		userViewModel.setStatusAuth(false)
+
+		val intent = Intent(requireContext(), SplashscreenActivity::class.java)
+		requireContext().startActivity(intent)
+		requireActivity().finishAffinity()
+	}
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerBerandaNamauser, isLoading)
 			setShimmerVisibility(shimmerIvHomeProfilephoto, isLoading)
-			setShimmerVisibility(shimmerCvPengumumanTerbaru, isLoading)
 
 			namauser.visibility = if (isLoading) View.GONE else View.VISIBLE
 			ivHomeProfilephoto.visibility = if (isLoading) View.GONE else View.VISIBLE
-			rvPengumumanTerbaru.visibility = if (isLoading) View.GONE else View.VISIBLE
 
 		}
-		if(isLoading){
-			binding.tvPengumumanTidakDitemukan.visibility = View.GONE
+	}
+
+	private fun setLoadingPengumuman(isLoading: Boolean){
+		with(binding) {
+			setShimmerVisibility(shimmerCvPengumumanTerbaru, isLoading)
+
+			rvPengumumanTerbaru.visibility = if (isLoading) View.GONE else View.VISIBLE
 		}
 	}
 
@@ -335,6 +370,10 @@ class MahasiswaBerandaFragment : Fragment() {
 		(shimmerView as? ShimmerFrameLayout)?.run {
 			if (isLoading) startShimmer() else stopShimmer()
 		}
+	}
+
+	private fun setViewVisibility(view: View, isVisible: Boolean) {
+		view.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
 
 	override fun onDestroyView() {

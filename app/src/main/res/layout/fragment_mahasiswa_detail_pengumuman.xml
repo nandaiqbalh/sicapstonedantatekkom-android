@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/Minimumblue"
     android:orientation="vertical"
-    tools:context=".presentation.ui.beranda.mahasiswaberanda.pengumuman.detail.MahasiswaDetailPengumumanFragment">
+    tools:context=".presentation.ui.beranda.mahasiswaberanda.action.pengumuman.detail.MahasiswaDetailPengumumanFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_toolbar"
@@ -71,6 +71,37 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_error_detail_pengumuman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                android:paddingHorizontal="16dp"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@android:color/transparent">
+
+                <TextView
+                    android:id="@+id/tv_error_detail_pengumuman"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:paddingHorizontal="16dp"
+                    android:background="@drawable/rounded_outline_text_view"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:gravity="center"
+                    android:text="@string/tv_terjadi_kesalahan"
+                    android:textColor="@color/DarkGrey"
+                    android:textSize="12sp" />
+
+            </com.google.android.material.card.MaterialCardView>
+            
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -89,7 +120,7 @@
             <LinearLayout
                 android:id="@+id/linear_layout_detail_pengumuman"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
                 android:background="@color/Minimumblue"
@@ -121,7 +152,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="20dp"
                     android:ellipsize="end"
-                    android:fontFamily="@font/poppinssemibold"
+                    android:fontFamily="@font/roboto_medium"
                     android:maxLines="2"
                     android:text="@string/tv_title_item_pengumuman"
                     android:textColor="@color/RoyalBlue"
@@ -132,16 +163,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="2dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/poppinsmedium"
                     android:text="@string/tv_postdate"
                     android:textColor="@color/SlateGrey"
-                    android:textSize="11sp"
+                    android:textSize="10sp"
                     tools:ignore="SmallSp,TextSizeCheck,TextContrastCheck" />
 
                 <LinearLayout
                     android:id="@+id/linear_layout_link"
                     android:layout_width="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -152,7 +185,7 @@
                         android:fontFamily="@font/poppinsmedium"
                         android:text="@string/lihat_informasi_selengkapnya"
                         android:textColor="@color/DarkGrey"
-                        android:textSize="11sp"
+                        android:textSize="10sp"
                         tools:ignore="SmallSp,TextSizeCheck,TextContrastCheck" />
 
                     <TextView
@@ -163,7 +196,7 @@
                         android:fontFamily="@font/poppinsmedium"
                         android:text="@string/klik_di_sini"
                         android:textColor="@color/RoyalBlue"
-                        android:textSize="11sp"
+                        android:textSize="10sp"
                         tools:ignore="SmallSp,TextSizeCheck,TextContrastCheck" />
 
                 </LinearLayout>
@@ -173,7 +206,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="20dp"
                     android:background="@color/shimmer_gray" />
 
@@ -188,8 +221,8 @@
                     android:fontFamily="@font/poppinsmedium"
                     android:gravity="start|end"
                     android:text="@string/tv_item_pengumuman_content"
-                    android:textColor="@color/lightblue"
-                    android:textSize="12sp" />
+                    android:textColor="@color/BlueFontFilled"
+                    android:textSize="11sp" />
 
             </LinearLayout>
         </LinearLayout>

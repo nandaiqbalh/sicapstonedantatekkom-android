@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/Minimumblue"
     android:orientation="vertical"
-    tools:context=".presentation.ui.beranda.mahasiswaberanda.pengumuman.detail.MahasiswaDetailPengumumanFragment">
+    tools:context=".presentation.ui.beranda.mahasiswaberanda.action.pengumuman.detail.MahasiswaDetailPengumumanFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_toolbar_pengumuman"
@@ -59,11 +59,43 @@
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_error_pengumuman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        android:paddingHorizontal="16dp"
+        app:cardBackgroundColor="@color/White"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:strokeColor="@android:color/transparent">
+
+        <TextView
+            android:id="@+id/tv_error_pengumuman"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/rounded_outline_text_view"
+            android:fontFamily="@font/poppinsmedium"
+            android:gravity="center"
+            android:text="@string/tv_terjadi_kesalahan"
+            android:textColor="@color/DarkGrey"
+            android:textSize="12sp" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_pengumuman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="16dp"
         app:cardBackgroundColor="@color/White"
@@ -76,19 +108,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_pengumuman_tidak_ditemukan"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:fontFamily="@font/poppinsregular"
-                android:gravity="center_vertical"
-                android:text="@string/terjadi_kesalahan_pengumuman_tidak_ditemukan"
-                android:textColor="@color/DarkGrey"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_cv_pengumuman"

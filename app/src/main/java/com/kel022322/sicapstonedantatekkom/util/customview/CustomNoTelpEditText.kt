@@ -11,15 +11,26 @@ import com.kel022322.sicapstonedantatekkom.R
 
 class CustomNoTelpEditText : TextInputEditText {
 
-	constructor(context: Context) : super(context)
-	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+	constructor(context: Context) : super(context) {
+		init()
+	}
+
+	constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+		init()
+	}
+
 	constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
 		context,
 		attrs,
 		defStyleAttr
-	)
+	) {
+		init()
+	}
 
-	init {
+	private fun init() {
+		val parentLayout = getParentTextInputLayout()
+		parentLayout?.error = null
+
 		addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 			}
@@ -30,11 +41,15 @@ class CustomNoTelpEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val phoneNumber = s.toString()
 				val parentLayout = getParentTextInputLayout()
-				if (phoneNumber.length in 10..14) {
+				if (phoneNumber.isNotEmpty() && phoneNumber.length in 10..14 && s != null) {
 					parentLayout?.error = null
+					parentLayout?.isErrorEnabled = false
+
 				} else {
 					parentLayout?.error = "No. Telepon tidak valid!"
 					setCustomErrorTypeface(parentLayout)
+					parentLayout?.isErrorEnabled = true
+
 
 				}
 			}
@@ -51,7 +66,8 @@ class CustomNoTelpEditText : TextInputEditText {
 
 	private fun setCustomErrorTypeface(textInputLayout: TextInputLayout?) {
 		val typeface = ResourcesCompat.getFont(context, R.font.poppinsregular)
-		textInputLayout?.setTypeface(typeface)
+		textInputLayout?.typeface = typeface
 	}
+
 }
 

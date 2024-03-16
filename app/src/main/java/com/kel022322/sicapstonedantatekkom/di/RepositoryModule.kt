@@ -6,12 +6,26 @@ import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.logout.Au
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.auth.logout.AuthLogoutRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast.BroadcastRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast.BroadcastRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.dosen.DosenRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.dosen.DosenRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.expo.ExpoRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.expo.ExpoRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.file.FileRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.file.FileRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.kelompok.KelompokSayaRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.kelompok.KelompokSayaRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.mahasiswa.MahasiswaRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.mahasiswa.MahasiswaRemoteRepositoryImpl
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.profile.ProfileRemoteRepository
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.profile.ProfileRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.sidangproposal.SidangProposalRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.sidangproposal.SidangProposalRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.sidangta.SidangTARemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.sidangta.SidangTARemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.siklus.SiklusRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.siklus.SiklusRemoteRepositoryImpl
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.topik.TopikRemoteRepository
+import com.kel022322.sicapstonedantatekkom.data.remote.repository.topik.TopikRemoteRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -37,4 +51,26 @@ abstract class RepositoryModule {
 
 	@Binds
 	abstract fun bindFileRemoteRepository(fileRemoteRepositoryImpl: FileRemoteRepositoryImpl) : FileRemoteRepository
+
+	@Binds
+	abstract fun bindDosenRemoteRepository(dosenRemoteRepositoryImpl: DosenRemoteRepositoryImpl) : DosenRemoteRepository
+
+	@Binds
+	abstract fun bindMahasiswaRemoteRepository(mahasiswaRemoteRepositoryImpl: MahasiswaRemoteRepositoryImpl) : MahasiswaRemoteRepository
+
+	@Binds
+	abstract fun bindTopikRemoteRepository(topikRemoteRepositoryImpl: TopikRemoteRepositoryImpl) : TopikRemoteRepository
+
+	@Binds
+	abstract fun bindSiklusRemoteRepository(siklusRemoteRepositoryImpl: SiklusRemoteRepositoryImpl) : SiklusRemoteRepository
+
+	@Binds
+	abstract fun bindSidangProposalRemoteRepository(sidangProposalRemoteRepositoryImpl: SidangProposalRemoteRepositoryImpl) : SidangProposalRemoteRepository
+
+	@Binds
+	abstract fun bindExpoRemoteRepository(expoRemoteRepositoryImpl: ExpoRemoteRepositoryImpl) : ExpoRemoteRepository
+
+	@Binds
+	abstract fun bindSidangTARemoteRepository(sidangTARemoteRepositoryImpl: SidangTARemoteRepositoryImpl) : SidangTARemoteRepository
+
 }

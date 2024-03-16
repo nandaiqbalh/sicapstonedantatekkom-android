@@ -10,30 +10,27 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
 import com.kel022322.sicapstonedantatekkom.R
-import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.request.FileIndexRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.file.viewpdf.request.ViewPdfRemoteRequestBody
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.request.KelompokSayaRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDokumenCapstoneBinding
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.DokumenViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.KelompokSayaViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.ProfileSayaViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.KelompokIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
@@ -54,8 +51,8 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 	private val customSnackbar = CustomSnackbar()
 
 	private val dokumenViewModel: DokumenViewModel by viewModels()
-	private val profileViewModel: ProfileSayaViewModel by viewModels()
-	private val kelompokViewModel: KelompokSayaViewModel by viewModels()
+	private val userViewModel: UserViewModel by viewModels()
+	private val kelompokViewModel: KelompokIndexViewModel by viewModels()
 
 	private var id: String? = ""
 
@@ -83,36 +80,24 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 	}
 
 	private fun checkKelompok() {
-		setLoading(true)
+		setLoadingKelompok(true)
 
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					apiToken?.let {
-						kelompokViewModel.getKelompokSaya(
-							KelompokSayaRemoteRequestBody(
-								userId,
-								apiToken
-							)
-						)
-
-					}
-				}
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				kelompokViewModel.getKelompokSaya(apiToken)
 			}
 		}
 
 		kelompokViewModel.getKelompokSayaResult.observe(viewLifecycleOwner) { getKelompokSayaResult ->
+			val resultResponse = getKelompokSayaResult.payload
 
 			when (getKelompokSayaResult) {
 				is Resource.Loading -> {
-					setLoading(true)
-
-					binding.cvBelumMemilikiKelompok.visibility = View.GONE
-
+					setLoadingKelompok(true)
 				}
 
 				is Resource.Error -> {
-					setLoading(false)
+					setLoadingKelompok(false)
 					Log.d("Result error", getKelompokSayaResult.toString())
 
 					binding.cvBelumMemilikiKelompok.visibility = View.VISIBLE
@@ -122,17 +107,23 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 				}
 
 				is Resource.Success -> {
-					setLoading(false)
+					setLoadingKelompok(false)
 
-					val message = getKelompokSayaResult.payload
-					Log.d("Result success", message.toString())
+					Log.d("Result success", resultResponse.toString())
+
+					binding.cvBelumMemilikiKelompok.visibility = View.GONE
+
+					binding.linearLayoutDokumenCapstone.visibility = View.VISIBLE
 
 					val dataKelompok = getKelompokSayaResult.payload?.data
+					val status = getKelompokSayaResult.payload?.status
 
-					if (dataKelompok?.kelompok != null) {
+					if (getKelompokSayaResult.payload?.success == true) {
 
-						if (dataKelompok.kelompok.idKelompok != null) {
+						if (dataKelompok?.kelompok?.nomorKelompok != null) {
 							binding.cvBelumMemilikiKelompok.visibility = View.GONE
+
+							id = dataKelompok.kelompok.id.toString()
 
 							binding.linearLayoutDokumenCapstone.visibility = View.VISIBLE
 						} else {
@@ -142,12 +133,25 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 							binding.linearLayoutDokumenCapstone.visibility = View.GONE
 						}
 
-					} else {
-						binding.cvBelumMemilikiKelompok.visibility = View.VISIBLE
-						binding.tvBelumMemilikiKelompok.setText(R.string.belum_memiliki_kelompok)
 
-						binding.linearLayoutDokumenCapstone.visibility = View.GONE
+					} else {
+						with(binding) {
+							Log.d("Update Succes status, but failed", status.toString())
+
+							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+								showSnackbar("Sesi anda telah berakhir :(")
+
+								actionIfLogoutSucces()
+							} else {
+								setViewVisibility(linearLayoutDokumenCapstone, false)
+								setViewVisibility(cvBelumMemilikiKelompok, true)
+								tvBelumMemilikiKelompok.text =
+									status ?: "Belum mendaftar capstone"
+
+							}
+						}
 					}
+
 				}
 
 				else -> {}
@@ -156,19 +160,18 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 	}
 
 	private fun checkDokumen() {
-		profileViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				profileViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					apiToken?.let {
-						dokumenViewModel.getFileIndex(FileIndexRemoteRequestBody(userId, apiToken))
 
-					}
-				}
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				dokumenViewModel.getFileIndex(apiToken)
 			}
 		}
 
+
 		dokumenViewModel.getFileIndexResult.observe(viewLifecycleOwner) { getFileIndexResult ->
 
+			val resultResponse = getFileIndexResult.payload
+			val status = resultResponse?.status
 			when (getFileIndexResult) {
 				is Resource.Loading -> {
 					setLoading(true)
@@ -177,31 +180,27 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar("Terjadi kesalahan dalam mengakses dokumen!")
+					showSnackbar(status ?: "Terjadi kesalahan saat mengakses dokumen :(")
 
 				}
 
 				is Resource.Success -> {
 					setLoading(false)
 
-					val message = getFileIndexResult.payload?.message
-					if (message == "Gagal! Anda telah masuk melalui perangkat lain." ){
-						showSnackbar(message = message)
-						return@observe
-					}
-
-					if (getFileIndexResult.payload?.status == false) {
-						showSnackbar("Terjadi kesalahan dalam mengakses dokumen!")
-						return@observe
-					}
-
-
-
 					id = getFileIndexResult.payload?.data?.fileMhs?.id.toString()
 
-					viewPdf(getFileIndexResult)
+					if (resultResponse?.success == true) {
+						checkFile(getFileIndexResult)
 
-					checkFile(getFileIndexResult)
+						viewDokumen(getFileIndexResult)
+					} else {
+						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(")
+
+							actionIfLogoutSucces()
+						}
+					}
+
 
 				}
 
@@ -211,39 +210,144 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 	}
 
+	private fun viewDokumen(getFileIndexResult: Resource<FileIndexRemoteResponse>) {
+
+		val resultResponse = getFileIndexResult.payload
+
+		with(binding) {
+
+			// c100
+			btnUnduhC100.setOnClickListener {
+
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
+					resultResponse?.data?.fileMhs?.fileUrlC100?.takeIf { it.isNotBlank() }
+						?.let {
+							val url =
+								if (!it.startsWith("http://") && !it.startsWith("https://")) {
+									URLUtil.guessUrl(it)
+								} else {
+									it
+								}
+
+							// Buat Intent untuk membuka tautan di browser
+							val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+							// Gunakan context dari fragment untuk memulai aktivitas
+							requireActivity().startActivity(intent)
+						}
+				}
+
+			}
+
+			// c200
+			btnUnduhC200.setOnClickListener {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
+					resultResponse?.data?.fileMhs?.fileUrlC200?.takeIf { it.isNotBlank() }
+						?.let {
+							val url =
+								if (!it.startsWith("http://") && !it.startsWith("https://")) {
+									URLUtil.guessUrl(it)
+								} else {
+									it
+								}
+
+							// Buat Intent untuk membuka tautan di browser
+							val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+							// Gunakan context dari fragment untuk memulai aktivitas
+							requireActivity().startActivity(intent)
+						}
+				}
+			}
+
+			// c300
+			btnUnduhC300.setOnClickListener {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
+					resultResponse?.data?.fileMhs?.fileUrlC300?.takeIf { it.isNotBlank() }
+						?.let {
+							val url =
+								if (!it.startsWith("http://") && !it.startsWith("https://")) {
+									URLUtil.guessUrl(it)
+								} else {
+									it
+								}
+
+							// Buat Intent untuk membuka tautan di browser
+							val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+							// Gunakan context dari fragment untuk memulai aktivitas
+							requireActivity().startActivity(intent)
+						}
+				}
+			}
+
+			// c400
+			btnUnduhC400.setOnClickListener {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
+					resultResponse?.data?.fileMhs?.fileUrlC400?.takeIf { it.isNotBlank() }
+						?.let {
+							val url =
+								if (!it.startsWith("http://") && !it.startsWith("https://")) {
+									URLUtil.guessUrl(it)
+								} else {
+									it
+								}
+
+							// Buat Intent untuk membuka tautan di browser
+							val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+							// Gunakan context dari fragment untuk memulai aktivitas
+							requireActivity().startActivity(intent)
+						}
+				}
+			}
+
+			// c500
+			btnUnduhC500.setOnClickListener {
+				showCustomAlertDialog("Konfirmasi", "Apakah anda yakin untuk membuka dokumen?") {
+					resultResponse?.data?.fileMhs?.fileUrlC500?.takeIf { it.isNotBlank() }
+						?.let {
+							val url =
+								if (!it.startsWith("http://") && !it.startsWith("https://")) {
+									URLUtil.guessUrl(it)
+								} else {
+									it
+								}
+
+							// Buat Intent untuk membuka tautan di browser
+							val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+							// Gunakan context dari fragment untuk memulai aktivitas
+							requireActivity().startActivity(intent)
+						}
+				}
+			}
+		}
+	}
+
 	private fun btnListener() {
 
 		binding.tvPilihDokumenC100.setOnClickListener {
 
-			setLoading(true)
 			uploadFileC100Launcher.launch("application/pdf")
 
 		}
 
 		binding.tvPilihDokumenC200.setOnClickListener {
 
-			setLoading(true)
 			uploadFileC200Launcher.launch("application/pdf")
 
 		}
 
 		binding.tvPilihDokumenC300.setOnClickListener {
 
-			setLoading(true)
 			uploadFileC300Launcher.launch("application/pdf")
 
 		}
 
 		binding.tvPilihDokumenC400.setOnClickListener {
 
-			setLoading(true)
 			uploadFileC400Launcher.launch("application/pdf")
 
 		}
 
 		binding.tvPilihDokumenC500.setOnClickListener {
 
-			setLoading(true)
 			uploadFileC500Launcher.launch("application/pdf")
 
 		}
@@ -269,22 +373,18 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 					val requestBody = file.asRequestBody("application/pdf".toMediaTypeOrNull())
 					val c100Part = MultipartBody.Part.createFormData("c100", file.name, requestBody)
 
-					dokumenViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-						userId?.let {
-							dokumenViewModel.getApiToken()
-								.observe(viewLifecycleOwner) { apiToken ->
-									apiToken?.let {
 
-										dokumenViewModel.uploadC100Process(
-											userId = userId.toString(),
-											apiToken = apiToken.toString(),
-											id = id.toString(),
-											c100 = c100Part
-										)
-									}
-								}
+					userViewModel.getApiToken()
+						.observe(viewLifecycleOwner) { apiToken ->
+							apiToken?.let {
+								dokumenViewModel.uploadC100Process(
+									apiToken = apiToken,
+									idKelompok = id.toString(),
+									c100 = c100Part
+								)
+							}
 						}
-					}
+
 
 					dokumenViewModel.uploadC100ProcessResult.observe(viewLifecycleOwner) { uploadC100ProcessResult ->
 						when (uploadC100ProcessResult) {
@@ -295,26 +395,33 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 							is Resource.Error -> {
 								setLoading(false)
 
-								val message = uploadC100ProcessResult.payload?.message
-								Log.d("HASIL UPLOAD ERROR", message.toString())
-								showSnackbar(message ?: "Terjadi kesalahan!")
+								val status = uploadC100ProcessResult.payload?.status
+								Log.d("HASIL UPLOAD ERROR", status.toString())
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
 								setLoading(false)
 
-								val message = uploadC100ProcessResult.payload?.message
+								val status = uploadC100ProcessResult.payload?.status
 
-								if (uploadC100ProcessResult.payload?.status == true) {
-									showSnackbar(message ?: "Berhasil!")
-									checkDokumen()
+								if (uploadC100ProcessResult.payload?.success == true && uploadC100ProcessResult.payload.data != null) {
+
+									showSnackbar(status ?: "Berhasil!")
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
 
 								} else {
-									showSnackbar("Gagal menggunggah dokument.")
+									Log.d("Update Succes status, but failed", status.toString())
+
+									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+										showSnackbar("Sesi anda telah berakhir :(")
+
+										actionIfLogoutSucces()
+									} else {
+										showSnackbar(status ?: "Terjadi kesalahan!")
+
+									}
 								}
-
-								Log.d("HASIL UPLOAD BERHASIL", message.toString())
-
 							}
 
 							else -> {}
@@ -348,22 +455,18 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 					val requestBody = file.asRequestBody("application/pdf".toMediaTypeOrNull())
 					val c200Part = MultipartBody.Part.createFormData("c200", file.name, requestBody)
 
-					dokumenViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-						userId?.let {
-							dokumenViewModel.getApiToken()
-								.observe(viewLifecycleOwner) { apiToken ->
-									apiToken?.let {
 
-										dokumenViewModel.uploadC200Process(
-											userId = userId.toString(),
-											apiToken = apiToken.toString(),
-											id = id.toString(),
-											c200 = c200Part
-										)
-									}
-								}
+					userViewModel.getApiToken()
+						.observe(viewLifecycleOwner) { apiToken ->
+							apiToken?.let {
+								dokumenViewModel.uploadC200Process(
+									apiToken = apiToken.toString(),
+									idKelompok = id.toString(),
+									c200 = c200Part
+								)
+							}
 						}
-					}
+
 
 					dokumenViewModel.uploadC200ProcessResult.observe(viewLifecycleOwner) { uploadC200ProcessResult ->
 						when (uploadC200ProcessResult) {
@@ -374,22 +477,31 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 							is Resource.Error -> {
 								setLoading(false)
 
-								val message = uploadC200ProcessResult.payload?.message
-								showSnackbar(message ?: "Terjadi kesalahan!")
+								val status = uploadC200ProcessResult.payload?.status
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
 								setLoading(false)
 
-								val message = uploadC200ProcessResult.payload?.message
+								val status = uploadC200ProcessResult.payload?.status
 
 								Log.d("C200 RESULT", uploadC200ProcessResult.toString())
-								if (uploadC200ProcessResult.payload?.status == true) {
-									showSnackbar(message ?: "Berhasil!")
-									checkDokumen()
+								if (uploadC200ProcessResult.payload?.success == true && uploadC200ProcessResult.payload.data != null) {
+									showSnackbar(status ?: "Berhasil!")
 
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
 								} else {
-									showSnackbar("Gagal menggunggah dokument.")
+									Log.d("Update Succes status, but failed", status.toString())
+
+									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+										showSnackbar("Sesi anda telah berakhir :(")
+
+										actionIfLogoutSucces()
+									} else {
+										showSnackbar(status ?: "Terjadi kesalahan!")
+
+									}
 								}
 							}
 
@@ -425,22 +537,19 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 					val requestBody = file.asRequestBody("application/pdf".toMediaTypeOrNull())
 					val c300Part = MultipartBody.Part.createFormData("c300", file.name, requestBody)
 
-					dokumenViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-						userId?.let {
-							dokumenViewModel.getApiToken()
-								.observe(viewLifecycleOwner) { apiToken ->
-									apiToken?.let {
 
-										dokumenViewModel.uploadC300Process(
-											userId = userId.toString(),
-											apiToken = apiToken.toString(),
-											id = id.toString(),
-											c300 = c300Part
-										)
-									}
-								}
+					userViewModel.getApiToken()
+						.observe(viewLifecycleOwner) { apiToken ->
+							apiToken?.let {
+
+								dokumenViewModel.uploadC300Process(
+									apiToken = apiToken,
+									idKelompok = id.toString(),
+									c300 = c300Part
+								)
+							}
 						}
-					}
+
 
 					dokumenViewModel.uploadC300ProcessResult.observe(viewLifecycleOwner) { uploadC300ProcessResult ->
 						when (uploadC300ProcessResult) {
@@ -451,21 +560,31 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 							is Resource.Error -> {
 								setLoading(false)
 
-								val message = uploadC300ProcessResult.payload?.message
-								showSnackbar(message ?: "Terjadi kesalahan!")
+								val status = uploadC300ProcessResult.payload?.status
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
 								setLoading(false)
 
-								val message = uploadC300ProcessResult.payload?.message
+								val status = uploadC300ProcessResult.payload?.status
 
-								if (uploadC300ProcessResult.payload?.status == true) {
-									showSnackbar(message ?: "Berhasil!")
-									checkDokumen()
+								if (uploadC300ProcessResult.payload?.success == true && uploadC300ProcessResult.payload.data != null) {
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
+
+									showSnackbar(status ?: "Berhasil!")
 
 								} else {
-									showSnackbar("Gagal menggunggah dokument.")
+									Log.d("Update Succes status, but failed", status.toString())
+
+									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+										showSnackbar("Sesi anda telah berakhir :(")
+
+										actionIfLogoutSucces()
+									} else {
+										showSnackbar(status ?: "Terjadi kesalahan!")
+
+									}
 								}
 
 							}
@@ -502,23 +621,18 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 					val requestBody = file.asRequestBody("application/pdf".toMediaTypeOrNull())
 					val c400Part = MultipartBody.Part.createFormData("c400", file.name, requestBody)
 
-					dokumenViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-						userId?.let {
-							dokumenViewModel.getApiToken()
-								.observe(viewLifecycleOwner) { apiToken ->
-									apiToken?.let {
 
-										dokumenViewModel.uploadC400Process(
-											userId = userId.toString(),
-											apiToken = apiToken.toString(),
-											id = id.toString(),
-											c400 = c400Part
-										)
-									}
-								}
+					userViewModel.getApiToken()
+						.observe(viewLifecycleOwner) { apiToken ->
+							apiToken?.let {
+
+								dokumenViewModel.uploadC400Process(
+									apiToken = apiToken,
+									idKelompok = id.toString(),
+									c400 = c400Part
+								)
+							}
 						}
-					}
-
 					dokumenViewModel.uploadC400ProcessResult.observe(viewLifecycleOwner) { uploadC400ProcessResult ->
 						when (uploadC400ProcessResult) {
 							is Resource.Loading -> {
@@ -528,21 +642,31 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 							is Resource.Error -> {
 								setLoading(false)
 
-								val message = uploadC400ProcessResult.payload?.message
-								showSnackbar(message ?: "Terjadi kesalahan!")
+								val status = uploadC400ProcessResult.payload?.status
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
 								setLoading(false)
 
-								val message = uploadC400ProcessResult.payload?.message
+								val status = uploadC400ProcessResult.payload?.status
 
-								if (uploadC400ProcessResult.payload?.status == true) {
-									showSnackbar(message ?: "Berhasil!")
-									checkDokumen()
+								if (uploadC400ProcessResult.payload?.success == true && uploadC400ProcessResult.payload.data != null) {
+
+									showSnackbar(status ?: "Berhasil!")
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
 
 								} else {
-									showSnackbar("Gagal menggunggah dokument.")
+									Log.d("Update Succes status, but failed", status.toString())
+
+									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+										showSnackbar("Sesi anda telah berakhir :(")
+
+										actionIfLogoutSucces()
+									} else {
+										showSnackbar(status ?: "Terjadi kesalahan!")
+
+									}
 								}
 
 							}
@@ -579,22 +703,18 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 					val requestBody = file.asRequestBody("application/pdf".toMediaTypeOrNull())
 					val c500Part = MultipartBody.Part.createFormData("c500", file.name, requestBody)
 
-					dokumenViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-						userId?.let {
-							dokumenViewModel.getApiToken()
-								.observe(viewLifecycleOwner) { apiToken ->
-									apiToken?.let {
 
-										dokumenViewModel.uploadC500Process(
-											userId = userId.toString(),
-											apiToken = apiToken.toString(),
-											id = id.toString(),
-											c500 = c500Part
-										)
-									}
-								}
+					userViewModel.getApiToken()
+						.observe(viewLifecycleOwner) { apiToken ->
+							apiToken?.let {
+
+								dokumenViewModel.uploadC500Process(
+									apiToken = apiToken,
+									idKelompok = id.toString(),
+									c500 = c500Part
+								)
+							}
 						}
-					}
 
 					dokumenViewModel.uploadC500ProcessResult.observe(viewLifecycleOwner) { uploadC500ProcessResult ->
 						when (uploadC500ProcessResult) {
@@ -605,20 +725,30 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 							is Resource.Error -> {
 								setLoading(false)
 
-								val message = uploadC500ProcessResult.payload?.message
-								showSnackbar(message ?: "Terjadi kesalahan!")
+								val status = uploadC500ProcessResult.payload?.status
+								showSnackbar(status ?: "Terjadi kesalahan!")
 							}
 
 							is Resource.Success -> {
 								setLoading(false)
-								val message = uploadC500ProcessResult.payload?.message
+								val status = uploadC500ProcessResult.payload?.status
 
-								if (uploadC500ProcessResult.payload?.status == true) {
-									showSnackbar(message ?: "Berhasil!")
+								if (uploadC500ProcessResult.payload?.success == true && uploadC500ProcessResult.payload.data != null) {
 
-									checkDokumen()
+									showSnackbar(status ?: "Berhasil!")
+									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
+
 								} else {
-									showSnackbar("Gagal menggunggah dokument.")
+									Log.d("Update Succes status, but failed", status.toString())
+
+									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
+										showSnackbar("Sesi anda telah berakhir :(")
+
+										actionIfLogoutSucces()
+									} else {
+										showSnackbar(status ?: "Terjadi kesalahan!")
+
+									}
 								}
 
 
@@ -636,41 +766,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 				}
 			}
 		}
-
-	@SuppressLint("SetTextI18n")
-	private fun viewPdf(getFileIndexResult: Resource<FileIndexRemoteResponse>) {
-
-		binding.btnUnduhC100.setOnClickListener {
-			showCustomAlertDialog(
-				"Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
-			) { unduhFileC100(getFileIndexResult) }
-		}
-
-		binding.btnUnduhC200.setOnClickListener {
-			showCustomAlertDialog(
-				"Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
-			) { unduhFileC200(getFileIndexResult) }
-		}
-
-		binding.btnUnduhC300.setOnClickListener {
-			showCustomAlertDialog(
-				"Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
-			) { unduhFileC300(getFileIndexResult) }
-		}
-
-		binding.btnUnduhC400.setOnClickListener {
-			showCustomAlertDialog(
-				"Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
-			) { unduhFileC400(getFileIndexResult) }
-		}
-
-		binding.btnUnduhC500.setOnClickListener {
-			showCustomAlertDialog(
-				"Konfirmasi", "Apakah anda yakin ingin mengunduh dokumen?"
-			) { unduhFileC500(getFileIndexResult) }
-		}
-
-	}
 
 	@SuppressLint("SetTextI18n")
 	private fun checkFile(getFileIndexResult: Resource<FileIndexRemoteResponse>) {
@@ -730,8 +825,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 			// Set button appearance when disabled
 			button.setBackgroundColor(
 				ContextCompat.getColor(
-					requireContext(),
-					R.color.tabUnselected
+					requireContext(), R.color.tabUnselected
 				)
 			)
 			button.strokeWidth = 2
@@ -742,8 +836,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 		} else {
 			button.setBackgroundColor(
 				ContextCompat.getColor(
-					requireContext(),
-					R.color.RoyalBlue
+					requireContext(), R.color.RoyalBlue
 				)
 			)
 			button.strokeWidth = 2
@@ -759,493 +852,12 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 		}
 	}
 
-	@SuppressLint("SetTextI18n")
-	private fun unduhFileC100(getFileIndexResult: Resource<FileIndexRemoteResponse>) {
-		val fileMhs = getFileIndexResult.payload?.data?.fileMhs
-
-		setLoading(true)
-
-		dokumenViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				dokumenViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					if (apiToken != null) {
-						// Both userId and apiToken are available now
-
-						val filePath = fileMhs?.filePathC100.toString()
-						val modifiedPath = filePath.replaceFirst("/", "")
-
-						if (fileMhs != null) {
-							dokumenViewModel.viewPdf(
-								ViewPdfRemoteRequestBody(
-									userId = userId.toString(),
-									apiToken = apiToken.toString(),
-									filePath = "${modifiedPath}/",
-									fileName = fileMhs.fileNameC100.toString()
-								)
-							)
-						}
-					}
-				}
-			}
-		}
-
-		dokumenViewModel.viewPdfResult.observe(viewLifecycleOwner) { viewPdfResult ->
-
-			when (viewPdfResult) {
-				is Resource.Loading -> {
-					setLoading(true)
-				}
-
-				is Resource.Error -> {
-					setLoading(false)
-
-					showSnackbar("Gagal mengunduh!")
-				}
-
-				is Resource.Success -> {
-					setLoading(false)
-
-					// Check if the app has the WRITE_EXTERNAL_STORAGE permission
-					if (ContextCompat.checkSelfPermission(
-							requireContext(),
-							Manifest.permission.WRITE_EXTERNAL_STORAGE
-						) != PackageManager.PERMISSION_GRANTED
-					) {
-						// Request the permission if it's not granted
-						ActivityCompat.requestPermissions(
-							requireActivity(),
-							arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-							200
-						)
-					} else {
-						// Permission already granted, proceed with file operations
-						val base64Encode = viewPdfResult.payload?.data.toString()
-
-						// Decode base64 string to byte array
-						val decodedBytes = android.util.Base64.decode(
-							base64Encode, android.util.Base64.DEFAULT
-						)
-
-						// Save the file in the Downloads directory
-						val fileName = fileMhs?.fileNameC100
-						val downloadDir = Environment.getExternalStoragePublicDirectory(
-							Environment.DIRECTORY_DOWNLOADS
-						)
-						val filePath = File(downloadDir, fileName.toString())
-
-						// Write the byte array to the file
-						val fileOutputStream = FileOutputStream(filePath)
-						fileOutputStream.write(decodedBytes)
-						fileOutputStream.close()
-
-						if (filePath.exists() && filePath.length() > 0) {
-							showSnackbar("Berhasil mengunduh!")
-						} else {
-							showSnackbar("Gagal mengunduh!")
-						}
-					}
-
-				}
-
-				else -> {}
-
-
-			}
-		}
-	}
-
-	@SuppressLint("SetTextI18n")
-	private fun unduhFileC200(getFileIndexResult: Resource<FileIndexRemoteResponse>) {
-		val fileMhs = getFileIndexResult.payload?.data?.fileMhs
-
-		setLoading(true)
-
-		dokumenViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				dokumenViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					if (apiToken != null) {
-						// Both userId and apiToken are available now
-
-						val filePath = fileMhs?.filePathC200.toString()
-						val modifiedPath = filePath.replaceFirst("/", "")
-
-						if (fileMhs != null) {
-							dokumenViewModel.viewPdf(
-								ViewPdfRemoteRequestBody(
-									userId = userId.toString(),
-									apiToken = apiToken.toString(),
-									filePath = "${modifiedPath}/",
-									fileName = fileMhs.fileNameC200.toString()
-								)
-							)
-						}
-					}
-				}
-			}
-		}
-
-		dokumenViewModel.viewPdfResult.observe(viewLifecycleOwner) { viewPdfResult ->
-
-			when (viewPdfResult) {
-				is Resource.Loading -> {
-					setLoading(true)
-				}
-
-				is Resource.Error -> {
-					setLoading(false)
-					showSnackbar("Gagal mengunduh!")
-
-				}
-
-				is Resource.Success -> {
-					setLoading(false)
-
-					// Check if the app has the WRITE_EXTERNAL_STORAGE permission
-					if (ContextCompat.checkSelfPermission(
-							requireContext(),
-							Manifest.permission.WRITE_EXTERNAL_STORAGE
-						) != PackageManager.PERMISSION_GRANTED
-					) {
-						// Request the permission if it's not granted
-						ActivityCompat.requestPermissions(
-							requireActivity(),
-							arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-							200
-						)
-					} else {
-						// Permission already granted, proceed with file operations
-						val base64Encode = viewPdfResult.payload?.data.toString()
-
-						// Decode base64 string to byte array
-						val decodedBytes = android.util.Base64.decode(
-							base64Encode, android.util.Base64.DEFAULT
-						)
-
-						// Save the file in the Downloads directory
-						val fileName = fileMhs?.fileNameC200
-						val downloadDir = Environment.getExternalStoragePublicDirectory(
-							Environment.DIRECTORY_DOWNLOADS
-						)
-						val filePath = File(downloadDir, fileName.toString())
-
-						// Write the byte array to the file
-						val fileOutputStream = FileOutputStream(filePath)
-						fileOutputStream.write(decodedBytes)
-						fileOutputStream.close()
-
-						if (filePath.exists() && filePath.length() > 0) {
-							showSnackbar("Berhasil mengunduh!")
-						} else {
-							showSnackbar("Gagal mengunduh!")
-						}
-					}
-
-				}
-
-				else -> {}
-
-
-			}
-		}
-	}
-
-	@SuppressLint("SetTextI18n")
-	private fun unduhFileC300(getFileIndexResult: Resource<FileIndexRemoteResponse>) {
-		val fileMhs = getFileIndexResult.payload?.data?.fileMhs
-
-
-		setLoading(true)
-
-		dokumenViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				dokumenViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					if (apiToken != null) {
-						// Both userId and apiToken are available now
-
-						val filePath = fileMhs?.filePathC300.toString()
-						val modifiedPath = filePath.replaceFirst("/", "")
-
-						if (fileMhs != null) {
-							dokumenViewModel.viewPdf(
-								ViewPdfRemoteRequestBody(
-									userId = userId.toString(),
-									apiToken = apiToken.toString(),
-									filePath = "${modifiedPath}/",
-									fileName = fileMhs.fileNameC300.toString()
-								)
-							)
-						}
-					}
-				}
-			}
-		}
-
-		dokumenViewModel.viewPdfResult.observe(viewLifecycleOwner) { viewPdfResult ->
-
-			when (viewPdfResult) {
-				is Resource.Loading -> {
-					setLoading(true)
-				}
-
-				is Resource.Error -> {
-					setLoading(false)
-					showSnackbar("Gagal mengunduh!")
-
-
-				}
-
-				is Resource.Success -> {
-					setLoading(false)
-
-					// Check if the app has the WRITE_EXTERNAL_STORAGE permission
-					if (ContextCompat.checkSelfPermission(
-							requireContext(),
-							Manifest.permission.WRITE_EXTERNAL_STORAGE
-						) != PackageManager.PERMISSION_GRANTED
-					) {
-						// Request the permission if it's not granted
-						ActivityCompat.requestPermissions(
-							requireActivity(),
-							arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-							200
-						)
-					} else {
-						// Permission already granted, proceed with file operations
-						val base64Encode = viewPdfResult.payload?.data.toString()
-
-						// Decode base64 string to byte array
-						val decodedBytes = android.util.Base64.decode(
-							base64Encode, android.util.Base64.DEFAULT
-						)
-
-						// Save the file in the Downloads directory
-						val fileName = fileMhs?.fileNameC300
-						val downloadDir = Environment.getExternalStoragePublicDirectory(
-							Environment.DIRECTORY_DOWNLOADS
-						)
-						val filePath = File(downloadDir, fileName.toString())
-
-						// Write the byte array to the file
-						val fileOutputStream = FileOutputStream(filePath)
-						fileOutputStream.write(decodedBytes)
-						fileOutputStream.close()
-
-						if (filePath.exists() && filePath.length() > 0) {
-							showSnackbar("Berhasil mengunduh!")
-						} else {
-							showSnackbar("Gagal mengunduh!")
-						}
-					}
-
-				}
-
-				else -> {}
-			}
-
-
-		}
-	}
-
-	@SuppressLint("SetTextI18n")
-	private fun unduhFileC400(getFileIndexResult: Resource<FileIndexRemoteResponse>) {
-		val fileMhs = getFileIndexResult.payload?.data?.fileMhs
-
-
-
-		setLoading(true)
-		dokumenViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				dokumenViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					if (apiToken != null) {
-						// Both userId and apiToken are available now
-
-						val filePath = fileMhs?.filePathC400.toString()
-						val modifiedPath = filePath.replaceFirst("/", "")
-
-						if (fileMhs != null) {
-							dokumenViewModel.viewPdf(
-								ViewPdfRemoteRequestBody(
-									userId = userId.toString(),
-									apiToken = apiToken.toString(),
-									filePath = "${modifiedPath}/",
-									fileName = fileMhs.fileNameC400.toString()
-								)
-							)
-						}
-					}
-				}
-			}
-		}
-
-		dokumenViewModel.viewPdfResult.observe(viewLifecycleOwner) { viewPdfResult ->
-
-			when (viewPdfResult) {
-				is Resource.Loading -> {
-					setLoading(true)
-				}
-
-				is Resource.Error -> {
-					setLoading(false)
-
-					showSnackbar("Gagal mengunduh!")
-
-				}
-
-				is Resource.Success -> {
-					setLoading(false)
-
-
-					// Check if the app has the WRITE_EXTERNAL_STORAGE permission
-					if (ContextCompat.checkSelfPermission(
-							requireContext(),
-							Manifest.permission.WRITE_EXTERNAL_STORAGE
-						) != PackageManager.PERMISSION_GRANTED
-					) {
-						// Request the permission if it's not granted
-						ActivityCompat.requestPermissions(
-							requireActivity(),
-							arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-							200
-						)
-					} else {
-						// Permission already granted, proceed with file operations
-						val base64Encode = viewPdfResult.payload?.data.toString()
-
-						// Decode base64 string to byte array
-						val decodedBytes = android.util.Base64.decode(
-							base64Encode, android.util.Base64.DEFAULT
-						)
-
-						// Save the file in the Downloads directory
-						val fileName = fileMhs?.fileNameC400
-						val downloadDir = Environment.getExternalStoragePublicDirectory(
-							Environment.DIRECTORY_DOWNLOADS
-						)
-						val filePath = File(downloadDir, fileName.toString())
-
-						// Write the byte array to the file
-						val fileOutputStream = FileOutputStream(filePath)
-						fileOutputStream.write(decodedBytes)
-						fileOutputStream.close()
-
-						if (filePath.exists() && filePath.length() > 0) {
-							showSnackbar("Berhasil mengunduh!")
-						} else {
-							showSnackbar("Gagal mengunduh!")
-						}
-					}
-
-				}
-
-				else -> {}
-			}
-		}
-
-	}
-
-	@SuppressLint("SetTextI18n")
-	private fun unduhFileC500(getFileIndexResult: Resource<FileIndexRemoteResponse>) {
-		val fileMhs = getFileIndexResult.payload?.data?.fileMhs
-
-
-		setLoading(true)
-		dokumenViewModel.getUserId().observe(viewLifecycleOwner) { userId ->
-			if (userId != null) {
-				dokumenViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-					if (apiToken != null) {
-						// Both userId and apiToken are available now
-
-						val filePath = fileMhs?.filePathC500.toString()
-						val modifiedPath = filePath.replaceFirst("/", "")
-
-						if (fileMhs != null) {
-							dokumenViewModel.viewPdf(
-								ViewPdfRemoteRequestBody(
-									userId = userId.toString(),
-									apiToken = apiToken.toString(),
-									filePath = "${modifiedPath}/",
-									fileName = fileMhs.fileNameC500.toString()
-								)
-							)
-						}
-					}
-				}
-			}
-		}
-
-		dokumenViewModel.viewPdfResult.observe(viewLifecycleOwner) { viewPdfResult ->
-
-			when (viewPdfResult) {
-				is Resource.Loading -> {
-					setLoading(true)
-				}
-
-				is Resource.Error -> {
-					setLoading(false)
-					showSnackbar("Gagal mengunduh!")
-
-				}
-
-				is Resource.Success -> {
-					setLoading(false)
-
-					// Check if the app has the WRITE_EXTERNAL_STORAGE permission
-					if (ContextCompat.checkSelfPermission(
-							requireContext(),
-							Manifest.permission.WRITE_EXTERNAL_STORAGE
-						) != PackageManager.PERMISSION_GRANTED
-					) {
-						// Request the permission if it's not granted
-						ActivityCompat.requestPermissions(
-							requireActivity(),
-							arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-							200
-						)
-					} else {
-						// Permission already granted, proceed with file operations
-						val base64Encode = viewPdfResult.payload?.data.toString()
-
-						// Decode base64 string to byte array
-						val decodedBytes = android.util.Base64.decode(
-							base64Encode, android.util.Base64.DEFAULT
-						)
-
-						// Save the file in the Downloads directory
-						val fileName = fileMhs?.fileNameC500
-						val downloadDir = Environment.getExternalStoragePublicDirectory(
-							Environment.DIRECTORY_DOWNLOADS
-						)
-						val filePath = File(downloadDir, fileName.toString())
-
-						// Write the byte array to the file
-						val fileOutputStream = FileOutputStream(filePath)
-						fileOutputStream.write(decodedBytes)
-						fileOutputStream.close()
-
-						if (filePath.exists() && filePath.length() > 0) {
-							showSnackbar("Berhasil mengunduh!")
-						} else {
-							showSnackbar("Gagal mengunduh!")
-						}
-					}
-
-				}
-
-				else -> {}
-			}
-
-
-		}
-	}
-
 	private fun checkAndRequestStoragePermissions() {
 		val writePermission = ContextCompat.checkSelfPermission(
-			requireContext(),
-			Manifest.permission.WRITE_EXTERNAL_STORAGE
+			requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE
 		)
 		val readPermission = ContextCompat.checkSelfPermission(
-			requireContext(),
-			Manifest.permission.READ_EXTERNAL_STORAGE
+			requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
 		)
 
 		val permissionsToRequest = mutableListOf<String>()
@@ -1259,8 +871,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 		if (permissionsToRequest.isNotEmpty()) {
 			requestPermissions(
-				permissionsToRequest.toTypedArray(),
-				STORAGE_PERMISSION_REQUEST_CODE
+				permissionsToRequest.toTypedArray(), STORAGE_PERMISSION_REQUEST_CODE
 			)
 		}
 	}
@@ -1301,70 +912,46 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 			}.setNegativeButton("Batalkan") { dialog, _ -> dialog.cancel() }.show()
 	}
 
-	private fun showSnackbar(message: String) {
+	private fun showSnackbar(status: String) {
 		val currentFragment = this@MahasiswaDokumenCapstoneFragment
 
 		if (currentFragment.isVisible) {
 			customSnackbar.showSnackbarWithAction(
-				requireActivity().findViewById(android.R.id.content),
-				message,
-				"OK"
+				requireActivity().findViewById(android.R.id.content), status, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (message == "Berhasil keluar!" || message == "Gagal! Anda telah masuk melalui perangkat lain." || message == "Pengguna tidak ditemukan!" || message == "Akses tidak sah!" || message == "Sesi anda telah berakhir, silahkan masuk terlebih dahulu.") {
-
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setStatusAuth(false)
-
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
-				} else if (message == "null" || message == "Laporan gagal diupload." || message == "Laporan tidak ditemukan." || message == "Gagal menyimpan file." || message == "Dokumen berhasil diunggah." || message.equals(
-						null
-					) || message == "Terjadi kesalahan!" || message == "Berhasil mengunduh!" || message == "Gagal mengunduh!"
-				) {
-					restartFragment()
-				} else if (message == "Password berhasil diubah, silahkan masuk kembali.") {
-
-					profileViewModel.setApiToken("")
-					profileViewModel.setUserId("")
-					profileViewModel.setStatusAuth(false)
-
-					val intent = Intent(requireContext(), SplashscreenActivity::class.java)
-					requireContext().startActivity(intent)
-					requireActivity().finishAffinity()
-				}
 			}
 		}
-
 	}
 
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaDokumenCapstoneFragment
+	private fun actionIfLogoutSucces() {
+		// set auth data store
+		userViewModel.setApiToken("")
+		userViewModel.setUserId("")
+		userViewModel.setUsername("")
+		userViewModel.setStatusAuth(false)
 
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
+		val intent = Intent(requireContext(), SplashscreenActivity::class.java)
+		requireContext().startActivity(intent)
+		requireActivity().finishAffinity()
 	}
 
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDokumenCapstone, isLoading)
 
-//			linearLayoutDokumenCapstone.visibility = if (isLoading) View.GONE else View.VISIBLE
 		}
 	}
 
+	private fun setLoadingKelompok(isLoading: Boolean) {
+		with(binding) {
+			setShimmerVisibility(shimmerDokumenCapstone, isLoading)
+			binding.linearLayoutDokumenCapstone.visibility =
+				if (isLoading) View.GONE else View.VISIBLE
+
+		}
+	}
+	
 	private fun setShimmerVisibility(shimmerView: View, isLoading: Boolean) {
 		shimmerView.visibility = if (isLoading) View.VISIBLE else View.GONE
 		(shimmerView as? ShimmerFrameLayout)?.run {
@@ -1374,7 +961,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 	private fun showCustomAlertDialog(
 		title: String,
-		message: String,
+		status: String,
 		positiveAction: () -> Unit,
 	) {
 		val builder = AlertDialog.Builder(requireContext()).create()
@@ -1385,10 +972,10 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 		val buttonYes = view.findViewById<Button>(R.id.btn_alert_yes)
 		val buttonNo = view.findViewById<Button>(R.id.btn_alert_no)
 		val alertTitle = view.findViewById<TextView>(R.id.tv_alert_title)
-		val alertMessage = view.findViewById<TextView>(R.id.tv_alert_message)
+		val alertstatus = view.findViewById<TextView>(R.id.tv_alert_message)
 
 		alertTitle.text = title
-		alertMessage.text = message
+		alertstatus.text = status
 
 		buttonYes.setOnClickListener {
 			positiveAction.invoke()
@@ -1401,6 +988,10 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 		builder.setCanceledOnTouchOutside(true)
 		builder.show()
+	}
+
+	private fun setViewVisibility(view: View, isVisible: Boolean) {
+		view.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
 
 	override fun onDestroyView() {

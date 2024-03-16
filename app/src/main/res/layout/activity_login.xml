@@ -7,16 +7,6 @@
     android:background="@drawable/background_gradient"
     tools:context=".presentation.ui.auth.login.LoginActivity">
 
-    <View
-        android:id="@+id/overlayLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -24,6 +14,7 @@
         android:layout_margin="20dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
+        android:backgroundTint="@color/White"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,13 +55,12 @@
                 <TextView
                     android:id="@+id/idpengguna"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="36dp"
-                    android:fontFamily="@font/poppinssemibold"
-                    android:text="@string/tv_id_pengguna"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/tv_nim_mahasiswa"
                     android:textColor="@color/lightblue"
                     android:textSize="12sp"
-                    android:textStyle="bold"
                     tools:ignore="TextSizeCheck" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +74,6 @@
                         android:id="@+id/edt_id_pengguna"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
                         android:autofillHints=""
                         android:fontFamily="@font/poppinsregular"
                         android:hint="@string/edt_hint_id_pengguna"
@@ -93,7 +82,7 @@
                         android:paddingVertical="12dp"
                         android:textColor="@color/BlueFontFilled"
                         android:textColorHint="@color/DarkGrey"
-                        android:textSize="14sp"
+                        android:textSize="11sp"
                         tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -101,13 +90,12 @@
                 <TextView
                     android:id="@+id/katasandi"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppinssemibold"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/poppinsmedium"
                     android:text="@string/tv_kata_sandi"
                     android:textColor="@color/lightblue"
                     android:textSize="12sp"
-                    android:textStyle="bold"
                     tools:ignore="TextSizeCheck" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -122,7 +110,6 @@
                         android:id="@+id/edt_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
                         android:autofillHints=""
                         android:fontFamily="@font/poppinsregular"
                         android:hint="@string/edt_hint_password"
@@ -130,7 +117,7 @@
                         android:padding="8dp"
                         android:textColor="@color/BlueFontFilled"
                         android:textColorHint="@color/DarkGrey"
-                        android:textSize="14sp"
+                        android:textSize="11sp"
                         tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,13 +125,15 @@
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="28dp"
+                    android:padding="12dp"
                     android:layout_marginBottom="8dp"
                     android:backgroundTint="@color/RoyalBlue"
-                    android:fontFamily="@font/poppinssemibold"
+                    android:fontFamily="@font/poppinsbold"
                     android:text="@string/btn_login"
+                    android:textAllCaps="false"
                     android:textColor="@color/White"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:cornerRadius="8dp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
