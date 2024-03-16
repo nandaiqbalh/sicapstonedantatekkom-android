@@ -41,6 +41,11 @@
     </style>
 
 
+    <style name="bottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="fontFamily">@font/poppinsmedium</item>
+        <item name="checkedIconSize">32dp</item>
+    </style>
+
     <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">0dp</item>

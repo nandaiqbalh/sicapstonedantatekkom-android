@@ -180,15 +180,8 @@ class LoginActivity : AppCompatActivity() {
 	private fun setLoading(isLoading: Boolean) {
 		if (isLoading) {
 			binding.pbLogin.visibility = View.VISIBLE
-			binding.overlayLayout.visibility = View.VISIBLE
-			window.setFlags(
-				WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-				WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-			)
 		} else {
 			binding.pbLogin.visibility = View.GONE
-			binding.overlayLayout.visibility = View.GONE
-			window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 		}
 	}
 

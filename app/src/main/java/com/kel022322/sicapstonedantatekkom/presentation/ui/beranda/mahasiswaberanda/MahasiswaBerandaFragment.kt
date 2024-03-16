@@ -137,12 +137,12 @@ class MahasiswaBerandaFragment : Fragment() {
 
 					with(binding){
 						setViewVisibility(cvErrorPengumumanTerbaru, true)
-						tvErrorPengumumanTerbaru.text = message ?: "Terjadi kesalahan"
+						tvErrorPengumumanTerbaru.text = message ?: "Mohon periksa kembali koneksi internet Anda!"
 
 						setViewVisibility(cvPengumumanTerbaru, false)
 						setViewVisibility(shimmerBerandaNamauser, false)
 
-						showSnackbar(message ?: "Terjadi kesalahan!", false)
+						showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!", false)
 					}
 
 					Log.d("Broadcast error", broadcastHomeResult.payload?.status.toString())
@@ -159,12 +159,12 @@ class MahasiswaBerandaFragment : Fragment() {
 						setLoadingPengumuman(false)
 						with(binding){
 							setViewVisibility(cvErrorPengumumanTerbaru, true)
-							tvErrorPengumumanTerbaru.text = message ?: "Terjadi kesalahan"
+							tvErrorPengumumanTerbaru.text = message ?: "Mohon periksa kembali koneksi internet Anda!"
 
 							setViewVisibility(cvPengumumanTerbaru, false)
 							setViewVisibility(shimmerBerandaNamauser, false)
 
-							showSnackbar(message ?: "Terjadi kesalahan!", false)
+							showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!", false)
 						}
 
 					} else if (broadcastHomeResult.payload?.success == true && broadcastHomeResult.payload.data?.rs_broadcast?.data != null) {
@@ -257,7 +257,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
 
 					setToolbarWithLocalData()
 

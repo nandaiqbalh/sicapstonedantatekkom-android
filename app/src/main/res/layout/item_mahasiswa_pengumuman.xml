@@ -1,75 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="10dp"
     android:background="@color/White"
     android:orientation="vertical">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_thumbnail_pengumuman"
+        android:layout_width="80dp"
+        android:layout_height="85dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_item_pengumuman"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/RoyalBlue"
+            android:contentDescription="@string/detail_pengumuman"
+            android:scaleType="centerCrop"
+            tools:ignore="ImageContrastCheck" />
+
+    </androidx.cardview.widget.CardView>
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linear_layout_pengumuman"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginStart="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cv_thumbnail_pengumuman"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
+        <TextView
+            android:id="@+id/tv_item_pengumuman_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp">
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_medium"
+            android:maxLines="2"
+            android:scrollHorizontally="true"
+            android:text="@string/tv_title_item_pengumuman"
+            android:textColor="@color/RoyalBlue"
+            android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/iv_item_pengumuman"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:contentDescription="@string/detail_pengumuman"
-                android:scaleType="centerCrop"
-                tools:ignore="ImageContrastCheck" />
-
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:id="@+id/linear_layout_pengumuman"
+        <TextView
+            android:id="@+id/tv_item_pengumuman_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:orientation="vertical">
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppinsregular"
+            android:maxLines="2"
+            android:scrollHorizontally="true"
+            android:text="@string/tv_item_pengumuman_content"
+            android:textColor="@color/DarkGrey"
+            android:textSize="11sp" />
 
-            <TextView
-                android:id="@+id/tv_item_pengumuman_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/poppinsmedium"
-                android:maxLines="2"
-                android:scrollHorizontally="true"
-                android:text="@string/tv_title_item_pengumuman"
-                android:textColor="@color/RoyalBlue"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_item_pengumuman_content"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/poppinsregular"
-                android:maxLines="2"
-                android:scrollHorizontally="true"
-                android:text="@string/tv_item_pengumuman_content"
-                android:textColor="@color/DarkGrey"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/tv_item_pengumuman_postdata"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsmedium"
-                android:text="@string/tv_postdate"
-                android:textColor="@color/DarkGrey"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_item_pengumuman_postdata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="@string/tv_postdate"
+            android:textColor="@color/SlateGrey"
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
     </LinearLayout>
 
     <View
@@ -77,5 +81,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
-        android:background="@color/shimmer_gray" />
-</LinearLayout>
+        android:background="@color/shimmer_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_pengumuman" />
+</androidx.constraintlayout.widget.ConstraintLayout>

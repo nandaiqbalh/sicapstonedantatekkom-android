@@ -141,6 +141,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 							binding.edtLinkPendukungSidangTa.setText(resultResponse.data.kelompok.linkUpload)
 						}
 					} else {
+
 						Log.d("Succes status, but failed", status.toString())
 						with(binding) {
 							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
@@ -160,38 +161,49 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 								setViewVisibility(cvDetailFormSidangTa, false)
 
 								setViewVisibility(shimmerFragmentSidangTa, false)
-							} else if (resultResponse.data.statusPendaftaran == null) {
+							} else if (resultResponse.data.periode == null) {
 
-								setCardBelumMendaftar(getSidangTAResult)
+								cvErrorSidangTaFragment.visibility = View.VISIBLE
+								tvErrorSidangTaFragment.text = "Belum ada periode sidang Tugas Akhir yang tersedia!"
+
+								cvSidangTaTersedia.visibility = View.GONE
+
+								setViewVisibility(shimmerFragmentSidangTa, false)
+							} else if (resultResponse.data.statusPendaftaran == null) {
 
 								setViewVisibility(tvTitleSidangTaTersedia, true)
 								setViewVisibility(cvValueSidangTa, false)
 								setViewVisibility(cvSidangTaTersedia, true)
 								setViewVisibility(tvTitleFormPendaftaranSidangTa, true)
-
-								if (resultResponse.data.periode == null){
-									setViewVisibility(cvDetailFormSidangTa, false)
-									setViewVisibility(tvTitleFormPendaftaranSidangTa, false)
-								} else{
-									setViewVisibility(cvDetailFormSidangTa, true)
-									setViewVisibility(tvTitleFormPendaftaranSidangTa, true)
-								}
+								setViewVisibility(cvDetailFormSidangTa, true)
 
 								setViewVisibility(cvErrorSidangTaFragment, false)
 
 								setViewVisibility(shimmerFragmentSidangTa, false)
+
+								tvValueNamaPeriode.text = resultResponse.data.periode.namaPeriode
+								tvValueBatasPendaftaran.text =
+									"${resultResponse.data.periode.hariBatas}, ${resultResponse.data.periode.tanggalBatas}"
+
 							} else if (resultResponse.data.rsSidang == null) {
-								setViewVisibility(binding.cvErrorSidangTaFragment, true)
-								binding.tvErrorSidangTaFragment.text =
+								setViewVisibility(binding.cvErrorSidangTaFragment, false)
+								binding.tvValueStatusPendaftaran.text =
 									status ?: "Terjadi kesalahan!"
 
-								setViewVisibility(tvTitleSidangTaTersedia, false)
+								setViewVisibility(tvTitleSidangTaTersedia, true)
 								setViewVisibility(cvValueSidangTa, false)
-								setViewVisibility(cvSidangTaTersedia, false)
-								setViewVisibility(tvTitleFormPendaftaranSidangTa, false)
-								setViewVisibility(cvDetailFormSidangTa, false)
+								setViewVisibility(cvSidangTaTersedia, true)
+								setViewVisibility(tvTitleFormPendaftaranSidangTa, true)
+								setViewVisibility(cvDetailFormSidangTa, true)
 
 								setViewVisibility(shimmerFragmentSidangTa, false)
+
+								tvValueNamaPeriode.text = resultResponse.data.periode.namaPeriode
+								tvValueBatasPendaftaran.text =
+									"${resultResponse.data.periode.hariBatas}, ${resultResponse.data.periode.tanggalBatas}"
+
+								edtJudulTugasAkhir.setText(resultResponse.data.kelompok?.judulTAMhs)
+								edtLinkPendukungSidangTa.setText(resultResponse.data.kelompok?.linkUpload)
 
 							} else {
 
@@ -297,33 +309,6 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 		}
 
 
-	}
-
-	@SuppressLint("SetTextI18n")
-	private fun setCardBelumMendaftar(getSidangTAResult: Resource<SidangTARemoteResponse>) {
-
-		val data = getSidangTAResult.payload?.data
-
-		if (data?.periode == null){
-			//  SidangTA sudah valid
-			with(binding) {
-
-				tvValueNamaPeriode.text = "Belum ada periode sidang Tugas Akhir yang tersedia"
-				tvValueBatasPendaftaran.visibility = View.GONE
-				tvTitikDuaNomorBatasPendaftaran.visibility = View.GONE
-				tvTitleBatasPendaftaran.visibility = View.GONE
-
-			}
-		} else {
-
-			//  SidangTA sudah valid
-			with(binding) {
-
-				tvValueNamaPeriode.text = data.periode.namaPeriode
-				tvValueBatasPendaftaran.text =
-					"${data.periode.hariBatas}, ${data.periode.tanggalBatas}"
-			}
-		}
 	}
 
 	@SuppressLint("SetTextI18n")

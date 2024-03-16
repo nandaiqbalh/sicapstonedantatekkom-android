@@ -52,10 +52,11 @@
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_beranda_namauser"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:height="24dp"
                 android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/iv_home_profilephoto"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_hello">
 
@@ -108,7 +109,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="34dp"
             android:layout_marginBottom="16dp"
             android:orientation="vertical">
 
@@ -127,7 +128,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:nestedScrollingEnabled="true"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_action_mahasiswa_beranda"
@@ -138,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppinssemibold"
                 android:text="@string/tv_pengumuman_terbaru"
                 android:textColor="@color/lightblue"
@@ -149,10 +149,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="16dp"
                 android:visibility="gone"
+                android:paddingHorizontal="16dp"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
@@ -164,12 +165,13 @@
                     android:layout_height="48dp"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
+                    android:paddingHorizontal="16dp"
                     android:background="@drawable/rounded_outline_text_view"
-                    android:fontFamily="@font/poppinsregular"
+                    android:fontFamily="@font/poppinsmedium"
                     android:gravity="center"
                     android:text="@string/tv_terjadi_kesalahan"
                     android:textColor="@color/DarkGrey"
-                    android:textSize="11sp" />
+                    android:textSize="12sp" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -179,7 +181,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="@color/White"
@@ -191,7 +193,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    
+
 
                     <com.facebook.shimmer.ShimmerFrameLayout
                         android:id="@+id/shimmer_cv_pengumuman_terbaru"
