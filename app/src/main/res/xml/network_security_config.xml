@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">192.168.1.6</domain>
+        <domain includeSubdomains="true">192.168.1.18</domain>
         <domain includeSubdomains="true">192.168.43.42</domain>
         <domain includeSubdomains="true">10.106.88.73</domain>
         <domain includeSubdomains="true">192.168.87.199</domain>
@@ -14,9 +14,9 @@
         <domain includeSubdomains="true">10.105.191.189</domain>
         <domain includeSubdomains="true">10.106.61.22</domain>
         <domain includeSubdomains="true">192.168.87.220</domain>
-        <domain includeSubdomains="true">192.168.1.38</domain>
-        <domain includeSubdomains="true">10.105.76.239</domain>
-        <domain includeSubdomains="true">192.168.1.2</domain>
+        <domain includeSubdomains="true">172.20.10.3</domain>
+        <domain includeSubdomains="true">10.107.52.232</domain>
+        <domain includeSubdomains="true">192.168.1.9</domain>
 
     </domain-config>
 </network-security-config>

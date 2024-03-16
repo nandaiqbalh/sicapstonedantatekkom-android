@@ -18,7 +18,6 @@ import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaSidangTu
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.sidangta.SidangTugasAkhirViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.KelompokIndexViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok.AkunAnggotaKelompokAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok.AkunDosbingAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok.AkunDospengTaAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
@@ -104,32 +103,12 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 	}
 
 
-	private fun setCardKelompok(getKelompokSayaResult: Resource<KelompokSayaRemoteResponse>) {
+	private fun setCardSidangTADetail(getKelompokSayaResult: Resource<KelompokSayaRemoteResponse>) {
 
 		val data = getKelompokSayaResult.payload?.data
 
 		//  kelompok sudah valid
 		with(binding) {
-
-			// card anggota kelompok
-			val dataAnggotaKelompok = data?.rsMahasiswa
-			val akunAnggotaKelompokAdapter = AkunAnggotaKelompokAdapter()
-
-			akunAnggotaKelompokAdapter.setList(dataAnggotaKelompok)
-
-			rvAkunAnggotaSidangTaDetail.layoutManager = LinearLayoutManager(
-				requireContext(),
-				LinearLayoutManager.VERTICAL,
-				false
-			)
-			rvAkunAnggotaSidangTaDetail.adapter = akunAnggotaKelompokAdapter
-
-			// navigate to detail if necessary
-			akunAnggotaKelompokAdapter.setOnItemClickCallback(object :
-				AkunAnggotaKelompokAdapter.OnItemClickCallBack {
-				override fun onItemClicked(mahasiswaId: String) {
-				}
-			})
 
 			// dosbing
 			val dataDosbing = data?.rsDosbing
@@ -208,7 +187,6 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 					// set view condition
 					with(binding) {
 						setViewVisibility(cvValueSidangTaDetail, false)
-						setViewVisibility(cvValueAnggotaSidangTaDetail, false)
 						setViewVisibility(cvValueDosbingDetail, false)
 						setViewVisibility(cvValueDospengDetail, false)
 						setViewVisibility(linearLayoutSidangTa, false)
@@ -225,11 +203,10 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 					val message = getKelompokSayaResult.payload
 					Log.d("Result success", message.toString())
 					if (resultResponse?.success == true && resultResponse.data != null) {
-						setCardKelompok(getKelompokSayaResult)
+						setCardSidangTADetail(getKelompokSayaResult)
 						// if already have kelompok
 						with(binding) {
 							setViewVisibility(cvValueSidangTaDetail, true)
-							setViewVisibility(cvValueAnggotaSidangTaDetail, true)
 							setViewVisibility(cvValueDosbingDetail, true)
 							setViewVisibility(cvValueDospengDetail, true)
 							setViewVisibility(linearLayoutSidangTa, true)
@@ -243,7 +220,6 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 
 						with(binding){
 							setViewVisibility(cvValueSidangTaDetail, false)
-							setViewVisibility(cvValueAnggotaSidangTaDetail, false)
 							setViewVisibility(cvValueDosbingDetail, false)
 							setViewVisibility(cvValueDospengDetail, false)
 							setViewVisibility(linearLayoutSidangTa, false)
@@ -368,7 +344,6 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 			setShimmerVisibility(shimmerFragmentSidangTaDetail, isLoading)
 			if (isLoading) {
 				setViewVisibility(cvValueSidangTaDetail, false)
-				setViewVisibility(cvValueAnggotaSidangTaDetail, false)
 				setViewVisibility(cvValueDosbingDetail, false)
 				setViewVisibility(cvValueDospengDetail, false)
 				setViewVisibility(linearLayoutSidangTa, false)

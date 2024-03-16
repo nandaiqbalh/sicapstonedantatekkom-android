@@ -123,6 +123,8 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 						if (dataKelompok?.kelompok?.nomorKelompok != null) {
 							binding.cvBelumMemilikiKelompok.visibility = View.GONE
 
+							id = dataKelompok.kelompok.id.toString()
+
 							binding.linearLayoutDokumenCapstone.visibility = View.VISIBLE
 						} else {
 							binding.cvBelumMemilikiKelompok.visibility = View.VISIBLE

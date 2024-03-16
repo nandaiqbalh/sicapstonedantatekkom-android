@@ -88,7 +88,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
+					showSnackbar(status ?: "Terjadi kesalahan!")
 
 					Log.d(
 						"Error SidangTA Index",
@@ -133,14 +133,23 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 							setViewVisibility(shimmerFragmentSidangTa, false)
 
 						}
+
+						// set form
+						if (resultResponse.data?.kelompok?.judulTAMhs != null && resultResponse.data.kelompok.linkUpload != null){
+							binding.tvValueJudul.text = resultResponse.data.kelompok.judulTAMhs
+							binding.edtJudulTugasAkhir.setText(resultResponse.data.kelompok.judulTAMhs)
+							binding.edtLinkPendukungSidangTa.setText(resultResponse.data.kelompok.linkUpload)
+						}
 					} else {
+
 						Log.d("Succes status, but failed", status.toString())
 						with(binding) {
 							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-								showSnackbar("Sesi anda telah berakhir :(", true)
+								showSnackbar("Sesi anda telah berakhir :(")
 
 								actionIfLogoutSucces()
-							} else if (resultResponse?.data?.rsSidang == null) {
+							} else if (resultResponse?.data == null){
+								showSnackbar(status ?: "Terjadi kesalahan!")
 								setViewVisibility(binding.cvErrorSidangTaFragment, true)
 								binding.tvErrorSidangTaFragment.text =
 									status ?: "Terjadi kesalahan!"
@@ -152,10 +161,15 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 								setViewVisibility(cvDetailFormSidangTa, false)
 
 								setViewVisibility(shimmerFragmentSidangTa, false)
+							} else if (resultResponse.data.periode == null) {
 
+								cvErrorSidangTaFragment.visibility = View.VISIBLE
+								tvErrorSidangTaFragment.text = "Belum ada periode sidang Tugas Akhir yang tersedia!"
+
+								cvSidangTaTersedia.visibility = View.GONE
+
+								setViewVisibility(shimmerFragmentSidangTa, false)
 							} else if (resultResponse.data.statusPendaftaran == null) {
-
-								setCardBelumMendaftar(getSidangTAResult)
 
 								setViewVisibility(tvTitleSidangTaTersedia, true)
 								setViewVisibility(cvValueSidangTa, false)
@@ -166,9 +180,34 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 								setViewVisibility(cvErrorSidangTaFragment, false)
 
 								setViewVisibility(shimmerFragmentSidangTa, false)
+
+								tvValueNamaPeriode.text = resultResponse.data.periode.namaPeriode
+								tvValueBatasPendaftaran.text =
+									"${resultResponse.data.periode.hariBatas}, ${resultResponse.data.periode.tanggalBatas}"
+
+							} else if (resultResponse.data.rsSidang == null) {
+								setViewVisibility(binding.cvErrorSidangTaFragment, false)
+								binding.tvValueStatusPendaftaran.text =
+									status ?: "Terjadi kesalahan!"
+
+								setViewVisibility(tvTitleSidangTaTersedia, true)
+								setViewVisibility(cvValueSidangTa, false)
+								setViewVisibility(cvSidangTaTersedia, true)
+								setViewVisibility(tvTitleFormPendaftaranSidangTa, true)
+								setViewVisibility(cvDetailFormSidangTa, true)
+
+								setViewVisibility(shimmerFragmentSidangTa, false)
+
+								tvValueNamaPeriode.text = resultResponse.data.periode.namaPeriode
+								tvValueBatasPendaftaran.text =
+									"${resultResponse.data.periode.hariBatas}, ${resultResponse.data.periode.tanggalBatas}"
+
+								edtJudulTugasAkhir.setText(resultResponse.data.kelompok?.judulTAMhs)
+								edtLinkPendukungSidangTa.setText(resultResponse.data.kelompok?.linkUpload)
+
 							} else {
 
-								showSnackbar(status ?: "Terjadi kesalahan!", true)
+								showSnackbar(status ?: "Terjadi kesalahan!")
 								setViewVisibility(binding.cvErrorSidangTaFragment, true)
 								binding.tvErrorSidangTaFragment.text =
 									status ?: "Terjadi kesalahan!"
@@ -232,7 +271,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 							setLoading(false)
 
 							val status = resultResponse?.status
-							showSnackbar(status ?: "Terjadi kesalahan!", false)
+							showSnackbar(status ?: "Terjadi kesalahan!")
 
 						}
 
@@ -244,20 +283,18 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 							if (resultResponse?.success == true && resultResponse.data != null) {
 								Log.d("Daftar TA Succes status", status.toString())
 								showSnackbar(
-									resultResponse.status ?: "Berhasil mendaftar sidang tugas akhir!",
-									true
-								)
+									resultResponse.status ?: "Berhasil mendaftar sidang tugas akhir!")
 
 								findNavController().navigate(R.id.action_mahasiswaSidangTugasAkhirFragment_to_mahasiswaBerandaFragment)
 							} else {
 								Log.d("Daftar TA Succes status, but failed", status.toString())
 
 								if (status == "Token is Expired" || status == "Token is Invalid") {
-									showSnackbar("Sesi anda telah berakhir :(", true)
+									showSnackbar("Sesi anda telah berakhir :(")
 
 									actionIfLogoutSucces()
 								} else {
-									showSnackbar(status ?: "Terjadi kesalahan!", true)
+									showSnackbar(status ?: "Terjadi kesalahan!")
 
 								}
 							}
@@ -272,29 +309,6 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 		}
 
 
-	}
-
-	@SuppressLint("SetTextI18n")
-	private fun setCardBelumMendaftar(getSidangTAResult: Resource<SidangTARemoteResponse>) {
-
-		val data = getSidangTAResult.payload?.data
-
-		if (data != null) {
-
-			//  SidangTA sudah valid
-			with(binding) {
-
-				tvValueNamaPeriode.text = data.periode?.namaPeriode
-				tvValueBatasPendaftaran.text =
-					"${data.periode?.hariBatas}, ${data.periode?.tanggalBatas}"
-			}
-
-		} else {
-			//  status belum valid
-			with(binding) {
-				"Belum mendaftar!".also { tvValueStatusPendaftaran.text = it }
-			}
-		}
 	}
 
 	@SuppressLint("SetTextI18n")
@@ -337,24 +351,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 		}
 	}
 
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaSidangTugasAkhirFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
-	}
-
-	private fun showSnackbar(message: String, isRestart: Boolean) {
+	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaSidangTugasAkhirFragment
 
 		if (currentFragment.isVisible) {
@@ -362,9 +359,6 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
 			}
 		}
 	}

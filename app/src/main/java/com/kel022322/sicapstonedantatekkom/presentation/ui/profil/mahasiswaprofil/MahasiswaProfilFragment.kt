@@ -29,6 +29,7 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.requ
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaProfilBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.login.LoginActivity
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfilePasswordViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileUpdateViewModel
@@ -439,7 +440,12 @@ class MahasiswaProfilFragment : Fragment() {
 						Log.d("Password Succes status", status.toString())
 						showSnackbar(resultResponse.status ?: "Berhasil memperbaharui password!")
 
-						findNavController().navigate(R.id.action_mahasiswaProfilFragment_to_mahasiswaBerandaFragment)
+						actionIfLogoutSucces()
+
+						val intent = Intent(requireContext(), LoginActivity::class.java)
+						startActivity(intent)
+						requireActivity().finishAffinity()
+
 
 					} else {
 						Log.d("Password Succes status, but failed", status.toString())

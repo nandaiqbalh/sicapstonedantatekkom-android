@@ -62,6 +62,7 @@ class MahasiswaBerandaFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 
 		setLoading(true)
+		setLoadingPengumuman(true)
 
 		getProfile()
 
@@ -126,47 +127,47 @@ class MahasiswaBerandaFragment : Fragment() {
 
 			when (broadcastHomeResult) {
 				is Resource.Loading -> {
-					setLoading(true)
+					setLoadingPengumuman(true)
 				}
 
 				is Resource.Error -> {
-					setLoading(false)
+					setLoadingPengumuman(false)
 
-					val message = resultResponse?.message
+					val message = resultResponse?.status
 
 					with(binding){
 						setViewVisibility(cvErrorPengumumanTerbaru, true)
-						tvErrorPengumumanTerbaru.text = message ?: "Terjadi kesalahan"
+						tvErrorPengumumanTerbaru.text = message ?: "Mohon periksa kembali koneksi internet Anda!"
 
 						setViewVisibility(cvPengumumanTerbaru, false)
 						setViewVisibility(shimmerBerandaNamauser, false)
 
-						showSnackbar(message ?: "Terjadi kesalahan!", false)
+						showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!", false)
 					}
 
-					Log.d("Broadcast error", broadcastHomeResult.payload?.message.toString())
+					Log.d("Broadcast error", broadcastHomeResult.payload?.status.toString())
 
 				}
 
 				is Resource.Success -> {
-					setLoading(false)
+					setLoadingPengumuman(false)
 
-					val message = broadcastHomeResult.payload?.message
+					val message = broadcastHomeResult.payload?.status
 					Log.d("Result success", message.toString())
 
-					if (broadcastHomeResult.payload?.status == false) {
-						setLoading(false)
+					if (broadcastHomeResult.payload?.success == false) {
+						setLoadingPengumuman(false)
 						with(binding){
 							setViewVisibility(cvErrorPengumumanTerbaru, true)
-							tvErrorPengumumanTerbaru.text = message ?: "Terjadi kesalahan"
+							tvErrorPengumumanTerbaru.text = message ?: "Mohon periksa kembali koneksi internet Anda!"
 
 							setViewVisibility(cvPengumumanTerbaru, false)
 							setViewVisibility(shimmerBerandaNamauser, false)
 
-							showSnackbar(message ?: "Terjadi kesalahan!", false)
+							showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!", false)
 						}
 
-					} else if (broadcastHomeResult.payload?.status == true && broadcastHomeResult.payload.data?.rs_broadcast?.data != null) {
+					} else if (broadcastHomeResult.payload?.success == true && broadcastHomeResult.payload.data?.rs_broadcast?.data != null) {
 						val pengumumanAdapter = PengumumanAdapter()
 
 						pengumumanAdapter.setList(broadcastHomeResult.payload.data.rs_broadcast.data)
@@ -256,7 +257,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 					setLoading(false)
 
-					showSnackbar(status ?: "Terjadi kesalahan!", true)
+					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
 
 					setToolbarWithLocalData()
 
@@ -349,11 +350,18 @@ class MahasiswaBerandaFragment : Fragment() {
 		with(binding) {
 			setShimmerVisibility(shimmerBerandaNamauser, isLoading)
 			setShimmerVisibility(shimmerIvHomeProfilephoto, isLoading)
-			setShimmerVisibility(shimmerCvPengumumanTerbaru, isLoading)
 
 			namauser.visibility = if (isLoading) View.GONE else View.VISIBLE
 			ivHomeProfilephoto.visibility = if (isLoading) View.GONE else View.VISIBLE
 
+		}
+	}
+
+	private fun setLoadingPengumuman(isLoading: Boolean){
+		with(binding) {
+			setShimmerVisibility(shimmerCvPengumumanTerbaru, isLoading)
+
+			rvPengumumanTerbaru.visibility = if (isLoading) View.GONE else View.VISIBLE
 		}
 	}
 

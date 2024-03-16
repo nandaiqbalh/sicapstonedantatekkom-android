@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="132dp"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="6dp"
     android:layout_marginEnd="12dp"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="17dp"
     app:cardCornerRadius="6dp"
     app:cardElevation="8dp"
     app:strokeColor="@android:color/transparent">

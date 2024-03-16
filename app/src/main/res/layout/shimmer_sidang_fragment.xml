@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="16dp"
         app:cardBackgroundColor="@color/White"
@@ -97,6 +96,30 @@
                         android:textSize="12sp" />
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/shimmer_gray"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/shimmer_gray"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:maxLines="1"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -114,7 +137,7 @@
 
                     <TextView
                         android:id="@+id/shimmer_tv_value_topik"
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:background="@color/shimmer_gray"
@@ -171,21 +194,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <Button
-        android:id="@+id/shimmer_btn_download_sidang_proposal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="20sp"
-        android:backgroundTint="@color/shimmer_gray"
-        android:fontFamily="@font/poppinsbold"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
-        android:visibility="visible"
-        android:textSize="14sp"
-        app:cornerRadius="6dp"
-        tools:ignore="DuplicateSpeakableTextCheck" />
 
 </LinearLayout>

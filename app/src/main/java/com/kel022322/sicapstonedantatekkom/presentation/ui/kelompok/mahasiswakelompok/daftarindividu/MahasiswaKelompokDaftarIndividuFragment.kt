@@ -167,7 +167,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 
 				is Resource.Success -> {
 
-					if (resultResponse?.success == true && resultResponse.data?.rs_siklus!!.isNotEmpty() && resultResponse.data.periode_pendaftaran!!.isNotEmpty()) {
+					if (resultResponse?.success == true) {
 						setLoading(isLoading = false, isSuccess = true)
 
 						Log.d("Succes Siklus", status.toString())
