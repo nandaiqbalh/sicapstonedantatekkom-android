@@ -1,16 +1,13 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.mahasiswadokumen.capstone
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +26,7 @@ import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response.FileIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDokumenCapstoneBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.DokumenViewModel
+import com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.mahasiswadokumen.DokumenViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.KelompokIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
@@ -41,7 +38,6 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
 
-@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class MahasiswaDokumenCapstoneFragment : Fragment() {
 
@@ -74,8 +70,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 		checkDokumen()
 
 		btnListener()
-
-		checkAndRequestStoragePermissions()
 
 	}
 
@@ -139,8 +133,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 							Log.d("Update Succes status, but failed", status.toString())
 
 							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-								showSnackbar("Sesi anda telah berakhir :(")
-
 								actionIfLogoutSucces()
 							} else {
 								setViewVisibility(linearLayoutDokumenCapstone, false)
@@ -180,8 +172,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
-
 				}
 
 				is Resource.Success -> {
@@ -195,8 +185,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 						viewDokumen(getFileIndexResult)
 					} else {
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(")
-
 							actionIfLogoutSucces()
 						}
 					}
@@ -852,66 +840,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 		}
 	}
 
-	private fun checkAndRequestStoragePermissions() {
-		val writePermission = ContextCompat.checkSelfPermission(
-			requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE
-		)
-		val readPermission = ContextCompat.checkSelfPermission(
-			requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
-		)
-
-		val permissionsToRequest = mutableListOf<String>()
-
-		if (writePermission != PackageManager.PERMISSION_GRANTED) {
-			permissionsToRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-		}
-		if (readPermission != PackageManager.PERMISSION_GRANTED) {
-			permissionsToRequest.add(Manifest.permission.READ_EXTERNAL_STORAGE)
-		}
-
-		if (permissionsToRequest.isNotEmpty()) {
-			requestPermissions(
-				permissionsToRequest.toTypedArray(), STORAGE_PERMISSION_REQUEST_CODE
-			)
-		}
-	}
-
-	// Metode ini akan dipanggil setelah pengguna memberikan atau menolak izin
-	@Deprecated("Deprecated in Java")
-	override fun onRequestPermissionsResult(
-		requestCode: Int,
-		permissions: Array<out String>,
-		grantResults: IntArray,
-	) {
-		when (requestCode) {
-			STORAGE_PERMISSION_REQUEST_CODE -> {
-				// Memeriksa apakah izin diberikan atau tidak
-				if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
-					// Izin diberikan, Anda dapat melanjutkan dengan operasi yang membutuhkan izin
-					// Contoh: Membaca atau menulis file
-				} else {
-					// Izin ditolak, Anda dapat memberikan informasi atau mengambil tindakan tambahan
-
-					showPermissionDeniedDialog()
-				}
-			}
-
-			else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-		}
-	}
-
-	private fun showPermissionDeniedDialog() {
-		AlertDialog.Builder(requireContext()).setTitle("Izin ditolak")
-			.setMessage("Izin ditolak, silahkan izinkan melalui pengaturan aplikasi!")
-			.setPositiveButton("App Settings") { _, _ ->
-				val intent = Intent()
-				intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-				val uri = Uri.fromParts("package", requireContext().packageName, null)
-				intent.data = uri
-				startActivity(intent)
-			}.setNegativeButton("Batalkan") { dialog, _ -> dialog.cancel() }.show()
-	}
-
 	private fun showSnackbar(status: String) {
 		val currentFragment = this@MahasiswaDokumenCapstoneFragment
 
@@ -998,10 +926,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 		super.onDestroyView()
 		_binding = null
 
-	}
-
-	companion object {
-		const val STORAGE_PERMISSION_REQUEST_CODE = 100
 	}
 
 }

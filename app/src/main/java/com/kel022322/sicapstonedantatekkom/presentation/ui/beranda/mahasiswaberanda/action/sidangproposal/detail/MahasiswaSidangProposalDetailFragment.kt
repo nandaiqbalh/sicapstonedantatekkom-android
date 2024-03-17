@@ -200,8 +200,6 @@ class MahasiswaSidangProposalDetailFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
-
 					Log.d("Error Kelompok Detail", getKelompokSayaResult.payload?.status.toString())
 
 					// set view condition
@@ -253,12 +251,8 @@ class MahasiswaSidangProposalDetailFragment : Fragment() {
 						}
 
 						if (status == "Authorization Token not found" ||  status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
 
 							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", false)
-
 						}
 					}
 				}
@@ -279,8 +273,6 @@ class MahasiswaSidangProposalDetailFragment : Fragment() {
 
 				is Resource.Error -> {
 					setLoading(false)
-
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
 
 					Log.d(
 						"Error Kelompok Index",
@@ -303,11 +295,9 @@ class MahasiswaSidangProposalDetailFragment : Fragment() {
 						Log.d("Succes status, but failed", status.toString())
 
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
 						}
 					}
 
@@ -319,34 +309,14 @@ class MahasiswaSidangProposalDetailFragment : Fragment() {
 
 	}
 
-	private fun showSnackbar(message: String, isRestart: Boolean) {
+	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaSidangProposalDetailFragment
 		if (currentFragment.isVisible) {
 			customSnackbar.showSnackbarWithAction(
 				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
 			}
-		}
-	}
-
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaSidangProposalDetailFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
 		}
 	}
 

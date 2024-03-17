@@ -5,6 +5,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindivid
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.terimakelompok.TerimaKelompokRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.tolakkelompok.TolakKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.service.ApiService
 import javax.inject.Inject
 
@@ -13,6 +15,15 @@ interface KelompokSayaRemoteDataSource {
 	suspend fun getKelompokSaya(
 		apiToken: String,
 	): KelompokSayaRemoteResponse
+
+	suspend fun terimaKelompok(
+		apiToken: String,
+	): TerimaKelompokRemoteResponse
+
+	suspend fun tolakKelompok(
+		apiToken: String,
+	): TolakKelompokRemoteResponse
+
 	suspend fun addKelompokIndividu(
 		apiToken: String,
 		addKelompokIndividuRemoteRequestBody: AddKelompokIndividuRemoteRequestBody,
@@ -32,6 +43,14 @@ class KelompokSayaRemoteDataSourceImpl @Inject constructor(
 		apiToken: String,
 	): KelompokSayaRemoteResponse {
 		return apiService.getKelompokSaya(apiToken)
+	}
+
+	override suspend fun terimaKelompok(apiToken: String): TerimaKelompokRemoteResponse {
+		return apiService.terimaKelompok(apiToken)
+	}
+
+	override suspend fun tolakKelompok(apiToken: String): TolakKelompokRemoteResponse {
+		return apiService.tolakKelompok(apiToken)
 	}
 
 	override suspend fun addKelompokIndividu(

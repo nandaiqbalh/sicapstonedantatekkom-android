@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaPengumumanBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.adapter.PengumumanAdapter
-import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,8 +22,6 @@ class MahasiswaPengumumanFragment : Fragment() {
 	private val binding get() = _binding!!
 
 	private val pengumumanViewModel: PengumumanViewModel by viewModels()
-
-	private val customSnackbar = CustomSnackbar()
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -77,7 +74,6 @@ class MahasiswaPengumumanFragment : Fragment() {
 
 					// Log and show the message
 					val message = broadcastResult.payload?.status
-					showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!")
 
 					with(binding){
 						setViewVisibility(cvErrorPengumuman, true)
@@ -85,7 +81,6 @@ class MahasiswaPengumumanFragment : Fragment() {
 
 						setViewVisibility(cvPengumuman, false)
 
-						showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!")
 					}
 
 					Log.d("Result error", broadcastResult.payload?.status.toString())
@@ -100,7 +95,6 @@ class MahasiswaPengumumanFragment : Fragment() {
 
 					if (broadcastResult.payload?.success == false) {
 						setLoading(false)
-						showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!")
 
 						with(binding){
 							setViewVisibility(cvErrorPengumuman, true)
@@ -108,7 +102,6 @@ class MahasiswaPengumumanFragment : Fragment() {
 
 							setViewVisibility(cvPengumuman, false)
 
-							showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!")
 						}
 
 					} else if (broadcastResult.payload?.success == true && broadcastResult.payload.data?.rs_broadcast?.data != null) {
@@ -144,18 +137,6 @@ class MahasiswaPengumumanFragment : Fragment() {
 
 				else -> {}
 
-			}
-		}
-	}
-
-	private fun showSnackbar(message: String) {
-		val currentFragment = this@MahasiswaPengumumanFragment
-
-		if (currentFragment.isVisible) {
-			customSnackbar.showSnackbarWithAction(
-				requireActivity().findViewById(android.R.id.content), message, "OK"
-			) {
-				customSnackbar.dismissSnackbar()
 			}
 		}
 	}

@@ -1,11 +1,16 @@
 package com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -37,6 +42,7 @@ class MahasiswaKelompokFragment : Fragment() {
 	private val customSnackbar = CustomSnackbar()
 
 	private var fragmentPageAdapter: FragmentDaftarCapstonePageAdapter? = null
+	private var isAlertDialogShowing = false
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -93,8 +99,6 @@ class MahasiswaKelompokFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
-
 					Log.d("Error Kelompok Index", getKelompokSayaResult.payload?.status.toString())
 
 					// set view condition
@@ -118,18 +122,49 @@ class MahasiswaKelompokFragment : Fragment() {
 
 					if (resultResponse?.success == true) {
 
-						setCardKelompok(getKelompokSayaResult)
+						if (resultResponse.data?.getAkun?.statusIndividu == "Didaftarkan"){
+							setCardKelompok(getKelompokSayaResult)
 
-						// if already have kelompok
-						with(binding) {
-							setViewVisibility(cvValueKelompok, true)
-							setViewVisibility(cvValueDosbing, true)
-							setViewVisibility(linearLayoutDaftarCapstone, false)
-							setViewVisibility(cvErrorKelompok, false)
+							// Panggil fungsi showCustomAlertDialog dengan parameter yang diperlukan
+							showCustomAlertDialog(
+								"Konfirmasi",
+								"Setuju bergabung dengan",
+								resultResponse.data.kelompok?.pengusulKelompok.toString(),
+								{
+									// Aksi yang akan dijalankan saat tombol "Yes" ditekan
+									terimaKelompok()
+								},
+								{
+									// Aksi yang akan dijalankan saat tombol "No" ditekan
+									tolakKelompok()
+								}
+							)
+							// if already have kelompok
+							with(binding) {
+								setViewVisibility(cvValueKelompok, true)
+								setViewVisibility(cvValueDosbing, true)
+								setViewVisibility(linearLayoutDaftarCapstone, false)
+								setViewVisibility(cvErrorKelompok, false)
 
-							setViewVisibility(shimmerFragmentKelompok, false)
+								setViewVisibility(shimmerFragmentKelompok, false)
 
+							}
+
+						} else {
+							setCardKelompok(getKelompokSayaResult)
+
+							// if already have kelompok
+							with(binding) {
+								setViewVisibility(cvValueKelompok, true)
+								setViewVisibility(cvValueDosbing, true)
+								setViewVisibility(linearLayoutDaftarCapstone, false)
+								setViewVisibility(cvErrorKelompok, false)
+
+								setViewVisibility(shimmerFragmentKelompok, false)
+
+							}
 						}
+
 
 					} else {
 						Log.d("Succes status, but failed", status.toString())
@@ -161,9 +196,6 @@ class MahasiswaKelompokFragment : Fragment() {
 
 								setViewVisibility(shimmerFragmentKelompok, false)
 							}
-						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
-
 						}
 					}
 
@@ -173,6 +205,98 @@ class MahasiswaKelompokFragment : Fragment() {
 			}
 		}
 	}
+
+	private fun terimaKelompok() {
+		setLoading(true)
+		// terima
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				kelompokViewModel.terimaKelompok(apiToken)
+			}
+		}
+
+		kelompokViewModel.terimaKelompokResult.observe(viewLifecycleOwner) { terimaKelompokResult ->
+			when (terimaKelompokResult) {
+				is Resource.Loading -> setLoading(true)
+				is Resource.Error -> {
+					setLoading(false)
+					showSnackbar(
+						terimaKelompokResult.payload?.status
+							?: "Mohon periksa kembali koneksi internet Anda!"
+					)
+				}
+				is Resource.Success -> {
+					setLoading(false)
+					val message = terimaKelompokResult.payload
+					Log.d("Result success", message.toString())
+					if (terimaKelompokResult.payload?.success == true) {
+						showSnackbar(message?.status ?: "Berhasil menyetujui kelompok!")
+						findNavController().navigate(R.id.action_mahasiswaKelompokFragment_to_mahasiswaBerandaFragment)
+					} else {
+						val statusTerima = terimaKelompokResult.payload?.status
+						if (statusTerima == "Authorization Token not found" || statusTerima == "Token is Expired" || statusTerima == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(")
+							actionIfLogoutSucces()
+						} else {
+							showSnackbar(
+								statusTerima
+									?: "Mohon periksa kembali koneksi internet Anda!"
+							)
+						}
+					}
+				}
+
+				else -> {}
+			}
+		}
+	}
+
+	private fun tolakKelompok() {
+		setLoading(true)
+		// tolak
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				kelompokViewModel.tolakKelompok(apiToken)
+			}
+		}
+
+		kelompokViewModel.tolakKelompokResult.observe(viewLifecycleOwner) { tolakKelompokResult ->
+			when (tolakKelompokResult) {
+				is Resource.Loading -> setLoading(true)
+				is Resource.Error -> {
+					setLoading(false)
+					showSnackbar(
+						tolakKelompokResult.payload?.status
+							?: "Mohon periksa kembali koneksi internet Anda!"
+					)
+				}
+				is Resource.Success -> {
+					setLoading(false)
+					val message = tolakKelompokResult.payload
+					Log.d("Result success", message.toString())
+					if (tolakKelompokResult.payload?.success == true) {
+						showSnackbar(message?.status ?: "Berhasil menolak kelompok!")
+						findNavController().navigate(R.id.action_mahasiswaKelompokFragment_to_mahasiswaBerandaFragment)
+
+					} else {
+						val statusTolak = tolakKelompokResult.payload?.status
+						if (statusTolak == "Authorization Token not found" || statusTolak == "Token is Expired" || statusTolak == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(")
+							actionIfLogoutSucces()
+						} else {
+							showSnackbar(
+								statusTolak
+									?: "Mohon periksa kembali koneksi internet Anda!"
+							)
+						}
+					}
+				}
+
+				is Resource.Empty -> TODO()
+			}
+		}
+	}
+
 
 	private fun setToolbar() {
 		setLoading(true)
@@ -338,6 +462,55 @@ class MahasiswaKelompokFragment : Fragment() {
 
 
 	}
+
+	private fun showCustomAlertDialog(
+		title: String,
+		message: String,
+		pengusulKelompok: String,
+		positiveAction: () -> Unit,
+		negativeAction: () -> Unit // Tambahkan parameter untuk tombol "No"
+	) {
+		if (isAlertDialogShowing) {
+			// Jika alert dialog sedang ditampilkan, keluar dari fungsi
+			return
+		}
+		isAlertDialogShowing = true
+
+		val builder = AlertDialog.Builder(requireContext()).create()
+		val view = layoutInflater.inflate(R.layout.dialog_custom_alert_dialog_konfirmasi_kelompok, null)
+		builder.setView(view)
+		builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+		val buttonYes = view.findViewById<Button>(R.id.btn_alert_yes)
+		val buttonNo = view.findViewById<Button>(R.id.btn_alert_no)
+		val alertTitle = view.findViewById<TextView>(R.id.tv_alert_title)
+		val alertMessage = view.findViewById<TextView>(R.id.tv_alert_message)
+		val alertPengusulKelompok = view.findViewById<TextView>(R.id.tv_alert_pengusul)
+
+		alertTitle.text = title
+		alertMessage.text = message
+		alertPengusulKelompok.text = pengusulKelompok
+
+		buttonYes.setOnClickListener {
+			positiveAction.invoke()
+			builder.dismiss()
+			isAlertDialogShowing = false // Setelah menutup dialog, atur kembali flag
+
+		}
+
+		buttonNo.setOnClickListener {
+			negativeAction.invoke() // Panggil aksi "No" di sini
+			builder.dismiss()
+			isAlertDialogShowing = false // Setelah menutup dialog, atur kembali flag
+		}
+		builder.setOnDismissListener {
+			isAlertDialogShowing = false // Atur kembali flag saat dialog ditutup
+		}
+
+		builder.setCanceledOnTouchOutside(false)
+		builder.show()
+	}
+
 
 	private fun setShimmerVisibility(shimmerView: View, isLoading: Boolean) {
 		shimmerView.visibility = if (isLoading) View.VISIBLE else View.GONE

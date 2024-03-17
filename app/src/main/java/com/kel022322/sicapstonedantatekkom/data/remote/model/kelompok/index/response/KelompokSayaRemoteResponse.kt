@@ -42,7 +42,8 @@ data class GetAkun(
     @SerializedName("created_date") val createdDate: String,
     @SerializedName("modified_by") val modifiedBy: String,
     @SerializedName("modified_date") val modifiedDate: String,
-)
+	@SerializedName("status_individu") val statusIndividu: String?,
+	)
 
 data class Kelompok(
     @SerializedName("id_kelompok") val idKelompok: Int?,
@@ -79,7 +80,9 @@ data class Kelompok(
     @SerializedName("modified_by") val modifiedBy: String?,
     @SerializedName("modified_date") val modifiedDate: String?,
     @SerializedName("nama_topik") val namaTopik: String?,
-)
+	@SerializedName("pengusul_kelompok") val pengusulKelompok: String?,
+
+	)
 
 data class RsDospeng(
 	@SerializedName("user_id") val userId: String,
