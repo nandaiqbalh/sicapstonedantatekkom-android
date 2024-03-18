@@ -146,8 +146,6 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
-
 					Log.d("Error Kelompok Detail", getKelompokSayaResult.payload?.status.toString())
 
 					// set view condition
@@ -194,9 +192,6 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 							showSnackbar("Sesi anda telah berakhir :(", false)
 
 							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", false)
-
 						}
 					}
 				}

@@ -1,0 +1,14 @@
+package com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.terimakelompok
+
+import com.google.gson.annotations.SerializedName
+
+data class TerimaKelompokRemoteResponse(
+	@SerializedName("data")
+	val data: String?,
+
+	@SerializedName("status")
+	val status: String?,
+
+	@SerializedName("success")
+	val success: Boolean?,
+)

@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="21dp"
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
@@ -17,9 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="18dp"
             android:visibility="gone"
             android:paddingHorizontal="16dp"
             app:cardBackgroundColor="@color/White"
@@ -79,7 +78,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
@@ -108,7 +106,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:fontFamily="@font/poppinsmedium"
+                        android:fontFamily="@font/poppinssemibold"
                         android:text="@string/tv_title_laporan_c100"
                         android:textColor="@color/lightblue"
                         android:textSize="14sp"
@@ -139,7 +137,7 @@
                             android:maxLines="1"
                             android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
-                            android:textColor="@color/BlueFontFilled"
+                            android:textColor="@color/lightblue"
                             android:textSize="11sp" />
 
                         <TextView
@@ -154,7 +152,7 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:padding="16dp"
-                            android:textColor="@color/BlueFontFilled"
+                            android:textColor="@color/lightblue"
                             android:textSize="11sp" />
 
                     </LinearLayout>
@@ -171,8 +169,8 @@
                         android:text="@string/btn_unduh"
                         android:textAllCaps="false"
                         android:textColor="@color/White"
-                        android:textSize="12sp"
-                        app:cornerRadius="6dp"
+                        android:textSize="11sp"
+                        app:cornerRadius="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/linear_layout_c100"
@@ -215,7 +213,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:fontFamily="@font/poppinsmedium"
+                        android:fontFamily="@font/poppinssemibold"
                         android:text="@string/tv_title_laporan_c200"
                         android:textColor="@color/lightblue"
                         android:textSize="14sp"
@@ -247,7 +245,7 @@
                             android:maxLines="1"
                             android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
-                            android:textColor="@color/BlueFontFilled"
+                            android:textColor="@color/lightblue"
                             android:textSize="11sp" />
 
                         <TextView
@@ -262,7 +260,7 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:padding="16dp"
-                            android:textColor="@color/BlueFontFilled"
+                            android:textColor="@color/lightblue"
                             android:textSize="11sp" />
 
                     </LinearLayout>
@@ -279,8 +277,8 @@
                         android:text="@string/btn_unduh"
                         android:textAllCaps="false"
                         android:textColor="@color/White"
-                        android:textSize="12sp"
-                        app:cornerRadius="6dp"
+                        android:textSize="11sp"
+                        app:cornerRadius="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/linear_layout_c200" />
@@ -322,7 +320,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:fontFamily="@font/poppinsmedium"
+                        android:fontFamily="@font/poppinssemibold"
                         android:text="@string/tv_title_laporan_c300"
                         android:textColor="@color/lightblue"
                         android:textSize="14sp"
@@ -354,7 +352,7 @@
                             android:maxLines="1"
                             android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
-                            android:textColor="@color/BlueFontFilled"
+                            android:textColor="@color/lightblue"
                             android:textSize="11sp" />
 
                         <TextView
@@ -369,7 +367,7 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:padding="16dp"
-                            android:textColor="@color/BlueFontFilled"
+                            android:textColor="@color/lightblue"
                             android:textSize="11sp" />
 
                     </LinearLayout>
@@ -387,8 +385,8 @@
                         android:text="@string/btn_unduh"
                         android:textAllCaps="false"
                         android:textColor="@color/White"
-                        android:textSize="12sp"
-                        app:cornerRadius="6dp"
+                        android:textSize="11sp"
+                        app:cornerRadius="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/linear_layout_c300" />
@@ -430,7 +428,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:fontFamily="@font/poppinsmedium"
+                        android:fontFamily="@font/poppinssemibold"
                         android:text="@string/tv_title_laporan_c400"
                         android:textColor="@color/lightblue"
                         android:textSize="14sp"
@@ -462,7 +460,7 @@
                             android:maxLines="1"
                             android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
-                            android:textColor="@color/BlueFontFilled"
+                            android:textColor="@color/lightblue"
                             android:textSize="11sp" />
 
                         <TextView
@@ -477,7 +475,7 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:padding="16dp"
-                            android:textColor="@color/BlueFontFilled"
+                            android:textColor="@color/lightblue"
                             android:textSize="11sp" />
                     </LinearLayout>
 
@@ -494,8 +492,8 @@
                         android:text="@string/btn_unduh"
                         android:textAllCaps="false"
                         android:textColor="@color/White"
-                        android:textSize="12sp"
-                        app:cornerRadius="6dp"
+                        android:textSize="11sp"
+                        app:cornerRadius="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/linear_layout_c400" />
@@ -510,7 +508,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="18dp"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
@@ -538,7 +536,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:fontFamily="@font/poppinsmedium"
+                        android:fontFamily="@font/poppinssemibold"
                         android:text="@string/tv_title_laporan_c500"
                         android:textColor="@color/lightblue"
                         android:textSize="14sp"
@@ -570,7 +568,7 @@
                             android:maxLines="1"
                             android:padding="16dp"
                             android:text="@string/tv_pilih_dokumen"
-                            android:textColor="@color/BlueFontFilled"
+                            android:textColor="@color/lightblue"
                             android:textSize="11sp" />
 
                         <TextView
@@ -585,7 +583,7 @@
                             android:gravity="center"
                             android:maxLines="1"
                             android:padding="16dp"
-                            android:textColor="@color/BlueFontFilled"
+                            android:textColor="@color/lightblue"
                             android:textSize="11sp" />
 
                     </LinearLayout>
@@ -603,8 +601,8 @@
                         android:text="@string/btn_unduh"
                         android:textAllCaps="false"
                         android:textColor="@color/White"
-                        android:textSize="12sp"
-                        app:cornerRadius="6dp"
+                        android:textSize="11sp"
+                        app:cornerRadius="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/linear_layout_c500" />

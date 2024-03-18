@@ -104,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/poppinssemibold"
         android:text="@string/tv_dokumen_capstone"
         android:textColor="@color/lightblue"
@@ -114,7 +114,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="10dp">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout_dokumen_fragment"
@@ -135,7 +135,7 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/RoyalBlue"
             app:tabTextAppearance="@style/TabLayoutTextAppearance"
-            app:tabTextColor="@color/tabUnselected" />
+            app:tabTextColor="@color/tab_text_colors" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager_dokumen_fragment"

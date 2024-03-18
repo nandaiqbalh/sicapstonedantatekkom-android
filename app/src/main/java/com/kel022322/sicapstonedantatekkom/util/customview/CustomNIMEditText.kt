@@ -66,6 +66,8 @@ class CustomNIMEditText : TextInputEditText {
 	private fun setCustomErrorTypeface(textInputLayout: TextInputLayout?) {
 		val typeface = ResourcesCompat.getFont(context, R.font.poppinsregular)
 		textInputLayout?.typeface = typeface
+		textInputLayout?.setErrorTextAppearance(R.style.ErrorTextAppearance)
+
 	}
 
 }

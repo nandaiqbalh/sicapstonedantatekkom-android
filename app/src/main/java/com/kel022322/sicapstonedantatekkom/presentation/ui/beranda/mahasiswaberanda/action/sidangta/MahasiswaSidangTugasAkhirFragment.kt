@@ -88,8 +88,6 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
-
 					Log.d(
 						"Error SidangTA Index",
 						getSidangTAResult.payload?.status.toString()
@@ -149,7 +147,6 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 								actionIfLogoutSucces()
 							} else if (resultResponse?.data == null){
-								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 								setViewVisibility(binding.cvErrorSidangTaFragment, true)
 								binding.tvErrorSidangTaFragment.text =
 									status ?: "Mohon periksa kembali koneksi internet Anda!"
@@ -207,7 +204,6 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 							} else {
 
-								showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 								setViewVisibility(binding.cvErrorSidangTaFragment, true)
 								binding.tvErrorSidangTaFragment.text =
 									status ?: "Mohon periksa kembali koneksi internet Anda!"

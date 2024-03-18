@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="21dp"
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
@@ -16,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="16dp"
             android:visibility="gone"
@@ -62,7 +62,6 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_marginStart="20dp"
-             android:layout_marginTop="20dp"
              android:fontFamily="@font/poppinssemibold"
              android:text="@string/tv_detail_capstone_kelompok"
              android:textColor="@color/lightblue"
@@ -73,7 +72,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginStart="20dp"
-             android:layout_marginTop="8dp"
+             android:layout_marginTop="6dp"
              android:layout_marginEnd="20dp"
              android:backgroundTint="@color/White"
              app:cardCornerRadius="8dp"
@@ -84,13 +83,13 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:orientation="vertical"
-                 android:padding="16dp">
+                 android:paddingVertical="12dp"
+                 android:paddingHorizontal="20dp">
 
                  <TextView
                      android:id="@+id/tv_title_topik_capstone_kelompok"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="12dp"
                      android:fontFamily="@font/poppinsmedium"
                      android:text="@string/tv_title_topik_capstone"
                      android:textColor="@color/RoyalBlue"
@@ -101,7 +100,7 @@
                      style="@style/CustomTextInputLayoutWithDropdown"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
@@ -109,15 +108,15 @@
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:ellipsize="end"
-                         android:fontFamily="@font/poppinsregular"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_topik_capstone"
                          android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,20 +135,22 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
                          android:id="@+id/edt_judul_capstone_kelompok"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_judul_capstone"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
@@ -169,7 +170,7 @@
                      style="@style/CustomTextInputLayoutWithDropdown"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
@@ -177,16 +178,15 @@
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:ellipsize="end"
-                         android:fontFamily="@font/poppinsregular"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_siklus"
-
                          android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -205,7 +205,7 @@
                      style="@style/CustomTextInputLayoutWithDropdown"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
@@ -213,16 +213,15 @@
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:ellipsize="end"
-                         android:fontFamily="@font/poppinsregular"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_dosbing1"
-
                          android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -241,7 +240,7 @@
                      style="@style/CustomTextInputLayoutWithDropdown"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
@@ -249,16 +248,15 @@
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:ellipsize="end"
-                         android:fontFamily="@font/poppinsregular"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_dosbing2"
                          android:maxLines="1"
-
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
              </LinearLayout>
@@ -271,7 +269,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_marginStart="20dp"
-             android:layout_marginTop="20dp"
+             android:layout_marginTop="21dp"
              android:fontFamily="@font/poppinssemibold"
              android:text="@string/tv_detail_mahasiswa_kelompok"
              android:textColor="@color/lightblue"
@@ -282,7 +280,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginStart="20dp"
-             android:layout_marginTop="8dp"
+             android:layout_marginTop="6dp"
              android:layout_marginEnd="20dp"
              android:backgroundTint="@color/White"
              app:cardCornerRadius="8dp"
@@ -293,7 +291,8 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:orientation="vertical"
-                 android:padding="16dp"
+                 android:paddingVertical="12dp"
+                 android:paddingHorizontal="20dp"
                  android:visibility="visible">
 
                  <TextView
@@ -321,20 +320,22 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
                          android:id="@+id/edt_nama_lengkap_mahasiswa1"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_nama_lengkap"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
@@ -354,7 +355,7 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      android:focusable="false"
                      app:hintEnabled="false">
 
@@ -362,15 +363,16 @@
                          android:id="@+id/edt_nim_mahasiswa1"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:editable="false"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_nim"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -389,21 +391,24 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAngkatanEditText
                          android:id="@+id/edt_angkatan_mahasiswa1"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_angkatan"
+                         android:maxLines="1"
+                         android:inputType="number"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -423,7 +428,7 @@
                      style="@style/CustomTextInputLayoutWithDropdown"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
@@ -431,16 +436,15 @@
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:ellipsize="end"
-                         android:fontFamily="@font/poppinsregular"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_jenis_kelamin"
                          android:maxLines="1"
-
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -459,21 +463,23 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
                          android:id="@+id/edt_no_telp_mahasiswa1"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_no_telp"
                          android:inputType="number"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -494,20 +500,23 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
                          android:id="@+id/edt_email_mahasiswa1"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_email"
+                         android:maxLines="1"
+                         android:inputType="textEmailAddress"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -528,21 +537,22 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomSKSEditText
                          android:id="@+id/edt_sks_mahasiswa1"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_sks"
-                         android:inputType="number"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -563,21 +573,22 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomIPKEditText
                          android:id="@+id/edt_ipk_mahasiswa1"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_ipk"
-                         android:inputType="numberDecimal"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -593,7 +604,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginStart="20dp"
-             android:layout_marginTop="20dp"
+             android:layout_marginTop="21dp"
              android:layout_marginEnd="20dp"
              android:backgroundTint="@color/White"
              app:cardCornerRadius="8dp"
@@ -604,7 +615,8 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:orientation="vertical"
-                 android:padding="16dp"
+                 android:paddingVertical="12dp"
+                 android:paddingHorizontal="20dp"
                  android:visibility="visible">
 
                  <TextView
@@ -632,20 +644,22 @@
                      style="@style/CustomTextInputLayoutWithDropdown"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
                          android:id="@+id/edt_nama_lengkap_mahasiswa2"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_nama_lengkap"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
@@ -665,7 +679,7 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      android:focusable="false"
                      app:hintEnabled="false">
 
@@ -673,14 +687,17 @@
                          android:id="@+id/edt_nim_mahasiswa2"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_nim"
+                         android:maxLines="1"
+                         android:inputType="number"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -699,21 +716,24 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAngkatanEditText
                          android:id="@+id/edt_angkatan_mahasiswa2"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_angkatan"
+                         android:inputType="number"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -733,7 +753,7 @@
                      style="@style/CustomTextInputLayoutWithDropdown"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
@@ -741,16 +761,15 @@
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:ellipsize="end"
-                         android:fontFamily="@font/poppinsregular"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_jenis_kelamin"
                          android:maxLines="1"
-
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -769,21 +788,23 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
                          android:id="@+id/edt_no_telp_mahasiswa2"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_no_telp"
                          android:inputType="number"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -804,20 +825,23 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
                          android:id="@+id/edt_email_mahasiswa2"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:inputType="textEmailAddress"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_email"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -838,21 +862,23 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomSKSEditText
                          android:id="@+id/edt_sks_mahasiswa2"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_sks"
                          android:inputType="number"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -873,21 +899,23 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomIPKEditText
                          android:id="@+id/edt_ipk_mahasiswa2"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_ipk"
-                         android:inputType="numberDecimal"
+                         android:inputType="number"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
@@ -902,7 +930,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginStart="20dp"
-             android:layout_marginTop="20dp"
+             android:layout_marginTop="21dp"
              android:layout_marginEnd="20dp"
              android:backgroundTint="@color/White"
              app:cardCornerRadius="8dp"
@@ -914,7 +942,8 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:orientation="vertical"
-                 android:padding="16dp"
+                 android:paddingVertical="12dp"
+                 android:paddingHorizontal="20dp"
                  android:visibility="visible">
 
                  <TextView
@@ -942,20 +971,22 @@
                      style="@style/CustomTextInputLayoutWithDropdown"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
                          android:id="@+id/edt_nama_lengkap_mahasiswa3"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_nama_lengkap"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
@@ -975,7 +1006,7 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      android:focusable="false"
                      app:hintEnabled="false">
 
@@ -983,14 +1014,17 @@
                          android:id="@+id/edt_nim_mahasiswa3"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_nim"
+                         android:inputType="number"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -1009,21 +1043,24 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAngkatanEditText
                          android:id="@+id/edt_angkatan_mahasiswa3"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_angkatan"
+                         android:inputType="number"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -1043,7 +1080,7 @@
                      style="@style/CustomTextInputLayoutWithDropdown"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
@@ -1051,15 +1088,15 @@
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:ellipsize="end"
-                         android:fontFamily="@font/poppinsregular"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_jenis_kelamin"
                          android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
-                         tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                         android:textSize="11sp"
+                         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
                  </com.google.android.material.textfield.TextInputLayout>
 
@@ -1078,21 +1115,22 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
                          android:id="@+id/edt_no_telp_mahasiswa3"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_no_telp"
-                         android:inputType="number"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -1113,20 +1151,23 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
                          android:id="@+id/edt_email_mahasiswa3"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_email"
+                         android:inputType="textEmailAddress"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -1147,21 +1188,23 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomSKSEditText
                          android:id="@+id/edt_sks_mahasiswa3"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_sks"
                          android:inputType="number"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -1182,21 +1225,22 @@
                      style="@style/CustomTextInputLayout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:layout_marginTop="2dp"
+                     android:layout_marginTop="4dp"
                      app:hintEnabled="false">
 
                      <com.kel022322.sicapstonedantatekkom.util.customview.CustomIPKEditText
                          android:id="@+id/edt_ipk_mahasiswa3"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppinsregular"
+                         android:ellipsize="end"
+                         android:fontFamily="@font/poppinsmedium"
                          android:hint="@string/tv_hint_ipk"
-                         android:inputType="numberDecimal"
+                         android:maxLines="1"
                          android:paddingHorizontal="8dp"
                          android:paddingVertical="12dp"
-                         android:textColor="@color/BlueFontFilled"
+                         android:textColor="@color/lightblue"
                          android:textColorHint="@color/DarkGrey"
-                         android:textSize="12sp"
+                         android:textSize="11sp"
                          tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
@@ -1211,18 +1255,22 @@
              android:id="@+id/btn_simpan_daftar_kelompok"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:layout_marginStart="20dp"
-             android:layout_marginTop="20dp"
-             android:layout_marginEnd="20dp"
-             android:layout_marginBottom="20sp"
+             android:layout_marginTop="21dp"
+             android:layout_marginHorizontal="20dp"
+             android:padding="12dp"
+             android:layout_marginBottom="18dp"
              android:backgroundTint="@color/RoyalBlue"
              android:fontFamily="@font/poppinsbold"
-             android:text="@string/btn_simpan"
+             android:text="@string/btn_daftar"
              android:textAllCaps="false"
              android:textColor="@color/White"
              android:textSize="14sp"
-             app:cornerRadius="6dp"
-             tools:ignore="DuplicateSpeakableTextCheck" />
+             app:cornerRadius="8dp"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/cv_change_password"/>
+
 
      </LinearLayout>
 

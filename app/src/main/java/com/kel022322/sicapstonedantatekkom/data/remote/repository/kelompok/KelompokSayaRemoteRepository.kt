@@ -6,6 +6,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindivid
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.terimakelompok.TerimaKelompokRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.tolakkelompok.TolakKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import javax.inject.Inject
 
@@ -14,6 +16,14 @@ interface KelompokSayaRemoteRepository {
 	suspend fun getKelompokSaya(
 		apiToken: String,
 	): Resource<KelompokSayaRemoteResponse>
+
+	suspend fun terimaKelompok(
+		apiToken: String,
+	): Resource<TerimaKelompokRemoteResponse>
+
+	suspend fun tolakKelompok(
+		apiToken: String,
+	): Resource<TolakKelompokRemoteResponse>
 
 	suspend fun addKelompokIndividu(
 		apiToken: String,
@@ -35,6 +45,18 @@ class KelompokSayaRemoteRepositoryImpl @Inject constructor(
 	): Resource<KelompokSayaRemoteResponse> {
 		return proceed {
 			dataSource.getKelompokSaya(apiToken)
+		}
+	}
+
+	override suspend fun terimaKelompok(apiToken: String): Resource<TerimaKelompokRemoteResponse> {
+		return proceed {
+			dataSource.terimaKelompok(apiToken)
+		}
+	}
+
+	override suspend fun tolakKelompok(apiToken: String): Resource<TolakKelompokRemoteResponse> {
+		return proceed {
+			dataSource.tolakKelompok(apiToken)
 		}
 	}
 
