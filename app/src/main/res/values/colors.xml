@@ -19,6 +19,9 @@
     <color name="Aliceblue">#E8EEF9</color>
     <color name="OrangeRed">#FF4500</color>
     <color name="Red">#FF0000</color>
+    <color name="StatusRed">#FF0000</color>
+    <color name="StatusOrange">#F86F03</color>
+    <color name="StatusGreen">#44B158</color>
     <color name="lightblue">#3D475D</color>
     <color name="shimmer_gray">#DDDDDF</color>
 

@@ -254,6 +254,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 				}
 
 				is Resource.Success -> {
+					dataObserver()
 
 					val message = getSiklusResult.payload?.status
 					Log.d("Result success", message.toString())

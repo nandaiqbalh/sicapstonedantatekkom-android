@@ -103,11 +103,11 @@
 
     <!-- daftar capstone -->
     <string name="tv_detail_capstone_individu">Detail Capstone</string>
-    <string name="tv_detail_mahasiswa_individu">Detail Mahasiswa</string>
-    <string name="tv_detail_peminatan_individu">Detail Peminatan Mahasiswa</string>
+    <string name="tv_detail_mahasiswa_individu">Data Mahasiswa</string>
+    <string name="tv_detail_peminatan_individu">Data Peminatan Mahasiswa</string>
     <string name="tv_skala_prioritas_peminatan">Skala prioritas peminatan</string>
     <string name="tv_ket_peminatan_individu">Pilih sesuai dengan urutan prioritas anda, pisahkan dengan tanda koma (contoh: 3,2,1,4)</string>
-    <string name="tv_detail_topik_individu">Detail Topik Mahasiswa</string>
+    <string name="tv_detail_topik_individu">Data Topik Mahasiswa</string>
     <string name="tv_skala_prioritas_topik">Skala prioritas topik</string>
     <string name="tv_ket_topik_individu">Pilih sesuai dengan urutan prioritas anda</string>
 
@@ -144,7 +144,7 @@
     <string name="ipk_tidak_valid">IPK tidak valid!</string>
     <string name="peminatan_tidak_valid">Peminatan tidak valid!</string>
     <string name="topik_tidak_valid">Topik tidak valid!</string>
-    <string name="tv_detail_capstone_kelompok">Detail Capstone</string>
+    <string name="tv_detail_capstone_kelompok">Data Detail Capstone</string>
     <string name="tv_title_topik_capstone">Topik Capstone</string>
     <string name="tv_hint_topik_capstone">Pilih topik capstone</string>
     <string name="tv_title_dosbing1">Dosen Pembimbing 1</string>
