@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -128,7 +129,7 @@ class MahasiswaKelompokFragment : Fragment() {
 
 					if (resultResponse?.success == true) {
 
-						if (resultResponse.data?.getAkun?.statusIndividu == "Didaftarkan") {
+						if (resultResponse.data?.getAkun?.statusIndividu == "Didaftarkan!") {
 							setCardKelompok(getKelompokSayaResult)
 
 							// Panggil fungsi showCustomAlertDialog dengan parameter yang diperlukan
@@ -345,6 +346,11 @@ class MahasiswaKelompokFragment : Fragment() {
 				tvValueNomorKelompok.text = dataKelompok.nomorKelompok ?: "-"
 				tvValueTopik.text = dataKelompok.namaTopik
 				tvValueJudul.text = dataKelompok.judulCapstone
+
+				if (dataKelompok.statusKelompok == "Belum Valid"){
+					val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
+					tvValueStatusKelompok.setTextColor(colorRed)
+				}
 
 				val dataDosbing = data.rsDosbing
 				// card dosbing
