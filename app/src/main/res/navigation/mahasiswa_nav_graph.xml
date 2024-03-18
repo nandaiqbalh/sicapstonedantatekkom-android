@@ -13,7 +13,9 @@
         tools:layout="@layout/fragment_mahasiswa_dokumen" >
         <action
             android:id="@+id/action_mahasiswaDokumenFragment_to_mahasiswaProfilFragment"
-            app:destination="@id/mahasiswaProfilFragment" />
+            app:destination="@id/mahasiswaProfilFragment"
+            app:popUpTo="@id/mahasiswaDokumenFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_mahasiswaDokumenFragment_to_mahasiswaKelompokFragment"
             app:destination="@id/mahasiswaKelompokFragment" />
@@ -31,7 +33,9 @@
             app:destination="@id/mahasiswaDokumenFragment" />
         <action
             android:id="@+id/action_mahasiswaKelompokFragment_to_mahasiswaProfilFragment"
-            app:destination="@id/mahasiswaProfilFragment" />
+            app:destination="@id/mahasiswaProfilFragment"
+            app:popUpTo="@id/mahasiswaKelompokFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_mahasiswaKelompokFragment_to_mahasiswaBerandaFragment"
             app:destination="@id/mahasiswaBerandaFragment" />
@@ -158,7 +162,9 @@
             app:destination="@id/mahasiswaDokumenFragment" />
         <action
             android:id="@+id/action_mahasiswaBerandaFragment_to_mahasiswaProfilFragment"
-            app:destination="@id/mahasiswaProfilFragment" />
+            app:destination="@id/mahasiswaProfilFragment"
+            app:popUpTo="@id/mahasiswaBerandaFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_mahasiswaBerandaFragment_to_mahasiswaSidangTugasAkhirFragment"
             app:destination="@id/mahasiswaSidangTugasAkhirFragment" />

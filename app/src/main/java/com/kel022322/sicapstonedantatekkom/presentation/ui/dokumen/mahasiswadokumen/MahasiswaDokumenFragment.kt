@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDokumenBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.mahasiswadokumen.adapter.FragmentPageAdapter
@@ -40,21 +42,35 @@ class MahasiswaDokumenFragment : Fragment() {
 		setToolbar()
 
 		setViewPager()
+
+		setButtonListener()
 	}
+
+	private fun setButtonListener() {
+		with(binding) {
+			ivHomeProfilephotoDokumen.setOnClickListener {
+				findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaProfilFragment)
+			}
+		}
+	}
+
 
 	private fun setViewPager() {
 
 		fragmentPageAdapter = FragmentPageAdapter(childFragmentManager, lifecycle)
 
 		with(binding) {
-			tabLayoutDokumenFragment.addTab(tabLayoutDokumenFragment.newTab().setText("Capstone"))
+			tabLayoutDokumenFragment.addTab(
+				tabLayoutDokumenFragment.newTab().setText("Capstone")
+			)
 			tabLayoutDokumenFragment.addTab(
 				tabLayoutDokumenFragment.newTab().setText("Tugas Akhir")
 			)
 
 			viewPagerDokumenFragment.adapter = fragmentPageAdapter
 
-			tabLayoutDokumenFragment.addOnTabSelectedListener(object : OnTabSelectedListener {
+			tabLayoutDokumenFragment.addOnTabSelectedListener(object :
+				OnTabSelectedListener {
 				override fun onTabSelected(tab: TabLayout.Tab?) {
 					viewPagerDokumenFragment.currentItem = tab!!.position
 
@@ -73,7 +89,11 @@ class MahasiswaDokumenFragment : Fragment() {
 				ViewPager2.OnPageChangeCallback() {
 				override fun onPageSelected(position: Int) {
 					super.onPageSelected(position)
-					tabLayoutDokumenFragment.selectTab(tabLayoutDokumenFragment.getTabAt(position))
+					tabLayoutDokumenFragment.selectTab(
+						tabLayoutDokumenFragment.getTabAt(
+							position
+						)
+					)
 				}
 			})
 
@@ -111,16 +131,19 @@ class MahasiswaDokumenFragment : Fragment() {
 			setShimmerVisibility(shimmerIvDokumenProfilephoto, isLoading)
 
 			tvNamaUserDokumen.visibility = if (isLoading) View.GONE else View.VISIBLE
-			ivHomeProfilephotoDokumen.visibility = if (isLoading) View.GONE else View.VISIBLE
+			ivHomeProfilephotoDokumen.visibility =
+				if (isLoading) View.GONE else View.VISIBLE
 
 		}
 	}
+
 	private fun setShimmerVisibility(shimmerView: View, isLoading: Boolean) {
 		shimmerView.visibility = if (isLoading) View.VISIBLE else View.GONE
 		(shimmerView as? ShimmerFrameLayout)?.run {
 			if (isLoading) startShimmer() else stopShimmer()
 		}
 	}
+
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null

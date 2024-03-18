@@ -40,16 +40,18 @@ class CustomPasswordEditText : TextInputEditText {
 			}
 
 			override fun afterTextChanged(s: Editable?) {
-				val password = s.toString()
+				val password = s?.toString() ?: "" // Menggunakan elvis operator untuk menangani kasus s null
 				val parentLayout = getParentTextInputLayout()
-				if (password.length < MIN_PASSWORD_LENGTH && s == null) {
+
+				if (password.length < MIN_PASSWORD_LENGTH) {
 					parentLayout?.error = "Password minimal $MIN_PASSWORD_LENGTH karakter!"
 					setCustomErrorTypeface(parentLayout)
 					parentLayout?.isErrorEnabled = true
-
 				} else {
-					parentLayout?.error = null
-					parentLayout?.isErrorEnabled = false
+					if (s != null) { // Menambahkan pengecekan apakah s null atau tidak
+						parentLayout?.error = null
+						parentLayout?.isErrorEnabled = false
+					}
 				}
 			}
 		})

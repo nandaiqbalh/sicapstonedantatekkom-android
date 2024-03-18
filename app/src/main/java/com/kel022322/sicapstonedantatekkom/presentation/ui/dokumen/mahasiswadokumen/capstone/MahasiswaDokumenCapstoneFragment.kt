@@ -867,6 +867,10 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDokumenCapstone, isLoading)
+			linearLayoutDokumenCapstone.visibility =
+				if (isLoading) View.GONE else View.VISIBLE
+			cvBelumMemilikiKelompok.visibility =
+				if (isLoading) View.GONE else View.VISIBLE
 
 		}
 	}
@@ -874,7 +878,9 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 	private fun setLoadingKelompok(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDokumenCapstone, isLoading)
-			binding.linearLayoutDokumenCapstone.visibility =
+			linearLayoutDokumenCapstone.visibility =
+				if (isLoading) View.GONE else View.VISIBLE
+			cvBelumMemilikiKelompok.visibility =
 				if (isLoading) View.GONE else View.VISIBLE
 
 		}
@@ -914,7 +920,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 			builder.dismiss()
 		}
 
-		builder.setCanceledOnTouchOutside(true)
+		builder.setCanceledOnTouchOutside(false)
 		builder.show()
 	}
 

@@ -39,17 +39,18 @@ class CustomNIMEditText : TextInputEditText {
 			}
 
 			override fun afterTextChanged(s: Editable?) {
-				val userId = s.toString()
+				val userId = s?.toString() ?: "" // Menggunakan elvis operator untuk menangani kasus s null
 				val parentLayout = getParentTextInputLayout()
-				if (userId.isNotEmpty() && userId.length == 14 && userId.all { it.isDigit() } && s != null) {
+
+				if (userId.isNotEmpty() && userId.length == 14 && userId.all { it.isDigit() }) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
-
 				} else {
-					parentLayout?.error = "14 digit NIM tidak valid!"
-					setCustomErrorTypeface(parentLayout)
-					parentLayout?.isErrorEnabled = true
-
+					if (s != null) { // Menambahkan pengecekan apakah s null atau tidak
+						parentLayout?.error = "14 digit NIM tidak valid!"
+						setCustomErrorTypeface(parentLayout)
+						parentLayout?.isErrorEnabled = true
+					}
 				}
 			}
 		})

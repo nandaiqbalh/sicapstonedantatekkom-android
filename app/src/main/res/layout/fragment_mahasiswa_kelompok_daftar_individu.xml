@@ -103,6 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
@@ -111,7 +112,7 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:fontFamily="@font/poppinsmedium"
-                            android:hint="@string/tv_hint_jenis_kelamin"
+                            android:hint="@string/tv_hint_judul_capstone"
                             android:maxLines="1"
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="12dp"
@@ -138,6 +139,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
@@ -153,7 +155,7 @@
                             android:textColor="@color/lightblue"
                             android:textColorHint="@color/DarkGrey"
                             android:textSize="11sp"
-                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -207,6 +209,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -243,6 +246,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:focusable="false"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.kel022322.sicapstonedantatekkom.util.customview.CustomNIMEditText
@@ -281,6 +285,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.kel022322.sicapstonedantatekkom.util.customview.CustomAngkatanEditText
@@ -318,6 +323,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
@@ -333,7 +339,7 @@
                             android:textColor="@color/lightblue"
                             android:textColorHint="@color/DarkGrey"
                             android:textSize="11sp"
-                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -353,6 +359,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
@@ -391,6 +398,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
@@ -429,6 +437,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.kel022322.sicapstonedantatekkom.util.customview.CustomSKSEditText
@@ -467,6 +476,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.kel022322.sicapstonedantatekkom.util.customview.CustomIPKEditText
@@ -591,6 +601,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.kel022322.sicapstonedantatekkom.util.customview.CustomPeminatanEditText
@@ -716,6 +727,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
                         <com.kel022322.sicapstonedantatekkom.util.customview.CustomPeminatanEditText

@@ -75,9 +75,9 @@ class MahasiswaBerandaFragment : Fragment() {
 	// set action listener
 	private fun setActionListener() {
 
-//		binding.ivHomeProfilephoto.setOnClickListener {
-//			findNavController().navigate(R.id.action_mahasiswaBerandaFragment_to_mahasiswaProfilFragment)
-//		}
+		binding.ivHomeProfilephoto.setOnClickListener {
+			findNavController().navigate(R.id.action_mahasiswaBerandaFragment_to_mahasiswaProfilFragment)
+		}
 
 	}
 

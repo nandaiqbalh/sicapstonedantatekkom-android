@@ -85,7 +85,8 @@
     </style>
 
     <style name="ErrorTextAppearance" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/Red</item> <!-- Ganti dengan warna teks yang Anda inginkan -->
-        <item name="android:textSize">12sp</item> <!-- Ganti dengan ukuran teks yang Anda inginkan -->
+        <item name="android:textColor">@color/Red</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:fontFamily">@font/poppinsregular</item>
     </style>
 </resources>

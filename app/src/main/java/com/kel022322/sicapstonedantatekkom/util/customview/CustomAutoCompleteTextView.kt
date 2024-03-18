@@ -39,16 +39,18 @@ class CustomAutoCompleteTextView : AppCompatAutoCompleteTextView {
 			}
 
 			override fun afterTextChanged(s: Editable?) {
-				val inputText = s.toString()
+				val inputText = s?.toString() ?: "" // Menggunakan elvis operator untuk menangani kasus s null
 				val parentLayout = getParentTextInputLayout()
 
-				if (inputText.isNotEmpty() && s != null ) {
+				if (inputText.isNotEmpty()) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {
-					parentLayout?.error = "Kolom ini tidak boleh kosong!"
-					setCustomErrorTypeface(parentLayout)
-					parentLayout?.isErrorEnabled = true
+					if (s != null) { // Menambahkan pengecekan apakah s null atau tidak
+						parentLayout?.error = "Kolom ini tidak boleh kosong!"
+						setCustomErrorTypeface(parentLayout)
+						parentLayout?.isErrorEnabled = true
+					}
 				}
 			}
 		})

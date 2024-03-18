@@ -41,13 +41,13 @@ class CustomEmailEditText : TextInputEditText {
 			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
 			override fun afterTextChanged(s: Editable?) {
-				val email = s.toString()
+				val email = s?.toString() ?: "" // Menggunakan elvis operator untuk menangani kasus s null
 				val parentLayout = getParentTextInputLayout()
-				if (email.isNotEmpty() && !email.matches(emailPattern) && s == null) {
+
+				if (email.isNotEmpty() && !email.matches(emailPattern)) {
 					parentLayout?.error = "Email tidak valid!"
 					setCustomErrorTypeface(parentLayout)
 					parentLayout?.isErrorEnabled = true
-
 				} else {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false

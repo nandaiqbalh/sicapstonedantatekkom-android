@@ -143,7 +143,8 @@
                             android:layout_width="match_parent"
                             android:layout_marginTop="4dp"
                             android:layout_height="wrap_content"
-                            app:hintEnabled="false">
+                            app:errorTextAppearance="@style/ErrorTextAppearance"
+                        app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edt_nama_lengkap_pengguna"
@@ -179,7 +180,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:focusable="false"
-                            app:hintEnabled="false">
+                            app:errorTextAppearance="@style/ErrorTextAppearance"
+                        app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edt_nim_pengguna"
@@ -214,7 +216,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            app:hintEnabled="false">
+                            app:errorTextAppearance="@style/ErrorTextAppearance"
+                        app:hintEnabled="false">
 
                             <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
                                 android:id="@+id/edt_email_pengguna"
@@ -250,7 +253,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            app:hintEnabled="false">
+                            app:errorTextAppearance="@style/ErrorTextAppearance"
+                        app:hintEnabled="false">
 
                             <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
                                 android:id="@+id/edt_no_telp_pengguna"
@@ -286,7 +290,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            app:hintEnabled="false">
+                            app:errorTextAppearance="@style/ErrorTextAppearance"
+                        app:hintEnabled="false">
 
                             <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
                                 android:id="@+id/edt_jenis_kelamin_individu"
@@ -385,7 +390,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            app:hintEnabled="false"
+                            app:errorTextAppearance="@style/ErrorTextAppearance"
+                        app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
                             <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
@@ -419,7 +425,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            app:hintEnabled="false"
+                            app:errorTextAppearance="@style/ErrorTextAppearance"
+                        app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
                             <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
@@ -453,7 +460,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            app:hintEnabled="false"
+                            app:errorTextAppearance="@style/ErrorTextAppearance"
+                        app:hintEnabled="false"
                             app:passwordToggleEnabled="true">
 
                             <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText

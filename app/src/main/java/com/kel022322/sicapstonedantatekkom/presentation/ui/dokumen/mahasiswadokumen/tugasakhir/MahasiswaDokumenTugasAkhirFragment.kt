@@ -172,8 +172,6 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 				is Resource.Error -> {
 					setLoading(false)
-
-
 				}
 
 				is Resource.Success -> {
@@ -518,13 +516,19 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDokumenTugasAkhir, isLoading)
+			linearLayoutDokumenTugasAkhir.visibility =
+				if (isLoading) View.GONE else View.VISIBLE
+			cvBelumMemilikiKelompokTugasAkhir.visibility =
+				if (isLoading) View.GONE else View.VISIBLE
 		}
 	}
 
 	private fun setLoadingKelompok(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDokumenTugasAkhir, isLoading)
-			binding.linearLayoutDokumenTugasAkhir.visibility =
+			linearLayoutDokumenTugasAkhir.visibility =
+				if (isLoading) View.GONE else View.VISIBLE
+			cvBelumMemilikiKelompokTugasAkhir.visibility =
 				if (isLoading) View.GONE else View.VISIBLE
 
 		}
@@ -564,7 +568,7 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 			builder.dismiss()
 		}
 
-		builder.setCanceledOnTouchOutside(true)
+		builder.setCanceledOnTouchOutside(false)
 		builder.show()
 	}
 	private fun setViewVisibility(view: View, isVisible: Boolean) {

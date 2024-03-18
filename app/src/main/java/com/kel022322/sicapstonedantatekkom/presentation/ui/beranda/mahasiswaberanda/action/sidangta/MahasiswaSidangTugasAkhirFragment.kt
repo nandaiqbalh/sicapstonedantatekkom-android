@@ -453,7 +453,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 			builder.dismiss()
 		}
 
-		builder.setCanceledOnTouchOutside(true)
+		builder.setCanceledOnTouchOutside(false)
 		builder.show()
 	}
 

@@ -39,18 +39,18 @@ class CustomNoTelpEditText : TextInputEditText {
 			}
 
 			override fun afterTextChanged(s: Editable?) {
-				val phoneNumber = s.toString()
+				val phoneNumber = s?.toString() ?: "" // Menggunakan elvis operator untuk menangani kasus s null
 				val parentLayout = getParentTextInputLayout()
-				if (phoneNumber.isNotEmpty() && phoneNumber.length in 10..14 && s != null) {
+
+				if (phoneNumber.isNotEmpty() && phoneNumber.length in 10..14) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
-
 				} else {
-					parentLayout?.error = "No. Telepon tidak valid!"
-					setCustomErrorTypeface(parentLayout)
-					parentLayout?.isErrorEnabled = true
-
-
+					if (s != null) { // Menambahkan pengecekan apakah s null atau tidak
+						parentLayout?.error = "No. Telepon tidak valid!"
+						setCustomErrorTypeface(parentLayout)
+						parentLayout?.isErrorEnabled = true
+					}
 				}
 			}
 		})

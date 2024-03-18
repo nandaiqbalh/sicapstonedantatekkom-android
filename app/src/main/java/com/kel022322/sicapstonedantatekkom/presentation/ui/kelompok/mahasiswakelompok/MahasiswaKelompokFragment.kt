@@ -70,7 +70,13 @@ class MahasiswaKelompokFragment : Fragment() {
 
 			btnSelengkapnyaKelompok.setOnClickListener {
 				findNavController().navigate(R.id.action_mahasiswaKelompokFragment_to_mahasiswaKelompokDetailFragment)
+
 			}
+
+			ivHomeProfilephotoKelompok.setOnClickListener {
+				findNavController().navigate(R.id.action_mahasiswaKelompokFragment_to_mahasiswaProfilFragment)
+			}
+
 
 		}
 	}
@@ -122,7 +128,7 @@ class MahasiswaKelompokFragment : Fragment() {
 
 					if (resultResponse?.success == true) {
 
-						if (resultResponse.data?.getAkun?.statusIndividu == "Didaftarkan"){
+						if (resultResponse.data?.getAkun?.statusIndividu == "Didaftarkan") {
 							setCardKelompok(getKelompokSayaResult)
 
 							// Panggil fungsi showCustomAlertDialog dengan parameter yang diperlukan
@@ -225,6 +231,7 @@ class MahasiswaKelompokFragment : Fragment() {
 							?: "Mohon periksa kembali koneksi internet Anda!"
 					)
 				}
+
 				is Resource.Success -> {
 					setLoading(false)
 					val message = terimaKelompokResult.payload
@@ -270,6 +277,7 @@ class MahasiswaKelompokFragment : Fragment() {
 							?: "Mohon periksa kembali koneksi internet Anda!"
 					)
 				}
+
 				is Resource.Success -> {
 					setLoading(false)
 					val message = tolakKelompokResult.payload
@@ -334,7 +342,7 @@ class MahasiswaKelompokFragment : Fragment() {
 				val dataKelompok = data.kelompok
 				// card kelompok
 				tvValueStatusKelompok.text = dataKelompok.statusKelompok
-				tvValueNomorKelompok.text = dataKelompok.nomorKelompok.toString()
+				tvValueNomorKelompok.text = dataKelompok.nomorKelompok ?: "-"
 				tvValueTopik.text = dataKelompok.namaTopik
 				tvValueJudul.text = dataKelompok.judulCapstone
 
@@ -468,7 +476,7 @@ class MahasiswaKelompokFragment : Fragment() {
 		message: String,
 		pengusulKelompok: String,
 		positiveAction: () -> Unit,
-		negativeAction: () -> Unit // Tambahkan parameter untuk tombol "No"
+		negativeAction: () -> Unit, // Tambahkan parameter untuk tombol "No"
 	) {
 		if (isAlertDialogShowing) {
 			// Jika alert dialog sedang ditampilkan, keluar dari fungsi
@@ -477,7 +485,8 @@ class MahasiswaKelompokFragment : Fragment() {
 		isAlertDialogShowing = true
 
 		val builder = AlertDialog.Builder(requireContext()).create()
-		val view = layoutInflater.inflate(R.layout.dialog_custom_alert_dialog_konfirmasi_kelompok, null)
+		val view =
+			layoutInflater.inflate(R.layout.dialog_custom_alert_dialog_konfirmasi_kelompok, null)
 		builder.setView(view)
 		builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 

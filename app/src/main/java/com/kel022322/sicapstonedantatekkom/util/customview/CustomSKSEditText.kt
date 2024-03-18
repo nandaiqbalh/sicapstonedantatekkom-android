@@ -39,15 +39,18 @@ class CustomSKSEditText : TextInputEditText {
 			}
 
 			override fun afterTextChanged(s: Editable?) {
-				val sks = s.toString()
+				val sks = s?.toString() ?: "" // Menggunakan elvis operator untuk menangani kasus s null
 				val parentLayout = getParentTextInputLayout()
-				if (sks.isNotEmpty() && sks.isAllDigits() && sks.length in 1..3 && s != null) {
+
+				if (sks.isNotEmpty() && sks.isAllDigits() && sks.length in 1..3) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {
-					parentLayout?.error = "SKS tidak valid!"
-					setCustomErrorTypeface(parentLayout)
-					parentLayout?.isErrorEnabled = true
+					if (s != null) { // Menambahkan pengecekan apakah s null atau tidak
+						parentLayout?.error = "SKS tidak valid!"
+						setCustomErrorTypeface(parentLayout)
+						parentLayout?.isErrorEnabled = true
+					}
 				}
 			}
 		})

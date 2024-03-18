@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:backgroundTint="@color/White"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
-        android:backgroundTint="@color/White"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +68,7 @@
                     style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:errorTextAppearance="@style/ErrorTextAppearance"
                     app:hintEnabled="false">
 
                     <com.kel022322.sicapstonedantatekkom.util.customview.CustomNIMEditText
@@ -103,6 +104,7 @@
                     style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:errorTextAppearance="@style/ErrorTextAppearance"
                     app:hintEnabled="false"
                     app:passwordToggleEnabled="true">
 
@@ -126,10 +128,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:padding="12dp"
                     android:layout_marginBottom="8dp"
                     android:backgroundTint="@color/RoyalBlue"
                     android:fontFamily="@font/poppinsbold"
+                    android:padding="12dp"
                     android:text="@string/btn_login"
                     android:textAllCaps="false"
                     android:textColor="@color/White"

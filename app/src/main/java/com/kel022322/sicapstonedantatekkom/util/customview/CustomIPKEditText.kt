@@ -39,15 +39,18 @@ class CustomIPKEditText : TextInputEditText {
 			}
 
 			override fun afterTextChanged(s: Editable?) {
-				val ipk = s.toString()
+				val ipk = s?.toString() ?: "" // Menggunakan elvis operator untuk menangani kasus s null
 				val parentLayout = getParentTextInputLayout()
-				if (isValidIPK(ipk) && s != null) {
+
+				if (isValidIPK(ipk)) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {
-					parentLayout?.error = "IPK tidak valid!"
-					setCustomErrorTypeface(parentLayout)
-					parentLayout?.isErrorEnabled = true
+					if (s != null) { // Menambahkan pengecekan apakah s null atau tidak
+						parentLayout?.error = "IPK tidak valid!"
+						setCustomErrorTypeface(parentLayout)
+						parentLayout?.isErrorEnabled = true
+					}
 				}
 			}
 		})
