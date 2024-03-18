@@ -118,7 +118,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 						with(binding) {
 
-							setCardSidangProposal(getSidangTAResult)
+							setCardSidangTA(getSidangTAResult)
 
 							setViewVisibility(tvTitleSidangTaTersedia, true)
 							setViewVisibility(cvValueSidangTa, true)
@@ -185,7 +185,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 							} else if (resultResponse.data.rsSidang == null) {
 								setViewVisibility(binding.cvErrorSidangTaFragment, false)
 								binding.tvValueStatusPendaftaran.text =
-									status ?: "Mohon periksa kembali koneksi internet Anda!"
+									resultResponse.data.statusPendaftaran.status ?: "Mohon periksa kembali koneksi internet Anda!"
 
 								setViewVisibility(tvTitleSidangTaTersedia, true)
 								setViewVisibility(cvValueSidangTa, false)
@@ -308,7 +308,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 	}
 
 	@SuppressLint("SetTextI18n")
-	private fun setCardSidangProposal(getSidangTAResult: Resource<SidangTARemoteResponse>) {
+	private fun setCardSidangTA(getSidangTAResult: Resource<SidangTARemoteResponse>) {
 
 		val data = getSidangTAResult.payload?.data
 
@@ -322,7 +322,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 					btnSelengkapnyaSidangTa.visibility = View.GONE
 				} else {
-					tvValueStatusIndividu.text = data.rsSidang.statusIndividu
+					tvValueStatusIndividu.text = data.statusPendaftaran?.status
 					tvValueHariSidang.text =
 						"${data.rsSidang.hariSidang}, ${data.rsSidang.tanggalSidang}"
 					tvValueWaktuSidang.text = "${data.rsSidang.waktuSidang} WIB"

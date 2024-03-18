@@ -67,14 +67,14 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 		checkKelompok()
 
-		checkDokumen()
-
 		btnListener()
 
 	}
 
 	private fun checkKelompok() {
 		setLoadingKelompok(true)
+		setViewVisibility(binding.linearLayoutDokumenCapstone, false)
+		setViewVisibility(binding.cvBelumMemilikiKelompok, false)
 
 		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 			apiToken?.let {
@@ -101,13 +101,11 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 				}
 
 				is Resource.Success -> {
+					checkDokumen()
+
 					setLoadingKelompok(false)
 
 					Log.d("Result success", resultResponse.toString())
-
-					binding.cvBelumMemilikiKelompok.visibility = View.GONE
-
-					binding.linearLayoutDokumenCapstone.visibility = View.VISIBLE
 
 					val dataKelompok = getKelompokSayaResult.payload?.data
 					val status = getKelompokSayaResult.payload?.status
@@ -166,16 +164,12 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 			val status = resultResponse?.status
 			when (getFileIndexResult) {
 				is Resource.Loading -> {
-					setLoading(true)
 				}
 
 				is Resource.Error -> {
-					setLoading(false)
-
 				}
 
 				is Resource.Success -> {
-					setLoading(false)
 
 					id = getFileIndexResult.payload?.data?.fileMhs?.id.toString()
 
@@ -867,22 +861,12 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDokumenCapstone, isLoading)
-			linearLayoutDokumenCapstone.visibility =
-				if (isLoading) View.GONE else View.VISIBLE
-			cvBelumMemilikiKelompok.visibility =
-				if (isLoading) View.GONE else View.VISIBLE
-
 		}
 	}
 
 	private fun setLoadingKelompok(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDokumenCapstone, isLoading)
-			linearLayoutDokumenCapstone.visibility =
-				if (isLoading) View.GONE else View.VISIBLE
-			cvBelumMemilikiKelompok.visibility =
-				if (isLoading) View.GONE else View.VISIBLE
-
 		}
 	}
 	

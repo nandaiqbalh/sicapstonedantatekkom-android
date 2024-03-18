@@ -78,7 +78,7 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 
 				val dataKelompok = data.kelompok
 				// card kelompok
-				tvValueStatusKelompok.text = dataKelompok?.statusKelompok
+				tvValueStatusKelompok.text = data.statusPendaftaran?.status
 				tvValueRuangSidang.text = data.rsSidang?.namaRuang
 				tvValueHariSidang.text = "${data.rsSidang?.hariSidang}, ${data.rsSidang?.tanggalSidang}"
 				tvValueWaktuSidang.text = "${data.rsSidang?.waktuSidang} WIB"

@@ -68,14 +68,14 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 		checkKelompok()
 
-		checkDokumen()
-
 		btnListener()
 
 	}
 
 	private fun checkKelompok() {
 		setLoadingKelompok(true)
+		setViewVisibility(binding.linearLayoutDokumenTugasAkhir, false)
+		setViewVisibility(binding.cvBelumMemilikiKelompokTugasAkhir, false)
 
 		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 			apiToken?.let {
@@ -103,13 +103,11 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 				}
 
 				is Resource.Success -> {
+					checkDokumen()
+
 					setLoadingKelompok(false)
 
 					Log.d("Result success", resultResponse.toString())
-
-					binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.GONE
-
-					binding.linearLayoutDokumenTugasAkhir.visibility = View.VISIBLE
 
 					val dataKelompok = getKelompokSayaResult.payload?.data
 					val status = getKelompokSayaResult.payload?.status
@@ -153,7 +151,6 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 	}
 
 	private fun checkDokumen() {
-
 		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 			apiToken?.let {
 				dokumenViewModel.getFileIndex(apiToken)
@@ -167,16 +164,12 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 			val status = resultResponse?.status
 			when (getFileIndexResult) {
 				is Resource.Loading -> {
-					setLoading(true)
 				}
 
 				is Resource.Error -> {
-					setLoading(false)
 				}
 
 				is Resource.Success -> {
-					setLoading(false)
-
 					id = getFileIndexResult.payload?.data?.fileMhs?.id.toString()
 
 					if (resultResponse?.success == true) {
@@ -516,20 +509,12 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDokumenTugasAkhir, isLoading)
-			linearLayoutDokumenTugasAkhir.visibility =
-				if (isLoading) View.GONE else View.VISIBLE
-			cvBelumMemilikiKelompokTugasAkhir.visibility =
-				if (isLoading) View.GONE else View.VISIBLE
 		}
 	}
 
 	private fun setLoadingKelompok(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDokumenTugasAkhir, isLoading)
-			linearLayoutDokumenTugasAkhir.visibility =
-				if (isLoading) View.GONE else View.VISIBLE
-			cvBelumMemilikiKelompokTugasAkhir.visibility =
-				if (isLoading) View.GONE else View.VISIBLE
 
 		}
 	}
