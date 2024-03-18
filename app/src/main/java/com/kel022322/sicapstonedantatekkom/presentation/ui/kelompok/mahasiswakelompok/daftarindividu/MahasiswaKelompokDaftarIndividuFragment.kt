@@ -285,7 +285,6 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 
 					setLoading(isLoading = false, isSuccess = false)
 
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 				}
 
 				is Resource.Success -> {
@@ -304,11 +303,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
-
 						}
-
 					}
 				}
 

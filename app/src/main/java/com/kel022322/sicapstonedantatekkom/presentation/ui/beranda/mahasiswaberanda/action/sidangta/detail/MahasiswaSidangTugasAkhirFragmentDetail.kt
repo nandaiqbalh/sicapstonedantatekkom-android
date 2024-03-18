@@ -21,7 +21,6 @@ import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok.AkunDosbingAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.kelompok.AkunDospengTaAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
-import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,7 +34,6 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 	private val kelompokViewModel: KelompokIndexViewModel by viewModels()
 	private val sidangTaViewModel: SidangTugasAkhirViewModel by viewModels()
 
-	private val customSnackbar = CustomSnackbar()
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -180,8 +178,6 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
-
 					Log.d("Error Kelompok Detail", getKelompokSayaResult.payload?.status.toString())
 
 					// set view condition
@@ -230,12 +226,8 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 						}
 
 						if (status == "Authorization Token not found" ||  status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
 
 							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", false)
-
 						}
 					}
 				}
@@ -256,9 +248,6 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 
 				is Resource.Error -> {
 					setLoading(false)
-
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
-
 					Log.d(
 						"Error Kelompok Index",
 						getSidangTaResult.payload?.status.toString()
@@ -280,11 +269,7 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 						Log.d("Succes status, but failed", status.toString())
 
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", true)
-
 							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!", true)
 						}
 					}
 
@@ -294,37 +279,6 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 			}
 		}
 
-	}
-
-	private fun showSnackbar(message: String, isRestart: Boolean) {
-		val currentFragment = this@MahasiswaSidangTugasAkhirFragmentDetail
-		if (currentFragment.isVisible) {
-			customSnackbar.showSnackbarWithAction(
-				requireActivity().findViewById(android.R.id.content), message, "OK"
-			) {
-				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
-			}
-		}
-	}
-
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaSidangTugasAkhirFragmentDetail
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
-		}
 	}
 
 	private fun actionIfLogoutSucces() {

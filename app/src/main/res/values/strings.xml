@@ -19,13 +19,13 @@
     <string name="tv_title_profile_detail">Data Profil Akun</string>
     <string name="title_nama_lengkap">Nama Lengkap</string>
     <string name="btn_simpan">Simpan</string>
-    <string name="tv_hint_nama_lengkap">Masukkan Nama Lengkap</string>
+    <string name="tv_hint_nama_lengkap">Contoh: Maulana Yusuf Suradin</string>
     <string name="title_nim">NIM Mahasiswa</string>
     <string name="title_email">Email</string>
     <string name="title_no_telp">No. Telepon</string>
-    <string name="tv_hint_nim">Masukkan NIM Mahasiswa</string>
-    <string name="tv_hint_email">Masukkan email</string>
-    <string name="tv_hint_no_telp">Masukkan nomor telepon</string>
+    <string name="tv_hint_nim">Contoh: 21120120140051</string>
+    <string name="tv_hint_email">Contoh: yusuf@gmail.com</string>
+    <string name="tv_hint_no_telp">Contoh: 081812881282     </string>
     <string name="nama_lengkap_mahasiswa">Nama Lengkap Mahasiswa</string>
     <string name="nim_mahasiswa">NIM Mahasiswa</string>
     <string name="tv_title_change_password">Ganti Kata Sandi</string>
@@ -127,14 +127,14 @@
     <string name="tv_title_topik3">3. Smart business/organization platform/support system</string>
     <string name="tv_title_topik4">4. Smart city and transportation</string>
 
-    <string name="tv_hint_angkatan">Masukkan angkatan</string>
-    <string name="tv_hint_ipk">Masukkan IPK saat ini</string>
-    <string name="tv_hint_sks">Masukkan SKS saat ini</string>
+    <string name="tv_hint_angkatan">Contoh: 2020</string>
+    <string name="tv_hint_ipk">Contoh: 3.87</string>
+    <string name="tv_hint_sks">Contoh: 111</string>
     <string name="tv_hint_siklus">Pilih siklus</string>
     <string name="tv_hint_jenis_kelamin">Pilih jenis kelamin</string>
     <string name="tv_hint_judul_capstone">Masukkan usulan judul</string>
-    <string name="tv_hint_skala_peminatan">Masukkan skala peminatan</string>
-    <string name="tv_hint_skala_topik">Masukkan skala topik</string>
+    <string name="tv_hint_skala_peminatan">Contoh: 4,2,3,1</string>
+    <string name="tv_hint_skala_topik">Contoh: 4,2,3,1</string>
 
     <string name="tv_des_dropdown">Dropdown</string>
     <string name="nim_tidak_valid">14 digit NIM tidak valid!</string>

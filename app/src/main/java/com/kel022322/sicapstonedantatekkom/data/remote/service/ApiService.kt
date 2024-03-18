@@ -23,6 +23,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindivid
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.terimakelompok.TerimaKelompokRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.tolakkelompok.TolakKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.response.MahasiswaIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
@@ -110,6 +112,16 @@ interface ApiService {
 	suspend fun getKelompokSaya(
 		@Header("Authorization") apiToken: String,
 	) : KelompokSayaRemoteResponse
+
+	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/terima-kelompok")
+	suspend fun terimaKelompok(
+		@Header("Authorization") apiToken: String,
+	) : TerimaKelompokRemoteResponse
+
+	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/tolak-kelompok")
+	suspend fun tolakKelompok(
+		@Header("Authorization") apiToken: String,
+	) : TolakKelompokRemoteResponse
 
 	@POST("capstone_team/public/api/v1/mahasiswa/kelompok/add-kelompok-process")
 	suspend fun addKelompokIndividu(

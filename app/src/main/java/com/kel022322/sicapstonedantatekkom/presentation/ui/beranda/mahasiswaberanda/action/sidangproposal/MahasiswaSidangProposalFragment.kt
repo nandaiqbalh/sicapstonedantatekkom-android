@@ -16,7 +16,6 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangproposal.resp
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaSidangProposalBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
-import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,8 +28,6 @@ class MahasiswaSidangProposalFragment : Fragment() {
 
 	private val userViewModel: UserViewModel by viewModels()
 	private val sidangProposalViewModel: SidangProposalViewModel by viewModels()
-
-	private val customSnackbar = CustomSnackbar()
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -77,8 +74,6 @@ class MahasiswaSidangProposalFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
-
 					Log.d(
 						"Error proposal",
 						getSidangProposalByKelompokResult.payload?.status.toString()
@@ -118,11 +113,9 @@ class MahasiswaSidangProposalFragment : Fragment() {
 						Log.d("Succes status, but failed", status.toString())
 
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 							setViewVisibility(binding.cvErrorSidangProposal, true)
 							binding.tvErrorSidangProposal.text = status ?: "Mohon periksa kembali koneksi internet Anda!"
 						}
@@ -172,18 +165,6 @@ class MahasiswaSidangProposalFragment : Fragment() {
 
 		}
 
-	}
-
-	private fun showSnackbar(message: String) {
-		val currentFragment = this@MahasiswaSidangProposalFragment
-
-		if (currentFragment.isVisible) {
-			customSnackbar.showSnackbarWithAction(
-				requireActivity().findViewById(android.R.id.content), message, "OK"
-			) {
-				customSnackbar.dismissSnackbar()
-			}
-		}
 	}
 
 	private fun actionIfLogoutSucces() {

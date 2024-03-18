@@ -266,16 +266,14 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 							binding.edtSiklusKelompok.text = null
 						}
 
+					} else {
 						dataObserver()
 
-					} else {
 						setLoading(isLoading = false, isSuccess = false)
 
 						with(binding) {
 
 							if (status == "Token is Expired" || status == "Token is Invalid") {
-								showSnackbar("Sesi anda telah berakhir :(")
-
 								actionIfLogoutSucces()
 							} else if (resultResponse?.data?.rs_siklus == null) {
 								setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
@@ -424,8 +422,6 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 					Log.d("Error Profile Index", getProfileResult.payload?.status.toString())
 
 					setLoading(isLoading = false, isSuccess = false)
-
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
 				}
 
 				is Resource.Success -> {
@@ -445,11 +441,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
-
 						}
-
 					}
 				}
 
@@ -500,9 +492,6 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
-
 						}
 					}
 
@@ -549,9 +538,6 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
-						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
-
 						}
 					}
 

@@ -1,4 +1,4 @@
-package com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen
+package com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.mahasiswadokumen
 
 import android.util.Log
 import androidx.lifecycle.LiveData

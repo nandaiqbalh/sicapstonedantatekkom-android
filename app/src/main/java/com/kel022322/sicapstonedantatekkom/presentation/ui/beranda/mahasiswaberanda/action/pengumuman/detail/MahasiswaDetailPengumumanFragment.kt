@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDetailPengumumanBinding
-import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,8 +30,6 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 	private val binding get() = _binding!!
 
 	private val detailPengumumanViewModel: DetailPengumumanViewModel by viewModels()
-
-	private val customSnackbar = CustomSnackbar()
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -167,7 +164,6 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 							setViewVisibility(linearLayoutDetailPengumuman, false)
 							setViewVisibility(shimmerDetailPengumumanFragment, false)
 
-							showSnackbar(message ?: "Mohon periksa kembali koneksi internet Anda!")
 						}
 
 					}
@@ -210,21 +206,6 @@ class MahasiswaDetailPengumumanFragment : Fragment() {
 			}
 		}
 	}
-
-	// function to show snackbar to the screen
-	private fun showSnackbar(message: String) {
-		val currentFragment = this@MahasiswaDetailPengumumanFragment
-
-		if (currentFragment.isVisible) {
-			customSnackbar.showSnackbarWithAction(
-				requireActivity().findViewById(android.R.id.content), message, "OK"
-			) {
-				customSnackbar.dismissSnackbar()
-			}
-		}
-
-	}
-
 
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
