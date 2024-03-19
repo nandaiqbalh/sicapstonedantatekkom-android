@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokDetailBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
@@ -73,10 +75,34 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 		with(binding) {
 			val dataKelompok = data?.kelompok
 			// card kelompok
-			tvValueStatusKelompokDetail.text = dataKelompok?.statusKelompok
-			tvValueNomorKelompokDetail.text = dataKelompok?.nomorKelompok.toString()
+			tvValueNomorKelompokDetail.text = dataKelompok?.nomorKelompok ?: "-"
 			tvValueTopikDetail.text = dataKelompok?.namaTopik
 			tvValueJudulDetail.text = dataKelompok?.judulCapstone
+
+			val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
+			val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
+			val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
+
+			with(binding){
+				tvValueStatusKelompokDetail.text = data?.kelompok?.statusKelompok ?: "Belum Mendaftar Capstone!"
+				tvValueStatusKelompokDetail.setTextColor(colorRed)
+
+				when (data?.kelompok?.statusKelompok) {
+					"Menunggu Persetujuan Anggota!",
+					"Menunggu Validasi Kelompok!", "Menunggu Validasi Expo!" -> {
+						tvValueStatusKelompokDetail.setTextColor(colorOrange)
+					}
+					"Validasi Kelompok Berhasil!",
+					"C100 Telah Disetujui!",  "Telah Dijadwalkan Sidang C100!", "C200 Telah Disetujui!",
+					"C300 Telah Disetujui!", "C400 Telah Disetujui!",
+					"C500 Telah Disetujui!", "Validasi Expo Berhasil!" -> {
+						tvValueStatusKelompokDetail.setTextColor(colorGreen)
+					}
+					else -> {
+						tvValueStatusKelompokDetail.setTextColor(colorRed)
+					}
+				}
+			}
 
 			// card anggota kelompok
 			val dataAnggotaKelompok = data?.rsMahasiswa
