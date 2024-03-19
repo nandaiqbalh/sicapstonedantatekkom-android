@@ -68,7 +68,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:background="@color/Minimumblue"
             android:orientation="vertical">
 
@@ -78,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginTop="40dp"
                 android:visibility="gone"
                 android:paddingHorizontal="16dp"
                 app:cardBackgroundColor="@color/White"
@@ -116,6 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
                 android:fontFamily="@font/poppinssemibold"
                 android:text="@string/tv_sidang_ta_tersedia"
                 android:textColor="@color/lightblue"
@@ -445,6 +446,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
+                                android:maxLines="1"
+                                android:ellipsize="end"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:textColor="@color/lightblue"
                                 android:textSize="11sp"
@@ -614,7 +617,7 @@
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomLinkEditText
                             android:id="@+id/edt_link_pendukung_sidang_ta"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -622,6 +625,8 @@
                             android:hint="@string/tv_hint_link_pendukung_sidang_ta"
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="12dp"
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             android:textColor="@color/lightblue"
                             android:textColorHint="@color/DarkGrey"
                             android:textSize="11sp"

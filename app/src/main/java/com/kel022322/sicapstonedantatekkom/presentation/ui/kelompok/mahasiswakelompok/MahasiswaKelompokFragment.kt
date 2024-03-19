@@ -337,6 +337,31 @@ class MahasiswaKelompokFragment : Fragment() {
 
 		if (data?.kelompok?.idKelompok != null) {
 
+			val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
+			val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
+			val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
+
+			with(binding){
+				tvValueStatusKelompok.text = data.kelompok.statusKelompok ?: "Belum Mendaftar Capstone!"
+				tvValueStatusKelompok.setTextColor(colorRed)
+
+				when (data.kelompok.statusKelompok) {
+					"Menunggu Persetujuan Anggota!",
+					"Menunggu Validasi Kelompok!", "Menunggu Validasi Expo!" -> {
+						tvValueStatusKelompok.setTextColor(colorOrange)
+					}
+					"Validasi Kelompok Berhasil!",
+					"C100 Telah Disetujui!",  "Telah Dijadwalkan Sidang C100!", "C200 Telah Disetujui!",
+					"C300 Telah Disetujui!", "C400 Telah Disetujui!",
+					"C500 Telah Disetujui!", "Validasi Expo Berhasil!" -> {
+						tvValueStatusKelompok.setTextColor(colorGreen)
+					}
+					else -> {
+						tvValueStatusKelompok.setTextColor(colorRed)
+					}
+				}
+			}
+
 			//  kelompok sudah valid
 			with(binding) {
 
@@ -346,11 +371,6 @@ class MahasiswaKelompokFragment : Fragment() {
 				tvValueNomorKelompok.text = dataKelompok.nomorKelompok ?: "-"
 				tvValueTopik.text = dataKelompok.namaTopik
 				tvValueJudul.text = dataKelompok.judulCapstone
-
-				if (dataKelompok.statusKelompok == "Belum Valid"){
-					val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
-					tvValueStatusKelompok.setTextColor(colorRed)
-				}
 
 				val dataDosbing = data.rsDosbing
 				// card dosbing
