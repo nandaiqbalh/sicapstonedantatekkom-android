@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -112,7 +113,7 @@ class MahasiswaExpoFragment : Fragment() {
 
 					if (resultResponse?.success == true && resultResponse.data?.kelompok?.nomorKelompok != null) {
 
-						setCardSidangProposal(getExpoResult)
+						setCardExpo(getExpoResult)
 
 						with(binding) {
 							setViewVisibility(linearLayoutExpoFragment, true)
@@ -133,7 +134,8 @@ class MahasiswaExpoFragment : Fragment() {
 
 								setViewVisibility(shimmerFragmentExpo, false)
 								setViewVisibility(binding.cvErrorExpoFragment, true)
-								tvErrorExpoFragment.text = status ?: "Mohon periksa kembali koneksi internet Anda!"
+								tvErrorExpoFragment.text =
+									status ?: "Mohon periksa kembali koneksi internet Anda!"
 
 							}
 
@@ -201,10 +203,12 @@ class MahasiswaExpoFragment : Fragment() {
 								Log.d("Daftar Expo Succes status, but failed", status.toString())
 
 								if (status == "Token is Expired" || status == "Token is Invalid") {
-
 									actionIfLogoutSucces()
 								} else {
-									showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
+									getExpo()
+									showSnackbar(
+										status ?: "Mohon periksa kembali koneksi internet Anda!"
+									)
 
 								}
 							}
@@ -222,12 +226,28 @@ class MahasiswaExpoFragment : Fragment() {
 	}
 
 	@SuppressLint("SetTextI18n")
-	private fun setCardSidangProposal(getExpoResult: Resource<ExpoIndexRemoteResponse>) {
+	private fun setCardExpo(getExpoResult: Resource<ExpoIndexRemoteResponse>) {
 
 		val data = getExpoResult.payload?.data
+		val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
+		val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
+		val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
+		ContextCompat.getColor(requireContext(), R.color.lightblue)
 
-		if (data?.cekStatusExpo != null) {
-			binding.tvValueStatusKelompok.text = data.cekStatusExpo.statusExpo
+		with(binding){
+			tvValueStatusKelompok.text = data?.cekStatusExpo?.statusExpo ?: "Belum Mendaftar Expo!"
+
+			when (data?.cekStatusExpo?.statusExpo) {
+				"Menunggu Validasi Expo!" -> {
+					tvValueStatusKelompok.setTextColor(colorOrange)
+				}
+				"Validasi Expo Berhasil!" -> {
+					tvValueStatusKelompok.setTextColor(colorGreen)
+				}
+				else -> {
+					tvValueStatusKelompok.setTextColor(colorRed)
+				}
+			}
 		}
 
 		if (data?.rsExpo != null) {

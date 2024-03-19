@@ -169,7 +169,7 @@
     <string name="tv_title_judul_tugas_akhir">Judul Tugas Akhir</string>
     <string name="tv_hint_judul_tugas_akhir">Masukkan judul tugas akhir (maks. 20 kata)</string>
     <string name="tv_link_pendukung_expo">Link Berkas Pendukung</string>
-    <string name="tv_hint_link_pendukung_expo">Masukkan link berkas pendukung</string>
+    <string name="tv_hint_link_pendukung_expo">Masukkan link google drive</string>
     <string name="tv_expo_tersedia">Periode Expo Project</string>
     <string name="tv_detail_expo">Jadwal Expo Project</string>
     <string name="tv_batas_pendaftaran">Batas Pendaftaran</string>
@@ -178,7 +178,7 @@
     <string name="tv_detail_sidang_ta">Sidang Tugas Akhir</string>
     <string name="tv_sidang_ta_project_mahasiswa">Pendaftaran Sidang Tugas Akhir</string>
     <string name="tv_link_pendukung_sidang_ta">Link berkas pendukung</string>
-    <string name="tv_hint_link_pendukung_sidang_ta">Masukan link berkas pendukung</string>
+    <string name="tv_hint_link_pendukung_sidang_ta">Masukan link google drive</string>
     <string name="tv_daftar_sidang_ta">Simpan</string>
     <string name="tv_title_status_pendaftaran">Status Pendaftaran</string>
     <string name="tv_value_status_pendaftaran">Belum Mendaftar</string>
