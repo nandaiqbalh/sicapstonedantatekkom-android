@@ -44,7 +44,7 @@ class CustomPasswordEditText : TextInputEditText {
 				val parentLayout = getParentTextInputLayout()
 
 				if (password.length < MIN_PASSWORD_LENGTH) {
-					parentLayout?.error = "Password minimal $MIN_PASSWORD_LENGTH karakter!"
+					parentLayout?.error = "Kata sandi minimal $MIN_PASSWORD_LENGTH karakter!"
 					setCustomErrorTypeface(parentLayout)
 					parentLayout?.isErrorEnabled = true
 				} else {
