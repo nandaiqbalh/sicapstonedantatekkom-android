@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -114,6 +115,34 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 					val message = getSidangTAResult.payload
 					Log.d("Result success", message.toString())
 
+					val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
+					val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
+					val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
+
+					with(binding){
+						tvValueStatusIndividu.text = resultResponse?.data?.rsSidang?.statusIndividu ?: "Belum Mendaftar Sidang TA!"
+						tvValueStatusPendaftaran.text = resultResponse?.data?.statusPendaftaran?.status ?: "Belum Mendaftar Sidang TA!"
+
+						tvValueStatusIndividu.setTextColor(colorRed)
+						tvValueStatusPendaftaran.setTextColor(colorRed)
+
+						when (resultResponse?.data?.statusPendaftaran?.status) {
+							"Menunggu Validasi Jadwal!" -> {
+								tvValueStatusIndividu.setTextColor(colorOrange)
+								tvValueStatusPendaftaran.setTextColor(colorOrange)
+							}
+							"Telah Dijadwalkan Sidang TA!" -> {
+								tvValueStatusIndividu.setTextColor(colorGreen)
+								tvValueStatusPendaftaran.setTextColor(colorGreen)
+							}
+							else -> {
+								tvValueStatusIndividu.setTextColor(colorRed)
+								tvValueStatusPendaftaran.setTextColor(colorRed)
+							}
+						}
+					}
+
+
 					if (resultResponse?.success == true) {
 
 						with(binding) {
@@ -185,7 +214,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 							} else if (resultResponse.data.rsSidang == null) {
 								setViewVisibility(binding.cvErrorSidangTaFragment, false)
 								binding.tvValueStatusPendaftaran.text =
-									resultResponse.data.statusPendaftaran.status ?: "Mohon periksa kembali koneksi internet Anda!"
+									resultResponse.data.statusPendaftaran.status
 
 								setViewVisibility(tvTitleSidangTaTersedia, true)
 								setViewVisibility(cvValueSidangTa, false)
@@ -313,7 +342,6 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 		val data = getSidangTAResult.payload?.data
 
 		if (data != null) {
-
 			//  SidangTA sudah valid
 			with(binding) {
 				if (data.rsSidang == null) {

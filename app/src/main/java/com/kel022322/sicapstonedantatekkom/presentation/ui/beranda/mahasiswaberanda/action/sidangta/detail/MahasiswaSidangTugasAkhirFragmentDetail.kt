@@ -7,11 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.index.response.SidangTARemoteResponse
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaSidangTugasAkhirDetailBinding
@@ -258,6 +260,26 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 				is Resource.Success -> {
 					setLoading(false)
 
+					val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
+					val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
+					val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
+
+					with(binding){
+						tvValueStatusKelompok.text = resultResponse?.data?.statusPendaftaran?.status ?: "Belum Mendaftar Sidang TA!"
+						tvValueStatusKelompok.setTextColor(colorRed)
+
+						when (resultResponse?.data?.statusPendaftaran?.status) {
+							"Menunggu Validasi Jadwal!" -> {
+								tvValueStatusKelompok.setTextColor(colorOrange)
+							}
+							"Telah Dijadwalkan Sidang TA!" -> {
+								tvValueStatusKelompok.setTextColor(colorGreen)
+							}
+							else -> {
+								tvValueStatusKelompok.setTextColor(colorRed)
+							}
+						}
+					}
 					val message = getSidangTaResult.payload
 					Log.d("Result success", message.toString())
 
