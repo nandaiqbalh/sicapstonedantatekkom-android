@@ -272,7 +272,7 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 							"Menunggu Validasi Jadwal!" -> {
 								tvValueStatusKelompok.setTextColor(colorOrange)
 							}
-							"Telah Dijadwalkan Sidang TA!" -> {
+							"Telah Dijadwalkan Sidang TA!" , "Lulus Sidang TA!"-> {
 								tvValueStatusKelompok.setTextColor(colorGreen)
 							}
 							else -> {

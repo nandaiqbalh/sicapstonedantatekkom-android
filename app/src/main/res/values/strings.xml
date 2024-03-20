@@ -187,4 +187,7 @@
     <string name="tv_title_detail_sidang_ta">Detail Sidang Tugas Akhir</string>
     <string name="tv_title_jadwal_sidang_ta">Jadwal Sidang Tugas Akhir</string>
     <string name="btn_daftar">Daftar</string>
+    <string name="tv_hari_expo">Hari, tanggal</string>
+    <string name="tv_waktu_expo">Waktu</string>
+    <string name="tv_tempat_expo">Tempat</string>
 </resources>

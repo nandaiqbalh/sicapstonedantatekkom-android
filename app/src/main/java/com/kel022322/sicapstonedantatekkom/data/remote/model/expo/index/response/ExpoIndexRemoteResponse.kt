@@ -242,6 +242,29 @@ data class RsExpo(
     @SerializedName("tanggal_mulai")
     val tanggalMulai: String,
 
+    @SerializedName("tempat")
+    val tempat: String,
+
     @SerializedName("tanggal_selesai")
-    val tanggalSelesai: String
-)
+    val tanggalSelesai: String,
+
+    @SerializedName("hari_expo")
+    val hariExpo: String,
+
+    @SerializedName("tanggal_expo")
+    val tanggalExpo: String,
+
+    @SerializedName("waktu_expo")
+    val waktuExpo: String,
+
+    @SerializedName("hari_batas")
+    val hariBatas: String,
+
+    @SerializedName("tanggal_batas")
+    val tanggalBatas: String,
+
+    @SerializedName("waktu_batas")
+    val waktuBatas: String,
+
+
+    )

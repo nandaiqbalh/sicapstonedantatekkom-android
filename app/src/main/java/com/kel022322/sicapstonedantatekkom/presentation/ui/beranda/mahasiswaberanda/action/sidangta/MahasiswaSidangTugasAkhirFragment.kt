@@ -131,7 +131,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 								tvValueStatusIndividu.setTextColor(colorOrange)
 								tvValueStatusPendaftaran.setTextColor(colorOrange)
 							}
-							"Telah Dijadwalkan Sidang TA!" -> {
+							"Telah Dijadwalkan Sidang TA!" , "Lulus Sidang TA!"-> {
 								tvValueStatusIndividu.setTextColor(colorGreen)
 								tvValueStatusPendaftaran.setTextColor(colorGreen)
 							}

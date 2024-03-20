@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -96,6 +97,30 @@ class MahasiswaSidangProposalFragment : Fragment() {
 					val message = getSidangProposalByKelompokResult.payload
 					Log.d("Result proposal", message.toString())
 
+					val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
+					val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
+					val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
+
+					with(binding){
+						tvValueStatusKelompok.text = resultResponse?.data?.kelompok?.statusKelompok ?: "Belum Mendaftar Capstone!"
+						tvValueStatusKelompok.setTextColor(colorRed)
+
+						when (resultResponse?.data?.kelompok?.statusKelompok) {
+							"Menunggu Persetujuan Anggota!",
+							"Menunggu Validasi Kelompok!", "Menunggu Validasi Expo!" -> {
+								tvValueStatusKelompok.setTextColor(colorOrange)
+							}
+							"Validasi Kelompok Berhasil!",
+							"C100 Telah Disetujui!",  "Telah Dijadwalkan Sidang C100!", "C200 Telah Disetujui!",
+							"C300 Telah Disetujui!", "C400 Telah Disetujui!",
+							"C500 Telah Disetujui!", "Validasi Expo Berhasil!" -> {
+								tvValueStatusKelompok.setTextColor(colorGreen)
+							}
+							else -> {
+								tvValueStatusKelompok.setTextColor(colorRed)
+							}
+						}
+					}
 					if (resultResponse?.success == true) {
 
 						setCardSidangProposal(getSidangProposalByKelompokResult)

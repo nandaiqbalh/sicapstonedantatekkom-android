@@ -235,7 +235,7 @@ class MahasiswaExpoFragment : Fragment() {
 		ContextCompat.getColor(requireContext(), R.color.lightblue)
 
 		with(binding){
-			tvValueStatusKelompok.text = data?.cekStatusExpo?.statusExpo ?: "Belum Mendaftar Expo!"
+			tvValueStatusKelompok.text = data?.kelompok?.statusKelompok ?: "Belum Mendaftar Expo!"
 
 			when (data?.cekStatusExpo?.statusExpo) {
 				"Menunggu Validasi Expo!" -> {
@@ -262,7 +262,10 @@ class MahasiswaExpoFragment : Fragment() {
 
 				tvValueSiklusExpo.text = data.rsExpo.tahunAjaran
 
-				tvValueBatasPendaftaran.text = data.rsExpo.tanggalSelesai
+				tvValueHariExpo.text = "${data.rsExpo.hariExpo}, ${data.rsExpo.tanggalExpo}"
+				tvValueWaktuExpo.text = "${data.rsExpo.waktuExpo} WIB"
+				tvValueTempatExpo.text = data.rsExpo.tempat
+				tvValueBatasPendaftaran.text = "${data.rsExpo.hariBatas}, ${data.rsExpo.tanggalBatas}"
 
 				edtJudulTugasAkhir.setText(data.kelengkapan.judulTAMhs)
 				edtLinkPendukungExpo.setText(data.kelengkapan.linkBerkasExpo)
