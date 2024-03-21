@@ -29,13 +29,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_profil_mahasiswa"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_profilephoto"
@@ -100,428 +98,471 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_nim_user" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_detail_profil"
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_error_profil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="20dp"
-                android:backgroundTint="@color/White"
+                android:layout_marginBottom="16dp"
+                android:paddingHorizontal="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_detailcapstone"
+                app:strokeColor="@android:color/transparent">
+
+                <TextView
+                    android:id="@+id/tv_error_profil"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/rounded_outline_text_view"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:gravity="center"
+                    android:paddingHorizontal="16dp"
+                    android:text="@string/tv_terjadi_kesalahan"
+                    android:textColor="@color/DarkGrey"
+                    android:textSize="11sp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:id="@+id/lineaer_layout_profil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title_detailcapstone">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_detail_profil"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="@color/White"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
 
-                    <LinearLayout
-                        android:id="@+id/linear_layout_data_profil_akun"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/tv_title_nama_lengkap"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/title_nama_lengkap"
-                            android:textColor="@color/RoyalBlue"
-                            android:textSize="12sp" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_nama_pengguna"
-                            style="@style/CustomTextInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_marginTop="4dp"
-                            android:layout_height="wrap_content"
-                            app:errorTextAppearance="@style/ErrorTextAppearance"
-                        app:hintEnabled="false">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edt_nama_lengkap_pengguna"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:hint="@string/tv_hint_nama_lengkap"
-                                android:maxLines="1"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="12dp"
-                                android:textColor="@color/lightblue"
-                                android:textColorHint="@color/DarkGrey"
-                                android:textSize="11sp"
-                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <TextView
-                            android:id="@+id/tv_title_nim"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="11dp"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/title_nim"
-                            android:textColor="@color/RoyalBlue"
-                            android:textSize="12sp" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_nim_pengguna"
-                            style="@style/CustomTextInputLayout"
+                        <LinearLayout
+                            android:id="@+id/linear_layout_data_profil_akun"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:focusable="false"
-                            app:errorTextAppearance="@style/ErrorTextAppearance"
-                        app:hintEnabled="false">
+                            android:orientation="vertical"
+                            android:padding="20dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edt_nim_pengguna"
+                            <TextView
+                                android:id="@+id/tv_title_nama_lengkap"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/title_nama_lengkap"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/til_nama_pengguna"
+                                style="@style/CustomTextInputLayout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:ellipsize="end"
+                                android:layout_marginTop="4dp"
+                                app:errorTextAppearance="@style/ErrorTextAppearance"
+                                app:hintEnabled="false">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edt_nama_lengkap_pengguna"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:hint="@string/tv_hint_nama_lengkap"
+                                    android:maxLines="1"
+                                    android:paddingHorizontal="8dp"
+                                    android:paddingVertical="12dp"
+                                    android:textColor="@color/lightblue"
+                                    android:textColorHint="@color/DarkGrey"
+                                    android:textSize="11sp"
+                                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:id="@+id/tv_title_nim"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="11dp"
                                 android:fontFamily="@font/poppinsmedium"
-                                android:hint="@string/tv_hint_nama_lengkap"
-                                android:maxLines="1"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="12dp"
-                                android:textColor="@color/lightblue"
-                                android:textColorHint="@color/DarkGrey"
-                                android:textSize="11sp"
-                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                                android:text="@string/title_nim"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="12sp" />
 
-                        </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/til_nim_pengguna"
+                                style="@style/CustomTextInputLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:focusable="false"
+                                app:errorTextAppearance="@style/ErrorTextAppearance"
+                                app:hintEnabled="false">
 
-                        <TextView
-                            android:id="@+id/tv_title_email"
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edt_nim_pengguna"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:hint="@string/tv_hint_nama_lengkap"
+                                    android:maxLines="1"
+                                    android:paddingHorizontal="8dp"
+                                    android:paddingVertical="12dp"
+                                    android:textColor="@color/lightblue"
+                                    android:textColorHint="@color/DarkGrey"
+                                    android:textSize="11sp"
+                                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:id="@+id/tv_title_email"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="11dp"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/title_email"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/til_email_pengguna"
+                                style="@style/CustomTextInputLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                app:errorTextAppearance="@style/ErrorTextAppearance"
+                                app:hintEnabled="false">
+
+                                <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
+                                    android:id="@+id/edt_email_pengguna"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:hint="@string/tv_hint_email"
+                                    android:maxLines="1"
+                                    android:paddingHorizontal="8dp"
+                                    android:paddingVertical="12dp"
+                                    android:textColor="@color/lightblue"
+                                    android:textColorHint="@color/DarkGrey"
+                                    android:textSize="11sp"
+                                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:id="@+id/tv_title_no_telp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="11dp"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/title_no_telp"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/til_no_telp_pengguna"
+                                style="@style/CustomTextInputLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                app:errorTextAppearance="@style/ErrorTextAppearance"
+                                app:hintEnabled="false">
+
+                                <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
+                                    android:id="@+id/edt_no_telp_pengguna"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:hint="@string/tv_hint_no_telp"
+                                    android:maxLines="1"
+                                    android:paddingHorizontal="8dp"
+                                    android:paddingVertical="12dp"
+                                    android:textColor="@color/lightblue"
+                                    android:textColorHint="@color/DarkGrey"
+                                    android:textSize="11sp"
+                                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:id="@+id/tv_title_jenis_kelamin_individu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/tv_title_jenis_kelamin"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/til_jenis_kelamin_individu"
+                                style="@style/CustomTextInputLayoutWithDropdown"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                app:errorTextAppearance="@style/ErrorTextAppearance"
+                                app:hintEnabled="false">
+
+                                <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                                    android:id="@+id/edt_jenis_kelamin_individu"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:hint="@string/tv_hint_jenis_kelamin"
+                                    android:maxLines="1"
+                                    android:paddingHorizontal="8dp"
+                                    android:paddingVertical="12dp"
+                                    android:textColor="@color/BlueFontFilled"
+                                    android:textColorHint="@color/DarkGrey"
+                                    android:textSize="11sp"
+                                    tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btn_simpan_profil"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="11dp"
+                            android:layout_height="48dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:backgroundTint="@color/RoyalBlue"
                             android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/title_email"
-                            android:textColor="@color/RoyalBlue"
-                            android:textSize="12sp" />
+                            android:text="@string/btn_simpan"
+                            android:textAllCaps="false"
+                            android:textColor="@color/White"
+                            android:textSize="12sp"
+                            app:cornerRadius="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/linear_layout_data_profil_akun"
+                            tools:ignore="DuplicateSpeakableTextCheck" />
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_email_pengguna"
-                            style="@style/CustomTextInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            app:errorTextAppearance="@style/ErrorTextAppearance"
-                        app:hintEnabled="false">
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomEmailEditText
-                                android:id="@+id/edt_email_pengguna"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:hint="@string/tv_hint_email"
-                                android:maxLines="1"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="12dp"
-                                android:textColor="@color/lightblue"
-                                android:textColorHint="@color/DarkGrey"
-                                android:textSize="11sp"
-                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                </androidx.cardview.widget.CardView>
 
+                <TextView
+                    android:id="@+id/tv_title_change_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:text="@string/tv_title_change_password"
+                    android:textColor="@color/lightblue"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_detail_profil" />
 
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <TextView
-                            android:id="@+id/tv_title_no_telp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="11dp"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/title_no_telp"
-                            android:textColor="@color/RoyalBlue"
-                            android:textSize="12sp" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_no_telp_pengguna"
-                            style="@style/CustomTextInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            app:errorTextAppearance="@style/ErrorTextAppearance"
-                        app:hintEnabled="false">
-
-                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomNoTelpEditText
-                                android:id="@+id/edt_no_telp_pengguna"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:hint="@string/tv_hint_no_telp"
-                                android:maxLines="1"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="12dp"
-                                android:textColor="@color/lightblue"
-                                android:textColorHint="@color/DarkGrey"
-                                android:textSize="11sp"
-                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <TextView
-                            android:id="@+id/tv_title_jenis_kelamin_individu"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/tv_title_jenis_kelamin"
-                            android:textColor="@color/RoyalBlue"
-                            android:textSize="12sp" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_jenis_kelamin_individu"
-                            style="@style/CustomTextInputLayoutWithDropdown"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            app:errorTextAppearance="@style/ErrorTextAppearance"
-                        app:hintEnabled="false">
-
-                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
-                                android:id="@+id/edt_jenis_kelamin_individu"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:hint="@string/tv_hint_jenis_kelamin"
-                                android:maxLines="1"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="12dp"
-                                android:textColor="@color/BlueFontFilled"
-                                android:textColorHint="@color/DarkGrey"
-                                android:textSize="11sp"
-                                tools:ignore="Deprecated,TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btn_simpan_profil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/RoyalBlue"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:text="@string/btn_simpan"
-                        android:textAllCaps="false"
-                        android:textColor="@color/White"
-                        android:textSize="12sp"
-                        app:cornerRadius="4dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/linear_layout_data_profil_akun"
-                        tools:ignore="DuplicateSpeakableTextCheck" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/tv_title_change_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/poppinssemibold"
-                android:text="@string/tv_title_change_password"
-                android:textColor="@color/lightblue"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cv_detail_profil" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_change_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="@color/White"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title_change_password">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_change_password"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="@color/White"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_change_password">
 
-                    <LinearLayout
-                        android:id="@+id/linear_layout_change_password"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/tv_title_current_password"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/tv_title_current_password"
-                            android:textColor="@color/RoyalBlue"
-                            android:textSize="12sp" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_current_password"
-                            style="@style/CustomTextInputLayout"
+                        <LinearLayout
+                            android:id="@+id/linear_layout_change_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            app:errorTextAppearance="@style/ErrorTextAppearance"
-                        app:hintEnabled="false"
-                            app:passwordToggleEnabled="true">
+                            android:orientation="vertical"
+                            android:padding="20dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
-                                android:id="@+id/edt_current_password"
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/tv_title_current_password"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsmedium"
-                                android:hint="@string/tv_hint_current_password"
-                                android:inputType="textPassword"
-                                android:padding="8dp"
-                                android:textColor="@color/BlueFontFilled"
-                                android:textColorHint="@color/DarkGrey"
-                                android:textSize="11sp"
-                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                                android:text="@string/tv_title_current_password"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="12sp" />
 
-                        </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/til_current_password"
+                                style="@style/CustomTextInputLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                app:errorTextAppearance="@style/ErrorTextAppearance"
+                                app:hintEnabled="false"
+                                app:passwordToggleEnabled="true">
 
-                        <TextView
-                            android:id="@+id/tv_new_password"
+                                <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
+                                    android:id="@+id/edt_current_password"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:hint="@string/tv_hint_current_password"
+                                    android:inputType="textPassword"
+                                    android:padding="8dp"
+                                    android:textColor="@color/BlueFontFilled"
+                                    android:textColorHint="@color/DarkGrey"
+                                    android:textSize="11sp"
+                                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:id="@+id/tv_new_password"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/title_new_password"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/til_new_password"
+                                style="@style/CustomTextInputLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                app:errorTextAppearance="@style/ErrorTextAppearance"
+                                app:hintEnabled="false"
+                                app:passwordToggleEnabled="true">
+
+                                <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
+                                    android:id="@+id/edt_new_password"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:hint="@string/tv_new_password"
+                                    android:inputType="textPassword"
+                                    android:padding="8dp"
+                                    android:textColor="@color/BlueFontFilled"
+                                    android:textColorHint="@color/DarkGrey"
+                                    android:textSize="11sp"
+                                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:id="@+id/tv_title_konfirmasi_password_baru"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:text="@string/konfirmasi_password_baru"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/til_konfirmasi_password_baru"
+                                style="@style/CustomTextInputLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                app:errorTextAppearance="@style/ErrorTextAppearance"
+                                app:hintEnabled="false"
+                                app:passwordToggleEnabled="true">
+
+                                <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
+                                    android:id="@+id/edt_konfirmasi_password_baru"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinsmedium"
+                                    android:hint="@string/tv_konfirmasi_password_baru"
+                                    android:inputType="textPassword"
+                                    android:padding="8dp"
+                                    android:textColor="@color/BlueFontFilled"
+                                    android:textColorHint="@color/DarkGrey"
+                                    android:textSize="11sp"
+                                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btn_ubah_password"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_height="48dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:backgroundTint="@color/RoyalBlue"
                             android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/title_new_password"
-                            android:textColor="@color/RoyalBlue"
-                            android:textSize="12sp" />
+                            android:text="@string/btn_simpan"
+                            android:textAllCaps="false"
+                            android:textColor="@color/White"
+                            android:textSize="12sp"
+                            app:cornerRadius="6dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/linear_layout_change_password" />
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_new_password"
-                            style="@style/CustomTextInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            app:errorTextAppearance="@style/ErrorTextAppearance"
-                        app:hintEnabled="false"
-                            app:passwordToggleEnabled="true">
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
-                                android:id="@+id/edt_new_password"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:hint="@string/tv_new_password"
-                                android:inputType="textPassword"
-                                android:padding="8dp"
-                                android:textColor="@color/BlueFontFilled"
-                                android:textColorHint="@color/DarkGrey"
-                                android:textSize="11sp"
-                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+                </androidx.cardview.widget.CardView>
 
-                        </com.google.android.material.textfield.TextInputLayout>
+                <Button
+                    android:id="@+id/btn_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="21dp"
+                    android:layout_marginBottom="18dp"
+                    android:backgroundTint="@color/RoyalBlue"
+                    android:fontFamily="@font/poppinsbold"
+                    android:padding="12dp"
+                    android:text="@string/btn_logout"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White"
+                    android:textSize="14sp"
+                    app:cornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_change_password" />
 
-                        <TextView
-                            android:id="@+id/tv_title_konfirmasi_password_baru"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/konfirmasi_password_baru"
-                            android:textColor="@color/RoyalBlue"
-                            android:textSize="12sp" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/til_konfirmasi_password_baru"
-                            style="@style/CustomTextInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            app:errorTextAppearance="@style/ErrorTextAppearance"
-                        app:hintEnabled="false"
-                            app:passwordToggleEnabled="true">
-
-                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomPasswordEditText
-                                android:id="@+id/edt_konfirmasi_password_baru"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsmedium"
-                                android:hint="@string/tv_konfirmasi_password_baru"
-                                android:inputType="textPassword"
-                                android:padding="8dp"
-                                android:textColor="@color/BlueFontFilled"
-                                android:textColorHint="@color/DarkGrey"
-                                android:textSize="11sp"
-                                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btn_ubah_password"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/RoyalBlue"
-                        android:fontFamily="@font/poppinsmedium"
-                        android:text="@string/btn_simpan"
-                        android:textAllCaps="false"
-                        android:textColor="@color/White"
-                        android:textSize="12sp"
-                        app:cornerRadius="6dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/linear_layout_change_password" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <Button
-                android:id="@+id/btn_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:layout_marginHorizontal="20dp"
-                android:padding="12dp"
-                android:layout_marginBottom="18dp"
-                android:backgroundTint="@color/RoyalBlue"
-                android:fontFamily="@font/poppinsbold"
-                android:text="@string/btn_logout"
-                android:textAllCaps="false"
-                android:textColor="@color/White"
-                android:textSize="14sp"
-                app:cornerRadius="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cv_change_password"/>
-
+            </LinearLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

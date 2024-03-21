@@ -27,6 +27,16 @@ class AuthDataStoreManager(@ApplicationContext private val context: Context) {
 		}
 	}
 
+	val getNIM: Flow<String?> = context.dataStore.data.map {
+		it[NIM_KEY]
+	}
+
+	suspend fun setNIM(NIM: String) {
+		context.dataStore.edit {
+			it[NIM_KEY] = NIM
+		}
+	}
+
 	val getPhotoProfile: Flow<String?> = context.dataStore.data.map {
 		it[PHOTO_PROFILE_KEY]
 	}
@@ -72,6 +82,7 @@ class AuthDataStoreManager(@ApplicationContext private val context: Context) {
 
 		private val PHOTO_PROFILE_KEY = stringPreferencesKey("PHOTO_PROFILE_KEY")
 		private val USERNAME_KEY = stringPreferencesKey("USERNAME_KEY")
+		private val NIM_KEY = stringPreferencesKey("NIM_KEY")
 		private val API_TOKEN_KEY = stringPreferencesKey("API_TOKEN_KEY")
 		private val USER_ID_KEY = stringPreferencesKey("USER_ID_KEY")
 		private val STATUS_AUTH_KEY = booleanPreferencesKey("STATUS_AUTH_KEY")

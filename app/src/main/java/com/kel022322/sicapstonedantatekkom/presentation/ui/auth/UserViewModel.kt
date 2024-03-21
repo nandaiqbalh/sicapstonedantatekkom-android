@@ -94,6 +94,12 @@ class UserViewModel @Inject constructor(
 		authDataStoreManager.setApiToken(apiToken)
 	}
 
+	fun getNIM(): LiveData<String?> = authDataStoreManager.getNIM.asLiveData()
+
+	fun setNIM(NIM: String) = CoroutineScope(Dispatchers.IO).launch {
+		authDataStoreManager.setNIM(NIM)
+	}
+
 	fun getUserId(): LiveData<String?> = authDataStoreManager.getUserId.asLiveData()
 
 	fun setUserId(userId: String) = CoroutineScope(Dispatchers.IO).launch {

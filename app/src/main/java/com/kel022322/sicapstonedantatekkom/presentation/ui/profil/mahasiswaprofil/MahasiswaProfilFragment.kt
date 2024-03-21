@@ -198,7 +198,15 @@ class MahasiswaProfilFragment : Fragment() {
 
 					setLoading(false)
 
-					showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
+					with(binding){
+						cvErrorProfil.visibility = View.VISIBLE
+						tvErrorProfil.text = status ?: "Mohon periksa kembali koneksi internet Anda!"
+
+						lineaerLayoutProfil.visibility = View.GONE
+					}
+
+					setProfileImageAndNamAndNim()
+
 				}
 
 				is Resource.Success -> {
@@ -244,19 +252,62 @@ class MahasiswaProfilFragment : Fragment() {
 					} else {
 						Log.d("Succes status, but failed", status.toString())
 
+						setProfileImageAndNamAndNim()
+
 						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(")
+							with(binding){
+								cvErrorProfil.visibility = View.VISIBLE
+								tvErrorProfil.text = status ?: "Mohon periksa kembali koneksi internet Anda!"
+
+								lineaerLayoutProfil.visibility = View.GONE
+							}
 
 							actionIfLogoutSucces()
 						} else {
-							showSnackbar(status ?: "Mohon periksa kembali koneksi internet Anda!")
+							with(binding){
+								cvErrorProfil.visibility = View.VISIBLE
+								tvErrorProfil.text = status ?: "Mohon periksa kembali koneksi internet Anda!"
 
+								lineaerLayoutProfil.visibility = View.GONE
+							}
 						}
 
 					}
 				}
 
 				else -> {}
+			}
+		}
+
+	}
+
+	private fun setProfileImageAndNamAndNim() {
+		setLoading(true)
+
+		// set username
+		userViewModel.getUsername().observe(viewLifecycleOwner) { username ->
+			setLoading(false)
+
+			if (username != null && username != "") {
+				binding.tvNamaUser.text = username
+			}
+		}
+
+		// set photo profile
+		userViewModel.getPhotoProfile().observe(viewLifecycleOwner) { photoProfile ->
+			setLoading(false)
+
+			if (photoProfile != null && photoProfile != "") {
+				GlideApp.with(this@MahasiswaProfilFragment).asBitmap().load(photoProfile)
+					.into(binding.ivProfilephoto)
+			}
+		}
+
+		userViewModel.getNIM().observe(viewLifecycleOwner) { nomorInduk ->
+			setLoading(false)
+
+			if (nomorInduk != null && nomorInduk != "") {
+				binding.tvNimUser.text = nomorInduk
 			}
 		}
 

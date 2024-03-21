@@ -276,6 +276,7 @@ class MahasiswaBerandaFragment : Fragment() {
 
 							userViewModel.setPhotoProfile(resultResponse.data.userImgUrl.toString())
 							userViewModel.setUsername(resultResponse.data.userName.toString())
+							userViewModel.setNIM(resultResponse.data.nomorInduk.toString())
 
 						}
 					} else {

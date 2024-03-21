@@ -105,6 +105,7 @@ class LoginActivity : AppCompatActivity() {
 								val apiToken = loginResult.userData.apiToken
 								val username = loginResult.userData.userName
 								val photoProfile = loginResult.userData.userImageUrl.toString()
+								val nomorInduk = loginResult.userData.nomorInduk
 
 
 								// set auth data store
@@ -113,7 +114,7 @@ class LoginActivity : AppCompatActivity() {
 								userViewModel.setApiToken("Bearer $apiToken")
 								userViewModel.setUsername(username ?: "Nama Lengkap Mahasiswa")
 								userViewModel.setPhotoProfile(photoProfile)
-
+								userViewModel.setNIM(nomorInduk.toString())
 
 							} else {
 								// if the success is false, then just show the snackbar
