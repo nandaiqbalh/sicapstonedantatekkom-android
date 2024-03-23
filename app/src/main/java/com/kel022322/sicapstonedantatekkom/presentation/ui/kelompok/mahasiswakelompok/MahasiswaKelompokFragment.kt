@@ -397,7 +397,7 @@ class MahasiswaKelompokFragment : Fragment() {
 			//  kelompok belum valid
 			with(binding) {
 				// card kelompok
-				"Belum valid!".also { tvValueStatusKelompok.text = it }
+				"Menunggu Validasi Kelompok!".also { tvValueStatusKelompok.text = it }
 
 				btnSelengkapnyaKelompok.visibility = View.GONE
 

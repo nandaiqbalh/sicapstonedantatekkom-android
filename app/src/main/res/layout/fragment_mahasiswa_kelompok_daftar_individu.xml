@@ -487,7 +487,6 @@
                             android:fontFamily="@font/poppinsmedium"
                             android:hint="@string/tv_hint_ipk"
                             android:maxLines="1"
-                            android:inputType="number"
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="12dp"
                             android:textColor="@color/lightblue"

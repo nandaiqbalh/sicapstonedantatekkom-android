@@ -19,7 +19,8 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.local.model.jeniskelamin.JenisKelaminModel
-import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.DosenRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.dosbing1.DosenPembimbing1RemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.dosbing2.DosenPembimbing2RemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.response.MahasiswaIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
@@ -232,7 +233,8 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 				siklusViewModel.getSiklus(apiToken)
 				topikViewModel.getTopik(apiToken)
 
-				dosenViewModel.getDataDosen(apiToken)
+				dosenViewModel.getDosenPembimbing1(apiToken)
+				dosenViewModel.getDosenPembimbing2(apiToken)
 				mahasiswaViewModel.getDataMahasiswa(apiToken)
 			}
 		}
@@ -449,7 +451,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 				else -> {}
 			}
 		}
-		dosenViewModel.getDosenResult.observe(viewLifecycleOwner) { getDosenResult ->
+		dosenViewModel.getDosen1Result.observe(viewLifecycleOwner) { getDosenResult ->
 
 			val status = getDosenResult.payload?.status
 			when (getDosenResult) {
@@ -473,17 +475,13 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 						setLoading(isLoading = false, isSuccess = true)
 
 						if (getDosenResult.payload.data != null) {
-							setDropdownDosen(getDosenResult)
+							setDropdownDosen1(getDosenResult)
 
 							if (selectedIdDosbing1 == "") {
 
 								binding.edtDosbing1Kelompok.text = null
 							}
 
-							if (selectedIdDosbing2 == "") {
-
-								binding.edtDosbing2Kelompok.text = null
-							}
 						}
 
 					} else {
@@ -501,6 +499,56 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 				else -> {}
 			}
 		}
+
+		dosenViewModel.getDosen2Result.observe(viewLifecycleOwner) { getDosenResult ->
+
+			val status = getDosenResult.payload?.status
+			when (getDosenResult) {
+				is Resource.Loading -> {
+					setLoading(isLoading = true, isSuccess = true)
+
+				}
+
+				is Resource.Error -> {
+					setLoading(isLoading = false, isSuccess = false)
+					Log.d("Result error", getDosenResult.message.toString())
+
+				}
+
+				is Resource.Success -> {
+
+					val message = getDosenResult.payload?.status
+					Log.d("Result", message.toString())
+
+					if (getDosenResult.payload?.success == true) {
+						setLoading(isLoading = false, isSuccess = true)
+
+						if (getDosenResult.payload.data != null) {
+							setDropdownDosen2(getDosenResult)
+
+							if (selectedIdDosbing2 == "") {
+
+								binding.edtDosbing2Kelompok.text = null
+							}
+
+						}
+
+					} else {
+						setLoading(isLoading = false, isSuccess = false)
+
+						if (status == "Token is Expired" || status == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(")
+
+							actionIfLogoutSucces()
+						}
+					}
+
+				}
+
+				else -> {}
+			}
+		}
+
 		topikViewModel.getTopikResult.observe(viewLifecycleOwner) { getTopikResult ->
 			val status = getTopikResult.payload?.status
 
@@ -607,7 +655,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 	}
 
-	private fun setDropdownDosen(getDosenResult: Resource<DosenRemoteResponse>) {
+	private fun setDropdownDosen1(getDosenResult: Resource<DosenPembimbing1RemoteResponse>) {
 
 		// dosen
 		val dosbing1Adapter = getDosenResult.payload?.data?.rs_dosen?.let {
@@ -625,6 +673,10 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 			binding.edtDosbing1Kelompok.setText(selectedDosbing1?.userName)
 		}
 		dosbing1Adapter?.setNotifyOnChange(true)
+
+	}
+
+	private fun setDropdownDosen2(getDosenResult: Resource<DosenPembimbing2RemoteResponse>) {
 		// dosen
 		val dosbing2Adapter =
 			getDosenResult.payload?.data?.rs_dosen?.let {
@@ -642,6 +694,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 			binding.edtDosbing2Kelompok.setText(selectedDosbing2?.userName)
 			// Lakukan sesuatu dengan ID yang dipilih
 		}
+
 	}
 
 	private fun setDropdownMahasiswa(getMahasiswaResult: Resource<MahasiswaIndexRemoteResponse>) {

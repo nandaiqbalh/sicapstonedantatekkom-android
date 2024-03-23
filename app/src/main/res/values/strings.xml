@@ -95,7 +95,7 @@
     <string name="tv_title_dosbing">Dosen Pembimbing</string>
     <string name="tv_nama_dosen_pembimbing">Adnan Fauzi, S.T., M.Kom.</string>
     <string name="tv_nim_dosen_pembimbing">198101272018071001</string>
-    <string name="tv_value_status_kelompok">Belum disetujui</string>
+    <string name="tv_value_status_kelompok">Menunggu Validasi Kelompok!</string>
     <string name="tv_title_status_kelompok">Status</string>
     <string name="tv_belum_memiliki_dosen_pembimbing">Belum memiliki dosen pembimbing!</string>
     <string name="tv_title_detail_kelompok">Detail Kelompok</string>

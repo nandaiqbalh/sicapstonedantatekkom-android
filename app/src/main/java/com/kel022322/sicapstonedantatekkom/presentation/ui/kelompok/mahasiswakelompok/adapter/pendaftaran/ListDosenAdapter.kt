@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.RsDosen
+import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.dosbing1.RsDosen
 import com.kel022322.sicapstonedantatekkom.databinding.ItemSiklusDropdownBinding
 
 class ListDosenAdapter(context: Context, private val dosenList: List<RsDosen>) :

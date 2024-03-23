@@ -1,11 +1,11 @@
-package com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response
+package com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.dosbing1
 
 import com.google.gson.annotations.SerializedName
 
-data class DosenRemoteResponse(
-    @SerializedName("data") val data: DataDosen?,
-    @SerializedName("status") val status: String?,
-    @SerializedName("success") val success: Boolean?,
+data class DosenPembimbing1RemoteResponse(
+	@SerializedName("data") val data: DataDosen?,
+	@SerializedName("status") val status: String?,
+	@SerializedName("success") val success: Boolean?,
 )
 
 data class DataDosen(

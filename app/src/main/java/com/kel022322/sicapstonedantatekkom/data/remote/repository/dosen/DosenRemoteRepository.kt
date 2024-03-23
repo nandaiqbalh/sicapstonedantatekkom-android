@@ -1,27 +1,35 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.repository.dosen
 
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.dosen.DosenRemoteDataSource
-import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.DosenRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.dosbing1.DosenPembimbing1RemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.dosbing2.DosenPembimbing2RemoteResponse
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import javax.inject.Inject
 
 interface DosenRemoteRepository {
 
-	suspend fun getDataDosen(
+	suspend fun getDataDosenPembimbing1(
 		apiToken: String,
-	): Resource<DosenRemoteResponse>
+	): Resource<DosenPembimbing1RemoteResponse>
 
+	suspend fun getDataDosenPembimbing2(
+		apiToken: String,
+	): Resource<DosenPembimbing2RemoteResponse>
 }
 
 class DosenRemoteRepositoryImpl @Inject constructor(
 	private val dataSource: DosenRemoteDataSource,
 ) : DosenRemoteRepository {
 
-	override suspend fun getDataDosen(
-		apiToken: String,
-	): Resource<DosenRemoteResponse> {
+	override suspend fun getDataDosenPembimbing1(apiToken: String): Resource<DosenPembimbing1RemoteResponse> {
 		return proceed {
-			dataSource.getDataDosen(apiToken)
+			dataSource.getDataDosenPembimbing1(apiToken)
+		}
+	}
+
+	override suspend fun getDataDosenPembimbing2(apiToken: String): Resource<DosenPembimbing2RemoteResponse> {
+		return proceed {
+			dataSource.getDataDosenPembimbing2(apiToken)
 		}
 	}
 

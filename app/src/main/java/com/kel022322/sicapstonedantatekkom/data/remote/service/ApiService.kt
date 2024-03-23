@@ -6,7 +6,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.respons
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.response.BroadcastDetailRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.DosenRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.dosbing1.DosenPembimbing1RemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.dosbing2.DosenPembimbing2RemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.expo.daftar.request.DaftarExpoRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.expo.daftar.response.DaftarExpoRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.expo.index.response.ExpoIndexRemoteResponse
@@ -135,10 +136,15 @@ interface ApiService {
 		@Body addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody
 	) : AddKelompokPunyaKelompokRemoteResponse
 
-	@GET("capstone_team/public/api/v1/mahasiswa/data-dosen")
-	suspend fun getDataDosen(
+	@GET("capstone_team/public/api/v1/mahasiswa/data-dosen-pembimbing1")
+	suspend fun getDataDosenPembimbing1(
 		@Header("Authorization") apiToken: String,
-	) : DosenRemoteResponse
+	) : DosenPembimbing1RemoteResponse
+
+	@GET("capstone_team/public/api/v1/mahasiswa/data-dosen-pembimbing2")
+	suspend fun getDataDosenPembimbing2(
+		@Header("Authorization") apiToken: String,
+	) : DosenPembimbing2RemoteResponse
 
 	@GET("capstone_team/public/api/v1/mahasiswa/data-mahasiswa")
 	suspend fun getDataMahasiswa(

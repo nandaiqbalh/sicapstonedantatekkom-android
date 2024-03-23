@@ -227,7 +227,7 @@
                                 android:ellipsize="end"
                                 android:fontFamily="@font/poppinsmedium"
                                 android:maxLines="1"
-                                android:textColor="@color/lightblue"
+                                android:textColor="@color/StatusOrange"
                                 android:textSize="11sp"
                                 tools:text="@string/tv_value_status_kelompok" />
 

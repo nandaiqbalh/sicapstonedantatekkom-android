@@ -1,7 +1,7 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.datasource.dosen
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.DosenRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.dosbing1.DosenRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.service.ApiService
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
