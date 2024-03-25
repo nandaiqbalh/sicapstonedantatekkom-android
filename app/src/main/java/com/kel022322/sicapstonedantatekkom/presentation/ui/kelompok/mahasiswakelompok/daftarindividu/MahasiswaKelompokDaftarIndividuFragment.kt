@@ -495,13 +495,16 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 				isFormValid = false
 				tilIpkIndividu.error = getString(R.string.tv_error_input_blank)
 				tilIpkIndividu.isErrorEnabled = true
-			} else if (!isValidIPK(ipkEntered)) {
-				isFormValid = false
-				tilIpkIndividu.error = getString(R.string.ipk_tidak_valid)
-				tilIpkIndividu.isErrorEnabled = true
 			} else {
-				tilIpkIndividu.error = null
-				tilIpkIndividu.isErrorEnabled = false
+				val ipkRegex = """^(?:0|[1-3](?:\.\d{2})|4(?:\.00?)?)$""".toRegex()
+				if (!ipkEntered.matches(ipkRegex)) {
+					isFormValid = false
+					tilIpkIndividu.error = getString(R.string.ipk_tidak_valid)
+					tilIpkIndividu.isErrorEnabled = true
+				} else {
+					tilIpkIndividu.error = null
+					tilIpkIndividu.isErrorEnabled = false
+				}
 			}
 
 			// peminatan

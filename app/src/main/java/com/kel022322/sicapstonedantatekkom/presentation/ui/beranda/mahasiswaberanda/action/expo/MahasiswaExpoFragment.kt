@@ -202,6 +202,7 @@ class MahasiswaExpoFragment : Fragment() {
 							} else {
 								Log.d("Daftar Expo Succes status, but failed", status.toString())
 
+								getExpo()
 								if (status == "Token is Expired" || status == "Token is Invalid") {
 									actionIfLogoutSucces()
 								} else {

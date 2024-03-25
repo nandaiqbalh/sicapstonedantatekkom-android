@@ -314,6 +314,8 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 							} else {
 								Log.d("Daftar TA Succes status, but failed", status.toString())
 
+								getSidangTA()
+
 								if (status == "Token is Expired" || status == "Token is Invalid") {
 									showSnackbar("Sesi anda telah berakhir :(")
 

@@ -452,7 +452,7 @@
                             app:errorTextAppearance="@style/ErrorTextAppearance"
                             app:hintEnabled="false">
 
-                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
+                            <com.kel022322.sicapstonedantatekkom.util.customview.CustomJudulTAEditText
                                 android:id="@+id/edt_judul_tugas_akhir"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

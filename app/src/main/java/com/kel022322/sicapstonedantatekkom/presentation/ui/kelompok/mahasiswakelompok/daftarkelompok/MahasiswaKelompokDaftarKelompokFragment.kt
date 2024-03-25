@@ -1083,22 +1083,8 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 
 	private fun isValidIPK(ipk: String): Boolean {
-		return ipk.isNotEmpty() && try {
-			val ipkValue = ipk.toDouble()
-			val decimalCount = getDecimalCount(ipk)
-			ipkValue in 0.00..4.00 && decimalCount <= 2
-		} catch (e: NumberFormatException) {
-			false
-		}
-	}
-
-	private fun getDecimalCount(value: String): Int {
-		val decimalIndex = value.indexOf('.')
-		return if (decimalIndex == -1) {
-			0
-		} else {
-			value.length - decimalIndex - 1
-		}
+		val ipkRegex = """^(?:0|[1-3](?:\.\d{2})|4(?:\.00?)?)$""".toRegex()
+		return ipk.matches(ipkRegex)
 	}
 
 	private fun showSnackbar(message: String) {

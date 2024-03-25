@@ -34,7 +34,7 @@
     <string name="tv_new_password">Masukkan kata sandi baru</string>
     <string name="title_new_password">Kata Sandi Baru</string>
     <string name="konfirmasi_password_baru">Konfirmasi Kata Sandi Baru</string>
-    <string name="tv_konfirmasi_password_baru">Masukkan konfirmasi kata sandi baru</string>
+    <string name="tv_konfirmasi_password_baru">Masukkan ulang kata sandi baru</string>
     <string name="tv_error_email_invalid">Email tidak valid!</string>
     <string name="tv_error_phone_invalid">No. Telepon tidak valid!</string>
     <string name="tv_error_password_mismatch">Kata sandi baru tidak sama</string>

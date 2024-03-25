@@ -9,7 +9,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.kel022322.sicapstonedantatekkom.R
 
-class CustomIPKEditText : TextInputEditText {
+class CustomJudulTAEditText : TextInputEditText {
 
 	constructor(context: Context) : super(context) {
 		init()
@@ -32,34 +32,28 @@ class CustomIPKEditText : TextInputEditText {
 		parentLayout?.error = null
 
 		addTextChangedListener(object : TextWatcher {
-			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-			}
+			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-			}
+			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
 			override fun afterTextChanged(s: Editable?) {
-				val ipk = s?.toString() ?: ""
+				val judulTA = s?.toString() ?: ""
 				val parentLayout = getParentTextInputLayout()
 
-				if (ipk.isNotEmpty() && isValidIPK(ipk)) {
+				if (isValidJudulTA(judulTA)) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {
-					parentLayout?.error = if (ipk.isEmpty()) {
+					parentLayout?.error = if (judulTA.isEmpty()) {
 						"Kolom ini tidak boleh kosong!"
 					} else {
-						"IPK tidak valid!"
+						"Judul TA maksimal 20 kata!"
 					}
 					setCustomErrorTypeface(parentLayout)
 					parentLayout?.isErrorEnabled = true
 				}
 			}
 		})
-	}
-	private fun isValidIPK(ipk: String): Boolean {
-		val ipkRegex = """^(?:0|[1-3](?:\.\d{2})|4(?:\.00?)?)$""".toRegex()
-		return ipk.matches(ipkRegex)
 	}
 
 	private fun getParentTextInputLayout(): TextInputLayout? {
@@ -74,16 +68,10 @@ class CustomIPKEditText : TextInputEditText {
 		val typeface = ResourcesCompat.getFont(context, R.font.poppinsregular)
 		textInputLayout?.typeface = typeface
 		textInputLayout?.setErrorTextAppearance(R.style.ErrorTextAppearance)
-
 	}
 
-	private fun getDecimalCount(value: String): Int {
-		val decimalIndex = value.indexOf('.')
-		return if (decimalIndex == -1) {
-			0
-		} else {
-			value.length - decimalIndex - 1
-		}
+	private fun isValidJudulTA(judul: String): Boolean {
+		val wordCount = judul.trim().split("\\s+".toRegex()).size
+		return wordCount <= 20
 	}
-
 }
