@@ -589,6 +589,8 @@
                             android:hint="@string/tv_hint_judul_tugas_akhir"
                             android:paddingHorizontal="8dp"
                             android:maxLines="1"
+                            android:lines="1"
+                            android:singleLine="true"
                             android:ellipsize="end"
                             android:paddingVertical="12dp"
                             android:textColor="@color/lightblue"

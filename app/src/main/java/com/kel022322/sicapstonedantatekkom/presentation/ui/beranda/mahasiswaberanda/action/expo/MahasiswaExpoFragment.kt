@@ -237,7 +237,7 @@ class MahasiswaExpoFragment : Fragment() {
 		with(binding){
 			tvValueStatusKelompok.text = data?.kelompok?.statusKelompok ?: "Belum Mendaftar Expo!"
 
-			when (data?.cekStatusExpo?.statusExpo) {
+			when (data?.kelompok?.statusKelompok) {
 				"Menunggu Validasi Expo!" -> {
 					tvValueStatusKelompok.setTextColor(colorOrange)
 				}

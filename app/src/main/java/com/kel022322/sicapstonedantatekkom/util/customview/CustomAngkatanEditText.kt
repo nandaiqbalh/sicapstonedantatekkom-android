@@ -41,17 +41,21 @@ class CustomAngkatanEditText : TextInputEditText {
 			override fun afterTextChanged(s: Editable?) {
 				val angkatan = s?.toString() ?: "" // Menggunakan elvis operator untuk menangani kasus s null
 				val parentLayout = getParentTextInputLayout()
+
 				if (angkatan.isNotEmpty() && angkatan.isAllDigits() && angkatan.length == 4) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {
-					if (s != null) { // Menambahkan pengecekan apakah s null atau tidak
-						parentLayout?.error = "Angkatan tidak valid!"
-						setCustomErrorTypeface(parentLayout)
-						parentLayout?.isErrorEnabled = true
+					parentLayout?.error = if (angkatan.isEmpty()) {
+						"Kolom ini tidak boleh kosong!"
+					} else {
+						"Angkatan tidak valid!"
 					}
+					setCustomErrorTypeface(parentLayout)
+					parentLayout?.isErrorEnabled = true
 				}
 			}
+
 		})
 	}
 

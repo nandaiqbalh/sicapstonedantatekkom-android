@@ -46,11 +46,9 @@ class CustomAutoCompleteTextView : AppCompatAutoCompleteTextView {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {
-					if (s != null) { // Menambahkan pengecekan apakah s null atau tidak
-						parentLayout?.error = "Kolom ini tidak boleh kosong!"
-						setCustomErrorTypeface(parentLayout)
-						parentLayout?.isErrorEnabled = true
-					}
+					parentLayout?.error = "Kolom ini tidak boleh kosong!"
+					setCustomErrorTypeface(parentLayout)
+					parentLayout?.isErrorEnabled = true
 				}
 			}
 		})

@@ -46,12 +46,15 @@ class CustomNIMEditText : TextInputEditText {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {
-					if (s != null) { // Menambahkan pengecekan apakah s null atau tidak
-						parentLayout?.error = "14 digit NIM tidak valid!"
-						setCustomErrorTypeface(parentLayout)
-						parentLayout?.isErrorEnabled = true
+					parentLayout?.error = if (userId.isEmpty()) {
+						"Kolom ini tidak boleh kosong!"
+					} else {
+						"14 digit NIM tidak valid!"
 					}
+					setCustomErrorTypeface(parentLayout)
+					parentLayout?.isErrorEnabled = true
 				}
+
 			}
 		})
 	}

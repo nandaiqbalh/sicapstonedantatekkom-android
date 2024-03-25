@@ -45,11 +45,13 @@ class CustomLinkEditText : TextInputEditText {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {
-					if (s != null) {
-						parentLayout?.error = "Link tidak valid!"
-						setCustomErrorTypeface(parentLayout)
-						parentLayout?.isErrorEnabled = true
+					parentLayout?.error = if (link.isEmpty()) {
+						"Kolom ini tidak boleh kosong!"
+					} else {
+						"Link tidak valid!"
 					}
+					setCustomErrorTypeface(parentLayout)
+					parentLayout?.isErrorEnabled = true
 				}
 			}
 		})

@@ -42,15 +42,17 @@ class CustomPeminatanEditText : TextInputEditText {
 				val peminatan = s?.toString() ?: "" // Menggunakan elvis operator untuk menangani kasus s null
 				val parentLayout = getParentTextInputLayout()
 
-				if (isValidPeminatan(peminatan)) {
+				if (peminatan.isNotEmpty() && isValidPeminatan(peminatan)) {
 					parentLayout?.error = null
 					parentLayout?.isErrorEnabled = false
 				} else {
-					if (s != null) { // Menambahkan pengecekan apakah s null atau tidak
-						parentLayout?.error = "Peminatan tidak valid!"
-						setCustomErrorTypeface(parentLayout)
-						parentLayout?.isErrorEnabled = true
+					parentLayout?.error = if (peminatan.isEmpty()) {
+						"Kolom ini tidak boleh kosong!"
+					} else {
+						"Peminatan tidak valid!"
 					}
+					setCustomErrorTypeface(parentLayout)
+					parentLayout?.isErrorEnabled = true
 				}
 			}
 		})

@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Minimumblue"
-    tools:context=".presentation.ui.kelompok.mahasiswakelompok.daftarkelompok.MahasiswaKelompokDaftarIndividuFragment">
-
+    android:background="@color/Minimumblue">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -114,6 +112,8 @@
                             android:fontFamily="@font/poppinsmedium"
                             android:hint="@string/tv_hint_judul_capstone"
                             android:maxLines="1"
+                            android:lines="1"
+                            android:singleLine="true"
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="12dp"
                             android:textColor="@color/lightblue"

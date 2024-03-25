@@ -44,7 +44,11 @@ class CustomEmailEditText : TextInputEditText {
 				val email = s?.toString() ?: "" // Menggunakan elvis operator untuk menangani kasus s null
 				val parentLayout = getParentTextInputLayout()
 
-				if (email.isNotEmpty() && !email.matches(emailPattern)) {
+				if (email.isEmpty()) {
+					parentLayout?.error = "Kolom ini tidak boleh kosong!"
+					setCustomErrorTypeface(parentLayout)
+					parentLayout?.isErrorEnabled = true
+				} else if (!email.matches(emailPattern)) {
 					parentLayout?.error = "Email tidak valid!"
 					setCustomErrorTypeface(parentLayout)
 					parentLayout?.isErrorEnabled = true
