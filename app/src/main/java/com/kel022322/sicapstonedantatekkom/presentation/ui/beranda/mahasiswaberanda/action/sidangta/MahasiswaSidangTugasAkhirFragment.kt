@@ -127,10 +127,28 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 						tvValueStatusPendaftaran.setTextColor(colorRed)
 
 						when (resultResponse?.data?.statusPendaftaran?.status) {
+							"Menunggu Penetapan Kelompok!",
+							"Menunggu Penetapan Dosbing!",
+							"Menunggu Persetujuan Anggota!",
+							"Menunggu Persetujuan Dosbing!",
+							"Menunggu Persetujuan Penguji!",
+							"Menunggu Validasi Kelompok!",
+							"Menunggu Validasi Expo!",
 							"Menunggu Validasi Jadwal!" -> {
 								tvValueStatusIndividu.setTextColor(colorOrange)
 								tvValueStatusPendaftaran.setTextColor(colorOrange)
 							}
+							"Validasi Kelompok Berhasil!",
+							"C100 Telah Disetujui!",
+							"Penguji Proposal Ditetapkan!",
+							"Dijadwalkan Sidang Proposal!",
+							"C200 Telah Disetujui!",
+							"C300 Telah Disetujui!",
+							"C400 Telah Disetujui!",
+							"C500 Telah Disetujui!",
+							"Validasi Expo Berhasil!",
+							"Lulus Expo Project!",
+							"Lulus Capstone Project!",
 							"Telah Dijadwalkan Sidang TA!" , "Lulus Sidang TA!"-> {
 								tvValueStatusIndividu.setTextColor(colorGreen)
 								tvValueStatusPendaftaran.setTextColor(colorGreen)
@@ -347,25 +365,25 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 			//  SidangTA sudah valid
 			with(binding) {
 				if (data.rsSidang == null) {
-					tvValueStatusIndividu.text = data.statusPendaftaran?.status
-					tvValueHariSidang.text = getSidangTAResult.payload.status
+					tvValueStatusIndividu.text = data.statusPendaftaran?.status ?: "-"
+					tvValueHariSidang.text = getSidangTAResult.payload.status ?: "-"
 
 					btnSelengkapnyaSidangTa.visibility = View.GONE
 				} else {
-					tvValueStatusIndividu.text = data.statusPendaftaran?.status
+					tvValueStatusIndividu.text = data.statusPendaftaran?.status ?: "-"
 					tvValueHariSidang.text =
 						"${data.rsSidang.hariSidang}, ${data.rsSidang.tanggalSidang}"
 					tvValueWaktuSidang.text = "${data.rsSidang.waktuSidang} WIB"
-					tvValueRuangSidang.text = data.rsSidang.namaRuang
-					tvValueJudul.text = data.rsSidang.judulTaMhs
+					tvValueRuangSidang.text = data.rsSidang.namaRuang ?: "-"
+					tvValueJudul.text = data.rsSidang.judulTaMhs ?: "-"
 
 					btnSelengkapnyaSidangTa.setOnClickListener {
 						findNavController().navigate(R.id.action_mahasiswaSidangTugasAkhirFragment_to_mahasiswaSidangTugasAkhirFragmentDetail)
 					}
 				}
 
-				edtJudulTugasAkhir.setText(data.rsSidang?.judulTaMhs)
-				edtLinkPendukungSidangTa.setText(data.rsSidang?.linkUpload)
+				edtJudulTugasAkhir.setText(data.rsSidang?.judulTaMhs ?: "-")
+				edtLinkPendukungSidangTa.setText(data.rsSidang?.linkUpload ?: "-")
 
 			}
 

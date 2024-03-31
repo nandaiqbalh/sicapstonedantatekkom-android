@@ -83,12 +83,12 @@ class MahasiswaSidangProposalDetailFragment : Fragment() {
 
 				val dataKelompok = data.kelompok
 				// card kelompok
-				tvValueStatusKelompok.text = data.statusKelompok
-				tvValueRuangSidang.text = data.namaRuang
+				tvValueStatusKelompok.text = data.statusKelompok ?: "-"
+				tvValueRuangSidang.text = data.namaRuang ?: "-"
 				tvValueHariSidang.text = "${data.hariSidang}, ${data.tanggalSidang}"
 				tvValueWaktuSidang.text = "${data.waktuSidang} WIB"
 
-				tvValueJudul.text = dataKelompok?.judulCapstone
+				tvValueJudul.text = dataKelompok?.judulCapstone ?: "-"
 
 			}
 
@@ -298,14 +298,26 @@ class MahasiswaSidangProposalDetailFragment : Fragment() {
 						tvValueStatusKelompok.setTextColor(colorRed)
 
 						when (resultResponse?.data?.kelompok?.statusKelompok) {
+							"Menunggu Penetapan Kelompok!",
+							"Menunggu Penetapan Dosbing!",
 							"Menunggu Persetujuan Anggota!",
-							"Menunggu Validasi Kelompok!", "Menunggu Validasi Expo!" -> {
+							"Menunggu Persetujuan Dosbing!",
+							"Menunggu Persetujuan Penguji!",
+							"Menunggu Validasi Kelompok!",
+							"Menunggu Validasi Expo!" -> {
 								tvValueStatusKelompok.setTextColor(colorOrange)
 							}
 							"Validasi Kelompok Berhasil!",
-							"C100 Telah Disetujui!",  "Telah Dijadwalkan Sidang C100!", "C200 Telah Disetujui!",
-							"C300 Telah Disetujui!", "C400 Telah Disetujui!",
-							"C500 Telah Disetujui!", "Validasi Expo Berhasil!" -> {
+							"C100 Telah Disetujui!",
+							"Penguji Proposal Ditetapkan!",
+							"Dijadwalkan Sidang Proposal!",
+							"C200 Telah Disetujui!",
+							"C300 Telah Disetujui!",
+							"C400 Telah Disetujui!",
+							"C500 Telah Disetujui!",
+							"Validasi Expo Berhasil!",
+							"Lulus Expo Project!",
+							"Lulus Capstone Project!" -> {
 								tvValueStatusKelompok.setTextColor(colorGreen)
 							}
 							else -> {

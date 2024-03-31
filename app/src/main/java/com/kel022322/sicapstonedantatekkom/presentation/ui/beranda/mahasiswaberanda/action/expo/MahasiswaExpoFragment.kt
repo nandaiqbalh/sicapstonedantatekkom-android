@@ -239,10 +239,26 @@ class MahasiswaExpoFragment : Fragment() {
 			tvValueStatusKelompok.text = data?.kelompok?.statusKelompok ?: "Belum Mendaftar Expo!"
 
 			when (data?.kelompok?.statusKelompok) {
+				"Menunggu Penetapan Kelompok!",
+				"Menunggu Penetapan Dosbing!",
+				"Menunggu Persetujuan Anggota!",
+				"Menunggu Persetujuan Dosbing!",
+				"Menunggu Persetujuan Penguji!",
+				"Menunggu Validasi Kelompok!",
 				"Menunggu Validasi Expo!" -> {
 					tvValueStatusKelompok.setTextColor(colorOrange)
 				}
-				"Validasi Expo Berhasil!" -> {
+				"Validasi Kelompok Berhasil!",
+				"C100 Telah Disetujui!",
+				"Penguji Proposal Ditetapkan!",
+				"Dijadwalkan Sidang Proposal!",
+				"C200 Telah Disetujui!",
+				"C300 Telah Disetujui!",
+				"C400 Telah Disetujui!",
+				"C500 Telah Disetujui!",
+				"Validasi Expo Berhasil!",
+				"Lulus Expo Project!",
+				"Lulus Capstone Project!" -> {
 					tvValueStatusKelompok.setTextColor(colorGreen)
 				}
 				else -> {

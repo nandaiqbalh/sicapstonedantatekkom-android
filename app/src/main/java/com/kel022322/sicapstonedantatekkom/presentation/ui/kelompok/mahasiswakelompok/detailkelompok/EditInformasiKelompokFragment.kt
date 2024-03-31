@@ -134,26 +134,38 @@ class EditInformasiKelompokFragment : Fragment() {
 			val dataKelompok = data?.kelompok
 			// card kelompok
 			tvValueNomorKelompokDetail.text = dataKelompok?.nomorKelompok ?: "-"
-			edtTopikCapstoneEdit.setText(dataKelompok?.namaTopik)
-			edtJudulCapstoneEdit.setText(dataKelompok?.judulCapstone)
+			edtTopikCapstoneEdit.setText(dataKelompok?.namaTopik) ?: "-"
+			edtJudulCapstoneEdit.setText(dataKelompok?.judulCapstone) ?: "-"
 
 			val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
 			val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
 			val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
 
-			with(binding){
+			// Kemudian dalam bagian pengaturan warna teks
+			with(binding) {
 				tvValueStatusKelompokDetail.text = data?.kelompok?.statusKelompok ?: "Belum Mendaftar Capstone!"
-				tvValueStatusKelompokDetail.setTextColor(colorRed)
 
 				when (data?.kelompok?.statusKelompok) {
+					"Menunggu Penetapan Kelompok!",
+					"Menunggu Penetapan Dosbing!",
 					"Menunggu Persetujuan Anggota!",
-					"Menunggu Validasi Kelompok!", "Menunggu Validasi Expo!" -> {
+					"Menunggu Persetujuan Dosbing!",
+					"Menunggu Persetujuan Penguji!",
+					"Menunggu Validasi Kelompok!",
+					"Menunggu Validasi Expo!" -> {
 						tvValueStatusKelompokDetail.setTextColor(colorOrange)
 					}
 					"Validasi Kelompok Berhasil!",
-					"C100 Telah Disetujui!",  "Telah Dijadwalkan Sidang C100!", "C200 Telah Disetujui!",
-					"C300 Telah Disetujui!", "C400 Telah Disetujui!",
-					"C500 Telah Disetujui!", "Validasi Expo Berhasil!" -> {
+					"C100 Telah Disetujui!",
+					"Penguji Proposal Ditetapkan!",
+					"Dijadwalkan Sidang Proposal!",
+					"C200 Telah Disetujui!",
+					"C300 Telah Disetujui!",
+					"C400 Telah Disetujui!",
+					"C500 Telah Disetujui!",
+					"Validasi Expo Berhasil!",
+					"Lulus Expo Project!",
+					"Lulus Capstone Project!" -> {
 						tvValueStatusKelompokDetail.setTextColor(colorGreen)
 					}
 					else -> {
@@ -317,7 +329,7 @@ class EditInformasiKelompokFragment : Fragment() {
 						Log.d("Succes status", status.toString())
 						showSnackbar(resultResponse.status ?: "Informasi berhasil diperbaharui!")
 
-						findNavController().navigate(R.id.action_editInformasiKelompokFragment_to_mahasiswaKelompokDetailFragment)
+						findNavController().navigate(R.id.action_editInformasiKelompokFragment_to_mahasiswaBerandaFragment)
 					} else {
 						setLoading(isLoading = false)
 

@@ -303,6 +303,7 @@
                                     android:ellipsize="end"
                                     android:fontFamily="@font/poppinsmedium"
                                     android:hint="@string/tv_hint_no_telp"
+                                    android:inputType="number"
                                     android:maxLines="1"
                                     android:paddingHorizontal="8dp"
                                     android:paddingVertical="12dp"

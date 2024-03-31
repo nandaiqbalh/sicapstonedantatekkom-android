@@ -341,19 +341,31 @@ class MahasiswaKelompokFragment : Fragment() {
 			val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
 			val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
 
-			with(binding){
+			// Kemudian dalam bagian pengaturan warna teks
+			with(binding) {
 				tvValueStatusKelompok.text = data.kelompok.statusKelompok ?: "Belum Mendaftar Capstone!"
-				tvValueStatusKelompok.setTextColor(colorRed)
 
 				when (data.kelompok.statusKelompok) {
+					"Menunggu Penetapan Kelompok!",
+					"Menunggu Penetapan Dosbing!",
 					"Menunggu Persetujuan Anggota!",
-					"Menunggu Validasi Kelompok!", "Menunggu Validasi Expo!" -> {
+					"Menunggu Persetujuan Dosbing!",
+					"Menunggu Persetujuan Penguji!",
+					"Menunggu Validasi Kelompok!",
+					"Menunggu Validasi Expo!" -> {
 						tvValueStatusKelompok.setTextColor(colorOrange)
 					}
 					"Validasi Kelompok Berhasil!",
-					"C100 Telah Disetujui!",  "Telah Dijadwalkan Sidang C100!", "C200 Telah Disetujui!",
-					"C300 Telah Disetujui!", "C400 Telah Disetujui!",
-					"C500 Telah Disetujui!", "Validasi Expo Berhasil!" -> {
+					"C100 Telah Disetujui!",
+					"Penguji Proposal Ditetapkan!",
+					"Dijadwalkan Sidang Proposal!",
+					"C200 Telah Disetujui!",
+					"C300 Telah Disetujui!",
+					"C400 Telah Disetujui!",
+					"C500 Telah Disetujui!",
+					"Validasi Expo Berhasil!",
+					"Lulus Expo Project!",
+					"Lulus Capstone Project!" -> {
 						tvValueStatusKelompok.setTextColor(colorGreen)
 					}
 					else -> {
@@ -369,8 +381,8 @@ class MahasiswaKelompokFragment : Fragment() {
 				// card kelompok
 				tvValueStatusKelompok.text = dataKelompok.statusKelompok
 				tvValueNomorKelompok.text = dataKelompok.nomorKelompok ?: "-"
-				tvValueTopik.text = dataKelompok.namaTopik
-				tvValueJudul.text = dataKelompok.judulCapstone
+				tvValueTopik.text = dataKelompok.namaTopik ?: "-"
+				tvValueJudul.text = dataKelompok.judulCapstone ?: "-"
 
 				val dataDosbing = data.rsDosbing
 				// card dosbing

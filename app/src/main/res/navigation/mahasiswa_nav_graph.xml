@@ -203,6 +203,9 @@
         <action
             android:id="@+id/action_editInformasiKelompokFragment_to_mahasiswaKelompokDetailFragment"
             app:destination="@id/mahasiswaKelompokDetailFragment" />
+        <action
+            android:id="@+id/action_editInformasiKelompokFragment_to_mahasiswaBerandaFragment"
+            app:destination="@id/mahasiswaBerandaFragment" />
     </fragment>
 
 </navigation>
