@@ -214,7 +214,10 @@ data class Kelompok(
     val statusDosenPengujiTa2: Any,
 
     @SerializedName("status_kelompok")
-    val statusKelompok: String
+    val statusKelompok: String,
+
+    @SerializedName("status_expo")
+    val statusExpo: String
 )
 
 data class RsExpo(

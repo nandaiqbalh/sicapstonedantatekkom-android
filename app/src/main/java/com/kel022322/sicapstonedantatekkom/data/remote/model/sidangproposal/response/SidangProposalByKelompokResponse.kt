@@ -60,5 +60,6 @@ data class Kelompok(
     @SerializedName("status_dosen_pembimbing_2") val statusDosenPembimbing2: String?,
     @SerializedName("status_dosen_penguji_1") val statusDosenPenguji1: String?,
     @SerializedName("status_dosen_penguji_2") val statusDosenPenguji2: String?,
-    @SerializedName("status_kelompok") val statusKelompok: String?
+    @SerializedName("status_kelompok") val statusKelompok: String?,
+    @SerializedName("status_sidang_proposal") val statusSidangProposal: String?
 )

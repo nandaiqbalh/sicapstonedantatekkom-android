@@ -236,9 +236,9 @@ class MahasiswaExpoFragment : Fragment() {
 		ContextCompat.getColor(requireContext(), R.color.lightblue)
 
 		with(binding){
-			tvValueStatusKelompok.text = data?.kelompok?.statusKelompok ?: "Belum Mendaftar Expo!"
+			tvValueStatusKelompok.text = data?.kelompok?.statusExpo ?: "Belum Mendaftar Expo!"
 
-			when (data?.kelompok?.statusKelompok) {
+			when (data?.kelompok?.statusExpo) {
 				"Menunggu Penetapan Kelompok!",
 				"Menunggu Penetapan Dosbing!",
 				"Menunggu Persetujuan Anggota!",

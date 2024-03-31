@@ -105,10 +105,10 @@ class MahasiswaSidangProposalFragment : Fragment() {
 //					if(resultResponse?.data?.kelompok?.)
 
 					with(binding){
-						tvValueStatusKelompok.text = resultResponse?.data?.kelompok?.statusKelompok ?: "Belum Mendaftar Capstone!"
+						tvValueStatusKelompok.text = resultResponse?.data?.kelompok?.statusSidangProposal ?: "Belum Mendaftar Capstone!"
 						tvValueStatusKelompok.setTextColor(colorRed)
 
-						when (resultResponse?.data?.kelompok?.statusKelompok) {
+						when (resultResponse?.data?.kelompok?.statusSidangProposal) {
 							"Menunggu Penetapan Kelompok!",
 							"Menunggu Penetapan Dosbing!",
 							"Menunggu Persetujuan Anggota!",
@@ -183,7 +183,7 @@ class MahasiswaSidangProposalFragment : Fragment() {
 
 				val dataKelompok = data.kelompok
 				// card kelompok
-				tvValueStatusKelompok.text = data.statusKelompok ?: "-"
+				tvValueStatusKelompok.text = data.kelompok?.statusSidangProposal ?: "-"
 				tvValueRuangSidang.text = data.namaRuang ?: "-"
 				tvValueHariSidang.text = "${data.hariSidang}, ${data.tanggalSidang}"
 				tvValueWaktuSidang.text = "${data.waktuSidang} WIB"
