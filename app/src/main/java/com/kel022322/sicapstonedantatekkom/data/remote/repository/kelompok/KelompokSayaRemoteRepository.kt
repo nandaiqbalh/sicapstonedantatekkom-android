@@ -5,6 +5,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindivid
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.response.AddKelompokIndividuRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.editkelompok.request.EditKelompokRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.editkelompok.response.EditKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.terimakelompok.TerimaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.tolakkelompok.TolakKelompokRemoteResponse
@@ -34,6 +36,11 @@ interface KelompokSayaRemoteRepository {
 		apiToken: String,
 		addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody,
 	): Resource<AddKelompokPunyaKelompokRemoteResponse>
+
+	suspend fun editInformasiKelompok(
+		apiToken: String,
+		editKelompokRemoteRequestBody: EditKelompokRemoteRequestBody
+	): Resource<EditKelompokRemoteResponse>
 }
 
 class KelompokSayaRemoteRepositoryImpl @Inject constructor(
@@ -77,6 +84,14 @@ class KelompokSayaRemoteRepositoryImpl @Inject constructor(
 			dataSource.addKelompokPunyaKelompok(apiToken, addKelompokPunyaKelompokRemoteRequestBody)
 		}
 	}
+
+	override suspend fun editInformasiKelompok(
+		apiToken: String,
+		editKelompokRemoteRequestBody: EditKelompokRemoteRequestBody,
+	): Resource<EditKelompokRemoteResponse> {
+		return proceed {
+			dataSource.editInformasiKelompok(apiToken, editKelompokRemoteRequestBody)
+		}	}
 
 	private suspend fun <T> proceed(coroutines: suspend () -> T): Resource<T> {
 		return try {

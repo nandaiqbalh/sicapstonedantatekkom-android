@@ -4,6 +4,8 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindivid
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.response.AddKelompokIndividuRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.editkelompok.request.EditKelompokRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.editkelompok.response.EditKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.terimakelompok.TerimaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.tolakkelompok.TolakKelompokRemoteResponse
@@ -33,6 +35,11 @@ interface KelompokSayaRemoteDataSource {
 		apiToken: String,
 		addKelompokPunyaKelompokRemoteRequestBody: AddKelompokPunyaKelompokRemoteRequestBody,
 	): AddKelompokPunyaKelompokRemoteResponse
+
+	suspend fun editInformasiKelompok(
+		apiToken: String,
+		editKelompokRemoteRequestBody: EditKelompokRemoteRequestBody
+	): EditKelompokRemoteResponse
 }
 
 class KelompokSayaRemoteDataSourceImpl @Inject constructor(
@@ -67,6 +74,16 @@ class KelompokSayaRemoteDataSourceImpl @Inject constructor(
 		return apiService.addKelompokPunyaKelompok(
 			apiToken,
 			addKelompokPunyaKelompokRemoteRequestBody
+		)
+	}
+
+	override suspend fun editInformasiKelompok(
+		apiToken: String,
+		editKelompokRemoteRequestBody: EditKelompokRemoteRequestBody,
+	): EditKelompokRemoteResponse {
+		return apiService.editInformasiKelompok(
+			apiToken,
+			editKelompokRemoteRequestBody
 		)
 	}
 }

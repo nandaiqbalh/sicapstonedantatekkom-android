@@ -64,6 +64,10 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 				findNavController().popBackStack()
 			}
 
+			btnUbahKelompok.setOnClickListener {
+				findNavController().navigate(R.id.action_mahasiswaKelompokDetailFragment_to_editInformasiKelompokFragment)
+			}
+
 		}
 	}
 

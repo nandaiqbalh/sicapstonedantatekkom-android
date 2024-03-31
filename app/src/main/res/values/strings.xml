@@ -190,4 +190,5 @@
     <string name="tv_hari_expo">Hari, tanggal</string>
     <string name="tv_waktu_expo">Waktu</string>
     <string name="tv_tempat_expo">Tempat</string>
+    <string name="edit_informasi_kelompok">Ubah Informasi Kelompok</string>
 </resources>

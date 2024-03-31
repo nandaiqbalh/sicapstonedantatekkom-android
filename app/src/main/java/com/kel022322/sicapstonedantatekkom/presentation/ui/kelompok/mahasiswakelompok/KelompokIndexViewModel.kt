@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.editkelompok.request.EditKelompokRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.editkelompok.response.EditKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.terimakelompok.TerimaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.tolakkelompok.TolakKelompokRemoteResponse
@@ -121,4 +123,42 @@ class KelompokIndexViewModel @Inject constructor(
 	}
 
 
+	private var _editKelompokResult =
+		MutableLiveData<Resource<EditKelompokRemoteResponse>>()
+	val editKelompokResult: LiveData<Resource<EditKelompokRemoteResponse>> get() = _editKelompokResult
+
+	fun editInformasiKelompok(
+		apiToken: String,
+		editKelompokRemoteRequestBody: EditKelompokRemoteRequestBody
+	) {
+
+		viewModelScope.launch(Dispatchers.IO) {
+
+			_editKelompokResult.postValue(Resource.Loading())
+
+			try {
+				val data = kelompokSayaRemoteRepository.editInformasiKelompok(
+					apiToken,
+					editKelompokRemoteRequestBody
+				)
+
+				Log.d("PAYLOAD EDIT", data.payload.toString())
+
+				if (data.payload != null) {
+					viewModelScope.launch(Dispatchers.Main) {
+						_editKelompokResult.postValue(Resource.Success(data.payload))
+					}
+				} else {
+					_editKelompokResult.postValue(Resource.Error(data.exception, null))
+				}
+
+			} catch (e: Exception) {
+				viewModelScope.launch(Dispatchers.Main) {
+					_editKelompokResult.postValue(Resource.Error(e, null))
+				}
+			}
+
+		}
+
+	}
 }
