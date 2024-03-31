@@ -121,7 +121,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 					with(binding){
 						tvValueStatusIndividu.text = resultResponse?.data?.rsSidang?.statusIndividu ?: "Belum Mendaftar Sidang TA!"
-						tvValueStatusPendaftaran.text = resultResponse?.data?.statusPendaftaran?.status ?: "Belum Mendaftar Sidang TA!"
+						tvValueStatusPendaftaran.text = resultResponse?.data?.rsSidang?.statusIndividu ?: "Belum Mendaftar Sidang TA!"
 
 						tvValueStatusIndividu.setTextColor(colorRed)
 						tvValueStatusPendaftaran.setTextColor(colorRed)
@@ -164,6 +164,8 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 					if (resultResponse?.success == true) {
 
 						with(binding) {
+							edtJudulTugasAkhir.setText(resultResponse.data?.kelompok?.judulTAMhs)
+							edtLinkPendukungSidangTa.setText(resultResponse.data?.kelompok?.linkUpload)
 
 							setCardSidangTA(getSidangTAResult)
 
@@ -361,29 +363,37 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 		val data = getSidangTAResult.payload?.data
 
+
 		if (data != null) {
+
 			//  SidangTA sudah valid
 			with(binding) {
 				if (data.rsSidang == null) {
+					edtJudulTugasAkhir.setText(data.kelompok?.judulTAMhs)
+					edtLinkPendukungSidangTa.setText(data.kelompok?.linkUpload)
+
 					tvValueStatusIndividu.text = data.statusPendaftaran?.status ?: "-"
 					tvValueHariSidang.text = getSidangTAResult.payload.status ?: "-"
 
 					btnSelengkapnyaSidangTa.visibility = View.GONE
 				} else {
+					edtJudulTugasAkhir.setText(data.kelompok?.judulTAMhs)
+					edtLinkPendukungSidangTa.setText(data.kelompok?.linkUpload)
+
 					tvValueStatusIndividu.text = data.statusPendaftaran?.status ?: "-"
 					tvValueHariSidang.text =
 						"${data.rsSidang.hariSidang}, ${data.rsSidang.tanggalSidang}"
 					tvValueWaktuSidang.text = "${data.rsSidang.waktuSidang} WIB"
 					tvValueRuangSidang.text = data.rsSidang.namaRuang ?: "-"
-					tvValueJudul.text = data.rsSidang.judulTaMhs ?: "-"
+					tvValueJudul.text = data.kelompok?.judulTAMhs ?: "-"
 
 					btnSelengkapnyaSidangTa.setOnClickListener {
 						findNavController().navigate(R.id.action_mahasiswaSidangTugasAkhirFragment_to_mahasiswaSidangTugasAkhirFragmentDetail)
 					}
 				}
 
-				edtJudulTugasAkhir.setText(data.rsSidang?.judulTaMhs ?: "-")
-				edtLinkPendukungSidangTa.setText(data.rsSidang?.linkUpload ?: "-")
+				edtJudulTugasAkhir.setText(data.kelompok?.judulTAMhs ?: "-")
+				edtLinkPendukungSidangTa.setText(data.kelompok?.linkUpload ?: "-")
 
 			}
 

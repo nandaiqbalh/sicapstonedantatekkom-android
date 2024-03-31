@@ -159,6 +159,8 @@ class EditInformasiKelompokFragment : Fragment() {
 					"C100 Telah Disetujui!",
 					"Penguji Proposal Ditetapkan!",
 					"Dijadwalkan Sidang Proposal!",
+					"Persetujuan Penguji Berhasil!",
+					"Lulus Sidang Proposal!",
 					"C200 Telah Disetujui!",
 					"C300 Telah Disetujui!",
 					"C400 Telah Disetujui!",

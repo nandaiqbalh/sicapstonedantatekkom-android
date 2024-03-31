@@ -101,6 +101,9 @@ class MahasiswaSidangProposalFragment : Fragment() {
 					val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
 					val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
 
+					// ketika sudah lulus, sudah tidak usah update status lagi
+//					if(resultResponse?.data?.kelompok?.)
+
 					with(binding){
 						tvValueStatusKelompok.text = resultResponse?.data?.kelompok?.statusKelompok ?: "Belum Mendaftar Capstone!"
 						tvValueStatusKelompok.setTextColor(colorRed)
@@ -119,6 +122,8 @@ class MahasiswaSidangProposalFragment : Fragment() {
 							"C100 Telah Disetujui!",
 							"Penguji Proposal Ditetapkan!",
 							"Dijadwalkan Sidang Proposal!",
+								"Persetujuan Penguji Berhasil!",
+							"Lulus Sidang Proposal!",
 							"C200 Telah Disetujui!",
 							"C300 Telah Disetujui!",
 							"C400 Telah Disetujui!",

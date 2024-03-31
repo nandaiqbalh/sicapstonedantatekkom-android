@@ -253,11 +253,12 @@
                                 android:fontFamily="@font/poppinsmedium"
                                 android:hint="@string/tv_hint_topik_capstone"
                                 android:maxLines="1"
-                                android:paddingHorizontal="8dp"
+                                android:lines="1"
+                                android:singleLine="true"                                android:paddingHorizontal="8dp"
                                 android:paddingVertical="12dp"
                                 android:textColor="@color/lightblue"
                                 android:textColorHint="@color/DarkGrey"
-                                android:textSize="10sp"
+                                android:textSize="11sp"
                                 tools:ignore="SmallSp,SpeakableTextPresentCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -295,7 +296,7 @@
                                 android:paddingVertical="12dp"
                                 android:textColor="@color/lightblue"
                                 android:textColorHint="@color/DarkGrey"
-                                android:textSize="10sp"
+                                android:textSize="11sp"
                                 tools:ignore="SmallSp,TextContrastCheck,TouchTargetSizeCheck" />
 
                         </com.google.android.material.textfield.TextInputLayout>
