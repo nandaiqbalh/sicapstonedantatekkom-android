@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.DataXBroadcastPaginate
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.allbroadcast.RsBroadcast
 import com.kel022322.sicapstonedantatekkom.databinding.ItemMahasiswaPengumumanBinding
 import com.kel022322.sicapstonedantatekkom.util.GlideApp
 
-class PengumumanAdapter : RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHolder>() {
-	private var broadcastList: List<DataXBroadcastPaginate> = emptyList()
+class AllPengumumanAdapter : RecyclerView.Adapter<AllPengumumanAdapter.BroadcastViewHolder>() {
+	private var broadcastList: List<RsBroadcast> = emptyList()
 
-	var itemClickListener: ((item: DataXBroadcastPaginate) -> Unit)? = null
+	var itemClickListener: ((item: RsBroadcast) -> Unit)? = null
 
 	private lateinit var onItemClickCallBack: OnItemClickCallBack
 
@@ -21,17 +21,17 @@ class PengumumanAdapter : RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHo
 		this.onItemClickCallBack = onItemClickCallBack
 	}
 
-	private val diffCallback = object : DiffUtil.ItemCallback<DataXBroadcastPaginate>() {
+	private val diffCallback = object : DiffUtil.ItemCallback<RsBroadcast>() {
 		override fun areItemsTheSame(
-			oldItem: DataXBroadcastPaginate,
-			newItem: DataXBroadcastPaginate,
+			oldItem: RsBroadcast,
+			newItem: RsBroadcast,
 		): Boolean {
 			return oldItem.id == newItem.id
 		}
 
 		override fun areContentsTheSame(
-			oldItem: DataXBroadcastPaginate,
-			newItem: DataXBroadcastPaginate,
+			oldItem: RsBroadcast,
+			newItem: RsBroadcast,
 		): Boolean {
 			return oldItem.hashCode() == newItem.hashCode()
 		}
@@ -39,14 +39,14 @@ class PengumumanAdapter : RecyclerView.Adapter<PengumumanAdapter.BroadcastViewHo
 
 	private val differ = AsyncListDiffer(this, diffCallback)
 
-	fun setList(broadcasts: List<DataXBroadcastPaginate>?) {
+	fun setList(broadcasts: List<RsBroadcast>?) {
 		differ.submitList(broadcasts)
 	}
 
 	inner class BroadcastViewHolder(private val binding: ItemMahasiswaPengumumanBinding) :
 		RecyclerView.ViewHolder(binding.root) {
 		@SuppressLint("SetTextI18n")
-		fun bind(broadcast: DataXBroadcastPaginate) {
+		fun bind(broadcast: RsBroadcast) {
 			binding.apply {
 
 				tvItemPengumumanTitle.text = broadcast.namaEvent

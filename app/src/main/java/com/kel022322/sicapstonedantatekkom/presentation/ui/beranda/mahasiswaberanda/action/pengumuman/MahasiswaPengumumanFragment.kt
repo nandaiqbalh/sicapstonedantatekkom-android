@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaPengumumanBinding
-import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.adapter.PengumumanAdapter
+import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.adapter.AllPengumumanAdapter
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -104,10 +104,10 @@ class MahasiswaPengumumanFragment : Fragment() {
 
 						}
 
-					} else if (broadcastResult.payload?.success == true && broadcastResult.payload.data?.rs_broadcast?.data != null) {
-						val pengumumanAdapter = PengumumanAdapter()
+					} else if (broadcastResult.payload?.success == true) {
+						val pengumumanAdapter = AllPengumumanAdapter()
 
-						pengumumanAdapter.setList(broadcastResult.payload.data.rs_broadcast.data)
+						pengumumanAdapter.setList(broadcastResult.payload.data.rs_broadcast)
 
 						binding.rvPengumuman.layoutManager = LinearLayoutManager(
 							requireContext(),
@@ -118,7 +118,7 @@ class MahasiswaPengumumanFragment : Fragment() {
 						binding.rvPengumuman.adapter = pengumumanAdapter
 
 						// navigate to detail
-						pengumumanAdapter.setOnItemClickCallback(object : PengumumanAdapter.OnItemClickCallBack {
+						pengumumanAdapter.setOnItemClickCallback(object : AllPengumumanAdapter.OnItemClickCallBack {
 							override fun onItemClicked(broadcastId: String) {
 								val action =
 									MahasiswaPengumumanFragmentDirections.actionMahasiswaPengumumanFragmentToMahasiswaDetailPengumumanFragment(

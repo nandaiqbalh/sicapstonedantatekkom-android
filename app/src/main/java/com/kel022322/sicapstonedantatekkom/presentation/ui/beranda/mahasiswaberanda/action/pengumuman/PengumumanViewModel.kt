@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.allbroadcast.AllBroadcastRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast.BroadcastRemoteRepository
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +17,8 @@ class PengumumanViewModel @Inject constructor(
 	private val broadcastRemoteRepository: BroadcastRemoteRepository,
 ) : ViewModel() {
 
-	private val _broadcastResult = MutableLiveData<Resource<BroadcastPaginateRemoteResponse>>()
-	val broadcastResult: LiveData<Resource<BroadcastPaginateRemoteResponse>> get() = _broadcastResult // LiveData untuk diobserve di luar kelas
+	private val _broadcastResult = MutableLiveData<Resource<AllBroadcastRemoteResponse>>()
+	val broadcastResult: LiveData<Resource<AllBroadcastRemoteResponse>> get() = _broadcastResult // LiveData untuk diobserve di luar kelas
 
 
 	fun getBroadcast() {

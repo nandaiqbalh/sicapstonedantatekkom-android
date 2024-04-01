@@ -3,6 +3,7 @@ package com.kel022322.sicapstonedantatekkom.data.remote.service
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthLoginRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.response.AuthLoginRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.response.AuthLogoutRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.allbroadcast.AllBroadcastRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.response.BroadcastDetailRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
@@ -65,7 +66,7 @@ interface ApiService {
 
 	@GET("capstone_team/public/api/v1/mahasiswa/broadcast")
 	suspend fun getBroadcast(
-	): BroadcastPaginateRemoteResponse
+	): AllBroadcastRemoteResponse
 
 	@GET("capstone_team/public/api/v1/mahasiswa/broadcast-home")
 	suspend fun getBroadcastHome(

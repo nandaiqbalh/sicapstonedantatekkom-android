@@ -27,7 +27,6 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.file.index.response
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaDokumenTugasAkhirBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.dokumen.mahasiswadokumen.DokumenViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.KelompokIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
@@ -48,7 +47,6 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 
 	private val dokumenViewModel: DokumenViewModel by viewModels()
 	private val userViewModel: UserViewModel by viewModels()
-	private val kelompokViewModel: KelompokIndexViewModel by viewModels()
 
 	private var id: String? = ""
 
@@ -66,91 +64,14 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		checkKelompok()
+		checkDokumen()
 
 		btnListener()
 
 	}
 
-	private fun checkKelompok() {
-		setLoadingKelompok(true)
-		setViewVisibility(binding.linearLayoutDokumenTugasAkhir, false)
-		setViewVisibility(binding.cvBelumMemilikiKelompokTugasAkhir, false)
-
-		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
-			apiToken?.let {
-				kelompokViewModel.getKelompokSaya(apiToken)
-			}
-		}
-
-		kelompokViewModel.getKelompokSayaResult.observe(viewLifecycleOwner) { getKelompokSayaResult ->
-			val resultResponse = getKelompokSayaResult.payload
-
-			when (getKelompokSayaResult) {
-				is Resource.Loading -> {
-					setLoadingKelompok(true)
-				}
-
-				is Resource.Error -> {
-					setLoadingKelompok(false)
-					Log.d("Result error", getKelompokSayaResult.toString())
-
-					binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.VISIBLE
-					binding.tvBelumMemilikiKelompokTugasAkhir.text =
-						getString(R.string.tv_terjadi_kesalahan)
-
-					binding.linearLayoutDokumenTugasAkhir.visibility = View.GONE
-				}
-
-				is Resource.Success -> {
-					checkDokumen()
-
-					setLoadingKelompok(false)
-
-					Log.d("Result success", resultResponse.toString())
-
-					val dataKelompok = getKelompokSayaResult.payload?.data
-					val status = getKelompokSayaResult.payload?.status
-
-					if (getKelompokSayaResult.payload?.success == true) {
-
-						if (dataKelompok?.kelompok?.nomorKelompok != null) {
-							binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.GONE
-
-							binding.linearLayoutDokumenTugasAkhir.visibility = View.VISIBLE
-						} else {
-							binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.VISIBLE
-							binding.tvBelumMemilikiKelompokTugasAkhir.setText(R.string.kelompok_belum_valid)
-
-							binding.linearLayoutDokumenTugasAkhir.visibility = View.GONE
-						}
-
-					} else {
-
-						with(binding){
-							Log.d("Update Succes status, but failed", status.toString())
-
-							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
-
-								actionIfLogoutSucces()
-							} else {
-								setViewVisibility(linearLayoutDokumenTugasAkhir, false)
-								setViewVisibility(cvBelumMemilikiKelompokTugasAkhir, true)
-								tvBelumMemilikiKelompokTugasAkhir.text =
-									status ?: "Belum mendaftar capstone"
-
-							}
-						}
-					}
-
-				}
-
-				else -> {}
-			}
-		}
-	}
-
 	private fun checkDokumen() {
+		setLoading(true)
 		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
 			apiToken?.let {
 				dokumenViewModel.getFileIndex(apiToken)
@@ -164,19 +85,37 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 			val status = resultResponse?.status
 			when (getFileIndexResult) {
 				is Resource.Loading -> {
+					setLoading(true)
 				}
 
 				is Resource.Error -> {
+					setLoading(false)
+					binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.VISIBLE
+					binding.tvBelumMemilikiKelompokTugasAkhir.text = resultResponse?.status ?: "Mohon periksa kembali koneksi internet Anda!"
+
+					binding.linearLayoutDokumenTugasAkhir.visibility = View.GONE
 				}
 
 				is Resource.Success -> {
+					setLoading(false)
 					id = getFileIndexResult.payload?.data?.fileMhs?.id.toString()
 
 					if (resultResponse?.success == true) {
+
+						binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.GONE
+
+						binding.linearLayoutDokumenTugasAkhir.visibility = View.VISIBLE
+
 						checkFile(getFileIndexResult)
 
 						viewDokumen(getFileIndexResult)
 					} else {
+
+						binding.cvBelumMemilikiKelompokTugasAkhir.visibility = View.VISIBLE
+						binding.tvBelumMemilikiKelompokTugasAkhir.text = resultResponse?.status ?: "Mohon periksa kembali koneksi internet Anda!"
+
+						binding.linearLayoutDokumenTugasAkhir.visibility = View.GONE
+
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
 							actionIfLogoutSucces()
 						}
@@ -509,13 +448,9 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 	private fun setLoading(isLoading: Boolean) {
 		with(binding) {
 			setShimmerVisibility(shimmerDokumenTugasAkhir, isLoading)
-		}
-	}
 
-	private fun setLoadingKelompok(isLoading: Boolean) {
-		with(binding) {
-			setShimmerVisibility(shimmerDokumenTugasAkhir, isLoading)
-
+			setViewVisibility(linearLayoutDokumenTugasAkhir, false)
+			setViewVisibility(cvBelumMemilikiKelompokTugasAkhir, false)
 		}
 	}
 

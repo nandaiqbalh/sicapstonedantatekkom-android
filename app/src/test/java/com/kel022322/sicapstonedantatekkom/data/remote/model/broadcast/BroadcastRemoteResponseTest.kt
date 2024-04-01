@@ -1,5 +1,6 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast
 
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.allbroadcast.RsBroadcast
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

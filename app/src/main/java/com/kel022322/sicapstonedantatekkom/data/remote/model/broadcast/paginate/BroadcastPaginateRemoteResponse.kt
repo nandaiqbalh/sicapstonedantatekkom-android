@@ -34,7 +34,8 @@ data class DataXBroadcastPaginate(
     @SerializedName("modified_date") val modifiedDate: String?,
     @SerializedName("nama_event") val namaEvent: String?,
     @SerializedName("tgl_mulai") val tglMulai: String?,
-    @SerializedName("tgl_selesai") val tglSelesai: String?
+    @SerializedName("tgl_selesai") val tglSelesai: String?,
+    @SerializedName("postDate") val postDate: String?,
 ) : Parcelable
 
 data class LinkBroadcastPaginate(

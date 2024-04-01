@@ -1,15 +1,16 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast
 
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast.BroadcastRemoteDataSource
-import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.response.BroadcastDetailRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.allbroadcast.AllBroadcastRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.response.BroadcastDetailRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import javax.inject.Inject
 
 interface BroadcastRemoteRepository {
 	suspend fun getBroadcast(
-	): Resource<BroadcastPaginateRemoteResponse>
+	): Resource<AllBroadcastRemoteResponse>
 
 	suspend fun getBroadcastHome(
 	): Resource<BroadcastPaginateRemoteResponse>
@@ -22,7 +23,7 @@ interface BroadcastRemoteRepository {
 class BroadcastRemoteRepositoryImpl @Inject constructor(private val dataSource: BroadcastRemoteDataSource) :
 	BroadcastRemoteRepository {
 	override suspend fun getBroadcast(
-	): Resource<BroadcastPaginateRemoteResponse> {
+	): Resource<AllBroadcastRemoteResponse> {
 		return proceed {
 			dataSource.getBroadcast()
 		}
