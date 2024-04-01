@@ -699,38 +699,53 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 	private fun setDropdownMahasiswa(getMahasiswaResult: Resource<MahasiswaIndexRemoteResponse>) {
 
-		// mahasiswa 2
-		val mahasiswa2Adapter =
-			getMahasiswaResult.payload?.data?.rs_mahasiswa?.let {
-				ListMahasiswaDuaAdapter(
-					requireContext(),
-					it
-				)
+		with(binding) {
+
+
+			// mahasiswa 2
+			val mahasiswa2Adapter =
+				getMahasiswaResult.payload?.data?.rs_mahasiswa?.let {
+					ListMahasiswaDuaAdapter(
+						requireContext(),
+						it
+					)
+				}
+			edtNamaLengkapMahasiswa2.setAdapter(mahasiswa2Adapter)
+
+			edtNamaLengkapMahasiswa2.setOnItemClickListener { _, _, position, _ ->
+				val selectedMahasiswa2 = mahasiswa2Adapter?.getItem(position)
+				selectedIdMahasiswa2 = selectedMahasiswa2?.userId.toString()
+
+				edtNamaLengkapMahasiswa2.setText(selectedMahasiswa2?.userName)
+				edtNimMahasiswa2.setText(selectedMahasiswa2?.nomorInduk)
+				edtAngkatanMahasiswa2.setText(selectedMahasiswa2?.angkatan)
+				edtJenisKelaminMahasiswa2.setText(selectedMahasiswa2?.jenisKelamin)
+				edtNoTelpMahasiswa2.setText(selectedMahasiswa2?.noTelp)
+				edtEmailMahasiswa2.setText(selectedMahasiswa2?.userEmail)
+
 			}
-		binding.edtNamaLengkapMahasiswa2.setAdapter(mahasiswa2Adapter)
 
-		binding.edtNamaLengkapMahasiswa2.setOnItemClickListener { _, _, position, _ ->
-			val selectedMahasiswa2 = mahasiswa2Adapter?.getItem(position)
-			selectedIdMahasiswa2 = selectedMahasiswa2?.userId.toString()
+			// mahasiswa3
+			val mahasiswa3Adapter =
+				getMahasiswaResult.payload?.data?.rs_mahasiswa?.let {
+					ListMahasiswaDuaAdapter(
+						requireContext(),
+						it
+					)
+				}
+			edtNamaLengkapMahasiswa3.setAdapter(mahasiswa3Adapter)
 
-			binding.edtNamaLengkapMahasiswa2.setText(selectedMahasiswa2?.userName)
-		}
+			edtNamaLengkapMahasiswa3.setOnItemClickListener { _, _, position, _ ->
+				val selectedMahasiswa3 = mahasiswa3Adapter?.getItem(position)
+				selectedIdMahasiswa3 = selectedMahasiswa3?.userId.toString()
 
-		// mahasiswa3
-		val mahasiswa3Adapter =
-			getMahasiswaResult.payload?.data?.rs_mahasiswa?.let {
-				ListMahasiswaDuaAdapter(
-					requireContext(),
-					it
-				)
+				edtNamaLengkapMahasiswa3.setText(selectedMahasiswa3?.userName)
+				edtNimMahasiswa3.setText(selectedMahasiswa3?.nomorInduk)
+				edtAngkatanMahasiswa3.setText(selectedMahasiswa3?.angkatan)
+				edtJenisKelaminMahasiswa3.setText(selectedMahasiswa3?.jenisKelamin)
+				edtNoTelpMahasiswa3.setText(selectedMahasiswa3?.noTelp)
+				edtEmailMahasiswa3.setText(selectedMahasiswa3?.userEmail)
 			}
-		binding.edtNamaLengkapMahasiswa3.setAdapter(mahasiswa3Adapter)
-
-		binding.edtNamaLengkapMahasiswa3.setOnItemClickListener { _, _, position, _ ->
-			val selectedMahasiswa3 = mahasiswa3Adapter?.getItem(position)
-			selectedIdMahasiswa3 = selectedMahasiswa3?.userId.toString()
-
-			binding.edtNamaLengkapMahasiswa3.setText(selectedMahasiswa3?.userName)
 		}
 	}
 
