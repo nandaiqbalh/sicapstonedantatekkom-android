@@ -6,8 +6,6 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindivid
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.response.AddKelompokPunyaKelompokRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.index.response.KelompokSayaRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.status.UpdateStatusKelompokBackwardRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.status.UpdateStatusKelompokForwardRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.service.ApiService
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -42,32 +40,6 @@ class KelompokSayaRemoteDataSourceImplTest {
 
 		// Act
 		val actualResponse = dataSource.getKelompokSaya(apiToken)
-
-		// Assert
-		assertEquals("Returned response should match expected response", expectedResponse, actualResponse)
-	}
-
-	@Test
-	fun `updateStatusKelompokForward should return correct response`() = runBlocking {
-		// Arrange
-		val expectedResponse = mockk<UpdateStatusKelompokForwardRemoteResponse>()
-		Mockito.`when`(apiService.updateStatusKelompokForward(apiToken)).thenReturn(expectedResponse)
-
-		// Act
-		val actualResponse = dataSource.updateStatusKelompokForward(apiToken)
-
-		// Assert
-		assertEquals("Returned response should match expected response", expectedResponse, actualResponse)
-	}
-
-	@Test
-	fun `updateStatusKelompokBackward should return correct response`() = runBlocking {
-		// Arrange
-		val expectedResponse = mockk<UpdateStatusKelompokBackwardRemoteResponse>()
-		Mockito.`when`(apiService.updateStatusKelompokBackward(apiToken)).thenReturn(expectedResponse)
-
-		// Act
-		val actualResponse = dataSource.updateStatusKelompokBackward(apiToken)
 
 		// Assert
 		assertEquals("Returned response should match expected response", expectedResponse, actualResponse)

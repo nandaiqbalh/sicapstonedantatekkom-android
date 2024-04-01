@@ -386,11 +386,22 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 						if (selectedIdMahasiswa2 == "") {
 
 							binding.edtNamaLengkapMahasiswa2.text = null
+							binding.edtNimMahasiswa2.text = null
+							binding.edtAngkatanMahasiswa2.text = null
+							binding.edtJenisKelaminMahasiswa2.text = null
+							binding.edtNoTelpMahasiswa2.text = null
+							binding.edtEmailMahasiswa2.text = null
+
 						}
 
 						if (selectedIdMahasiswa3 == "") {
 
 							binding.edtNamaLengkapMahasiswa3.text = null
+							binding.edtNimMahasiswa3.text = null
+							binding.edtAngkatanMahasiswa3.text = null
+							binding.edtJenisKelaminMahasiswa3.text = null
+							binding.edtNoTelpMahasiswa3.text = null
+							binding.edtEmailMahasiswa3.text = null
 						}
 
 					} else {
@@ -608,6 +619,9 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 				edtNimMahasiswa1.setText(dataAkun.nomorInduk)
 				edtEmailMahasiswa1.setText(dataAkun.userEmail)
 				edtNoTelpMahasiswa1.setText(dataAkun.noTelp)
+				edtAngkatanMahasiswa1.setText(dataAkun.angkatan)
+				edtJenisKelaminMahasiswa1.setText(dataAkun.jenisKelamin)
+
 			}
 		}
 

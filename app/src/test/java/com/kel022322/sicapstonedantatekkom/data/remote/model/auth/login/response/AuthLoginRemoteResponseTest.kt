@@ -36,12 +36,11 @@ class AuthLoginRemoteResponseTest {
 		)
 
 		// Act
-		val response = AuthLoginRemoteResponse(status, success, message, userData)
+		val response = AuthLoginRemoteResponse(status, success, userData)
 
 		// Assert
 		assertEquals("Status should match", status, response.status)
 		assertEquals("Success should match", success, response.success)
-		assertEquals("Message should match", message, response.message)
 		assertEquals("UserData should match", userData, response.userData)
 	}
 

@@ -4,8 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.request.DaftarSidangTARemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.daftar.response.DaftarSidangTARemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.index.response.SidangTARemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.status.UpdateStatusIndividuBackwardRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.sidangta.status.UpdateStatusIndividuForwardRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.service.ApiService
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -40,32 +38,6 @@ class SidangTARemoteDataSourceImplTest {
 
 		// Act
 		val actualResponse = dataSource.getJadwalSidangTA(apiToken)
-
-		// Assert
-		assertEquals("Returned response should match expected response", expectedResponse, actualResponse)
-	}
-
-	@Test
-	fun `updateStatusIndividuForward should return correct response`() = runBlocking {
-		// Arrange
-		val expectedResponse = mockk<UpdateStatusIndividuForwardRemoteResponse>()
-		Mockito.`when`(apiService.updateStatusIndividuForward(apiToken)).thenReturn(expectedResponse)
-
-		// Act
-		val actualResponse = dataSource.updateStatusIndividuForward(apiToken)
-
-		// Assert
-		assertEquals("Returned response should match expected response", expectedResponse, actualResponse)
-	}
-
-	@Test
-	fun `updateStatusIndividuBackward should return correct response`() = runBlocking {
-		// Arrange
-		val expectedResponse = mockk<UpdateStatusIndividuBackwardRemoteResponse>()
-		Mockito.`when`(apiService.updateStatusIndividuBackward(apiToken)).thenReturn(expectedResponse)
-
-		// Act
-		val actualResponse = dataSource.updateStatusIndividuBackward(apiToken)
 
 		// Assert
 		assertEquals("Returned response should match expected response", expectedResponse, actualResponse)

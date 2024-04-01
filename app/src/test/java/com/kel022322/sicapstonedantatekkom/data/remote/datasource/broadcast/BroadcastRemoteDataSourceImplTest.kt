@@ -1,8 +1,9 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.response.BroadcastDetailRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.allbroadcast.AllBroadcastRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
+import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.response.BroadcastDetailRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.paginate.BroadcastPaginateRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.service.ApiService
 import io.mockk.mockk
@@ -32,7 +33,7 @@ class BroadcastRemoteDataSourceImplTest {
 	@Test
 	fun `getBroadcast should return correct response`() = runBlocking {
 		// Arrange
-		val expectedResponse = mockk<BroadcastPaginateRemoteResponse>()
+		val expectedResponse = mockk<AllBroadcastRemoteResponse>()
 		Mockito.`when`(apiService.getBroadcast()).thenReturn(expectedResponse)
 
 		// Act
