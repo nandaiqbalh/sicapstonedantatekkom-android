@@ -183,6 +183,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
+                                android:focusable="false"
                                 app:errorTextAppearance="@style/ErrorTextAppearance"
                                 app:hintEnabled="false">
 
@@ -195,6 +196,7 @@
                                     android:fontFamily="@font/poppinsmedium"
                                     android:hint="@string/tv_hint_nama_lengkap"
                                     android:maxLines="1"
+                                    android:inputType="none"
                                     android:paddingHorizontal="8dp"
                                     android:paddingVertical="12dp"
                                     android:textColor="@color/lightblue"
@@ -229,6 +231,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
+                                    android:inputType="none"
                                     android:editable="false"
                                     android:fontFamily="@font/poppinsmedium"
                                     android:hint="@string/tv_hint_nama_lengkap"
@@ -342,6 +345,7 @@
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
                                     android:editable="false"
+                                    android:inputType="none"
                                     android:fontFamily="@font/poppinsmedium"
                                     android:hint="@string/tv_hint_jenis_kelamin"
                                     android:maxLines="1"

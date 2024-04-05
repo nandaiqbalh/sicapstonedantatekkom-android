@@ -209,6 +209,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:focusable="false"
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
@@ -217,6 +218,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
+                            android:inputType="none"
                             android:editable="false"
                             android:fontFamily="@font/poppinsmedium"
                             android:hint="@string/tv_hint_nama_lengkap"
@@ -258,7 +260,7 @@
                             android:ellipsize="end"
                             android:fontFamily="@font/poppinsmedium"
                             android:hint="@string/tv_hint_nim"
-                            android:inputType="number"
+                            android:inputType="none"
                             android:maxLines="1"
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="12dp"
@@ -286,6 +288,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:focusable="false"
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
@@ -294,7 +297,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
-                            android:inputType="number"
+                            android:inputType="none"
                             android:editable="false"
                             android:fontFamily="@font/poppinsmedium"
                             android:hint="@string/tv_hint_angkatan"
@@ -324,6 +327,7 @@
                         style="@style/CustomTextInputLayoutWithDropdown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="false"
                         android:layout_marginTop="4dp"
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
@@ -334,6 +338,7 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:editable="false"
+                            android:inputType="none"
                             android:fontFamily="@font/poppinsmedium"
                             android:hint="@string/tv_hint_jenis_kelamin"
                             android:maxLines="1"
@@ -362,6 +367,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:focusable="false"
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
@@ -372,7 +378,7 @@
                             android:ellipsize="end"
                             android:fontFamily="@font/poppinsmedium"
                             android:hint="@string/tv_hint_no_telp"
-                            android:inputType="number"
+                            android:inputType="none"
                             android:maxLines="1"
                             android:editable="false"
                             android:paddingHorizontal="8dp"
@@ -402,6 +408,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:focusable="false"
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
@@ -413,7 +420,7 @@
                             android:editable="false"
                             android:fontFamily="@font/poppinsmedium"
                             android:hint="@string/tv_hint_email"
-                            android:inputType="textEmailAddress"
+                            android:inputType="none"
                             android:maxLines="1"
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="12dp"

@@ -370,9 +370,18 @@ class MahasiswaBerandaFragment : Fragment() {
 		with(binding) {
 			setShimmerVisibility(shimmerBerandaNamauser, isLoading)
 			setShimmerVisibility(shimmerIvHomeProfilephoto, isLoading)
+			setShimmerVisibility(shimmerStatusPengumuman, isLoading)
+			setShimmerVisibility(shimmerStatusSidangProposal, isLoading)
+			setShimmerVisibility(shimmerStatusExpo, isLoading)
+			setShimmerVisibility(shimmerStatusSidangTa, isLoading)
 
 			namauser.visibility = if (isLoading) View.GONE else View.VISIBLE
 			ivHomeProfilephoto.visibility = if (isLoading) View.GONE else View.VISIBLE
+
+			cardStatusPengumuman.visibility = if (isLoading) View.GONE else View.VISIBLE
+			cardStatusSidangProposal.visibility = if (isLoading) View.GONE else View.VISIBLE
+			cardStatusExpo.visibility = if (isLoading) View.GONE else View.VISIBLE
+			cardStatusSidangTa.visibility = if (isLoading) View.GONE else View.VISIBLE
 
 		}
 	}

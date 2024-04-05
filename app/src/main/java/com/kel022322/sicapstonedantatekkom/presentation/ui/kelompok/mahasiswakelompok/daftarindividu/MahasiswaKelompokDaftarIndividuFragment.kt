@@ -344,6 +344,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 			if (dataAkun != null) {
 				edtNamaLengkapIndividu.setText(dataAkun.userName)
 				edtNimIndividu.setText(dataAkun.nomorInduk)
+				edtAngkatanIndividu.setText(dataAkun.angkatan)
 				edtEmailIndividu.setText(dataAkun.userEmail)
 				edtNoTelpIndividu.setText(dataAkun.noTelp)
 			}

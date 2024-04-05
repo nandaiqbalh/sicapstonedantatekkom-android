@@ -174,7 +174,30 @@
                             app:layout_constraintTop_toTopOf="@id/iv_icon_pengumuman"
                             tools:ignore="TextContrastCheck" />
 
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmer_status_pengumuman"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:height="24dp"
+                            android:visibility="gone"
+                            android:layout_marginHorizontal="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_icon_pengumuman"
+                            >
+
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:background="@color/shimmer_gray"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:textColor="@color/lightblue"
+                                android:textSize="14sp" />
+
+                        </com.facebook.shimmer.ShimmerFrameLayout>
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/card_status_pengumuman"
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:layout_marginHorizontal="10dp"
@@ -206,6 +229,7 @@
                                 android:text="@string/lihat_semua_pengumuman" />
 
                         </androidx.cardview.widget.CardView>
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -253,7 +277,32 @@
                             app:layout_constraintTop_toTopOf="@id/iv_icon_sidang_proposal"
                             tools:ignore="TextContrastCheck" />
 
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmer_status_sidang_proposal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:height="24dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_icon_sidang_proposal"
+                            >
+
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:background="@color/shimmer_gray"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:textColor="@color/lightblue"
+                                android:textSize="14sp" />
+
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/card_status_sidang_proposal"
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:layout_marginHorizontal="10dp"
@@ -341,7 +390,31 @@
                             app:layout_constraintTop_toTopOf="@id/iv_icon_expo"
                             tools:ignore="TextContrastCheck" />
 
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmer_status_expo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:height="24dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_icon_expo"
+                            >
+
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:background="@color/shimmer_gray"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:textColor="@color/lightblue"
+                                android:textSize="14sp" />
+
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/card_status_expo"
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:layout_marginHorizontal="10dp"
@@ -420,7 +493,31 @@
                             app:layout_constraintTop_toTopOf="@id/iv_icon_sidang_ta"
                             tools:ignore="TextContrastCheck" />
 
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmer_status_sidang_ta"
+                            android:layout_width="0dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_height="wrap_content"
+                            android:height="24dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_icon_sidang_ta"
+                            >
+
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:background="@color/shimmer_gray"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:textColor="@color/lightblue"
+                                android:textSize="14sp" />
+
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/card_status_sidang_ta"
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:layout_marginHorizontal="10dp"

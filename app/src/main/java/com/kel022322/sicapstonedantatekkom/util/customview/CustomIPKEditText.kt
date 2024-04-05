@@ -58,7 +58,7 @@ class CustomIPKEditText : TextInputEditText {
 		})
 	}
 	private fun isValidIPK(ipk: String): Boolean {
-		val ipkRegex = """^(?:0|[1-3](?:\.\d{2})|4(?:\.00?)?)$""".toRegex()
+		val ipkRegex = """^(?:[1-3]\.\d{2}|4\.00)$""".toRegex()
 		return ipk.matches(ipkRegex)
 	}
 
@@ -75,15 +75,6 @@ class CustomIPKEditText : TextInputEditText {
 		textInputLayout?.typeface = typeface
 		textInputLayout?.setErrorTextAppearance(R.style.ErrorTextAppearance)
 
-	}
-
-	private fun getDecimalCount(value: String): Int {
-		val decimalIndex = value.indexOf('.')
-		return if (decimalIndex == -1) {
-			0
-		} else {
-			value.length - decimalIndex - 1
-		}
 	}
 
 }
