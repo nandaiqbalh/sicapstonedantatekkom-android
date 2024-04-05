@@ -3,6 +3,7 @@ package com.kel022322.sicapstonedantatekkom.data.remote.service
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.request.AuthLoginRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.login.response.AuthLoginRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.auth.logout.response.AuthLogoutRemoteResponse
+import com.kel022322.sicapstonedantatekkom.data.remote.model.beranda.response.BerandaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.allbroadcast.AllBroadcastRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.response.BroadcastDetailRemoteResponse
@@ -63,6 +64,11 @@ interface ApiService {
 	suspend fun authLogout(
 		@Header("Authorization") apiToken: String,
 	): AuthLogoutRemoteResponse
+
+	@GET("capstone_team/public/api/v1/mahasiswa/beranda")
+	suspend fun getDataBeranda(
+		@Header("Authorization") apiToken: String,
+	): BerandaRemoteResponse
 
 	@GET("capstone_team/public/api/v1/mahasiswa/broadcast")
 	suspend fun getBroadcast(

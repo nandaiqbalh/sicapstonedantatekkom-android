@@ -14,10 +14,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kel022322.sicapstonedantatekkom.R
-import com.kel022322.sicapstonedantatekkom.data.local.action.ActionModel
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaBerandaBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.adapter.ActionAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.beranda.mahasiswaberanda.action.pengumuman.adapter.PengumumanAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
@@ -55,7 +53,6 @@ class MahasiswaBerandaFragment : Fragment() {
 		// Find the NavController using requireActivity()
 		navController = requireActivity().findNavController(R.id.fragmentContainerViewHome)
 
-		setActionRecyclerView()
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,52 +67,34 @@ class MahasiswaBerandaFragment : Fragment() {
 
 		setActionListener()
 
+		getDataBeranda()
+
 	}
 
-	// set action listener
-	private fun setActionListener() {
+	private fun setActionListener(){
 
-		binding.ivHomeProfilephoto.setOnClickListener {
-			findNavController().navigate(R.id.action_mahasiswaBerandaFragment_to_mahasiswaProfilFragment)
+		with(binding){
+
+			cardPengumuman.setOnClickListener{
+				findNavController().navigate(R.id.action_mahasiswaBerandaFragment_to_mahasiswaPengumumanFragment)
+			}
+
+			cardSidangProposal.setOnClickListener {
+				findNavController().navigate(R.id.action_mahasiswaBerandaFragment_to_mahasiswaSidangProposalFragment)
+			}
+
+			cardExpo.setOnClickListener {
+				findNavController().navigate(R.id.action_mahasiswaBerandaFragment_to_mahasiswaExpoFragment)
+			}
+
+			cardSidangTa.setOnClickListener {
+				findNavController().navigate(R.id.action_mahasiswaBerandaFragment_to_mahasiswaSidangTugasAkhirFragment)
+			}
+
+			ivHomeProfilephoto.setOnClickListener {
+				findNavController().navigate(R.id.action_mahasiswaBerandaFragment_to_mahasiswaProfilFragment)
+			}
 		}
-
-	}
-
-	private fun setActionRecyclerView() {
-
-		val actionPengumuman = ActionModel(
-			R.drawable.ic_action_pengumuman,
-			"Pengumuman",
-			R.id.action_mahasiswaBerandaFragment_to_mahasiswaPengumumanFragment
-		)
-		val actionSidangProposal = ActionModel(
-			R.drawable.ic_action_sidang_proposal,
-			"Sidang Proposal",
-			R.id.action_mahasiswaBerandaFragment_to_mahasiswaSidangProposalFragment
-		)
-		val actionExpo = ActionModel(
-			R.drawable.ic_action_expo,
-			"Expo Project",
-			R.id.action_mahasiswaBerandaFragment_to_mahasiswaExpoFragment
-		)
-		val actionSidangTugasAkhir = ActionModel(
-			R.drawable.ic_action_sidang_tugas_akhir,
-			"Sidang Tugas Akhir",
-			R.id.action_mahasiswaBerandaFragment_to_mahasiswaSidangTugasAkhirFragment
-		)
-
-		val dummyActions =
-			listOf(actionPengumuman, actionSidangProposal, actionExpo, actionSidangTugasAkhir)
-
-		val actionAdapter = ActionAdapter(navController)
-
-		actionAdapter.setList(dummyActions)
-
-		binding.rvActionMahasiswaBeranda.layoutManager = LinearLayoutManager(
-			requireContext(), LinearLayoutManager.HORIZONTAL, false
-		)
-
-		binding.rvActionMahasiswaBeranda.adapter = actionAdapter
 	}
 
 	private fun setPengumumanRecyclerView() {
@@ -231,6 +210,69 @@ class MahasiswaBerandaFragment : Fragment() {
 
 	}
 
+	private fun getDataBeranda(){
+		setLoading(true)
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				mahasiswaBerandaViewModel.getDataBeranda(apiToken)
+			}
+		}
+
+		mahasiswaBerandaViewModel.getBerandaResult.observe(viewLifecycleOwner) { getBerandaResult ->
+
+			val resultResponse = getBerandaResult.payload
+			val status = resultResponse?.status
+
+			when (getBerandaResult) {
+				is Resource.Loading -> {
+					setLoading(true)
+				}
+
+				is Resource.Error -> {
+					Log.d("Error Profile Index", getBerandaResult.payload?.status.toString())
+
+					setLoading(false)
+
+					setToolbarWithLocalData()
+
+				}
+
+				is Resource.Success -> {
+					setLoading(false)
+
+					if (resultResponse?.success == true) {
+						Log.d("Succes status", status.toString())
+
+						// set binding
+						with(binding) {
+
+							// toolbar
+							tvStatusPengumuman.text = "Lihat semua pengumuman!"
+							tvStatusSidangProposal.text = resultResponse.data.sidangProposal
+							tvStatusExpo.text = resultResponse.data.expo
+							tvStatusSidangTa.text = resultResponse.data.sidangTA
+
+						}
+					} else {
+						Log.d("Succes status, but failed", status.toString())
+
+						if (status == "Token is Expired" || status == "Token is Invalid") {
+							showSnackbar("Sesi anda telah berakhir :(")
+
+							actionIfLogoutSucces()
+						} else {
+							setToolbarWithLocalData()
+						}
+
+					}
+				}
+
+				else -> {}
+			}
+		}
+
+	}
+
 	private fun getProfile() {
 		setLoading(true)
 
@@ -283,7 +325,7 @@ class MahasiswaBerandaFragment : Fragment() {
 						Log.d("Succes status, but failed", status.toString())
 
 						if (status == "Token is Expired" || status == "Token is Invalid") {
-							showSnackbar("Sesi anda telah berakhir :(", false)
+							showSnackbar("Sesi anda telah berakhir :(")
 
 							actionIfLogoutSucces()
 						} else {
@@ -300,7 +342,7 @@ class MahasiswaBerandaFragment : Fragment() {
 	}
 
 
-	private fun showSnackbar(message: String, isRestart: Boolean) {
+	private fun showSnackbar(message: String) {
 		val currentFragment = this@MahasiswaBerandaFragment
 
 		if (currentFragment.isVisible) {
@@ -308,27 +350,8 @@ class MahasiswaBerandaFragment : Fragment() {
 				requireActivity().findViewById(android.R.id.content), message, "OK"
 			) {
 				customSnackbar.dismissSnackbar()
-				if (isRestart) {
-					restartFragment()
-				}
+
 			}
-		}
-	}
-
-	private fun restartFragment() {
-		val currentFragment = this@MahasiswaBerandaFragment
-
-		// Check if the fragment is currently visible
-		if (currentFragment.isVisible) {
-			// Detach fragment
-			val ftDetach = parentFragmentManager.beginTransaction()
-			ftDetach.detach(currentFragment)
-			ftDetach.commit()
-
-			// Attach fragment
-			val ftAttach = parentFragmentManager.beginTransaction()
-			ftAttach.attach(currentFragment)
-			ftAttach.commit()
 		}
 	}
 

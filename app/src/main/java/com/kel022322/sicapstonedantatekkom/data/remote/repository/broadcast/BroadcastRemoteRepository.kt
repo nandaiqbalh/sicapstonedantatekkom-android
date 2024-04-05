@@ -1,6 +1,7 @@
 package com.kel022322.sicapstonedantatekkom.data.remote.repository.broadcast
 
 import com.kel022322.sicapstonedantatekkom.data.remote.datasource.broadcast.BroadcastRemoteDataSource
+import com.kel022322.sicapstonedantatekkom.data.remote.model.beranda.response.BerandaRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.allbroadcast.AllBroadcastRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.request.BroadcastDetailRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.broadcast.detail.response.BroadcastDetailRemoteResponse
@@ -18,6 +19,10 @@ interface BroadcastRemoteRepository {
 	suspend fun getBroadcastDetail(
 		broadcastDetailRemoteRequestBody: BroadcastDetailRemoteRequestBody,
 	): Resource<BroadcastDetailRemoteResponse>
+
+	suspend fun getDataBeranda(
+		apiToken: String,
+	): Resource<BerandaRemoteResponse>
 }
 
 class BroadcastRemoteRepositoryImpl @Inject constructor(private val dataSource: BroadcastRemoteDataSource) :
@@ -41,6 +46,12 @@ class BroadcastRemoteRepositoryImpl @Inject constructor(private val dataSource: 
 	): Resource<BroadcastDetailRemoteResponse> {
 		return proceed {
 			dataSource.getBroadcastDetail(broadcastDetailRemoteRequestBody)
+		}
+	}
+
+	override suspend fun getDataBeranda(apiToken: String): Resource<BerandaRemoteResponse> {
+		return proceed {
+			dataSource.getDataBeranda(apiToken)
 		}
 	}
 

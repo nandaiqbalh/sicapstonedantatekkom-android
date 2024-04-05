@@ -12,7 +12,7 @@
         <domain includeSubdomains="true">192.168.1.25</domain>
         <domain includeSubdomains="true">192.168.96.22</domain>
         <domain includeSubdomains="true">192.168.1.24</domain>
-        <domain includeSubdomains="true">10.105.191.189</domain>
+        <domain includeSubdomains="true">10.107.152.62</domain>
         <domain includeSubdomains="true">10.106.61.22</domain>
         <domain includeSubdomains="true">192.168.87.220</domain>
         <domain includeSubdomains="true">172.20.10.3</domain>
@@ -21,7 +21,7 @@
         <domain includeSubdomains="true">192.168.1.13</domain>
         <domain includeSubdomains="true">192.168.1.9</domain>
         <domain includeSubdomains="true">192.168.29.22</domain>
-        <domain includeSubdomains="true">192.168.1.27</domain>
+        <domain includeSubdomains="true">192.168.1.7</domain>
 
     </domain-config>
 </network-security-config>

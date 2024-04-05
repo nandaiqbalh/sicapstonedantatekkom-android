@@ -123,22 +123,346 @@
                 android:textColor="@color/lightblue"
                 android:textSize="16sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_action_mahasiswa_beranda"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:nestedScrollingEnabled="true"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_action_mahasiswa_beranda"
-                tools:orientation="horizontal" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_pengumuman"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="8dp"
+                    app:strokeColor="@android:color/transparent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:background="@drawable/background_gradient">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_icon_pengumuman"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_action_pengumuman"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ImageContrastCheck" />
+
+                        <TextView
+                            android:id="@+id/tv_pengumuman"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:text="@string/tv_title_pengumuman"
+                            android:textColor="@color/White"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_icon_pengumuman"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/iv_icon_pengumuman"
+                            app:layout_constraintTop_toTopOf="@id/iv_icon_pengumuman"
+                            tools:ignore="TextContrastCheck" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:background="@color/White"
+                            android:padding="4dp"
+                            app:cardCornerRadius="3dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_icon_pengumuman"
+                            app:strokeColor="@color/White"
+                            tools:ignore="TextSizeCheck">
+
+                            <TextView
+                                android:id="@+id/tv_status_pengumuman"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:ellipsize="middle"
+                                android:textColor="@color/DarkGrey"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingHorizontal="4dp"
+                                android:singleLine="true"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp"
+                                android:text="@string/lihat_semua_pengumuman" />
+
+                        </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_sidang_proposal"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="8dp"
+                    app:strokeColor="@android:color/transparent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:background="@drawable/background_gradient">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_icon_sidang_proposal"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_action_sidang_proposal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ImageContrastCheck" />
+
+                        <TextView
+                            android:id="@+id/tv_sidang_poposal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:text="@string/tv_title_sidang_proposal"
+                            android:textColor="@color/White"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_icon_sidang_proposal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/iv_icon_sidang_proposal"
+                            app:layout_constraintTop_toTopOf="@id/iv_icon_sidang_proposal"
+                            tools:ignore="TextContrastCheck" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:background="@color/White"
+                            android:padding="4dp"
+                            app:cardCornerRadius="3dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_icon_sidang_proposal"
+                            app:strokeColor="@color/White"
+                            tools:ignore="TextSizeCheck">
+
+                            <TextView
+                                android:id="@+id/tv_status_sidang_proposal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:ellipsize="middle"
+                                android:textColor="@color/DarkGrey"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingHorizontal="4dp"
+                                android:singleLine="true"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp"
+                                android:text="@string/status_sidang_proposa" />
+
+                        </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_expo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="8dp"
+                    app:strokeColor="@android:color/transparent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:background="@drawable/background_gradient">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_icon_expo"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_action_expo"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ImageContrastCheck" />
+
+                        <TextView
+                            android:id="@+id/tv_expo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:text="@string/tv_title_expo"
+                            android:textColor="@color/White"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_icon_expo"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/iv_icon_expo"
+                            app:layout_constraintTop_toTopOf="@id/iv_icon_expo"
+                            tools:ignore="TextContrastCheck" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:background="@color/White"
+                            android:padding="4dp"
+                            app:cardCornerRadius="3dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_icon_expo"
+                            app:strokeColor="@color/White"
+                            tools:ignore="TextSizeCheck">
+
+                            <TextView
+                                android:id="@+id/tv_status_expo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:ellipsize="middle"
+                                android:textColor="@color/DarkGrey"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingHorizontal="4dp"
+                                android:singleLine="true"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp"
+                                android:text="@string/status_expo_project" />
+
+                        </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_sidang_ta"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="8dp"
+                    app:strokeColor="@android:color/transparent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:background="@drawable/background_gradient">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_icon_sidang_ta"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_action_sidang_tugas_akhir"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ImageContrastCheck" />
+
+                        <TextView
+                            android:id="@+id/tv_sidang_tugas_akhir"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/poppinsmedium"
+                            android:text="@string/tv_title_tugas_akhir"
+                            android:textColor="@color/White"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_icon_sidang_ta"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/iv_icon_sidang_ta"
+                            app:layout_constraintTop_toTopOf="@id/iv_icon_sidang_ta"
+                            tools:ignore="TextContrastCheck" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:background="@color/White"
+                            android:padding="4dp"
+                            app:cardCornerRadius="3dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_icon_sidang_ta"
+                            app:strokeColor="@color/White"
+                            tools:ignore="TextSizeCheck">
+
+                            <TextView
+                                android:id="@+id/tv_status_sidang_ta"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:ellipsize="middle"
+                                android:textColor="@color/DarkGrey"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:paddingHorizontal="4dp"
+                                android:singleLine="true"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp"
+                                android:text="@string/status_sidang_ta" />
+
+                        </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_pengumuman_terbaru"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/poppinssemibold"
                 android:text="@string/tv_pengumuman_terbaru"
                 android:textColor="@color/lightblue"
@@ -152,8 +476,8 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="16dp"
-                android:visibility="gone"
                 android:paddingHorizontal="16dp"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
@@ -165,10 +489,10 @@
                     android:layout_height="48dp"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
-                    android:paddingHorizontal="16dp"
                     android:background="@drawable/rounded_outline_text_view"
                     android:fontFamily="@font/poppinsmedium"
                     android:gravity="center"
+                    android:paddingHorizontal="16dp"
                     android:text="@string/tv_terjadi_kesalahan"
                     android:textColor="@color/DarkGrey"
                     android:textSize="11sp" />

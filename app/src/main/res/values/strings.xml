@@ -191,4 +191,8 @@
     <string name="tv_waktu_expo">Waktu</string>
     <string name="tv_tempat_expo">Tempat</string>
     <string name="edit_informasi_kelompok">Ubah Informasi Kelompok</string>
+    <string name="lihat_semua_pengumuman">Lihat semua pengumuman!</string>
+    <string name="status_sidang_proposa">Status Sidang Proposa!</string>
+    <string name="status_expo_project">Status Expo Project!</string>
+    <string name="status_sidang_ta">Status Sidang TA!</string>
 </resources>
