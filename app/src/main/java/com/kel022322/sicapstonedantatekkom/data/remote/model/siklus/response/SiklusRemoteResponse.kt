@@ -9,8 +9,8 @@ data class SiklusRemoteResponse(
 )
 
 data class Data(
-	val rs_siklus: List<RsSiklu>?,
-	val periode_pendaftaran: List<PeriodePendaftaranCapstone>?,
+	val rs_siklus: RsSiklu,
+	val periode_pendaftaran: PeriodePendaftaranCapstone,
 )
 
 data class PeriodePendaftaranCapstone(
@@ -20,9 +20,8 @@ data class PeriodePendaftaranCapstone(
 	@SerializedName("modified_by") val modifiedBy: String?,
 	@SerializedName("modified_date") val modifiedDate: String?,
 	@SerializedName("status") val status: String?,
-	@SerializedName("tahun_ajaran") val tahunAjaran: String?,
-	@SerializedName("tanggal_mulai") val tanggalMulai: String?,
-	@SerializedName("tanggal_selesai") val tanggalSelesai: String?,
+	@SerializedName("nama_siklus") val namaSiklus: String?,
+	@SerializedName("kode_siklus") val kodeSiklus: String?,
 	@SerializedName("pendaftaran_mulai") val pendaftaranMulai: String?,
 	@SerializedName("pendaftaran_selesai") val pendaftaranSelesai: String?,
 )
@@ -34,7 +33,8 @@ data class RsSiklu(
     @SerializedName("modified_by") val modifiedBy: String?,
     @SerializedName("modified_date") val modifiedDate: String?,
     @SerializedName("status") val status: String?,
-    @SerializedName("tahun_ajaran") val tahunAjaran: String?,
-    @SerializedName("tanggal_mulai") val tanggalMulai: String?,
-    @SerializedName("tanggal_selesai") val tanggalSelesai: String?,
+    @SerializedName("nama_siklus") val namaSiklus: String?,
+    @SerializedName("kode_siklus") val kodeSiklus: String?,
+    @SerializedName("pendaftaran_mulai") val pendaftaranMulai: String?,
+    @SerializedName("pendaftaran_selesai") val pendaftaranSelesai: String?,
 )

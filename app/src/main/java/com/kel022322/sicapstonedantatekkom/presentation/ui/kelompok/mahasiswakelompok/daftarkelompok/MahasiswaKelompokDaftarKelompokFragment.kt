@@ -24,7 +24,6 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.resp
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.mahasiswa.index.response.MahasiswaIndexRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.siklus.response.SiklusRemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.topik.response.TopikRemoteResponse
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokDaftarKelompokBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
@@ -34,7 +33,6 @@ import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.ListDosenAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.ListDosenDuaAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.ListMahasiswaDuaAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.SiklusAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.TopikAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.viewmodel.DosenViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.viewmodel.MahasiswaViewModel
@@ -231,11 +229,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 				profileIndexViewModel.getMahasiswaProfile(apiToken)
 
 				siklusViewModel.getSiklus(apiToken)
-				topikViewModel.getTopik(apiToken)
 
-				dosenViewModel.getDosenPembimbing1(apiToken)
-				dosenViewModel.getDosenPembimbing2(apiToken)
-				mahasiswaViewModel.getDataMahasiswa(apiToken)
 			}
 		}
 
@@ -256,21 +250,17 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 				}
 
 				is Resource.Success -> {
-					dataObserver()
 
 					val message = getSiklusResult.payload?.status
 					Log.d("Result success", message.toString())
 
-					if (resultResponse?.success == true && resultResponse.data?.rs_siklus!!.isNotEmpty() && resultResponse.data.periode_pendaftaran!!.isNotEmpty()) {
+					if (resultResponse?.success == true) {
 						setLoading(isLoading = false, isSuccess = true)
-						setSiklusDropdown(getSiklusResult)
 
-						if (selectedIdSiklus == "") {
-							binding.edtSiklusKelompok.text = null
-						}
+						binding.edtSiklusKelompok.setText(resultResponse.data?.rs_siklus?.namaSiklus)
+						dataObserver()
 
 					} else {
-						dataObserver()
 
 						setLoading(isLoading = false, isSuccess = false)
 
@@ -278,21 +268,11 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 							if (status == "Token is Expired" || status == "Token is Invalid") {
 								actionIfLogoutSucces()
-							} else if (resultResponse?.data?.rs_siklus == null) {
-								setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
-								setViewVisibility(cvErrorDaftarKelompok, true)
-								tvErrorDaftarKelompok.text = status ?: "Siklus tidak aktif"
-							} else if (resultResponse.data.periode_pendaftaran == null) {
-								setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
-								setViewVisibility(cvErrorDaftarKelompok, true)
-								tvErrorDaftarKelompok.text =
-									status ?: "Belum memasuki periode pendaftaran capstone"
-
 							} else {
 								setViewVisibility(linearLayoutDataPendaftaranKelompok, false)
 								setViewVisibility(cvErrorDaftarKelompok, true)
 								tvErrorDaftarKelompok.text =
-									status ?: "Belum memasuki periode pendaftaran capstone"
+									status ?: "Mohon periksa kembali koneksi internet Anda!"
 
 							}
 						}
@@ -359,6 +339,18 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 	}
 
 	private fun dataObserver() {
+		userViewModel.getApiToken().observe(viewLifecycleOwner) { apiToken ->
+			apiToken?.let {
+				profileIndexViewModel.getMahasiswaProfile(apiToken)
+
+				topikViewModel.getTopik(apiToken)
+
+				dosenViewModel.getDosenPembimbing1(apiToken)
+				dosenViewModel.getDosenPembimbing2(apiToken)
+				mahasiswaViewModel.getDataMahasiswa(apiToken)
+			}
+		}
+
 		mahasiswaViewModel.getMahasiswaResult.observe(viewLifecycleOwner) { getMahasiswaResult ->
 			val status = getMahasiswaResult.payload?.status
 
@@ -760,28 +752,6 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 				edtNoTelpMahasiswa3.setText(selectedMahasiswa3?.noTelp)
 				edtEmailMahasiswa3.setText(selectedMahasiswa3?.userEmail)
 			}
-		}
-	}
-
-	private fun setSiklusDropdown(getSiklusResult: Resource<SiklusRemoteResponse>) {
-		// siklus
-		val siklusAdapter =
-
-			getSiklusResult.payload?.data?.let {
-				SiklusAdapter(
-					requireContext(),
-					it.periode_pendaftaran!!
-				)
-			}
-
-		binding.edtSiklusKelompok.setAdapter(siklusAdapter)
-
-		binding.edtSiklusKelompok.setOnItemClickListener { _, _, position, _ ->
-			val selectedSiklus = siklusAdapter?.getItem(position)
-			selectedIdSiklus = selectedSiklus?.id.toString()
-
-			binding.edtSiklusKelompok.setText(selectedSiklus?.tahunAjaran)
-			// Lakukan sesuatu dengan ID yang dipilih
 		}
 	}
 

@@ -135,27 +135,31 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_siklus_individu"
-                        style="@style/CustomTextInputLayoutWithDropdown"
+                        style="@style/CustomTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:focusable="false"
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
-                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
                             android:id="@+id/edt_siklus_individu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:editable="false"
                             android:ellipsize="end"
                             android:fontFamily="@font/poppinsmedium"
-                            android:hint="@string/tv_hint_siklus"
+                            android:hint="@string/tv_hint_nim"
+                            android:inputType="none"
                             android:maxLines="1"
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="12dp"
                             android:textColor="@color/lightblue"
                             android:textColorHint="@color/DarkGrey"
                             android:textSize="11sp"
-                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                            tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
 
                     </com.google.android.material.textfield.TextInputLayout>
 

@@ -20,11 +20,9 @@ import com.kel022322.sicapstonedantatekkom.R
 import com.kel022322.sicapstonedantatekkom.data.local.model.jeniskelamin.JenisKelaminModel
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
-import com.kel022322.sicapstonedantatekkom.data.remote.model.siklus.response.SiklusRemoteResponse
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokDaftarIndividuBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.JenisKelaminAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.SiklusAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.viewmodel.SiklusViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
@@ -172,11 +170,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 
 						Log.d("Succes Siklus", status.toString())
 
-						setSiklusDropdown(getSiklusResult)
-						if (selectedIdSiklus == "") {
-							// Clear the text in edtSiklusIndividu when selectedIdSiklus is empty
-							binding.edtSiklusIndividu.text = null
-						}
+						binding.edtSiklusIndividu.setText(resultResponse.data?.rs_siklus!!.namaSiklus)
 
 						dataObserver()
 
@@ -195,12 +189,6 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 								setViewVisibility(linearLayoutDataPendaftaran, false)
 								setViewVisibility(cvErrorDaftarIndividu, true)
 								tvErrorDaftarIndividu.text = status ?: "Siklus tidak aktif"
-							} else if (resultResponse.data.periode_pendaftaran == null) {
-								setViewVisibility(linearLayoutDataPendaftaran, false)
-								setViewVisibility(cvErrorDaftarIndividu, true)
-								tvErrorDaftarIndividu.text =
-									status ?: "Belum memasuki periode pendaftaran capstone"
-
 							} else {
 								setViewVisibility(linearLayoutDataPendaftaran, false)
 								setViewVisibility(cvErrorDaftarIndividu, true)
@@ -311,29 +299,6 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 			}
 		}
 
-	}
-
-	private fun setSiklusDropdown(getSiklusResult: Resource<SiklusRemoteResponse>) {
-		// siklus
-		val siklusAdapter =
-
-			getSiklusResult.payload?.data?.let {
-				SiklusAdapter(
-					requireContext(),
-					it.periode_pendaftaran!!
-				)
-			}
-
-		binding.edtSiklusIndividu.setAdapter(siklusAdapter)
-
-		binding.edtSiklusIndividu.setOnItemClickListener { _, _, position, _ ->
-			val selectedSiklus = siklusAdapter?.getItem(position)
-			selectedIdSiklus = selectedSiklus?.id.toString()
-
-			if (selectedIdSiklus != "") {
-				binding.edtSiklusIndividu.setText(selectedSiklus?.tahunAjaran)
-			}
-		}
 	}
 
 	private fun setInitialValue(getProfileResult: Resource<ProfileRemoteResponse>) {
