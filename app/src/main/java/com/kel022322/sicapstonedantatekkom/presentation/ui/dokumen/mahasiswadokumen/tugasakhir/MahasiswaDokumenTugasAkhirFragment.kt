@@ -251,6 +251,8 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 									showSnackbar(status ?: "Berhasil!")
 
 								} else {
+									checkDokumen()
+
 									Log.d("Update Succes status, but failed", status.toString())
 
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
@@ -333,6 +335,8 @@ class MahasiswaDokumenTugasAkhirFragment : Fragment() {
 									showSnackbar(status ?: "Berhasil!")
 
 								} else {
+									checkDokumen()
+
 									Log.d("Update Succes status, but failed", status.toString())
 
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {

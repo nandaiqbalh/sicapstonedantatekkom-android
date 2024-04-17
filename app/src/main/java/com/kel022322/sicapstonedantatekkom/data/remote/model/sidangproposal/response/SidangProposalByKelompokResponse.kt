@@ -23,7 +23,7 @@ data class Data(
     @SerializedName("ruangan_id") val ruanganId: Int?,
     @SerializedName("siklus_id") val siklusId: Int?,
     @SerializedName("status_kelompok") val statusKelompok: String?,
-    @SerializedName("tahun_ajaran") val tahunAjaran: String?,
+    @SerializedName("nama_siklus") val namaSiklus: String?,
     @SerializedName("tanggal_sidang") val tanggalSidang: String?,
     @SerializedName("waktu") val waktu: String?,
     @SerializedName("waktu_sidang") val waktuSidang: String?

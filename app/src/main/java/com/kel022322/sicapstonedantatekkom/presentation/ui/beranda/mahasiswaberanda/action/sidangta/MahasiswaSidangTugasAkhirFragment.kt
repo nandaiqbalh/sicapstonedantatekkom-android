@@ -119,37 +119,99 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 					val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
 					val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
 
-					with(binding){
-						tvValueStatusIndividu.text = resultResponse?.data?.rsSidang?.statusIndividu ?: "Belum Mendaftar Sidang TA!"
-						tvValueStatusPendaftaran.text = resultResponse?.data?.rsSidang?.statusIndividu ?: "Belum Mendaftar Sidang TA!"
+					val data = resultResponse?.data
+					// Kemudian dalam bagian pengaturan warna teks
+					with(binding) {
+						tvValueStatusIndividu.text = data?.rsSidang?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
+						tvValueStatusPendaftaran.text = data?.rsSidang?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
 
-						tvValueStatusIndividu.setTextColor(colorRed)
-						tvValueStatusPendaftaran.setTextColor(colorRed)
-
-						when (resultResponse?.data?.statusPendaftaran?.status) {
-							"Menunggu Penetapan Kelompok!",
-							"Menunggu Penetapan Dosbing!",
-							"Menunggu Persetujuan Anggota!",
-							"Menunggu Persetujuan Dosbing!",
-							"Menunggu Persetujuan Penguji!",
-							"Menunggu Validasi Kelompok!",
-							"Menunggu Validasi Expo!",
-							"Menunggu Validasi Jadwal!" -> {
+						when (data?.rsSidang?.statusTugasAkhir) {
+							in listOf(
+								"Dosbing Tidak Setuju!",
+								"Penguji Tidak Setuju!",
+								"C100 Tidak Disetujui Dosbing 1!",
+								"C100 Tidak Disetujui Dosbing 2!",
+								"C200 Tidak Disetujui Dosbing 1!",
+								"C200 Tidak Disetujui Dosbing 2!",
+								"C300 Tidak Disetujui Dosbing 1!",
+								"C300 Tidak Disetujui Dosbing 2!",
+								"C400 Tidak Disetujui Dosbing 1!",
+								"C400 Tidak Disetujui Dosbing 2!",
+								"C500 Tidak Disetujui Dosbing 1!",
+								"C500 Tidak Disetujui Dosbing 2!",
+								"Laporan TA Tidak Disetujui Dosbing 1!",
+								"Laporan TA Tidak Disetujui Dosbing 2!",
+								"Makalah TA Tidak Disetujui Dosbing 1!",
+								"Makalah TA Tidak Disetujui Dosbing 2!",
+								"Kelompok Tidak Disetujui Expo!",
+								"Laporan TA Tidak Disetujui!",
+								"Makalah TA Tidak Disetujui!",
+								"Belum Mendaftar Sidang TA!",
+								"Gagal Expo Project!"
+							) -> {
+								tvValueStatusIndividu.setTextColor(colorRed)
+								tvValueStatusPendaftaran.setTextColor(colorRed)
+							}
+							in listOf(
+								"Menunggu Penetapan Kelompok!",
+								"Menunggu Persetujuan Dosbing!",
+								"C100 Menunggu Persetujuan Dosbing 1!",
+								"C100 Menunggu Persetujuan Dosbing 2!",
+								"C200 Menunggu Persetujuan Dosbing 1!",
+								"C200 Menunggu Persetujuan Dosbing 2!",
+								"C300 Menunggu Persetujuan Dosbing 1!",
+								"C300 Menunggu Persetujuan Dosbing 2!",
+								"C400 Menunggu Persetujuan Dosbing 1!",
+								"C400 Menunggu Persetujuan Dosbing 2!",
+								"C500 Menunggu Persetujuan Dosbing 1!",
+								"C500 Menunggu Persetujuan Dosbing 2!",
+								"Laporan TA Menunggu Persetujuan Dosbing 1!",
+								"Laporan TA Menunggu Persetujuan Dosbing 2!",
+								"Makalah TA Menunggu Persetujuan Dosbing 1!",
+								"Makalah TA Menunggu Persetujuan Dosbing 2!",
+								"Menunggu Persetujuan Anggota!",
+								"Didaftarkan!",
+								"Menunggu Penetapan Dosbing!",
+								"Menunggu Persetujuan Tim Capstone!",
+								"Menunggu Persetujuan C100!",
+								"Menunggu Persetujuan C200!",
+								"Menunggu Persetujuan C300!",
+								"Menunggu Persetujuan C400!",
+								"Menunggu Persetujuan C500!",
+								"Menunggu Persetujuan Expo!",
+								"Menunggu Persetujuan Laporan TA!",
+								"Menunggu Persetujuan Makalah TA!",
+								"Menunggu Persetujuan Penguji!",
+								"Menunggu Persetujuan Pembimbing!",
+								"Menunggu Penjadwalan Sidang TA!"
+							) -> {
 								tvValueStatusIndividu.setTextColor(colorOrange)
 								tvValueStatusPendaftaran.setTextColor(colorOrange)
 							}
-							"Validasi Kelompok Berhasil!",
-							"C100 Telah Disetujui!",
-							"Penguji Proposal Ditetapkan!",
-							"Dijadwalkan Sidang Proposal!",
-							"C200 Telah Disetujui!",
-							"C300 Telah Disetujui!",
-							"C400 Telah Disetujui!",
-							"C500 Telah Disetujui!",
-							"Validasi Expo Berhasil!",
-							"Lulus Expo Project!",
-							"Lulus Capstone Project!",
-							"Telah Dijadwalkan Sidang TA!" , "Lulus Sidang TA!"-> {
+							in listOf(
+								"Menyetujui Kelompok!",
+								"Dosbing Setuju!",
+								"Kelompok Diplot Tim Capstone!",
+								"Dosbing Diplot Tim Capstone!",
+								"Kelompok Telah Disetujui!",
+								"C100 Telah Disetujui!",
+								"Penguji Proposal Ditetapkan!",
+								"Pembimbing Setuju!",
+								"Penguji Setuju!",
+								"Dijadwalkan Sidang Proposal!",
+								"Lulus Sidang Proposal!",
+								"C200 Telah Disetujui!",
+								"C300 Telah Disetujui!",
+								"C400 Telah Disetujui!",
+								"C500 Telah Disetujui!",
+								"Kelompok Disetujui Expo!",
+								"Lulus Expo Project!",
+								"Laporan TA Telah Disetujui!",
+								"Makalah TA Telah Disetujui!",
+								"Penguji TA Setuju!",
+								"Telah Dijadwalkan Sidang TA!",
+								"Lulus Sidang TA!"
+							) -> {
 								tvValueStatusIndividu.setTextColor(colorGreen)
 								tvValueStatusPendaftaran.setTextColor(colorGreen)
 							}

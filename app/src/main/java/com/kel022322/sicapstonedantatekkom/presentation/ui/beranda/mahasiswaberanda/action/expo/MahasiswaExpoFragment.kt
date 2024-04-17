@@ -89,11 +89,6 @@ class MahasiswaExpoFragment : Fragment() {
 				is Resource.Error -> {
 					setLoading(false)
 
-					Log.d(
-						"Error Kelompok Index",
-						getExpoResult.payload?.status.toString()
-					)
-
 					// set view condition
 					with(binding) {
 						setViewVisibility(linearLayoutExpoFragment, false)
@@ -124,7 +119,6 @@ class MahasiswaExpoFragment : Fragment() {
 						}
 					} else {
 						with(binding) {
-							Log.d("Succes status, but failed", status.toString())
 
 							if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
 
@@ -180,7 +174,6 @@ class MahasiswaExpoFragment : Fragment() {
 						}
 
 						is Resource.Error -> {
-							Log.d("Daftar Expo Error", daftarExpoResult.payload?.status.toString())
 
 							setLoading(false)
 
@@ -195,7 +188,6 @@ class MahasiswaExpoFragment : Fragment() {
 							val status = daftarExpoResult.payload?.status
 
 							if (resultResponse?.success == true && resultResponse.data != null) {
-								Log.d("Daftar Expo Succes status", status.toString())
 								showSnackbar(resultResponse.status ?: "Berhasil mendaftar expo!")
 
 								findNavController().navigate(R.id.action_mahasiswaExpoFragment_to_mahasiswaBerandaFragment)
@@ -233,32 +225,96 @@ class MahasiswaExpoFragment : Fragment() {
 		val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
 		val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
 		val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
-		ContextCompat.getColor(requireContext(), R.color.lightblue)
 
-		with(binding){
-			tvValueStatusKelompok.text = data?.kelompok?.statusExpo ?: "Belum Mendaftar Expo!"
+		// Kemudian dalam bagian pengaturan warna teks
+		with(binding) {
+			tvValueStatusKelompok.text = data?.kelompok?.statusExpo ?: "Belum memasuki periode expo!"
 
 			when (data?.kelompok?.statusExpo) {
-				"Menunggu Penetapan Kelompok!",
-				"Menunggu Penetapan Dosbing!",
-				"Menunggu Persetujuan Anggota!",
-				"Menunggu Persetujuan Dosbing!",
-				"Menunggu Persetujuan Penguji!",
-				"Menunggu Validasi Kelompok!",
-				"Menunggu Validasi Expo!" -> {
+				in listOf(
+					"Dosbing Tidak Setuju!",
+					"Penguji Tidak Setuju!",
+					"C100 Tidak Disetujui Dosbing 1!",
+					"C100 Tidak Disetujui Dosbing 2!",
+					"C200 Tidak Disetujui Dosbing 1!",
+					"C200 Tidak Disetujui Dosbing 2!",
+					"C300 Tidak Disetujui Dosbing 1!",
+					"C300 Tidak Disetujui Dosbing 2!",
+					"C400 Tidak Disetujui Dosbing 1!",
+					"C400 Tidak Disetujui Dosbing 2!",
+					"C500 Tidak Disetujui Dosbing 1!",
+					"C500 Tidak Disetujui Dosbing 2!",
+					"Laporan TA Tidak Disetujui Dosbing 1!",
+					"Laporan TA Tidak Disetujui Dosbing 2!",
+					"Makalah TA Tidak Disetujui Dosbing 1!",
+					"Makalah TA Tidak Disetujui Dosbing 2!",
+					"Kelompok Tidak Disetujui Expo!",
+					"Laporan TA Tidak Disetujui!",
+					"Makalah TA Tidak Disetujui!",
+					"Belum Mendaftar Sidang TA!",
+					"Gagal Expo Project!"
+				) -> {
+					tvValueStatusKelompok.setTextColor(colorRed)
+				}
+				in listOf(
+					"Menunggu Penetapan Kelompok!",
+					"Menunggu Persetujuan Dosbing!",
+					"C100 Menunggu Persetujuan Dosbing 1!",
+					"C100 Menunggu Persetujuan Dosbing 2!",
+					"C200 Menunggu Persetujuan Dosbing 1!",
+					"C200 Menunggu Persetujuan Dosbing 2!",
+					"C300 Menunggu Persetujuan Dosbing 1!",
+					"C300 Menunggu Persetujuan Dosbing 2!",
+					"C400 Menunggu Persetujuan Dosbing 1!",
+					"C400 Menunggu Persetujuan Dosbing 2!",
+					"C500 Menunggu Persetujuan Dosbing 1!",
+					"C500 Menunggu Persetujuan Dosbing 2!",
+					"Laporan TA Menunggu Persetujuan Dosbing 1!",
+					"Laporan TA Menunggu Persetujuan Dosbing 2!",
+					"Makalah TA Menunggu Persetujuan Dosbing 1!",
+					"Makalah TA Menunggu Persetujuan Dosbing 2!",
+					"Menunggu Persetujuan Anggota!",
+					"Didaftarkan!",
+					"Menunggu Penetapan Dosbing!",
+					"Menunggu Persetujuan Tim Capstone!",
+					"Menunggu Persetujuan C100!",
+					"Menunggu Persetujuan C200!",
+					"Menunggu Persetujuan C300!",
+					"Menunggu Persetujuan C400!",
+					"Menunggu Persetujuan C500!",
+					"Menunggu Persetujuan Expo!",
+					"Menunggu Persetujuan Laporan TA!",
+					"Menunggu Persetujuan Makalah TA!",
+					"Menunggu Persetujuan Penguji!",
+					"Menunggu Persetujuan Pembimbing!",
+					"Menunggu Penjadwalan Sidang TA!"
+				) -> {
 					tvValueStatusKelompok.setTextColor(colorOrange)
 				}
-				"Validasi Kelompok Berhasil!",
-				"C100 Telah Disetujui!",
-				"Penguji Proposal Ditetapkan!",
-				"Dijadwalkan Sidang Proposal!",
-				"C200 Telah Disetujui!",
-				"C300 Telah Disetujui!",
-				"C400 Telah Disetujui!",
-				"C500 Telah Disetujui!",
-				"Validasi Expo Berhasil!",
-				"Lulus Expo Project!",
-				"Lulus Capstone Project!" -> {
+				in listOf(
+					"Menyetujui Kelompok!",
+					"Dosbing Setuju!",
+					"Kelompok Diplot Tim Capstone!",
+					"Dosbing Diplot Tim Capstone!",
+					"Kelompok Telah Disetujui!",
+					"C100 Telah Disetujui!",
+					"Penguji Proposal Ditetapkan!",
+					"Pembimbing Setuju!",
+					"Penguji Setuju!",
+					"Dijadwalkan Sidang Proposal!",
+					"Lulus Sidang Proposal!",
+					"C200 Telah Disetujui!",
+					"C300 Telah Disetujui!",
+					"C400 Telah Disetujui!",
+					"C500 Telah Disetujui!",
+					"Kelompok Disetujui Expo!",
+					"Lulus Expo Project!",
+					"Laporan TA Telah Disetujui!",
+					"Makalah TA Telah Disetujui!",
+					"Penguji TA Setuju!",
+					"Telah Dijadwalkan Sidang TA!",
+					"Lulus Sidang TA!"
+				) -> {
 					tvValueStatusKelompok.setTextColor(colorGreen)
 				}
 				else -> {
@@ -277,7 +333,7 @@ class MahasiswaExpoFragment : Fragment() {
 			//  kelompok sudah valid
 			with(binding) {
 
-				tvValueSiklusExpo.text = data.rsExpo.tahunAjaran
+				tvValueSiklusExpo.text = data.rsExpo.namaSiklus
 
 				tvValueHariExpo.text = "${data.rsExpo.hariExpo}, ${data.rsExpo.tanggalExpo}"
 				tvValueWaktuExpo.text = "${data.rsExpo.waktuExpo} WIB"

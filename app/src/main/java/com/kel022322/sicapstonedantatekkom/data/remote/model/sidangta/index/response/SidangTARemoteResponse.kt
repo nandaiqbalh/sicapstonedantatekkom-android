@@ -48,7 +48,9 @@ data class Kelompok(
     @SerializedName("status_dosen_pembimbing_2") val statusDosenPembimbing2: String?,
     @SerializedName("status_dosen_penguji_1") val statusDosenPenguji1: String?,
     @SerializedName("status_dosen_penguji_2") val statusDosenPenguji2: String?,
-    @SerializedName("status_kelompok") val statusKelompok: String?
+    @SerializedName("status_kelompok") val statusKelompok: String?,
+    @SerializedName("status_expo") val statusExpo: String?,
+    @SerializedName("status_tugas_akhir") val statusTugasAkhir: String?
 )
 
 data class Periode(
@@ -116,7 +118,7 @@ data class RsSidang(
     @SerializedName("status_dosen_penguji_ta2") val statusDosenPengujiTa2: String?,
 
     @SerializedName("status_individu") val statusIndividu: String?,
-
+    @SerializedName("status_tugas_akhir") val statusTugasAkhir: String?,
     @SerializedName("tanggal_sidang") val tanggalSidang: String?,
 
     @SerializedName("user_active") val userActive: String?,

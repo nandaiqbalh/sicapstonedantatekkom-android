@@ -239,8 +239,8 @@ data class RsExpo(
     @SerializedName("modified_date")
     val modifiedDate: String,
 
-    @SerializedName("tahun_ajaran")
-    val tahunAjaran: String,
+    @SerializedName("nama_siklus")
+    val namaSiklus: String,
 
     @SerializedName("tanggal_mulai")
     val tanggalMulai: String,

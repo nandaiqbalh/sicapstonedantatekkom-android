@@ -172,6 +172,7 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 
 						binding.edtSiklusIndividu.setText(resultResponse.data?.rs_siklus!!.namaSiklus)
 
+						selectedIdSiklus = resultResponse.data.rs_siklus.id.toString()
 						dataObserver()
 
 					} else {

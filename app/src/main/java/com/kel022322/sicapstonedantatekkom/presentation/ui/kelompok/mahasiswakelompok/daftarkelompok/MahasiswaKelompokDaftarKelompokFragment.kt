@@ -256,6 +256,7 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 
 					if (resultResponse?.success == true) {
 						setLoading(isLoading = false, isSuccess = true)
+						selectedIdSiklus = resultResponse.data?.rs_siklus?.id.toString()
 
 						binding.edtSiklusKelompok.setText(resultResponse.data?.rs_siklus?.namaSiklus)
 						dataObserver()
