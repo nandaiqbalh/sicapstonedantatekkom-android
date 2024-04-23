@@ -80,7 +80,7 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 
 				val dataKelompok = data.kelompok
 				// card kelompok
-				tvValueStatusKelompok.text = data.statusPendaftaran?.status ?: "-"
+				tvValueStatusKelompok.text = data.kelompok?.statusTugasAkhir ?: "-"
 				tvValueRuangSidang.text = data.rsSidang?.namaRuang ?: "-"
 				tvValueHariSidang.text = "${data.rsSidang?.hariSidang}, ${data.rsSidang?.tanggalSidang}"
 				tvValueWaktuSidang.text = "${data.rsSidang?.waktuSidang} WIB"
@@ -267,9 +267,9 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 					val data = resultResponse?.data
 					// Kemudian dalam bagian pengaturan warna teks
 					with(binding) {
-						tvValueStatusKelompok.text = data?.rsSidang?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
+						tvValueStatusKelompok.text = data?.kelompok?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
 
-						when (data?.rsSidang?.statusTugasAkhir) {
+						when (data?.kelompok?.statusTugasAkhir) {
 							in listOf(
 								"Dosbing Tidak Setuju!",
 								"Penguji Tidak Setuju!",
@@ -291,7 +291,8 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 								"Laporan TA Tidak Disetujui!",
 								"Makalah TA Tidak Disetujui!",
 								"Belum Mendaftar Sidang TA!",
-								"Gagal Expo Project!"
+								"Gagal Expo Project!",
+								"Berkas TA Tidak Disetujui!"
 							) -> {
 								tvValueStatusKelompok.setTextColor(colorRed)
 							}
@@ -326,7 +327,9 @@ class MahasiswaSidangTugasAkhirFragmentDetail : Fragment() {
 								"Menunggu Persetujuan Makalah TA!",
 								"Menunggu Persetujuan Penguji!",
 								"Menunggu Persetujuan Pembimbing!",
-								"Menunggu Penjadwalan Sidang TA!"
+								"Menunggu Penjadwalan Sidang TA!",
+								"Menunggu Persetujuan Berkas TA!"
+
 							) -> {
 								tvValueStatusKelompok.setTextColor(colorOrange)
 							}

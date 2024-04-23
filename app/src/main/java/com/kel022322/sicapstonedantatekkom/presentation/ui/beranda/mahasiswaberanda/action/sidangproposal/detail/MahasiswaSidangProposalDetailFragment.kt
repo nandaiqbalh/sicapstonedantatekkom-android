@@ -320,7 +320,10 @@ class MahasiswaSidangProposalDetailFragment : Fragment() {
 								"Laporan TA Tidak Disetujui!",
 								"Makalah TA Tidak Disetujui!",
 								"Belum Mendaftar Sidang TA!",
-								"Gagal Expo Project!"
+								"Gagal Expo Project!",
+								"Berkas TA Tidak Disetujui!",
+								"Menunggu Persetujuan Berkas TA!"
+
 							) -> {
 								tvValueStatusKelompok.setTextColor(colorRed)
 							}

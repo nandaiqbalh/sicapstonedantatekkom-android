@@ -128,7 +128,8 @@ class MahasiswaSidangProposalFragment : Fragment() {
 								"Laporan TA Tidak Disetujui!",
 								"Makalah TA Tidak Disetujui!",
 								"Belum Mendaftar Sidang TA!",
-								"Gagal Expo Project!"
+								"Gagal Expo Project!",
+								"Berkas TA Tidak Disetujui!"
 							) -> {
 								tvValueStatusKelompok.setTextColor(colorRed)
 							}
@@ -163,7 +164,8 @@ class MahasiswaSidangProposalFragment : Fragment() {
 								"Menunggu Persetujuan Makalah TA!",
 								"Menunggu Persetujuan Penguji!",
 								"Menunggu Persetujuan Pembimbing!",
-								"Menunggu Penjadwalan Sidang TA!"
+								"Menunggu Penjadwalan Sidang TA!",
+								"Menunggu Persetujuan Berkas TA!"
 							) -> {
 								tvValueStatusKelompok.setTextColor(colorOrange)
 							}

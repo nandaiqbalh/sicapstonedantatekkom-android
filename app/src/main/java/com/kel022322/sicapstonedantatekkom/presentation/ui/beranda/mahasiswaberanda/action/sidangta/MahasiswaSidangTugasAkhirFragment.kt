@@ -112,6 +112,9 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 				is Resource.Success -> {
 					setLoading(false)
 
+					if (getSidangTAResult.payload?.data?.showButton == false){
+						binding.btnSimpanSidangTa.visibility = View.GONE
+					}
 					val message = getSidangTAResult.payload
 					Log.d("Result success", message.toString())
 
@@ -122,10 +125,10 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 					val data = resultResponse?.data
 					// Kemudian dalam bagian pengaturan warna teks
 					with(binding) {
-						tvValueStatusIndividu.text = data?.rsSidang?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
-						tvValueStatusPendaftaran.text = data?.rsSidang?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
+						tvValueStatusIndividu.text = data?.kelompok?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
+						tvValueStatusPendaftaran.text = data?.kelompok?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
 
-						when (data?.rsSidang?.statusTugasAkhir) {
+						when (data?.kelompok?.statusTugasAkhir) {
 							in listOf(
 								"Dosbing Tidak Setuju!",
 								"Penguji Tidak Setuju!",
@@ -147,7 +150,8 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 								"Laporan TA Tidak Disetujui!",
 								"Makalah TA Tidak Disetujui!",
 								"Belum Mendaftar Sidang TA!",
-								"Gagal Expo Project!"
+								"Gagal Expo Project!",
+								"Berkas TA Tidak Disetujui!"
 							) -> {
 								tvValueStatusIndividu.setTextColor(colorRed)
 								tvValueStatusPendaftaran.setTextColor(colorRed)
@@ -183,7 +187,8 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 								"Menunggu Persetujuan Makalah TA!",
 								"Menunggu Persetujuan Penguji!",
 								"Menunggu Persetujuan Pembimbing!",
-								"Menunggu Penjadwalan Sidang TA!"
+								"Menunggu Penjadwalan Sidang TA!",
+								"Menunggu Persetujuan Berkas TA!"
 							) -> {
 								tvValueStatusIndividu.setTextColor(colorOrange)
 								tvValueStatusPendaftaran.setTextColor(colorOrange)
@@ -296,7 +301,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 							} else if (resultResponse.data.rsSidang == null) {
 								setViewVisibility(binding.cvErrorSidangTaFragment, false)
 								binding.tvValueStatusPendaftaran.text =
-									resultResponse.data.statusPendaftaran.status
+									resultResponse.data.kelompok?.statusTugasAkhir
 
 								setViewVisibility(tvTitleSidangTaTersedia, true)
 								setViewVisibility(cvValueSidangTa, false)
@@ -434,7 +439,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 					edtJudulTugasAkhir.setText(data.kelompok?.judulTAMhs)
 					edtLinkPendukungSidangTa.setText(data.kelompok?.linkUpload)
 
-					tvValueStatusIndividu.text = data.statusPendaftaran?.status ?: "-"
+					tvValueStatusIndividu.text = data.kelompok?.statusTugasAkhir ?: "-"
 					tvValueHariSidang.text = getSidangTAResult.payload.status ?: "-"
 
 					btnSelengkapnyaSidangTa.visibility = View.GONE
@@ -442,7 +447,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 					edtJudulTugasAkhir.setText(data.kelompok?.judulTAMhs)
 					edtLinkPendukungSidangTa.setText(data.kelompok?.linkUpload)
 
-					tvValueStatusIndividu.text = data.statusPendaftaran?.status ?: "-"
+					tvValueStatusIndividu.text = data.kelompok?.statusTugasAkhir ?: "-"
 					tvValueHariSidang.text =
 						"${data.rsSidang.hariSidang}, ${data.rsSidang.tanggalSidang}"
 					tvValueWaktuSidang.text = "${data.rsSidang.waktuSidang} WIB"
