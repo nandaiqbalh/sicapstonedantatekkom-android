@@ -328,7 +328,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_jenis_kelamin_individu"
-                        style="@style/CustomTextInputLayoutWithDropdown"
+                        style="@style/CustomTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
@@ -336,7 +336,7 @@
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
-                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
                             android:id="@+id/edt_jenis_kelamin_individu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

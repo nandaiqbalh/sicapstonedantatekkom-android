@@ -26,6 +26,7 @@ import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.Splashsc
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class MahasiswaSidangTugasAkhirFragment : Fragment() {
@@ -125,8 +126,8 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 					val data = resultResponse?.data
 					// Kemudian dalam bagian pengaturan warna teks
 					with(binding) {
-						tvValueStatusIndividu.text = data?.kelompok?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
-						tvValueStatusPendaftaran.text = data?.kelompok?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
+						tvValueStatusIndividu.text = data?.kelompok?.statusTugasAkhir ?: "Belum Mendaftar Sidang TA!"
+						tvValueStatusPendaftaran.text = data?.kelompok?.statusTugasAkhir ?: "Belum Mendaftar Sidang TA!"
 
 						when (data?.kelompok?.statusTugasAkhir) {
 							in listOf(
@@ -533,23 +534,42 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 		var isFormValid = true
 
-		// Validate name
+		// Validate judul TA
 		if (judulTaEntered.isEmpty()) {
 			isFormValid = false
 			binding.tilJudulTugasAkhir.error = getString(R.string.tv_error_input_blank)
+		} else if (!isValidJudulTA(judulTaEntered)) {
+			isFormValid = false
+			binding.tilJudulTugasAkhir.error = "Judul TA maksimal 20 kata!"
 		} else {
 			binding.tilJudulTugasAkhir.error = null
 		}
 
+		// Validate link pendukung
 		if (linkPendukungEntered.isEmpty()) {
 			isFormValid = false
 			binding.tilLinkPendukungSidangTa.error = getString(R.string.tv_error_input_blank)
+		} else if (!isValidURL(linkPendukungEntered)) {
+			isFormValid = false
+			binding.tilLinkPendukungSidangTa.error = "Link tidak valid!"
 		} else {
 			binding.tilLinkPendukungSidangTa.error = null
 		}
 
 		return isFormValid
 	}
+
+	private fun isValidURL(url: String): Boolean {
+		val pattern = Pattern.compile("^(https?|ftp)://.*\$", Pattern.CASE_INSENSITIVE)
+		val matcher = pattern.matcher(url)
+		return matcher.matches()
+	}
+
+	private fun isValidJudulTA(judul: String): Boolean {
+		val wordCount = judul.trim().split("\\s+".toRegex()).size
+		return wordCount <= 20
+	}
+
 
 	private fun showCustomAlertDialog(
 		title: String,

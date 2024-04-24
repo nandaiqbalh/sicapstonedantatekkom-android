@@ -25,13 +25,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kel022322.sicapstonedantatekkom.R
-import com.kel022322.sicapstonedantatekkom.data.local.model.jeniskelamin.JenisKelaminModel
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.update.request.UpdateProfileRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.updatepassword.request.UpdatePasswordRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaProfilBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.login.LoginActivity
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.JenisKelaminAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfilePasswordViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileUpdateViewModel
@@ -235,8 +233,6 @@ class MahasiswaProfilFragment : Fragment() {
 							edtNoTelpPengguna.setTextOrHint(
 								resultResponse.data.noTelp, R.string.tv_hint_no_telp
 							)
-							
-							setDropdownJenisKelamin()
 
 							edtJenisKelaminIndividu.setTextOrHint(
 								resultResponse.data.jenisKelamin, R.string.tv_hint_jenis_kelamin
@@ -684,27 +680,6 @@ class MahasiswaProfilFragment : Fragment() {
 			showSnackbar("Gagal! Ukuran foto melebihi 3MB!")
 		}
 	}
-
-	private fun setDropdownJenisKelamin() {
-
-		val listJenisKelamin = listOf(
-			JenisKelaminModel(1, "Laki-laki"),
-			JenisKelaminModel(2, "Perempuan")
-		)
-
-		// jenis kelamin mahasiswa 1
-		val jenisKelaminAdapter = JenisKelaminAdapter(requireContext(), listJenisKelamin)
-		binding.edtJenisKelaminIndividu.setAdapter(jenisKelaminAdapter)
-
-		binding.edtJenisKelaminIndividu.setOnItemClickListener { _, _, position, _ ->
-			val selectedJenisKelamin = jenisKelaminAdapter.getItem(position)
-
-			binding.edtJenisKelaminIndividu.setText(selectedJenisKelamin?.jenisJelamin)
-			// Lakukan sesuatu dengan ID yang dipilih
-		}
-
-	}
-
 
 
 	private fun calculateFileSize(bitmap: Bitmap): Long {

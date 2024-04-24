@@ -447,7 +447,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_jenis_kelamin_mahasiswa1"
-                        style="@style/CustomTextInputLayoutWithDropdown"
+                        style="@style/CustomTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -455,7 +455,7 @@
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
-                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
                             android:id="@+id/edt_jenis_kelamin_mahasiswa1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -791,7 +791,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_jenis_kelamin_mahasiswa2"
-                        style="@style/CustomTextInputLayoutWithDropdown"
+                        style="@style/CustomTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -799,7 +799,7 @@
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
-                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
                             android:id="@+id/edt_jenis_kelamin_mahasiswa2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -1135,7 +1135,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_jenis_kelamin_mahasiswa3"
-                        style="@style/CustomTextInputLayoutWithDropdown"
+                        style="@style/CustomTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -1143,7 +1143,7 @@
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintEnabled="false">
 
-                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomAutoCompleteTextView
+                        <com.kel022322.sicapstonedantatekkom.util.customview.CustomTextInputEditText
                             android:id="@+id/edt_jenis_kelamin_mahasiswa3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

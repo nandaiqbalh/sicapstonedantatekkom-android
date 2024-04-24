@@ -17,12 +17,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.kel022322.sicapstonedantatekkom.R
-import com.kel022322.sicapstonedantatekkom.data.local.model.jeniskelamin.JenisKelaminModel
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addindividu.request.AddKelompokIndividuRemoteRequestBody
 import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.response.ProfileRemoteResponse
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokDaftarIndividuBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.JenisKelaminAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.viewmodel.SiklusViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.profil.mahasiswaprofil.viewmodel.ProfileIndexViewModel
 import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.SplashscreenActivity
@@ -313,22 +311,8 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 				edtAngkatanIndividu.setText(dataAkun.angkatan)
 				edtEmailIndividu.setText(dataAkun.userEmail)
 				edtNoTelpIndividu.setText(dataAkun.noTelp)
+				edtJenisKelaminIndividu.setText(dataAkun.jenisKelamin)
 			}
-		}
-
-		// jenis kelamin
-		val listJenisKelamin = listOf(
-			JenisKelaminModel(1, "Laki-laki"),
-			JenisKelaminModel(2, "Perempuan")
-		)
-		val jenisKelaminAdapter = JenisKelaminAdapter(requireContext(), listJenisKelamin)
-		binding.edtJenisKelaminIndividu.setAdapter(jenisKelaminAdapter)
-
-		binding.edtJenisKelaminIndividu.setOnItemClickListener { _, _, position, _ ->
-			val selectedJenisKelamin = jenisKelaminAdapter.getItem(position)
-
-			binding.edtJenisKelaminIndividu.setText(selectedJenisKelamin?.jenisJelamin)
-			// Lakukan sesuatu dengan ID yang dipilih
 		}
 
 	}

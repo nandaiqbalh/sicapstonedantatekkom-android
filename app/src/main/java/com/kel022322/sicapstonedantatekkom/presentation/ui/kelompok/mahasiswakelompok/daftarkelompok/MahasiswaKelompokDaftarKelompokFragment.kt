@@ -18,7 +18,6 @@ import androidx.navigation.fragment.findNavController
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.kel022322.sicapstonedantatekkom.R
-import com.kel022322.sicapstonedantatekkom.data.local.model.jeniskelamin.JenisKelaminModel
 import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.dosbing1.DosenPembimbing1RemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.dosen.getdosen.response.dosbing2.DosenPembimbing2RemoteResponse
 import com.kel022322.sicapstonedantatekkom.data.remote.model.kelompok.addkelompok.request.AddKelompokPunyaKelompokRemoteRequestBody
@@ -27,9 +26,6 @@ import com.kel022322.sicapstonedantatekkom.data.remote.model.profile.index.respo
 import com.kel022322.sicapstonedantatekkom.data.remote.model.topik.response.TopikRemoteResponse
 import com.kel022322.sicapstonedantatekkom.databinding.FragmentMahasiswaKelompokDaftarKelompokBinding
 import com.kel022322.sicapstonedantatekkom.presentation.ui.auth.UserViewModel
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.JenisKelaminAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.JenisKelaminDuaAdapter
-import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.JenisKelaminTigaAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.ListDosenAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.ListDosenDuaAdapter
 import com.kel022322.sicapstonedantatekkom.presentation.ui.kelompok.mahasiswakelompok.adapter.pendaftaran.ListMahasiswaDuaAdapter
@@ -119,8 +115,6 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 
 		valueObserver()
-
-		setDropdownJenisKelamin()
 
 		setActionListener()
 
@@ -616,48 +610,6 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 				edtJenisKelaminMahasiswa1.setText(dataAkun.jenisKelamin)
 
 			}
-		}
-
-	}
-
-	private fun setDropdownJenisKelamin() {
-
-		val listJenisKelamin = listOf(
-			JenisKelaminModel(1, "Laki-laki"),
-			JenisKelaminModel(2, "Perempuan")
-		)
-
-		// jenis kelamin mahasiswa 1
-		val jenisKelaminAdapter = JenisKelaminAdapter(requireContext(), listJenisKelamin)
-		binding.edtJenisKelaminMahasiswa1.setAdapter(jenisKelaminAdapter)
-
-		binding.edtJenisKelaminMahasiswa1.setOnItemClickListener { _, _, position, _ ->
-			val selectedJenisKelamin = jenisKelaminAdapter.getItem(position)
-
-			binding.edtJenisKelaminMahasiswa1.setText(selectedJenisKelamin?.jenisJelamin)
-			// Lakukan sesuatu dengan ID yang dipilih
-		}
-
-		// jenis kelamin mahasiswa 2
-		val jenisKelamin2Adapter = JenisKelaminDuaAdapter(requireContext(), listJenisKelamin)
-		binding.edtJenisKelaminMahasiswa2.setAdapter(jenisKelamin2Adapter)
-
-		binding.edtJenisKelaminMahasiswa2.setOnItemClickListener { _, _, position, _ ->
-			val selectedJenisKelamin = jenisKelamin2Adapter.getItem(position)
-
-			binding.edtJenisKelaminMahasiswa2.setText(selectedJenisKelamin?.jenisJelamin)
-			// Lakukan sesuatu dengan ID yang dipilih
-		}
-
-		// jenis kelamin mahasiswa 3
-		val jenisKelamin3Adapter = JenisKelaminTigaAdapter(requireContext(), listJenisKelamin)
-		binding.edtJenisKelaminMahasiswa3.setAdapter(jenisKelamin3Adapter)
-
-		binding.edtJenisKelaminMahasiswa3.setOnItemClickListener { _, _, position, _ ->
-			val selectedJenisKelamin = jenisKelamin3Adapter.getItem(position)
-
-			binding.edtJenisKelaminMahasiswa3.setText(selectedJenisKelamin?.jenisJelamin)
-			// Lakukan sesuatu dengan ID yang dipilih
 		}
 
 	}

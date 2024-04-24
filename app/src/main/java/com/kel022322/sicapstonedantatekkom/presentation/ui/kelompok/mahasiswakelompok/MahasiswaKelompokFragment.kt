@@ -578,7 +578,7 @@ class MahasiswaKelompokFragment : Fragment() {
 		message: String,
 		pengusulKelompok: String,
 		positiveAction: () -> Unit,
-		negativeAction: () -> Unit, // Tambahkan parameter untuk tombol "No"
+		negativeAction: () -> Unit // Tambahkan parameter untuk tombol "No"
 	) {
 		if (isAlertDialogShowing) {
 			// Jika alert dialog sedang ditampilkan, keluar dari fungsi
@@ -587,8 +587,7 @@ class MahasiswaKelompokFragment : Fragment() {
 		isAlertDialogShowing = true
 
 		val builder = AlertDialog.Builder(requireContext()).create()
-		val view =
-			layoutInflater.inflate(R.layout.dialog_custom_alert_dialog_konfirmasi_kelompok, null)
+		val view = layoutInflater.inflate(R.layout.dialog_custom_alert_dialog_konfirmasi_kelompok, null)
 		builder.setView(view)
 		builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -600,13 +599,15 @@ class MahasiswaKelompokFragment : Fragment() {
 
 		alertTitle.text = title
 		alertMessage.text = message
-		alertPengusulKelompok.text = pengusulKelompok
+
+		// Ubah nama pengusul kelompok menjadi format M.Y. Oktariansyah atau Y. Ainur
+		val formattedPengusulKelompok = formatNamaPengusulKelompok(pengusulKelompok)
+		alertPengusulKelompok.text = formattedPengusulKelompok
 
 		buttonYes.setOnClickListener {
 			positiveAction.invoke()
 			builder.dismiss()
 			isAlertDialogShowing = false // Setelah menutup dialog, atur kembali flag
-
 		}
 
 		buttonNo.setOnClickListener {
@@ -620,6 +621,22 @@ class MahasiswaKelompokFragment : Fragment() {
 
 		builder.setCanceledOnTouchOutside(false)
 		builder.show()
+	}
+
+	// Fungsi untuk memformat nama pengusul kelompok
+	private fun formatNamaPengusulKelompok(nama: String): String {
+		val words = nama.split(" ")
+		val formattedName = StringBuilder()
+		for ((index, word) in words.withIndex()) {
+			if (index == words.size - 1) {
+				// Gunakan nama terakhir secara lengkap
+				formattedName.append(word)
+			} else {
+				// Ambil satu huruf dari setiap kata depan
+				formattedName.append(word.first().toUpperCase()).append(". ")
+			}
+		}
+		return formattedName.toString()
 	}
 
 
