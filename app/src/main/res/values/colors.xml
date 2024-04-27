@@ -21,6 +21,7 @@
     <color name="Red">#FF0000</color>
     <color name="StatusRed">#FF0000</color>
     <color name="StatusOrange">#F86F03</color>
+    <color name="StatusBlue">#1E90FF</color>
     <color name="StatusGreen">#44B158</color>
     <color name="lightblue">#3D475D</color>
     <color name="shimmer_gray">#DDDDDF</color>
