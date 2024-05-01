@@ -26,6 +26,7 @@ import com.kel022322.sicapstonedantatekkom.presentation.ui.splashscreen.Splashsc
 import com.kel022322.sicapstonedantatekkom.util.CustomSnackbar
 import com.kel022322.sicapstonedantatekkom.wrapper.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class MahasiswaSidangTugasAkhirFragment : Fragment() {
@@ -112,25 +113,31 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 				is Resource.Success -> {
 					setLoading(false)
 
+					if (getSidangTAResult.payload?.data?.showButton == false){
+						binding.btnSimpanSidangTa.visibility = View.GONE
+					}
 					val message = getSidangTAResult.payload
 					Log.d("Result success", message.toString())
 
 					val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
 					val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
+					val colorBlue = ContextCompat.getColor(requireContext(), R.color.StatusBlue)
 					val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
 
 					val data = resultResponse?.data
 					// Kemudian dalam bagian pengaturan warna teks
 					with(binding) {
-						tvValueStatusIndividu.text = data?.rsSidang?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
-						tvValueStatusPendaftaran.text = data?.rsSidang?.statusTugasAkhir ?: "Belum dijadwalkan sidang!"
+						tvValueStatusIndividu.text = data?.kelompok?.statusTugasAkhir ?: "Belum Mendaftar Sidang TA!"
+						tvValueStatusPendaftaran.text = data?.kelompok?.statusTugasAkhir ?: "Belum Mendaftar Sidang TA!"
 
-						when (data?.rsSidang?.statusTugasAkhir) {
+						when (data?.kelompok?.statusTugasAkhir) {
 							in listOf(
 								"Dosbing Tidak Setuju!",
 								"Penguji Tidak Setuju!",
 								"C100 Tidak Disetujui Dosbing 1!",
 								"C100 Tidak Disetujui Dosbing 2!",
+								"Final C100 Tidak Disetujui Dosbing 1!",
+								"Final C100 Tidak Disetujui Dosbing 2!",
 								"C200 Tidak Disetujui Dosbing 1!",
 								"C200 Tidak Disetujui Dosbing 2!",
 								"C300 Tidak Disetujui Dosbing 1!",
@@ -141,13 +148,17 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 								"C500 Tidak Disetujui Dosbing 2!",
 								"Laporan TA Tidak Disetujui Dosbing 1!",
 								"Laporan TA Tidak Disetujui Dosbing 2!",
+								"Final Laporan TA Tidak Disetujui Dosbing 1!",
+								"Final Laporan TA Tidak Disetujui Dosbing 2!",
 								"Makalah TA Tidak Disetujui Dosbing 1!",
 								"Makalah TA Tidak Disetujui Dosbing 2!",
 								"Kelompok Tidak Disetujui Expo!",
 								"Laporan TA Tidak Disetujui!",
+								"Final Laporan TA Tidak Disetujui!",
 								"Makalah TA Tidak Disetujui!",
 								"Belum Mendaftar Sidang TA!",
-								"Gagal Expo Project!"
+								"Gagal Expo Project!",
+								"Pendaftaran Sidang Tidak Disetujui!"
 							) -> {
 								tvValueStatusIndividu.setTextColor(colorRed)
 								tvValueStatusPendaftaran.setTextColor(colorRed)
@@ -157,6 +168,8 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 								"Menunggu Persetujuan Dosbing!",
 								"C100 Menunggu Persetujuan Dosbing 1!",
 								"C100 Menunggu Persetujuan Dosbing 2!",
+								"Final C100 Menunggu Persetujuan Dosbing 1!",
+								"Final C100 Menunggu Persetujuan Dosbing 2!",
 								"C200 Menunggu Persetujuan Dosbing 1!",
 								"C200 Menunggu Persetujuan Dosbing 2!",
 								"C300 Menunggu Persetujuan Dosbing 1!",
@@ -167,6 +180,8 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 								"C500 Menunggu Persetujuan Dosbing 2!",
 								"Laporan TA Menunggu Persetujuan Dosbing 1!",
 								"Laporan TA Menunggu Persetujuan Dosbing 2!",
+								"Final Laporan TA Menunggu Persetujuan Dosbing 1!",
+								"Final Laporan TA Menunggu Persetujuan Dosbing 2!",
 								"Makalah TA Menunggu Persetujuan Dosbing 1!",
 								"Makalah TA Menunggu Persetujuan Dosbing 2!",
 								"Menunggu Persetujuan Anggota!",
@@ -174,43 +189,53 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 								"Menunggu Penetapan Dosbing!",
 								"Menunggu Persetujuan Tim Capstone!",
 								"Menunggu Persetujuan C100!",
+								"Menunggu Persetujuan Final C100!",
 								"Menunggu Persetujuan C200!",
 								"Menunggu Persetujuan C300!",
 								"Menunggu Persetujuan C400!",
 								"Menunggu Persetujuan C500!",
 								"Menunggu Persetujuan Expo!",
 								"Menunggu Persetujuan Laporan TA!",
+								"Menunggu Persetujuan Final Laporan TA!",
 								"Menunggu Persetujuan Makalah TA!",
 								"Menunggu Persetujuan Penguji!",
 								"Menunggu Persetujuan Pembimbing!",
-								"Menunggu Penjadwalan Sidang TA!"
+								"Menunggu Penjadwalan Sidang TA!",
+								"Menunggu Persetujuan Pendaftaran Sidang!"
 							) -> {
 								tvValueStatusIndividu.setTextColor(colorOrange)
 								tvValueStatusPendaftaran.setTextColor(colorOrange)
 							}
 							in listOf(
-								"Menyetujui Kelompok!",
-								"Dosbing Setuju!",
 								"Kelompok Diplot Tim Capstone!",
 								"Dosbing Diplot Tim Capstone!",
+								"Dijadwalkan Sidang Proposal!",
+								"Kelompok Disetujui Expo!",
+								"Telah Dijadwalkan Sidang TA!",
+							) -> {
+								tvValueStatusIndividu.setTextColor(colorBlue)
+								tvValueStatusPendaftaran.setTextColor(colorBlue)
+							}
+							in listOf(
+								"Menyetujui Kelompok!",
+								"Dosbing Setuju!",
 								"Kelompok Telah Disetujui!",
 								"C100 Telah Disetujui!",
+								"Final C100 Telah Disetujui!",
 								"Penguji Proposal Ditetapkan!",
 								"Pembimbing Setuju!",
 								"Penguji Setuju!",
-								"Dijadwalkan Sidang Proposal!",
 								"Lulus Sidang Proposal!",
 								"C200 Telah Disetujui!",
 								"C300 Telah Disetujui!",
 								"C400 Telah Disetujui!",
 								"C500 Telah Disetujui!",
-								"Kelompok Disetujui Expo!",
 								"Lulus Expo Project!",
 								"Laporan TA Telah Disetujui!",
+								"Final Laporan TA Telah Disetujui!",
 								"Makalah TA Telah Disetujui!",
 								"Penguji TA Setuju!",
-								"Telah Dijadwalkan Sidang TA!",
-								"Lulus Sidang TA!"
+								"Lulus Sidang TA!",
 							) -> {
 								tvValueStatusIndividu.setTextColor(colorGreen)
 								tvValueStatusPendaftaran.setTextColor(colorGreen)
@@ -296,7 +321,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 							} else if (resultResponse.data.rsSidang == null) {
 								setViewVisibility(binding.cvErrorSidangTaFragment, false)
 								binding.tvValueStatusPendaftaran.text =
-									resultResponse.data.statusPendaftaran.status
+									resultResponse.data.kelompok?.statusTugasAkhir
 
 								setViewVisibility(tvTitleSidangTaTersedia, true)
 								setViewVisibility(cvValueSidangTa, false)
@@ -434,7 +459,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 					edtJudulTugasAkhir.setText(data.kelompok?.judulTAMhs)
 					edtLinkPendukungSidangTa.setText(data.kelompok?.linkUpload)
 
-					tvValueStatusIndividu.text = data.statusPendaftaran?.status ?: "-"
+					tvValueStatusIndividu.text = data.kelompok?.statusTugasAkhir ?: "-"
 					tvValueHariSidang.text = getSidangTAResult.payload.status ?: "-"
 
 					btnSelengkapnyaSidangTa.visibility = View.GONE
@@ -442,7 +467,7 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 					edtJudulTugasAkhir.setText(data.kelompok?.judulTAMhs)
 					edtLinkPendukungSidangTa.setText(data.kelompok?.linkUpload)
 
-					tvValueStatusIndividu.text = data.statusPendaftaran?.status ?: "-"
+					tvValueStatusIndividu.text = data.kelompok?.statusTugasAkhir ?: "-"
 					tvValueHariSidang.text =
 						"${data.rsSidang.hariSidang}, ${data.rsSidang.tanggalSidang}"
 					tvValueWaktuSidang.text = "${data.rsSidang.waktuSidang} WIB"
@@ -528,23 +553,42 @@ class MahasiswaSidangTugasAkhirFragment : Fragment() {
 
 		var isFormValid = true
 
-		// Validate name
+		// Validate judul TA
 		if (judulTaEntered.isEmpty()) {
 			isFormValid = false
 			binding.tilJudulTugasAkhir.error = getString(R.string.tv_error_input_blank)
+		} else if (!isValidJudulTA(judulTaEntered)) {
+			isFormValid = false
+			binding.tilJudulTugasAkhir.error = "Judul TA maksimal 20 kata!"
 		} else {
 			binding.tilJudulTugasAkhir.error = null
 		}
 
+		// Validate link pendukung
 		if (linkPendukungEntered.isEmpty()) {
 			isFormValid = false
 			binding.tilLinkPendukungSidangTa.error = getString(R.string.tv_error_input_blank)
+		} else if (!isValidURL(linkPendukungEntered)) {
+			isFormValid = false
+			binding.tilLinkPendukungSidangTa.error = "Link tidak valid!"
 		} else {
 			binding.tilLinkPendukungSidangTa.error = null
 		}
 
 		return isFormValid
 	}
+
+	private fun isValidURL(url: String): Boolean {
+		val pattern = Pattern.compile("^(https?|ftp)://.*\$", Pattern.CASE_INSENSITIVE)
+		val matcher = pattern.matcher(url)
+		return matcher.matches()
+	}
+
+	private fun isValidJudulTA(judul: String): Boolean {
+		val wordCount = judul.trim().split("\\s+".toRegex()).size
+		return wordCount <= 20
+	}
+
 
 	private fun showCustomAlertDialog(
 		title: String,

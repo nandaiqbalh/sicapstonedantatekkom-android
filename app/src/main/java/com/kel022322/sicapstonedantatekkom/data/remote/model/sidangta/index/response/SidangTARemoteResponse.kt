@@ -11,6 +11,8 @@ data class SidangTARemoteResponse(
 data class Data(
     @SerializedName("kelompok") val kelompok: Kelompok?,
     @SerializedName("periode") val periode: Periode?,
+    @SerializedName("showButton")
+    val showButton: Boolean?,
     @SerializedName("rsSidang") val rsSidang: RsSidang?,
     @SerializedName("status_pendaftaran") val statusPendaftaran: StatusPendaftaran?
 )

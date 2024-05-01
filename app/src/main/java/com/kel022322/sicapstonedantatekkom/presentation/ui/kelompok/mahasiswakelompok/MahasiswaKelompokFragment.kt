@@ -339,6 +339,7 @@ class MahasiswaKelompokFragment : Fragment() {
 
 			val colorRed = ContextCompat.getColor(requireContext(), R.color.StatusRed)
 			val colorOrange = ContextCompat.getColor(requireContext(), R.color.StatusOrange)
+			val colorBlue = ContextCompat.getColor(requireContext(), R.color.StatusBlue)
 			val colorGreen = ContextCompat.getColor(requireContext(), R.color.StatusGreen)
 
 			// Kemudian dalam bagian pengaturan warna teks
@@ -351,6 +352,8 @@ class MahasiswaKelompokFragment : Fragment() {
 						"Penguji Tidak Setuju!",
 						"C100 Tidak Disetujui Dosbing 1!",
 						"C100 Tidak Disetujui Dosbing 2!",
+						"Final C100 Tidak Disetujui Dosbing 1!",
+						"Final C100 Tidak Disetujui Dosbing 2!",
 						"C200 Tidak Disetujui Dosbing 1!",
 						"C200 Tidak Disetujui Dosbing 2!",
 						"C300 Tidak Disetujui Dosbing 1!",
@@ -361,13 +364,17 @@ class MahasiswaKelompokFragment : Fragment() {
 						"C500 Tidak Disetujui Dosbing 2!",
 						"Laporan TA Tidak Disetujui Dosbing 1!",
 						"Laporan TA Tidak Disetujui Dosbing 2!",
+						"Final Laporan TA Tidak Disetujui Dosbing 1!",
+						"Final Laporan TA Tidak Disetujui Dosbing 2!",
 						"Makalah TA Tidak Disetujui Dosbing 1!",
 						"Makalah TA Tidak Disetujui Dosbing 2!",
 						"Kelompok Tidak Disetujui Expo!",
 						"Laporan TA Tidak Disetujui!",
+						"Final Laporan TA Tidak Disetujui!",
 						"Makalah TA Tidak Disetujui!",
 						"Belum Mendaftar Sidang TA!",
-						"Gagal Expo Project!"
+						"Gagal Expo Project!",
+						"Pendaftaran Sidang Tidak Disetujui!"
 					) -> {
 						tvValueStatusKelompok.setTextColor(colorRed)
 					}
@@ -376,6 +383,8 @@ class MahasiswaKelompokFragment : Fragment() {
 						"Menunggu Persetujuan Dosbing!",
 						"C100 Menunggu Persetujuan Dosbing 1!",
 						"C100 Menunggu Persetujuan Dosbing 2!",
+						"Final C100 Menunggu Persetujuan Dosbing 1!",
+						"Final C100 Menunggu Persetujuan Dosbing 2!",
 						"C200 Menunggu Persetujuan Dosbing 1!",
 						"C200 Menunggu Persetujuan Dosbing 2!",
 						"C300 Menunggu Persetujuan Dosbing 1!",
@@ -386,6 +395,8 @@ class MahasiswaKelompokFragment : Fragment() {
 						"C500 Menunggu Persetujuan Dosbing 2!",
 						"Laporan TA Menunggu Persetujuan Dosbing 1!",
 						"Laporan TA Menunggu Persetujuan Dosbing 2!",
+						"Final Laporan TA Menunggu Persetujuan Dosbing 1!",
+						"Final Laporan TA Menunggu Persetujuan Dosbing 2!",
 						"Makalah TA Menunggu Persetujuan Dosbing 1!",
 						"Makalah TA Menunggu Persetujuan Dosbing 2!",
 						"Menunggu Persetujuan Anggota!",
@@ -393,42 +404,51 @@ class MahasiswaKelompokFragment : Fragment() {
 						"Menunggu Penetapan Dosbing!",
 						"Menunggu Persetujuan Tim Capstone!",
 						"Menunggu Persetujuan C100!",
+						"Menunggu Persetujuan Final C100!",
 						"Menunggu Persetujuan C200!",
 						"Menunggu Persetujuan C300!",
 						"Menunggu Persetujuan C400!",
 						"Menunggu Persetujuan C500!",
 						"Menunggu Persetujuan Expo!",
 						"Menunggu Persetujuan Laporan TA!",
+						"Menunggu Persetujuan Final Laporan TA!",
 						"Menunggu Persetujuan Makalah TA!",
 						"Menunggu Persetujuan Penguji!",
 						"Menunggu Persetujuan Pembimbing!",
-						"Menunggu Penjadwalan Sidang TA!"
+						"Menunggu Penjadwalan Sidang TA!",
+						"Menunggu Persetujuan Pendaftaran Sidang!"
 					) -> {
 						tvValueStatusKelompok.setTextColor(colorOrange)
 					}
 					in listOf(
-						"Menyetujui Kelompok!",
-						"Dosbing Setuju!",
 						"Kelompok Diplot Tim Capstone!",
 						"Dosbing Diplot Tim Capstone!",
+						"Dijadwalkan Sidang Proposal!",
+						"Kelompok Disetujui Expo!",
+						"Telah Dijadwalkan Sidang TA!",
+					) -> {
+						tvValueStatusKelompok.setTextColor(colorBlue)
+					}
+					in listOf(
+						"Menyetujui Kelompok!",
+						"Dosbing Setuju!",
 						"Kelompok Telah Disetujui!",
 						"C100 Telah Disetujui!",
+						"Final C100 Telah Disetujui!",
 						"Penguji Proposal Ditetapkan!",
 						"Pembimbing Setuju!",
 						"Penguji Setuju!",
-						"Dijadwalkan Sidang Proposal!",
 						"Lulus Sidang Proposal!",
 						"C200 Telah Disetujui!",
 						"C300 Telah Disetujui!",
 						"C400 Telah Disetujui!",
 						"C500 Telah Disetujui!",
-						"Kelompok Disetujui Expo!",
 						"Lulus Expo Project!",
 						"Laporan TA Telah Disetujui!",
+						"Final Laporan TA Telah Disetujui!",
 						"Makalah TA Telah Disetujui!",
 						"Penguji TA Setuju!",
-						"Telah Dijadwalkan Sidang TA!",
-						"Lulus Sidang TA!"
+						"Lulus Sidang TA!",
 					) -> {
 						tvValueStatusKelompok.setTextColor(colorGreen)
 					}
@@ -578,7 +598,7 @@ class MahasiswaKelompokFragment : Fragment() {
 		message: String,
 		pengusulKelompok: String,
 		positiveAction: () -> Unit,
-		negativeAction: () -> Unit, // Tambahkan parameter untuk tombol "No"
+		negativeAction: () -> Unit // Tambahkan parameter untuk tombol "No"
 	) {
 		if (isAlertDialogShowing) {
 			// Jika alert dialog sedang ditampilkan, keluar dari fungsi
@@ -587,8 +607,7 @@ class MahasiswaKelompokFragment : Fragment() {
 		isAlertDialogShowing = true
 
 		val builder = AlertDialog.Builder(requireContext()).create()
-		val view =
-			layoutInflater.inflate(R.layout.dialog_custom_alert_dialog_konfirmasi_kelompok, null)
+		val view = layoutInflater.inflate(R.layout.dialog_custom_alert_dialog_konfirmasi_kelompok, null)
 		builder.setView(view)
 		builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -600,13 +619,15 @@ class MahasiswaKelompokFragment : Fragment() {
 
 		alertTitle.text = title
 		alertMessage.text = message
-		alertPengusulKelompok.text = pengusulKelompok
+
+		// Ubah nama pengusul kelompok menjadi format M.Y. Oktariansyah atau Y. Ainur
+		val formattedPengusulKelompok = formatNamaPengusulKelompok(pengusulKelompok)
+		alertPengusulKelompok.text = formattedPengusulKelompok
 
 		buttonYes.setOnClickListener {
 			positiveAction.invoke()
 			builder.dismiss()
 			isAlertDialogShowing = false // Setelah menutup dialog, atur kembali flag
-
 		}
 
 		buttonNo.setOnClickListener {
@@ -620,6 +641,22 @@ class MahasiswaKelompokFragment : Fragment() {
 
 		builder.setCanceledOnTouchOutside(false)
 		builder.show()
+	}
+
+	// Fungsi untuk memformat nama pengusul kelompok
+	private fun formatNamaPengusulKelompok(nama: String): String {
+		val words = nama.split(" ")
+		val formattedName = StringBuilder()
+		for ((index, word) in words.withIndex()) {
+			if (index == words.size - 1) {
+				// Gunakan nama terakhir secara lengkap
+				formattedName.append(word)
+			} else {
+				// Ambil satu huruf dari setiap kata depan
+				formattedName.append(word.first().toUpperCase()).append(". ")
+			}
+		}
+		return formattedName.toString()
 	}
 
 

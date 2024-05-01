@@ -12,6 +12,9 @@ data class Data(
     @SerializedName("cekStatusExpo")
     val cekStatusExpo: CekExpo,
 
+    @SerializedName("showButton")
+    val showButton: Boolean?,
+
     @SerializedName("id_kelompok")
     val idKelompok: Int,
 
@@ -27,7 +30,7 @@ data class Data(
 
 data class CekExpo(
     @SerializedName("status_expo")
-    val statusExpo: String
+    val statusExpo: String? =null,
 )
 
 data class Kelengkapan(
