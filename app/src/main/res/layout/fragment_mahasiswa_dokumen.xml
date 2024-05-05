@@ -133,6 +133,7 @@
             app:tabIndicatorColor="@android:color/transparent"
             app:tabIndicatorGravity="stretch"
             app:tabMode="fixed"
+            android:textAlignment="center"
             app:tabSelectedTextColor="@color/RoyalBlue"
             app:tabTextAppearance="@style/TabLayoutTextAppearance"
             app:tabTextColor="@color/tab_text_colors" />

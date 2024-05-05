@@ -435,9 +435,6 @@ class MahasiswaKelompokDaftarKelompokFragment : Fragment() {
 						setInitialValue(getProfileResult)
 					} else {
 						setLoading(isLoading = false, isSuccess = false)
-
-						Log.d("Succes status, but failed", status.toString())
-
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
 							showSnackbar("Sesi anda telah berakhir :(")
 

@@ -176,8 +176,6 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 					} else {
 						setLoading(isLoading = false, isSuccess = false)
 
-						Log.d("Succes Siklus, but failed", status.toString())
-
 						with(binding) {
 
 							if (status == "Token is Expired" || status == "Token is Invalid") {
@@ -283,8 +281,6 @@ class MahasiswaKelompokDaftarIndividuFragment : Fragment() {
 						setInitialValue(getProfileResult)
 					} else {
 						setLoading(isLoading = false, isSuccess = false)
-
-						Log.d("Succes status, but failed", status.toString())
 
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
 							showSnackbar("Sesi anda telah berakhir :(")

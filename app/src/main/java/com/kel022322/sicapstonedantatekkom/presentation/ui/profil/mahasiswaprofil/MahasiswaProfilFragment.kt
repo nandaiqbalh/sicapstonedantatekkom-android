@@ -144,10 +144,6 @@ class MahasiswaProfilFragment : Fragment() {
 
 							} else {
 								// if the success is false, then just show the snackbar
-								Log.d(
-									"Logout success, but failed!",
-									logoutResult.payload?.status.toString()
-								)
 								if (status == "Token is Expired" || status == "Token is Invalid") {
 									showSnackbar("Sesi anda telah berakhir :(")
 
@@ -246,8 +242,6 @@ class MahasiswaProfilFragment : Fragment() {
 
 						}
 					} else {
-						Log.d("Succes status, but failed", status.toString())
-
 						setProfileImageAndNamAndNim()
 
 						if (status == "Token is Expired" || status == "Token is Invalid") {
@@ -391,8 +385,6 @@ class MahasiswaProfilFragment : Fragment() {
 						findNavController().navigate(R.id.action_mahasiswaProfilFragment_to_mahasiswaBerandaFragment)
 
 					} else {
-						Log.d("Update Succes status, but failed", status.toString())
-
 						if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
 							showSnackbar("Sesi anda telah berakhir :(")
 
@@ -514,8 +506,6 @@ class MahasiswaProfilFragment : Fragment() {
 
 
 					} else {
-						Log.d("Password Succes status, but failed", status.toString())
-
 						if (status == "Token is Expired" || status == "Token is Invalid") {
 							showSnackbar("Sesi anda telah berakhir :(")
 
@@ -659,7 +649,6 @@ class MahasiswaProfilFragment : Fragment() {
 							findNavController().navigate(R.id.action_mahasiswaProfilFragment_to_mahasiswaBerandaFragment)
 
 						} else {
-							Log.d("Photo Succes status, but failed", status.toString())
 
 							if (status == "Token is Expired" || status == "Token is Invalid") {
 								showSnackbar("Sesi anda telah berakhir :(")

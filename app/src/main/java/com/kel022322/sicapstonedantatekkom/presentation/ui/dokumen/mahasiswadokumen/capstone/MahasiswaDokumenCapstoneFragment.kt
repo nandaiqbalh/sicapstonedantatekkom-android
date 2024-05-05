@@ -333,7 +333,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
 
 								} else {
-									Log.d("Update Succes status, but failed", status.toString())
 
 									checkDokumen()
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
@@ -415,7 +414,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 									findNavController().navigate(R.id.action_mahasiswaDokumenFragment_to_mahasiswaBerandaFragment)
 								} else {
-									Log.d("Update Succes status, but failed", status.toString())
 									checkDokumen()
 
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
@@ -501,7 +499,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								} else {
 									checkDokumen()
 
-									Log.d("Update Succes status, but failed", status.toString())
 
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
 										showSnackbar("Sesi anda telah berakhir :(")
@@ -585,8 +582,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 								} else {
 									checkDokumen()
 
-									Log.d("Update Succes status, but failed", status.toString())
-
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
 										showSnackbar("Sesi anda telah berakhir :(")
 
@@ -668,9 +663,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 								} else {
 									checkDokumen()
-
-									Log.d("Update Succes status, but failed", status.toString())
-
+									
 									if (status == "Authorization Token not found" || status == "Token is Expired" || status == "Token is Invalid") {
 										showSnackbar("Sesi anda telah berakhir :(")
 
