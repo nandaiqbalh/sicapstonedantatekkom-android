@@ -129,7 +129,6 @@ class DokumenViewModel @Inject constructor(
 
 	fun uploadC100Process(
 		apiToken: String,
-		idKelompok: String,
 		c100: MultipartBody.Part,
 	) {
 		viewModelScope.launch(Dispatchers.IO) {
@@ -137,7 +136,7 @@ class DokumenViewModel @Inject constructor(
 			_uploadC100ProcessResult.postValue(Resource.Loading())
 
 			try {
-				val data = fileRemoteRepository.uploadC100Process(apiToken, idKelompok, c100)
+				val data = fileRemoteRepository.uploadC100Process(apiToken, c100)
 
 				Log.d("PAYLOAD C100 DOKUMEN", data.payload.toString())
 
@@ -165,7 +164,6 @@ class DokumenViewModel @Inject constructor(
 
 	fun uploadC200Process(
 		apiToken: String,
-		idKelompok: String,
 		c200: MultipartBody.Part,
 	) {
 		viewModelScope.launch(Dispatchers.IO) {
@@ -173,7 +171,7 @@ class DokumenViewModel @Inject constructor(
 			_uploadC200ProcessResult.postValue(Resource.Loading())
 
 			try {
-				val data = fileRemoteRepository.uploadC200Process(apiToken,idKelompok, c200)
+				val data = fileRemoteRepository.uploadC200Process(apiToken, c200)
 				Log.d("PAYLOAD C200 DOKUMEN", data.payload.toString())
 
 				if (data.payload != null) {
@@ -199,7 +197,6 @@ class DokumenViewModel @Inject constructor(
 
 	fun uploadC300Process(
 		apiToken: String,
-		idKelompok: String,
 		c300: MultipartBody.Part,
 	) {
 		viewModelScope.launch(Dispatchers.IO) {
@@ -207,7 +204,7 @@ class DokumenViewModel @Inject constructor(
 			_uploadC300ProcessResult.postValue(Resource.Loading())
 
 			try {
-				val data = fileRemoteRepository.uploadC300Process(apiToken,idKelompok, c300)
+				val data = fileRemoteRepository.uploadC300Process(apiToken, c300)
 
 				if (data.payload != null) {
 					viewModelScope.launch(Dispatchers.Main) {
@@ -232,7 +229,6 @@ class DokumenViewModel @Inject constructor(
 
 	fun uploadC400Process(
 		apiToken: String,
-		idKelompok: String,
 		c400: MultipartBody.Part,
 	) {
 		viewModelScope.launch(Dispatchers.IO) {
@@ -240,7 +236,7 @@ class DokumenViewModel @Inject constructor(
 			_uploadC400ProcessResult.postValue(Resource.Loading())
 
 			try {
-				val data = fileRemoteRepository.uploadC400Process(apiToken,idKelompok, c400)
+				val data = fileRemoteRepository.uploadC400Process(apiToken, c400)
 				Log.d("PAYLOAD C400 DOKUMEN", data.payload.toString())
 
 				if (data.payload != null) {
@@ -266,7 +262,6 @@ class DokumenViewModel @Inject constructor(
 
 	fun uploadC500Process(
 		apiToken: String,
-		idKelompok: String,
 		c500: MultipartBody.Part,
 	) {
 		viewModelScope.launch(Dispatchers.IO) {
@@ -274,7 +269,7 @@ class DokumenViewModel @Inject constructor(
 			_uploadC500ProcessResult.postValue(Resource.Loading())
 
 			try {
-				val data = fileRemoteRepository.uploadC500Process( apiToken, idKelompok, c500)
+				val data = fileRemoteRepository.uploadC500Process( apiToken, c500)
 				Log.d("PAYLOAD INDEX DOKUMEN", data.payload.toString())
 
 				if (data.payload != null) {

@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">SI Capstone dan TA Tekkom</string>
+    <string name="app_name">Capstone TA Tekkom</string>
     <string name="desc_app_logo_splashscreen">desc_app_logo_splashscreen</string>
     <string name="desc_app_logo_login">App Logo Login</string>
     <string name="btn_login">Masuk</string>
     <string name="edt_hint_password">Masukkan Kata Sandi</string>
     <string name="tv_kata_sandi">Kata Sandi</string>
-    <string name="edt_hint_id_pengguna">Masukkan NIM Mahasiswa</string>
-    <string name="tv_nim_mahasiswa">NIM Mahasiswa</string>
+    <string name="edt_hint_id_pengguna">Masukkan NIM</string>
+    <string name="tv_nim_mahasiswa">NIM</string>
     <string name="tv_error_input_blank">Kolom ini tidak boleh kosong!</string>
     <string name="title_beranda">Beranda</string>
     <string name="title_kelompok">Kelompok</string>
@@ -20,14 +20,14 @@
     <string name="title_nama_lengkap">Nama Lengkap</string>
     <string name="btn_simpan">Simpan</string>
     <string name="tv_hint_nama_lengkap">Contoh: Maulana Yusuf Suradin</string>
-    <string name="title_nim">NIM Mahasiswa</string>
+    <string name="title_nim">NIM</string>
     <string name="title_email">Email</string>
     <string name="title_no_telp">No. Telepon</string>
     <string name="tv_hint_nim">Contoh: 21120120140051</string>
     <string name="tv_hint_email">Contoh: yusuf@gmail.com</string>
     <string name="tv_hint_no_telp">Contoh: 081812881282     </string>
     <string name="nama_lengkap_mahasiswa">Nama Lengkap Mahasiswa</string>
-    <string name="nim_mahasiswa">NIM Mahasiswa</string>
+    <string name="nim_mahasiswa">NIM</string>
     <string name="tv_title_change_password">Ganti Kata Sandi</string>
     <string name="tv_title_current_password">Kata Sandi Saat Ini</string>
     <string name="tv_hint_current_password">Masukkan kata sandi saat ini</string>

@@ -291,6 +291,10 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 				is Resource.Success -> {
 					setLoading(false)
 
+					if (resultResponse?.data?.kelompok?.isSidangProposal == "1"){
+						binding.btnUbahKelompok.visibility = View.GONE
+					}
+
 					val message = getKelompokSayaResult.payload
 					Log.d("Result success", message.toString())
 					if (resultResponse?.success == true && resultResponse.data != null) {

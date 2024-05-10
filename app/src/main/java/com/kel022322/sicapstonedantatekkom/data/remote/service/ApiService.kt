@@ -50,7 +50,6 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
-import retrofit2.http.Query
 
 
 interface ApiService {
@@ -189,28 +188,24 @@ interface ApiService {
 	@POST("api/v1/mahasiswa/dokumen/upload-c100-process")
 	suspend fun uploadC100Process(
 		@Header("Authorization") apiToken: String,
-		@Query("id_kelompok") idKelompok: String,
 		@Part c100: MultipartBody.Part
 	): UploadC100ProcessRemoteResponse
 	@Multipart
 	@POST("api/v1/mahasiswa/dokumen/upload-c200-process")
 	suspend fun uploadC200Process(
 		@Header("Authorization") apiToken: String,
-		@Query("id_kelompok") idKelompok: String,
 		@Part c200: MultipartBody.Part
 	): UploadC200ProcessRemoteResponse
 	@Multipart
 	@POST("api/v1/mahasiswa/dokumen/upload-c300-process")
 	suspend fun uploadC300Process(
 		@Header("Authorization") apiToken: String,
-		@Query("id_kelompok") idKelompok: String,
 		@Part c300: MultipartBody.Part
 	): UploadC300ProcessRemoteResponse
 	@Multipart
 	@POST("api/v1/mahasiswa/dokumen/upload-c400-process")
 	suspend fun uploadC400Process(
 		@Header("Authorization") apiToken: String,
-		@Query("id_kelompok") idKelompok: String,
 		@Part c400: MultipartBody.Part
 	): UploadC400ProcessRemoteResponse
 
@@ -218,7 +213,6 @@ interface ApiService {
 	@POST("api/v1/mahasiswa/dokumen/upload-c500-process")
 	suspend fun uploadC500Process(
 		@Header("Authorization") apiToken: String,
-		@Query("id_kelompok") idKelompok: String,
 		@Part c500: MultipartBody.Part
 	): UploadC500ProcessRemoteResponse
 

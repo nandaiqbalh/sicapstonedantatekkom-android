@@ -31,31 +31,26 @@ interface FileRemoteDataSource {
 
 	suspend fun uploadC100Process(
 		apiToken: String,
-		idKelompok: String,
 		c100: MultipartBody.Part,
 	): UploadC100ProcessRemoteResponse
 
 	suspend fun uploadC200Process(
 		apiToken: String,
-		idKelompok: String,
 		c200: MultipartBody.Part,
 	): UploadC200ProcessRemoteResponse
 
 	suspend fun uploadC300Process(
 		apiToken: String,
-		idKelompok: String,
 		c300: MultipartBody.Part,
 	): UploadC300ProcessRemoteResponse
 
 	suspend fun uploadC400Process(
 		apiToken: String,
-		idKelompok: String,
 		c400: MultipartBody.Part,
 	): UploadC400ProcessRemoteResponse
 
 	suspend fun uploadC500Process(
 		apiToken: String,
-		idKelompok: String,
 		c500: MultipartBody.Part,
 	): UploadC500ProcessRemoteResponse
 
@@ -85,42 +80,37 @@ class FileRemoteDataSourceImpl @Inject constructor(
 
 	override suspend fun uploadC100Process(
 		apiToken: String,
-		idKelompok: String,
 		c100: MultipartBody.Part,
 	): UploadC100ProcessRemoteResponse {
-		return apiService.uploadC100Process(apiToken, idKelompok, c100)
+		return apiService.uploadC100Process(apiToken, c100)
 	}
 
 	override suspend fun uploadC200Process(
 		apiToken: String,
-		idKelompok: String,
 		c200: MultipartBody.Part,
 	): UploadC200ProcessRemoteResponse {
-		return apiService.uploadC200Process(apiToken, idKelompok, c200)
+		return apiService.uploadC200Process(apiToken, c200)
 	}
 
 	override suspend fun uploadC300Process(
 		apiToken: String,
-		idKelompok: String,
 		c300: MultipartBody.Part,
 	): UploadC300ProcessRemoteResponse {
-		return apiService.uploadC300Process(apiToken, idKelompok, c300)
+		return apiService.uploadC300Process(apiToken, c300)
 	}
 
 	override suspend fun uploadC400Process(
 		apiToken: String,
-		idKelompok: String,
 		c400: MultipartBody.Part,
 	): UploadC400ProcessRemoteResponse {
-		return apiService.uploadC400Process(apiToken, idKelompok, c400)
+		return apiService.uploadC400Process(apiToken, c400)
 	}
 
 	override suspend fun uploadC500Process(
 		apiToken: String,
-		idKelompok: String,
 		c500: MultipartBody.Part,
 	): UploadC500ProcessRemoteResponse {
-		return apiService.uploadC500Process(apiToken, idKelompok, c500)
+		return apiService.uploadC500Process(apiToken, c500)
 	}
 
 }

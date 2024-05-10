@@ -102,6 +102,7 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 					id = getFileIndexResult.payload?.data?.fileMhs?.id.toString()
 
+					Log.d("ID KELOMPOK", id.toString())
 					if (resultResponse?.success == true) {
 
 						binding.cvBelumMemilikiKelompok.visibility = View.GONE
@@ -301,7 +302,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 							apiToken?.let {
 								dokumenViewModel.uploadC100Process(
 									apiToken = apiToken,
-									idKelompok = id.toString(),
 									c100 = c100Part
 								)
 							}
@@ -383,7 +383,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 							apiToken?.let {
 								dokumenViewModel.uploadC200Process(
 									apiToken = apiToken.toString(),
-									idKelompok = id.toString(),
 									c200 = c200Part
 								)
 							}
@@ -466,7 +465,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 								dokumenViewModel.uploadC300Process(
 									apiToken = apiToken,
-									idKelompok = id.toString(),
 									c300 = c300Part
 								)
 							}
@@ -551,7 +549,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 								dokumenViewModel.uploadC400Process(
 									apiToken = apiToken,
-									idKelompok = id.toString(),
 									c400 = c400Part
 								)
 							}
@@ -633,7 +630,6 @@ class MahasiswaDokumenCapstoneFragment : Fragment() {
 
 								dokumenViewModel.uploadC500Process(
 									apiToken = apiToken,
-									idKelompok = id.toString(),
 									c500 = c500Part
 								)
 							}

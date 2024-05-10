@@ -31,31 +31,26 @@ interface FileRemoteRepository {
 
 	suspend fun uploadC100Process(
 		apiToken: String,
-		idKelompok: String,
 		c100: MultipartBody.Part,
 	): Resource<UploadC100ProcessRemoteResponse>
 
 	suspend fun uploadC200Process(
 		apiToken: String,
-		idKelompok: String,
 		c200: MultipartBody.Part,
 	): Resource<UploadC200ProcessRemoteResponse>
 
 	suspend fun uploadC300Process(
 		apiToken: String,
-		idKelompok: String,
 		c300: MultipartBody.Part,
 	): Resource<UploadC300ProcessRemoteResponse>
 
 	suspend fun uploadC400Process(
 		apiToken: String,
-		idKelompok: String,
 		c400: MultipartBody.Part,
 	): Resource<UploadC400ProcessRemoteResponse>
 
 	suspend fun uploadC500Process(
 		apiToken: String,
-		idKelompok: String,
 		c500: MultipartBody.Part,
 	): Resource<UploadC500ProcessRemoteResponse>
 
@@ -91,51 +86,46 @@ class FileRemoteRepositoryImpl @Inject constructor(
 
 	override suspend fun uploadC100Process(
 		apiToken: String,
-		idKelompok: String,
 		c100: MultipartBody.Part,
 	): Resource<UploadC100ProcessRemoteResponse> {
 		return proceed {
-			dataSource.uploadC100Process( apiToken, idKelompok, c100)
+			dataSource.uploadC100Process( apiToken, c100)
 		}
 	}
 
 	override suspend fun uploadC200Process(
 		apiToken: String,
-		idKelompok: String,
 		c200: MultipartBody.Part,
 	): Resource<UploadC200ProcessRemoteResponse> {
 		return proceed {
-			dataSource.uploadC200Process( apiToken, idKelompok, c200)
+			dataSource.uploadC200Process( apiToken, c200)
 		}
 	}
 
 	override suspend fun uploadC300Process(
 		apiToken: String,
-		idKelompok: String,
 		c300: MultipartBody.Part,
 	): Resource<UploadC300ProcessRemoteResponse> {
 		return proceed {
-			dataSource.uploadC300Process( apiToken, idKelompok, c300)
+			dataSource.uploadC300Process( apiToken, c300)
 		}
 	}
 
 	override suspend fun uploadC400Process(
 		apiToken: String,
-		idKelompok: String,
 		c400: MultipartBody.Part,
 	): Resource<UploadC400ProcessRemoteResponse> {
 		return proceed {
-			dataSource.uploadC400Process( apiToken, idKelompok,  c400)
+			dataSource.uploadC400Process( apiToken,  c400)
 		}
 	}
 
 	override suspend fun uploadC500Process(
 		apiToken: String,
-		idKelompok: String,
 		c500: MultipartBody.Part,
 	): Resource<UploadC500ProcessRemoteResponse> {
 		return proceed {
-			dataSource.uploadC500Process(apiToken, idKelompok, c500)
+			dataSource.uploadC500Process(apiToken, c500)
 		}
 	}
 

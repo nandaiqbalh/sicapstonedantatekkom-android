@@ -81,6 +81,7 @@ data class Kelompok(
     @SerializedName("modified_date") val modifiedDate: String?,
     @SerializedName("nama_topik") val namaTopik: String?,
 	@SerializedName("pengusul_kelompok") val pengusulKelompok: String?,
+    @SerializedName("is_sidang_proposal") val isSidangProposal: String?,
 
 	)
 
