@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -247,7 +248,7 @@ class MahasiswaProfilFragment : Fragment() {
 						if (status == "Token is Expired" || status == "Token is Invalid") {
 							with(binding){
 								cvErrorProfil.visibility = View.VISIBLE
-								tvErrorProfil.text = status ?: "Mohon periksa kembali koneksi internet Anda!"
+								tvErrorProfil.text = status
 
 								lineaerLayoutProfil.visibility = View.GONE
 							}
@@ -567,16 +568,31 @@ class MahasiswaProfilFragment : Fragment() {
 	// update photo profile
 
 	private fun checkGalleryPermission() {
-		if (isPermissionGranted(
-				Manifest.permission.READ_EXTERNAL_STORAGE, arrayOf(
-					Manifest.permission.READ_EXTERNAL_STORAGE,
-					Manifest.permission.WRITE_EXTERNAL_STORAGE
-				), REQUEST_CODE_PERMISSION
-			)
-		) {
-			openGallery()
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+			// For Android 13 and higher
+			if (isPermissionGranted(
+					Manifest.permission.READ_MEDIA_IMAGES, arrayOf(
+						Manifest.permission.READ_MEDIA_IMAGES,
+						Manifest.permission.READ_MEDIA_VIDEO
+					), REQUEST_CODE_PERMISSION
+				)
+			) {
+				openGallery()
+			}
+		} else {
+			// For Android 12 and lower
+			if (isPermissionGranted(
+					Manifest.permission.READ_EXTERNAL_STORAGE, arrayOf(
+						Manifest.permission.READ_EXTERNAL_STORAGE,
+						Manifest.permission.WRITE_EXTERNAL_STORAGE
+					), REQUEST_CODE_PERMISSION
+				)
+			) {
+				openGallery()
+			}
 		}
 	}
+
 
 	private fun openGallery() {
 		val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
