@@ -129,7 +129,7 @@ class MahasiswaKelompokFragment : Fragment() {
 
 					if (resultResponse?.success == true) {
 
-						if (resultResponse.data?.getAkun?.statusIndividu == "Didaftarkan!") {
+						if (resultResponse.data?.getAkun?.statusIndividu == "Didaftarkan") {
 							setCardKelompok(getKelompokSayaResult)
 
 							// Panggil fungsi showCustomAlertDialog dengan parameter yang diperlukan
