@@ -299,6 +299,11 @@ class MahasiswaKelompokDetailFragment : Fragment() {
 					Log.d("Result success", message.toString())
 					if (resultResponse?.success == true && resultResponse.data != null) {
 						setCardKelompok(getKelompokSayaResult)
+
+						Log.d("ISS", getKelompokSayaResult.data.data?.kelompok?.isSidangProposal.toString())
+						if (getKelompokSayaResult.payload.data?.kelompok?.isSidangProposal == "1"){
+							binding.btnUbahKelompok.visibility = View.GONE
+						}
 						// if already have kelompok
 						with(binding) {
 							setViewVisibility(cvValueKelompokDetail, true)
