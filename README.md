@@ -1,3 +1,5 @@
+![sicapstoneta](https://github.com/nandaiqbalh/sicapstonedantatekkom-android/assets/70440045/87c9e1bf-bcac-44de-a6f0-6b1eb3f266a4)
+
 # SI Capstone TA Tekkom
 
 This project addresses issues faced by our department, as the current Capstone TA business processes are still carried out manually using Google Forms and Google Spreadsheets. This causes several problems:
